@@ -1,0 +1,29 @@
+
+<h1>Hello {{addResult}} </h1>
+<h1>Hello {{getResult}} </h1>
+<h1>Hello {{getResults}} </h1>
+<h1> student.studentIdInfo :  {{student.id}} </h1>
+
+<form>
+    <input type="text" class="form-control" id="student.id"
+           required
+           [(ngModel)]="student.id" name="student.id">
+
+    <input type="text" class="form-control" id="student.firstName"
+           required
+           [(ngModel)]="student.firstName" name="student.firstName">
+
+    <input type="text" class="form-control" id="student.lastName"
+           required
+           [(ngModel)]="student.lastName" name="student.lastName">
+
+    <input type="text" class="form-control" id="student.schoolId"
+           required
+           [(ngModel)]="student.schoolId" name="student.schoolId">
+
+    <button type="button" class="btn btn-default" (click)="addStudent()">Add Student</button>
+
+
+</form>
+
+
