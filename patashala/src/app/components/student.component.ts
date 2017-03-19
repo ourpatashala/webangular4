@@ -2,7 +2,7 @@
  * Created by ravisha on 3/11/17.
  */
 import { Component } from '@angular/core';
-import {StudentService } from '../services/student.service'
+import {StudentService, StudentInterface} from '../services/student.service'
 import {Student} from '../vo/student'
 
 @Component({
@@ -12,7 +12,7 @@ import {Student} from '../vo/student'
     providers: [StudentService]
 })
 export class StudentComponent {
-
+    studentsInfo:StudentInterface[];
     student:Student;
     addResult:string;
     getResult:string;
@@ -47,6 +47,16 @@ export class StudentComponent {
     }
 
 
-}
+    getFirebaseStudents() {
+        this.studentService.getStudentsFromFB().subscribe(studentsInfo => {
+            console.log("Printing Student Info");
+            console.log("Printing Student Info"+studentsInfo.length);
+            this.studentsInfo = studentsInfo;
+        });
+    }
+
+
+
+    }
 
 

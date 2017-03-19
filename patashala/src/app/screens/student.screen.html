@@ -2,7 +2,8 @@
 <h1>Hello1 {{addResult}} </h1>
 <h1>Hello1 {{getResult}} </h1>
 <h1>Hello {{getResults}} </h1>
-<h1> student.studentIdInfo :  {{student.id}} </h1>
+
+
 
 <form>
     <input type="text" class="form-control" id="student.id"
@@ -21,7 +22,8 @@
            required
            [(ngModel)]="student.schoolId" name="student.schoolId">
 
-    <button type="button" class="btn btn-default" (click)="addStudent()">Add Student</button>
+    <!--<button type="button" class="btn btn-default" (click)="addStudent()">Add Student</button> -->
+    <button type="button" class="btn btn-default" (click)="getFirebaseStudents()">Add Student</button>
 
 
 </form>
