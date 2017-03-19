@@ -36,6 +36,14 @@ var StudentComponent = (function () {
         this.getResults = this.studentService.getStudents(this.student.schoolId, this.student.id);
         console.log(this.getResults);
     };
+    StudentComponent.prototype.getFirebaseStudents = function () {
+        var _this = this;
+        this.studentService.getStudentsFromFB().subscribe(function (studentsInfo) {
+            console.log("Printing Student Info");
+            console.log("Printing Student Info" + studentsInfo.length);
+            _this.studentsInfo = studentsInfo;
+        });
+    };
     StudentComponent = __decorate([
         core_1.Component({
             moduleId: module.id,

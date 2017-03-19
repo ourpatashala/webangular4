@@ -12,8 +12,10 @@ var __metadata = (this && this.__metadata) || function (k, v) {
  * Created by ravisha on 3/11/17.
  */
 var core_1 = require('@angular/core');
+var angularfire2_1 = require('angularfire2');
 var StudentService = (function () {
-    function StudentService() {
+    function StudentService(af) {
+        this.firebaseApp = af;
     }
     StudentService.prototype.addStudent = function (schoolId, studentId) {
         console.log("heloo.." + studentId);
@@ -26,9 +28,13 @@ var StudentService = (function () {
     StudentService.prototype.getStudents = function (schoolId, classId) {
         return 'Student Cnu with classId : ' + classId + ' schoolId : ' + schoolId;
     };
+    StudentService.prototype.getStudentsFromFB = function () {
+        this.studentsInfo = this.firebaseApp.database.list('/schools/school01/studentProfile/student10');
+        return this.studentsInfo;
+    };
     StudentService = __decorate([
         core_1.Injectable(), 
-        __metadata('design:paramtypes', [])
+        __metadata('design:paramtypes', [angularfire2_1.AngularFire])
     ], StudentService);
     return StudentService;
 }());
