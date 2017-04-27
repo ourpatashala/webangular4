@@ -96,7 +96,6 @@ export class StudentComponent implements OnInit {
 
 
   initSiblings() {
-    // initialize our address
     return this.fb.group({
       type: [''],
       value: ['']
