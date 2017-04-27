@@ -5,7 +5,6 @@ import {
   FormGroup, FormControl, Validators, FormBuilder, FormArray, AbstractControl
 }
   from '@angular/forms';
-import {map} from "rxjs/operator/map";
 import {ArrayType} from "@angular/compiler/src/output/output_ast";
 import {StudentConverterImpl} from "../../adapter/StudentConverterImpl";
 import {StudentTO} from "../../to/StudentTO";
