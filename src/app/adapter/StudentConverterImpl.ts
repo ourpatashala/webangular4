@@ -6,8 +6,6 @@ import {CommonConverter} from "./CommonConverter";
 import {StudentVO} from "../vo/StudentVO";
 /**
  * Created by ravisha on 4/21/17.
- *
- * Used for sdoing operations for the student screen.
  */
 
 @Injectable()
