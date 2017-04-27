@@ -96,8 +96,8 @@ export class StudentComponent implements OnInit {
 
   initSiblings() {
     return this.fb.group({
-      type: [''],
-      value: ['']
+      keyInfo: [''],
+      valueInfo: ['']
     });
   }
 

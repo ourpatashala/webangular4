@@ -2,6 +2,7 @@
  * Created by ravisha on 4/21/17.
  */
 
+import {NameValueVO} from "../vo/NameValueVO";
 /**
  * Use this class for having any common functionality for the converters.
  * Every converter must implement the following abstract class along with its
@@ -36,35 +37,18 @@ export abstract class CommonConverter{
     }
 
 
- // var x :{
-  //bother :'raja',
-  //father : 'ravi'
-//}
-
-  getArrayDataWithKeyValues(arrayName : string[]): Object{
-
-   // var values:string[] = [];
+  getArrayDataWithKeyValues(arrayName : string[]): NameValueVO[]{
+    var nameValueArrayVO:NameValueVO[] = [];
     var data:Object;
-    var i = 0;
-    data = '{';
-    var arraySize = arrayName.length;
     Object.keys(arrayName).forEach(index=> {
-      i++;
       console.log(index)
       var fieldNameValue = arrayName[index];
-      var type = fieldNameValue['type'];
-      var value = fieldNameValue['value'];
-      if( i == arraySize ) {
-        data = data + type + ':\'' + value + '\'';
-      }else {
-        data = data + type + ':\'' + value + '\',';
-
-      }
-
+      var  nameValueVO = new NameValueVO();
+      nameValueVO.keyInfo = fieldNameValue['keyInfo'];
+      nameValueVO.valueInfo = fieldNameValue['valueInfo'];
+      nameValueArrayVO[index] = nameValueVO;
     });
-    data  = data + '}';
-    console.log('data to be displayed'+data);
-    return data;
+    return nameValueArrayVO;
   }
 
 

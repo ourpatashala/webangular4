@@ -20,9 +20,9 @@ export class StudentService {
     this.firebaseApp =af;
   }
 
-  addStudentProfileData(schoolId : string,studentVO: StudentVO){
+  addStudentProfile(schoolId : string,studentVO: StudentVO){
 
-    console.log('in student service addStudentProfileData')
+    console.log('in student service addStudentProfileData...'+studentVO)
 
     this.firebaseApp.database.object('/schools/'+schoolId+'/studentProfile/'+studentVO.id).set(studentVO)
       .then(

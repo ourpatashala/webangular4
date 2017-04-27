@@ -27,19 +27,10 @@ export class StudentConverterImpl extends CommonConverter implements StudentConv
     this.studentVO.schoolId = studentTO.schoolId;
     this.studentVO.firstName = studentTO.firstName;
     this.studentVO.phoneNumbers = this.getArrayDataWithOnlyValues(studentTO.phoneNumbers);
-  // this.studentVO.siblings = this.getArrayDataWithKeyValues(studentTO.siblings);
-    //this.studentVO.siblings = '{ravi:'raj'}';
-     var x:Object;
-     var y = 'brother'
-
-    var p = "father:ravisha"
-    var  z  =  {p};
-
-    this.studentVO.siblings = z;
-
-
+    this.studentVO.siblings = this.getArrayDataWithKeyValues(studentTO.siblings);
+    this.studentVO.address = studentTO.address;
     console.log('hello from student controller impl'+studentTO.id)
-    this.studentService.addStudentProfileData(this.studentVO.schoolId,this.studentVO)
+    this.studentService.addStudentProfile(this.studentVO.schoolId,this.studentVO)
 
   }
 

@@ -4,6 +4,4 @@
 export class AddressVO{
   city: string;
   doorNo: string;
-  pincode: string;
-  street1:string;
 }

@@ -4,6 +4,4 @@
 export class AddressTO{
   city: string;
   doorNo: string;
-  pincode: string;
-  street:string;
 }

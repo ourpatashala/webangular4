@@ -3,6 +3,7 @@
  */
 
 import {AddressVO} from "./AddressVO";
+import {NameValueVO} from "./NameValueVO";
 /**
  * This is the object that will go to the database, this object will be created by converted , when comming
  * from UI.
@@ -26,7 +27,7 @@ export  class StudentVO {
   className?: string;
   profilePhotoUrl?: string;
   bloodGroup?: string;
-  siblings?: Object;
+  siblings?: NameValueVO[];
   phoneNumbers?: Object;
   testing?: string;
   address?: AddressVO;
