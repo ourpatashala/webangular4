@@ -4,8 +4,8 @@
 
 /**
  * Use this class for having any common functionality for the converters.
- * Every converted must implement the following abstract class along with its
- * respective interface.
+ * Every converter must implement the following abstract class along with its
+ * respective interface .
  */
 export abstract class CommonConverter{
       test(){
