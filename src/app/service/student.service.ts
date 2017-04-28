@@ -7,6 +7,7 @@ import {databaseFB} from "../app.module";
 import 'rxjs/add/operator/catch'
 import {Response} from "@angular/http";
 import {StudentVO} from "../vo/StudentVO";
+import {PathUtil} from "../util/PathUtil";
 
 
 
@@ -21,10 +22,7 @@ export class StudentService {
   }
 
   addStudentProfile(schoolId : string,studentVO: StudentVO){
-
-    console.log('in student service addStudentProfileData...'+studentVO)
-
-    this.firebaseApp.database.object('/schools/'+schoolId+'/studentProfile/'+studentVO.id).set(studentVO)
+    this.firebaseApp.database.object(PathUtil.getStudentProfilePath(schoolId,studentVO.id)).set(studentVO)
       .then(
         () => alert('student Info added !')
       );
@@ -32,8 +30,7 @@ export class StudentService {
   }
 
   getStudentProfile(schoolId : string,studentId: string ): FirebaseObjectObservable<any>{
-    var studentInfo =  this.firebaseApp.database.object('/schools/'+schoolId+'/studentProfile');
-
+      var studentInfo =  this.firebaseApp.database.object('/schools/'+schoolId+'/studentProfile');
       return studentInfo.catch(this._errorHandler);
   }
 

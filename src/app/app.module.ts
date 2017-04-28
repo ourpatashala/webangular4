@@ -12,10 +12,8 @@ import {routing} from './app.routing';
 import { ExamComponent } from './component/exam/exam.component';
 import { StudentComponent } from './component/student/student.component';
 import { TeacherComponent } from './component/teacher/teacher.component';
-import {StudentService} from "./service/student.service";
 
 import * as firebase from "firebase";
-import { BannerComponent } from './banner/banner.component';
 import { BannerComponent } from './component/banner/banner.component';
 import { ContactComponent } from './component/contact/contact.component';
 import { DocumentComponent } from './component/document/document.component';
@@ -25,6 +23,8 @@ import { MessageComponent } from './component/message/message.component';
 import { ResultComponent } from './component/result/result.component';
 import { SubjectComponent } from './component/subject/subject.component';
 
+import {AppConstants} from './constants/AppConstants';
+import {PathUtil} from "./util/PathUtil";
 
 export const firebaseConfig = {     apiKey: 'AIzaSyB6WeGfORqOzz5jT_XL6GLMCl8zeQqORHU',     authDomain: 'devpatashala-4e257.firebaseapp.com',     databaseURL: 'https://devpatashala-4e257.firebaseio.com',     storageBucket: 'devpatashala-4e257.appspot.com',     messagingSenderId: '857631726201' };
 
@@ -62,7 +62,7 @@ export const angularFireModule =  AngularFireModule.initializeApp(firebaseConfig
     angularFireModule,
     HttpModule
   ],
-  providers:[StudentService],
+  providers:[AppConstants,PathUtil],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
