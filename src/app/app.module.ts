@@ -15,6 +15,15 @@ import { TeacherComponent } from './component/teacher/teacher.component';
 import {StudentService} from "./service/student.service";
 
 import * as firebase from "firebase";
+import { BannerComponent } from './banner/banner.component';
+import { BannerComponent } from './component/banner/banner.component';
+import { ContactComponent } from './component/contact/contact.component';
+import { DocumentComponent } from './component/document/document.component';
+import { EventComponent } from './component/event/event.component';
+import { FeesComponent } from './component/fees/fees.component';
+import { MessageComponent } from './component/message/message.component';
+import { ResultComponent } from './component/result/result.component';
+import { SubjectComponent } from './component/subject/subject.component';
 
 
 export const firebaseConfig = {     apiKey: 'AIzaSyB6WeGfORqOzz5jT_XL6GLMCl8zeQqORHU',     authDomain: 'devpatashala-4e257.firebaseapp.com',     databaseURL: 'https://devpatashala-4e257.firebaseio.com',     storageBucket: 'devpatashala-4e257.appspot.com',     messagingSenderId: '857631726201' };
@@ -34,7 +43,16 @@ export const angularFireModule =  AngularFireModule.initializeApp(firebaseConfig
     TeacherComponent,
     ExamComponent,
     StudentComponent,
-    TeacherComponent
+    TeacherComponent,
+    BannerComponent,
+    BannerComponent,
+    ContactComponent,
+    DocumentComponent,
+    EventComponent,
+    FeesComponent,
+    MessageComponent,
+    ResultComponent,
+    SubjectComponent
   ],
   imports: [
     BrowserModule,

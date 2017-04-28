@@ -1,3 +1,133 @@
-<p>
-  teacher works!
-</p>
+<section class="sample-app-content">
+  <h1>Add Teacher:</h1>
+  <h3>Error Message {{ errorMessage }}</h3>
+  <form [formGroup]="studentFormGroup" (ngSubmit)="addStudentProfile(studentFormGroup)">
+    <p>
+      <label>schoolId:</label>
+      <input type="text" formControlName="schoolId">
+    </p>
+
+    <p>
+      <label>firstName:</label>
+      <input type="text" formControlName="firstName">
+    </p>
+    <p>
+      <label>lastName:</label>
+      <input type="text" formControlName="lastName">
+    </p>
+    <p>
+      <label>middleName:</label>
+      <input type="text" formControlName="middleName">
+    </p>
+    <p>
+      <label>dob:</label>
+      <input type="text" formControlName="dob">
+    </p>
+    <p>
+      <label>student id:</label>
+      <input type="text" formControlName="id">
+    </p>
+    <p>
+      <label>classId:</label>
+      <input type="text" formControlName="classId">
+    </p>
+    <p>
+      <label>gender:</label>
+      <input type="text" formControlName="gender">
+    </p>
+    <p>
+      <label>fatherName:</label>
+      <input type="text" formControlName="fatherName">
+    </p>
+    <p>
+      <label>motherName:</label>
+      <input type="text" formControlName="motherName">
+    </p>
+    <p>
+      <label>remarks:</label>
+      <input type="text" formControlName="remarks">
+    </p>
+    <p>
+      <label>schoolName:</label>
+      <input type="text" formControlName="schoolName">
+    </p>
+    <p>
+      <label>className:</label>
+      <input type="text" formControlName="className">
+    </p>
+    <p>
+      <label>profilePhotoUrl:</label>
+      <input type="text" formControlName="profilePhotoUrl">
+    </p>
+    <p>
+      <label>bloodGroup:</label>
+      <input type="text" formControlName="bloodGroup">
+    </p>
+
+    <div formGroupName="address">
+      <p>
+        <label>city:</label>
+        <input type="text" formControlName="city">
+      </p>
+      <p>
+        <label>doorNo:</label>
+        <input type="text" formControlName="doorNo">
+      </p>
+
+    </div>
+
+
+    <div formArrayName="phoneNumbers">
+      <div *ngFor="let phoneNumber of studentFormGroup.controls.phoneNumbers.controls; let i=index" class="panel panel-default">
+        <div class="panel-heading">
+          <span>No {{i + 1}}</span>
+          <span class="glyphicon glyphicon-remove pull-right" *ngIf="studentFormGroup.controls.phoneNumbers.controls.length > 1" (click)="removeAddress(i)"></span>
+        </div>
+        <div class="panel-body" [formGroupName]="i">
+          <div class="form-group col-xs-6">
+            <label>phone number</label>
+            <input type="text" class="form-control" formControlName="phoneNumber">
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="margin-20">
+      <a (click)="addPhoneNumbers()" style="cursor: default">
+        Add another Number +
+      </a>
+    </div>
+
+
+    <div formArrayName="siblings">
+      <div *ngFor="let sibling of studentFormGroup.controls.siblings.controls; let i=index" class="panel panel-default">
+        <div class="panel-heading">
+          <span>No {{i + 1}}</span>
+          <span class="glyphicon glyphicon-remove pull-right" *ngIf="studentFormGroup.controls.siblings.controls.length > 1" (click)="removeAddress(i)"></span>
+        </div>
+        <div class="panel-body" [formGroupName]="i">
+          <div class="form-group col-xs-6">
+            <label>relation </label>
+            <input type="text" class="form-control" formControlName="keyInfo">
+            <label>student name</label>
+            <input type="text" class="form-control" formControlName="valueInfo">
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="margin-20">
+      <a (click)="addSiblings()" style="cursor: default">
+        Add another Sibling +
+      </a>
+    </div>
+
+
+
+
+    <p>
+      <button type="submit" >Submit</button>
+    </p>
+  </form>
+</section>
+
