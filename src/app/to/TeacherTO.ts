@@ -6,6 +6,7 @@ import {AddressTO} from "./AddressTO";
 
 export class TeacherTO {
   id: string;
+  schoolId:string;
   firstName: string;
   middleName: string;
   lastName: string;
@@ -14,5 +15,6 @@ export class TeacherTO {
   address:AddressTO;
   classTeacher: string;
   profilePic: string;
+
 }
 
