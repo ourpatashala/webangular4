@@ -1,4 +1,4 @@
-import {Component, OnInit, Input, Inject} from '@angular/core';
+import {Component, OnInit, Input, Inject,ErrorHandler } from '@angular/core';
 import {StudentService} from "../../service/student.service";
 import {StudentConverter} from "../../adapter/interfaces/StudentConverter";
 import {

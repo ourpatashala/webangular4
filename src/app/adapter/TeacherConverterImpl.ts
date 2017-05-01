@@ -5,6 +5,7 @@ import {TeacherConverter} from "./interfaces/TeacherConverter";
 import {TeacherTO} from "../to/TeacherTO";
 import {TeacherVO} from "../vo/TeacherVO";
 import {TeacherService} from "../service/teacher.service";
+import {TeacherError} from "../error/TeacherError";
 /**
  * Created by ravisha on 4/21/17.
  */
@@ -20,6 +21,7 @@ export class TeacherConverterImpl extends CommonConverter implements TeacherConv
   }
 
   addTeacherProfile(schoolId: string, teacherTO: TeacherTO) {
+
     this.teacherVO = new TeacherVO();
     //Add  All the logic here ,  to convert TO object to VO object.
     this.teacherVO.id = teacherTO.id;
@@ -31,6 +33,7 @@ export class TeacherConverterImpl extends CommonConverter implements TeacherConv
     this.teacherVO.profilePic = teacherTO.profilePic;
     this.teacherVO.address = teacherTO.address;
     this.teacherVO.contactNumber = teacherTO.contactNumber;
+   // throw new TeacherError('Error adding Teacher Info');
     this.teacherService.addTeacherProfile(schoolId,this.teacherVO)
   }
 

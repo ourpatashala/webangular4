@@ -1,5 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { ErrorHandler } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { AngularFireModule } from 'angularfire2';
@@ -22,10 +23,12 @@ import { FeesComponent } from './component/fees/fees.component';
 import { MessageComponent } from './component/message/message.component';
 import { ResultComponent } from './component/result/result.component';
 import { SubjectComponent } from './component/subject/subject.component';
+import CommonErrorHandler from "./error/handler/CommonErrorHandler";
+
+import { NotificationService } from './error/handler/NotificationService';
 
 import {AppConstants} from './constants/AppConstants';
 import {PathUtil} from "./util/PathUtil";
-import {TeacherService} from "./service/teacher.service";
 
 export const firebaseConfig = {     apiKey: 'AIzaSyB6WeGfORqOzz5jT_XL6GLMCl8zeQqORHU',     authDomain: 'devpatashala-4e257.firebaseapp.com',     databaseURL: 'https://devpatashala-4e257.firebaseio.com',     storageBucket: 'devpatashala-4e257.appspot.com',     messagingSenderId: '857631726201' };
 
@@ -63,7 +66,7 @@ export const angularFireModule =  AngularFireModule.initializeApp(firebaseConfig
     angularFireModule,
     HttpModule
   ],
-  providers:[AppConstants,PathUtil],
+  providers:[AppConstants,PathUtil,NotificationService,{ provide: ErrorHandler, useClass: CommonErrorHandler }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

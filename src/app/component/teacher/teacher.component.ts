@@ -1,4 +1,4 @@
-import {Component, OnInit, Input, Inject} from '@angular/core';
+import {Component, OnInit, Input, Inject,ErrorHandler } from '@angular/core';
 import {
   FormGroup, FormControl, Validators, FormBuilder, FormArray, AbstractControl
 }
@@ -8,6 +8,7 @@ import {TeacherConverterImpl} from "../../adapter/TeacherConverterImpl";
 import {TeacherTO} from "../../to/TeacherTO";
 import {TeacherConverter} from "../../adapter/interfaces/TeacherConverter";
 import {TeacherService} from "../../service/teacher.service";
+import TeacherErrorHandler from "../../error/handler/CommonErrorHandler";
 
 
 @Component({
@@ -20,7 +21,9 @@ import {TeacherService} from "../../service/teacher.service";
 export class TeacherComponent implements OnInit {
 
   teacherTO: TeacherTO;
+
   teacherFormGroup: FormGroup;
+
   errorMessage: string;
   fb: FormBuilder;
   @Input() inputArray: ArrayType[];
@@ -36,11 +39,11 @@ export class TeacherComponent implements OnInit {
         schoolId: new FormControl(''),
         firstName: new FormControl(''),
         middleName: new FormControl(''),
+        qualification: new FormControl(''),
         id: new FormControl(''),
         profilePic: new FormControl(''),
         classTeacher: new FormControl(''),
         contactNumber: new FormControl(''),
-        qualification: new FormControl(''),
         address: new FormGroup({
           city: new FormControl(''),
           doorNo: new FormControl('')
