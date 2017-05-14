@@ -9,6 +9,7 @@ import {Routes,RouterModule} from '@angular/router'
 
 import { StudentComponent } from './component/student/student.component';
 import { TeacherComponent } from './component/teacher/teacher.component';
+import { ErrorComponent } from './component/error/error.component';
 
 const appRoutes: Routes = [
   {
@@ -23,7 +24,12 @@ const appRoutes: Routes = [
   {
     path:'teacher',
     component: TeacherComponent
+  },
+  {
+    path:'error',
+    component: ErrorComponent  
   }
+
 
 ]
 

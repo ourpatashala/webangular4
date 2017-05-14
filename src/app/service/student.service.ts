@@ -31,12 +31,9 @@ export class StudentService {
 
   getStudentProfile(schoolId : string,studentId: string ): FirebaseObjectObservable<any>{
       var studentInfo =  this.firebaseApp.database.object('/schools/'+schoolId+'/studentProfile');
-      return studentInfo.catch(this._errorHandler);
+      return studentInfo;
   }
 
-  _errorHandler(error:Response){
-     console.error(error)
-    return FirebaseObjectObservable.throw(error|| "server Error")
-  }
+
 
 }

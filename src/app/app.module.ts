@@ -29,6 +29,8 @@ import { NotificationService } from './error/handler/NotificationService';
 
 import {AppConstants} from './constants/AppConstants';
 import {PathUtil} from "./util/PathUtil";
+import { ErrorComponent } from './component/error/error.component';
+import {ErrorService} from "./service/error.service";
 
 export const firebaseConfig = {     apiKey: 'AIzaSyB6WeGfORqOzz5jT_XL6GLMCl8zeQqORHU',     authDomain: 'devpatashala-4e257.firebaseapp.com',     databaseURL: 'https://devpatashala-4e257.firebaseio.com',     storageBucket: 'devpatashala-4e257.appspot.com',     messagingSenderId: '857631726201' };
 
@@ -56,7 +58,9 @@ export const angularFireModule =  AngularFireModule.initializeApp(firebaseConfig
     FeesComponent,
     MessageComponent,
     ResultComponent,
-    SubjectComponent
+    SubjectComponent,
+    ErrorComponent,
+    ErrorComponent
   ],
   imports: [
     BrowserModule,
@@ -66,7 +70,7 @@ export const angularFireModule =  AngularFireModule.initializeApp(firebaseConfig
     angularFireModule,
     HttpModule
   ],
-  providers:[AppConstants,PathUtil,NotificationService,{ provide: ErrorHandler, useClass: CommonErrorHandler }],
+  providers:[AppConstants,ErrorService,PathUtil,NotificationService,{ provide: ErrorHandler, useClass: CommonErrorHandler }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
