@@ -169,6 +169,35 @@ public static   getTeacherProfilePathInSchool( schoolId:string, teacherId:string
   return teachersInSchoolPath;
 }
 
+public static getSchoolProfilePath(){
+  var schoolProilePath:string = "";
+  schoolProilePath = schoolProilePath+NodeConstants.SCHOOLS;
+  schoolProilePath = schoolProilePath+NodeConstants.SEPARATOR;
+  schoolProilePath = schoolProilePath+NodeConstants.SCHOOL_PROFILE;
+  schoolProilePath = schoolProilePath+NodeConstants.SEPARATOR;
+  return schoolProilePath;
+}
+
+
+  public static getSchoolProfileNode(){
+    var schoolProilePath:string = "";
+    schoolProilePath = schoolProilePath+NodeConstants.SEPARATOR;
+    schoolProilePath = schoolProilePath+NodeConstants.SCHOOL_PROFILE;
+    schoolProilePath = schoolProilePath+NodeConstants.SEPARATOR;
+    return schoolProilePath;
+  }
+
+  public static getSchoolIdProfilePath(schoolId:string){
+    var schoolProilePath:string = "";
+    schoolProilePath = schoolProilePath+NodeConstants.SCHOOLS;
+    schoolProilePath = schoolProilePath+NodeConstants.SEPARATOR;
+    schoolProilePath = schoolProilePath+NodeConstants.SCHOOL_PROFILE;
+    schoolProilePath = schoolProilePath+NodeConstants.SEPARATOR;
+    schoolProilePath = schoolProilePath+schoolId;
+    schoolProilePath = schoolProilePath+NodeConstants.SEPARATOR;
+    return schoolProilePath;
+  }
+
 
 /**
  * Get events path in the school
