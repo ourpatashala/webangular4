@@ -8,6 +8,9 @@ export class NodeConstants {
    public static STUDENT_PROFILE = "studentProfile";
    public static STUDENT_FIREBASE_NOTIF_TOKEN = "firebaseNotifToken";
    public static SCHOOL_PROFILE_PIC_EXTENSION = ".jpg";
+   public static UNIQUE_ID = "uniqueId";
+  public static UNIQUEID_VALUE = "uniqueIdValue";
+
 
    public static SCHOOLS = "schools";
    public static STUDENTS = "students";
@@ -35,6 +38,7 @@ export class NodeConstants {
 
    public static SEPARATOR = "/";
    public static FIREBASE_TOKEN = "firebaseNotifToken";
+   public static SCHOOL_PROFILE = "schoolProfile";
 
    public static TIMETABLE = "timetable";
    public static ATTENDANCE = "attendance";

@@ -5,6 +5,8 @@ import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { AngularFireModule } from 'angularfire2';
 import {ReactiveFormsModule} from "@angular/forms";
+import { Routes, RouterModule } from '@angular/router';
+
 
 
 
@@ -31,6 +33,9 @@ import {AppConstants} from './constants/AppConstants';
 import {PathUtil} from "./util/PathUtil";
 import { ErrorComponent } from './component/error/error.component';
 import {ErrorService} from "./service/error.service";
+import { SchoolComponent } from './component/school/school.component';
+import { HeaderAdminComponent } from './component/header-admin/header-admin.component';
+
 
 export const firebaseConfig = {     apiKey: 'AIzaSyB6WeGfORqOzz5jT_XL6GLMCl8zeQqORHU',     authDomain: 'devpatashala-4e257.firebaseapp.com',     databaseURL: 'https://devpatashala-4e257.firebaseio.com',     storageBucket: 'devpatashala-4e257.appspot.com',     messagingSenderId: '857631726201' };
 
@@ -60,7 +65,8 @@ export const angularFireModule =  AngularFireModule.initializeApp(firebaseConfig
     ResultComponent,
     SubjectComponent,
     ErrorComponent,
-    ErrorComponent
+    SchoolComponent,
+    HeaderAdminComponent
   ],
   imports: [
     BrowserModule,

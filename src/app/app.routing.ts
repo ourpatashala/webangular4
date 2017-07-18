@@ -9,12 +9,16 @@ import {Routes,RouterModule} from '@angular/router'
 
 import { StudentComponent } from './component/student/student.component';
 import { TeacherComponent } from './component/teacher/teacher.component';
+import { SchoolComponent } from './component/school/school.component';
+import { HeaderAdminComponent } from './component/header-admin/header-admin.component';
+
+
 import { ErrorComponent } from './component/error/error.component';
 
 const appRoutes: Routes = [
   {
     path:'',
-    component: StudentComponent
+    component: SchoolComponent
   },
   {
     path:'student',
@@ -28,7 +32,12 @@ const appRoutes: Routes = [
   {
     path:'error',
     component: ErrorComponent  
-  }
+  },
+  {
+    path:'school',
+    component: SchoolComponent
+  },
+
 
 
 ]
