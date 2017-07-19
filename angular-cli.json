@@ -18,9 +18,17 @@
       "tsconfig": "tsconfig.json",
       "prefix": "app",
       "styles": [
+        "../node_modules/bootstrap/dist/css/bootstrap.css",
+        "./assets/css/font-awesome.min.css",
+        "./assets/css/jquery.dataTables.min.css",
         "styles.css"
       ],
-      "scripts": [],
+      "scripts": [
+        "../node_modules/jquery/dist/jquery.js",
+        "../node_modules/datatables.net/js/jquery.dataTables.js",
+        "../node_modules/bootstrap/dist/js/bootstrap.js",
+        "script.js"
+      ],
       "environments": {
         "source": "environments/environment.ts",
         "dev": "environments/environment.ts",
