@@ -60,6 +60,8 @@ export class SchoolConverterImpl extends CommonConverter implements SchoolConver
         var schoolObject = snapshot[schoolKey];
         schoolProfileMap.set(schoolKey,schoolObject);
     });
+      var x = JSON.stringify(schoolProfileMap);
+      console.log("data from db : "+x);
     schoolComponentInterface.displayAllSchoolProfileCallBack(schoolProfileMap);
     });
   }
