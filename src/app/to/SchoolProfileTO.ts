@@ -7,16 +7,14 @@ export class SchoolProfileTO{
   schoolDisplayName: string;
   contactName: string;
   contactNumber: string;
-  address1: string;
-  address2: string;
+  addressOne: string;
+  addressTwo: string;
   city: string;
   state: string;
   pincode: string;
   country: string;
   active: string;
   remarks: string;
-  primaryContact:string;
-  schoolLogo:string;
 }
 
 

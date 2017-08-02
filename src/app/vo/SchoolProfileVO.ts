@@ -8,8 +8,8 @@ export  class SchoolProfileVO {
   schoolDisplayName: string;
   contactName: string;
   contactNumber: string;
-  address1: string;
-  address2: string;
+  addressOne: string;
+  addressTwo: string;
   city: string;
   state: string;
   pincode: string;

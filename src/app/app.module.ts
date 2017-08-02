@@ -10,7 +10,7 @@ import { Routes, RouterModule } from '@angular/router';
 
 
 
-import { AppComponent } from './app.component';
+import {AppComponent, KeysPipe} from './app.component';
 import {routing} from './app.routing';
 import { ExamComponent } from './component/exam/exam.component';
 import { StudentComponent } from './component/student/student.component';
@@ -35,6 +35,7 @@ import { ErrorComponent } from './component/error/error.component';
 import {ErrorService} from "./service/error.service";
 import { SchoolComponent } from './component/school/school.component';
 import { HeaderAdminComponent } from './component/header-admin/header-admin.component';
+import {NgPipesModule} from "ngx-pipes";
 
 
 export const firebaseConfig = {     apiKey: 'AIzaSyB6WeGfORqOzz5jT_XL6GLMCl8zeQqORHU',     authDomain: 'devpatashala-4e257.firebaseapp.com',     databaseURL: 'https://devpatashala-4e257.firebaseio.com',     storageBucket: 'devpatashala-4e257.appspot.com',     messagingSenderId: '857631726201' };
@@ -66,7 +67,7 @@ export const angularFireModule =  AngularFireModule.initializeApp(firebaseConfig
     SubjectComponent,
     ErrorComponent,
     SchoolComponent,
-    HeaderAdminComponent
+    HeaderAdminComponent,
   ],
   imports: [
     BrowserModule,
@@ -74,6 +75,8 @@ export const angularFireModule =  AngularFireModule.initializeApp(firebaseConfig
     ReactiveFormsModule,
     routing,
     angularFireModule,
+    NgPipesModule,
+
     HttpModule
   ],
   providers:[AppConstants,ErrorService,PathUtil,NotificationService,{ provide: ErrorHandler, useClass: CommonErrorHandler }],
