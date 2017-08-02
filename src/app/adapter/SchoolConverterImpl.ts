@@ -23,22 +23,47 @@ export class SchoolConverterImpl extends CommonConverter implements SchoolConver
     super()
   }
 
-  addSchoolProfile(schoolProfileTO: SchoolProfileTO,schoolComponentInterface:SchoolComponentInterface){
-    this.schoolProfileVO  = new SchoolProfileVO();
-    this.schoolProfileVO.schoolId = schoolProfileTO.schoolId;
-    this.schoolProfileVO.schoolName = schoolProfileTO.schoolName;
-    this.schoolProfileVO.schoolDisplayName = schoolProfileTO.schoolDisplayName;
-    this.schoolProfileVO.state = schoolProfileTO.state;
-    this.schoolProfileVO.country = schoolProfileTO.country;
-    this.schoolProfileVO.address1 = schoolProfileTO.address1;
-    this.schoolProfileVO.address2 = schoolProfileTO.address2;
-    this.schoolProfileVO.pincode = schoolProfileTO.pincode;
-    this.schoolProfileVO.remarks = schoolProfileTO.remarks;
-    //this.schoolProfileVO.active = schoolProfileTO.active;
-    this.schoolProfileVO.uniqueId = schoolProfileTO.schoolName+schoolProfileTO.schoolDisplayName;
-    console.log("in converter impl"+schoolProfileTO.state);
-    this.schoolService.addSchoolProfile(this.schoolProfileVO,schoolComponentInterface);
+  /**
+   * Decide your unqiue key here.
+   * @param schoolProfileTO
+   * @returns {string}
+   */
+  getUniqueKey(schoolProfileTO: SchoolProfileTO){
+    return schoolProfileTO.schoolName+schoolProfileTO.schoolDisplayName;
   }
+
+  /**
+   * This method is a converter from TO to VO. Always ensure that unique key is assigned  properly.
+   * @param schoolProfileTO
+   * @returns {SchoolProfileVO}
+   */
+  getVOFromTO(schoolProfileTO: SchoolProfileTO):SchoolProfileVO{
+    var schoolProfileVO  = new SchoolProfileVO();
+    schoolProfileVO.schoolId = schoolProfileTO.schoolId;
+    schoolProfileVO.schoolName = schoolProfileTO.schoolName;
+    schoolProfileVO.schoolDisplayName = schoolProfileTO.schoolDisplayName;
+    schoolProfileVO.state = schoolProfileTO.state;
+    schoolProfileVO.country = schoolProfileTO.country;
+    schoolProfileVO.addressOne = schoolProfileTO.addressOne;
+    schoolProfileVO.addressTwo = schoolProfileTO.addressTwo;
+    schoolProfileVO.pincode = schoolProfileTO.pincode;
+    schoolProfileVO.remarks = schoolProfileTO.remarks;
+    schoolProfileVO.uniqueId = this.getUniqueKey(schoolProfileTO);
+    console.log("Unique Key.."+schoolProfileVO.uniqueId);
+
+    console.log("in converter impl"+schoolProfileVO.state);
+    return schoolProfileVO;
+  }
+
+  /**
+   * Used for adding the school profile.
+   * @param schoolProfileTO
+   * @param schoolComponentInterface
+   */
+  addSchoolProfile(schoolProfileTO: SchoolProfileTO,schoolComponentInterface:SchoolComponentInterface){
+    this.schoolService.addSchoolProfile( this.getVOFromTO(schoolProfileTO),schoolComponentInterface);
+  }
+
 
   getSchoolProfile(schoolId:string,schoolComponentInterface:SchoolComponentInterface){
     var schoolProfileTO=  new SchoolProfileTO();
@@ -50,36 +75,30 @@ export class SchoolConverterImpl extends CommonConverter implements SchoolConver
   }
 
 
+  /**
+   * Used for getting the list of all schools.
+   * @param schoolComponentInterface
+   */
   getAllSchoolProfile(schoolComponentInterface:SchoolComponentInterface){
-    var schoolProfileTO=  new SchoolProfileTO();
-    let schoolProfileMap = new Map<string,SchoolProfileTO>();
+    var objData:FirebaseListObservable<SchoolProfileTO>;
     var schoolObject = this.schoolService.getAllSchoolProfile();
     schoolObject.subscribe(snapshot => {
-      schoolProfileTO = snapshot;
-      Object.keys(snapshot).forEach(schoolKey=> {
-        var schoolObject = snapshot[schoolKey];
-        schoolProfileMap.set(schoolKey,schoolObject);
-    });
-      var x = JSON.stringify(schoolProfileMap);
-      console.log("data from db : "+x);
-    schoolComponentInterface.displayAllSchoolProfileCallBack(schoolProfileMap);
+      objData = snapshot;
+      schoolComponentInterface.displayAllSchoolProfileCallBack(objData);
+
     });
   }
 
 
-  updateSchoolProfile(schoolProfileTO: SchoolProfileTO){
-    this.schoolProfileVO  = new SchoolProfileVO();
-    this.schoolProfileVO.schoolId = schoolProfileTO.schoolId;
-    this.schoolProfileVO.schoolName = schoolProfileTO.schoolName;
-    this.schoolProfileVO.schoolDisplayName = schoolProfileTO.schoolDisplayName;
-    this.schoolProfileVO.state = schoolProfileTO.state;
-    this.schoolProfileVO.country = schoolProfileTO.country;
-    this.schoolProfileVO.address1 = schoolProfileTO.address1;
-    this.schoolProfileVO.address2 = schoolProfileTO.address2;
-    this.schoolProfileVO.pincode = schoolProfileTO.pincode;
-    this.schoolProfileVO.remarks = schoolProfileTO.remarks;
-    this.schoolProfileVO.active = schoolProfileTO.active;
-    this.schoolService.updateSchoolProfile(this.schoolProfileVO);
+  /**
+   * Used for updating the school profile.
+   * @param schoolProfileTO
+   * @param schoolComponentInterface
+   */
+  updateSchoolProfile(schoolProfileTO: SchoolProfileTO,schoolComponentInterface:SchoolComponentInterface){
+    console.log("in converter impl..")
+    console.log(schoolProfileTO);
+    this.schoolService.updateSchoolProfile(this.getVOFromTO(schoolProfileTO),schoolComponentInterface);
 
   }
 

@@ -1,4 +1,4 @@
-import {Component, OnInit, Input, Inject} from '@angular/core';
+import {Component, OnInit, Input, Inject, PipeTransform, Pipe} from '@angular/core';
 import {SchoolService} from "../../service/school.service";
 import {SchoolProfileTO} from "../../to/SchoolProfileTO";
 import {SchoolConverterImpl} from "../../adapter/SchoolConverterImpl";
@@ -6,6 +6,8 @@ import {FormBuilder, FormControl, FormGroup} from "@angular/forms";
 import {ArrayType} from "@angular/compiler/src/output/output_ast";
 import {SchoolConverter} from "../../adapter/interfaces/SchoolConverter";
 import {SchoolComponentInterface} from "./SchoolComponentInterface";
+import {jsonpFactory} from "@angular/http/src/http_module";
+import {FirebaseObjectObservable, FirebaseListObservable} from "angularfire2";
 declare var $:any;
 
 
@@ -19,8 +21,12 @@ export class SchoolComponent implements OnInit,SchoolComponentInterface {
 
   schoolProfileTO: SchoolProfileTO;
   schoolFormGroup: FormGroup;
+  schoolProfileTOMap = new Map<string,SchoolProfileTO>();
+  x:string;
+  //obj:FirebaseListObservable<any>;
+  schoolProfileTOList:FirebaseListObservable<SchoolProfileTO>;
 
-  schoolFormGroup1: FormGroup;
+
 
 
 
@@ -45,8 +51,8 @@ export class SchoolComponent implements OnInit,SchoolComponentInterface {
         schoolDisplayName: new FormControl(''),
         contactName: new FormControl(''),
         contactNumber: new FormControl(''),
-        address1: new FormControl(''),
-        address2: new FormControl(''),
+        addressOne: new FormControl(''),
+        addressTwo: new FormControl(''),
         city: new FormControl(''),
         state: new FormControl(''),
         pincode: new FormControl(''),
@@ -57,24 +63,7 @@ export class SchoolComponent implements OnInit,SchoolComponentInterface {
 
       })
 
-    this.schoolFormGroup1 = new FormGroup(
-      {
-        schoolId: new FormControl(''),
-        schoolName: new FormControl(''),
-        schoolDisplayName: new FormControl(''),
-        contactName: new FormControl(''),
-        contactNumber: new FormControl(''),
-        address1: new FormControl(''),
-        address2: new FormControl(''),
-        city: new FormControl(''),
-        state: new FormControl(''),
-        pincode: new FormControl(''),
-        country: new FormControl(''),
-        active: new FormControl(''),
-        schoolLogo: new FormControl(''),
-        remarks: new FormControl('')
 
-      })
 
     // all datatables script
     $(document).ready(function(){
@@ -140,7 +129,7 @@ export class SchoolComponent implements OnInit,SchoolComponentInterface {
   addSchoolProfile({value, valid}: {value: SchoolProfileTO, valid: boolean}) {
     this.schoolProfileTO = value;
     console.log(this.schoolProfileTO);
-    this.schoolConverter.addSchoolProfile( this.schoolProfileTO,this);
+     this.schoolConverter.addSchoolProfile( this.schoolProfileTO,this);
     //this.getSchoolProfile("school01");
     //this.deleteSchoolProfile("school03");
     //this.getAllSchoolProfiles();
@@ -162,7 +151,6 @@ export class SchoolComponent implements OnInit,SchoolComponentInterface {
    */
   getAllSchoolProfiles(){
     this.schoolConverter.getAllSchoolProfile(this);
-
   }
 
   /**
@@ -172,7 +160,7 @@ export class SchoolComponent implements OnInit,SchoolComponentInterface {
    */
   updateSchoolProfile({value, valid}: {value: SchoolProfileTO, valid: boolean}) {
     this.schoolProfileTO = value;
-    this.schoolConverter.updateSchoolProfile( this.schoolProfileTO);
+    this.schoolConverter.updateSchoolProfile( this.schoolProfileTO,this);
   }
 
   /**
@@ -192,15 +180,15 @@ export class SchoolComponent implements OnInit,SchoolComponentInterface {
   }
 
 
-
   /**
    * Used for displaying all school profile objects.
    * @param schoolProfileTO
    */
-  displayAllSchoolProfileCallBack(schoolProfileTOMap: Map<string,SchoolProfileTO>){
-
-
-     console.log(schoolProfileTOMap);
+  displayAllSchoolProfileCallBack(schoolProfileTOList:FirebaseListObservable<SchoolProfileTO>){
+    this.schoolProfileTOList = schoolProfileTOList;
+    this.schoolProfileTOList.forEach(schoolProfileTO => {
+      console.log('SchoolProfileTO:', schoolProfileTO);
+    });
   }
 
   successMessageCallBack(message:string){
@@ -208,10 +196,7 @@ export class SchoolComponent implements OnInit,SchoolComponentInterface {
   }
 
 
-
-
-
-
-
-
 }
+
+
+

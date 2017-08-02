@@ -1,4 +1,5 @@
 import {SchoolProfileTO} from "../../to/SchoolProfileTO";
+import { FirebaseListObservable} from "angularfire2";
 /**
  * Created by ravisha on 7/7/17.
  */
@@ -13,7 +14,7 @@ export interface SchoolComponentInterface {
    * Used for displaying all the school profile information.
    * @param schoolProfileTO
    */
-  displayAllSchoolProfileCallBack(schoolProfileTO: Map<string,SchoolProfileTO>);
+  displayAllSchoolProfileCallBack(schoolProfileTO:FirebaseListObservable<SchoolProfileTO>);
 
 
   /**

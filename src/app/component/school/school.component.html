@@ -40,23 +40,25 @@
 
       <div class="add_fields addschool_div">
 
-        <form [formGroup]="schoolFormGroup1" (ngSubmit)="addSchoolProfile(schoolFormGroup1)">
+        <form [formGroup]="schoolFormGroup" (ngSubmit)="addSchoolProfile(schoolFormGroup)">
           <div class="col-md-6">
-            <div class="col-md-4"><p>School Name</p></div><div class="col-md-8"><input type="text" placeholder="Enter Full Name of School" formControlName="SchoolName" required title="Please Enter School Name"></div><div class="clear"></div>
+            <div class="col-md-4"><p>School Id</p></div><div class="col-md-8"><input type="text" placeholder="Enter schoolid " formControlName="schoolId" required title="Please Enter schoolId"></div><div class="clear"></div>
+
+            <div class="col-md-4"><p>School Name</p></div><div class="col-md-8"><input type="text" placeholder="Enter Full Name of School" formControlName="schoolName" required title="Please Enter School Name"></div><div class="clear"></div>
             <div class="col-md-4"><p>Display Short Name</p></div><div class="col-md-8"><input type="text" placeholder="Enter Full Name of School" formControlName="schoolDisplayName" required></div><div class="clear"></div>
-            <div class="col-md-4"><p>Address1</p></div><div class="col-md-8"><textarea placeholder="Enter Address1" formControlName="address1" required></textarea></div><div class="clear"></div>
-            <div class="col-md-4"><p>Address2</p></div><div class="col-md-8"><textarea placeholder="Enter Address2" formControlName="address2" required></textarea></div><div class="clear"></div>
             <div class="col-md-4"><p>City</p></div><div class="col-md-8"><input type="text" placeholder="Enter City" formControlName="city" required></div><div class="clear"></div>
+            <div class="col-md-4"><p>Address1</p></div><div class="col-md-8"><textarea placeholder="Enter Address1" formControlName="addressOne" required></textarea></div><div class="clear"></div>
+            <div class="col-md-4"><p>Address2</p></div><div class="col-md-8"><textarea placeholder="Enter Address2" formControlName="addressTwo" required></textarea></div><div class="clear"></div>
+
             <div class="little_gap"></div>
           </div>
           <div class="col-md-6">
             <div class="col-md-4"><p>State</p></div><div class="col-md-8"><input type="text" placeholder="Enter State" formControlName="state" required></div><div class="clear"></div>
             <div class="col-md-4"><p>Pincode</p></div><div class="col-md-8"><input type="text" placeholder="Enter pincode" formControlName="pincode" required></div><div class="clear"></div>
             <div class="col-md-4"><p>Country</p></div><div class="col-md-8"><input type="text" placeholder="Enter Country" formControlName="country" required></div><div class="clear"></div>
-            <div class="col-md-4"><p>Primary Contact</p></div><div class="col-md-8"><input type="text" placeholder="Enter Primary Contact Number" formControlName="PrimaryContact" required></div><div class="clear"></div>
+            <div class="col-md-4"><p>Primary Contact</p></div><div class="col-md-8"><input type="text" placeholder="Enter Primary Contact Number" formControlName="contactName" required></div><div class="clear"></div>
             <div class="col-md-4"><p>Contact #</p></div><div class="col-md-8"><input type="text" placeholder="Enter Contact Number" formControlName="contactNumber" required></div><div class="clear"></div>
             <!--<div class="col-md-4"><p>Principal</p></div><div class="col-md-8"><input type="text" placeholder="Enter Principal Name"></div><div class="clear"></div>-->
-            <div class="col-md-4"><p>School Logo</p></div><div class="col-md-8"><input type="file" value="Upload School Logo" formControlName="schoolLogo" required></div><div class="clear"></div>
             <div class="col-md-4"><p>Active</p></div><div class="col-md-8">
            <!-- <div id="toggles">
               <input type="checkbox" name="checkbox1" id="checkbox1" formControlName="active" class="ios-toggle" checked/>
@@ -195,76 +197,14 @@
 
 </div>
 
-<section class="sample-app-content">
-  <h1>Add School:</h1>
-  <h3>Error Message:  {{ errorMessage }}</h3>
-  <form [formGroup]="schoolFormGroup" (ngSubmit)="addSchoolProfile(schoolFormGroup)">
-    <p>
-      <label>schoolId:</label>
-      <input type="text" formControlName="schoolId">
-    </p>
+DISPLAYING LIST
+<ul>
+  <li class="text" *ngFor="let schoolProfileTO of schoolProfileTOList | reverse ">
+    {{schoolProfileTO.$key}}
+    {{schoolProfileTO.country}}
+  </li>
+</ul>
 
-    <p>
-      <label>schoolName:</label>
-      <input type="text" formControlName="schoolName">
-    </p>
-    <p>
-      <label>schoolDisplayName:</label>
-      <input type="text" formControlName="schoolDisplayName">
-    </p>
-    <p>
-      <label>contactName:</label>
-      <input type="text" formControlName="contactName">
-    </p>
-    <p>
-      <label>contactNumber:</label>
-      <input type="text" formControlName="contactNumber">
-    </p>
+<p>{{ schoolProfileTOList| values | values}}</p> <!-- Output: "[1, 2]" -->
 
-    <p>
-      <label>Address1:</label>
-      <input type="text" formControlName="address1">
-    </p>
-
-    <p>
-      <label>Address2:</label>
-      <input type="text" formControlName="address2">
-    </p>
-
-    <p>
-      <label>city:</label>
-      <input type="text" formControlName="city">
-    </p>
-
-    <p>
-      <label>state:</label>
-      <input type="text" formControlName="state">
-    </p>
-
-    <p>
-      <label>pincode:</label>
-      <input type="text" formControlName="pincode">
-    </p>
-
-    <p>
-      <label>country:</label>
-      <input type="text" formControlName="country">
-    </p>
-
-    <p>
-      <label>active:</label>
-      <input type="text" formControlName="active">
-    </p>
-
-    <p>
-      <label>remarks:</label>
-      <input type="text" formControlName="remarks">
-    </p>
-
-
-    <p>
-      <button type="submit" >Submit</button>
-    </p>
-  </form>
-</section>
 

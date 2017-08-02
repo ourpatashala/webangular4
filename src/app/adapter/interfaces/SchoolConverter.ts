@@ -6,7 +6,7 @@ import {SchoolComponentInterface} from "../../component/school/SchoolComponentIn
  */
 export interface SchoolConverter {
   addSchoolProfile(schoolProfileTO: SchoolProfileTO,schoolComponentInterface:SchoolComponentInterface);
-  updateSchoolProfile(schoolProfileTO: SchoolProfileTO);
+  updateSchoolProfile(schoolProfileTO: SchoolProfileTO,schoolComponentInterface:SchoolComponentInterface);
   deleteSchoolProfile(schoolid: string);
   getSchoolProfile(schoolId:string,schoolComponentInterface:SchoolComponentInterface);
   getAllSchoolProfile(schoolComponentInterface:SchoolComponentInterface);
