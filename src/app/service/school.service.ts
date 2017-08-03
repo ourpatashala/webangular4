@@ -17,11 +17,13 @@ export class SchoolService {
   firebaseApp: any;
   angularFireAuth: any;
   firebaseObject:any;
+  count:number;
 
   constructor(af: AngularFire,afAuth:AngularFireAuth) {
     this.firebaseApp =af;
     this.angularFireAuth = afAuth;
     this.firebaseObject = this.firebaseApp.database;
+    this.count = 0;
 
   }
 
@@ -80,9 +82,25 @@ export class SchoolService {
     return allSchoolProfileInfo;
   }
 
+  getSchoolProfileRange(start:string,end:string){
+    var schoolProfilePath = PathUtil.getSchoolProfilePath();
+
+    var ref = this.firebaseApp.database.list(NodeConstants.SCHOOLS).$ref.child(PathUtil.getSchoolProfileNode()).orderByChild(NodeConstants.SCHOOL_NAME).limitToLast(2).startAt(0).once("value", function(snapshot) {
+      var dbRecord = snapshot.val();
+      Object.keys(dbRecord).forEach(function(key){
+        let schoolVOFromDB = dbRecord[key];
+        console.log(schoolVOFromDB.schoolName);
+
+      });
+
+    });
+
+  }
 
 
-  searchAndAddSchoolProfile(schoolProfileVO: SchoolProfileVO,schoolComponentInterface:SchoolComponentInterface){
+
+
+    searchAndAddSchoolProfile(schoolProfileVO: SchoolProfileVO,schoolComponentInterface:SchoolComponentInterface){
     var schoolProfilePath = PathUtil.getSchoolProfilePath();
     console.log("entered searchAndAddSchoolProfile.."+schoolProfileVO);
     var firebaseObject = this.firebaseApp.database;

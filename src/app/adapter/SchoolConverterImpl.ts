@@ -74,6 +74,14 @@ export class SchoolConverterImpl extends CommonConverter implements SchoolConver
     });
   }
 
+  getSchoolProfileRange(start:string,end:string,schoolComponentInterface:SchoolComponentInterface){
+    var schoolProfileTO=  new SchoolProfileTO();
+    var schoolObject = this.schoolService.getSchoolProfileRange(start,end);
+
+
+  }
+
+
 
   /**
    * Used for getting the list of all schools.

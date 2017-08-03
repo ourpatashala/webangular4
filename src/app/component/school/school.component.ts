@@ -128,10 +128,11 @@ export class SchoolComponent implements OnInit,SchoolComponentInterface {
    */
   addSchoolProfile({value, valid}: {value: SchoolProfileTO, valid: boolean}) {
     this.schoolProfileTO = value;
-    console.log(this.schoolProfileTO);
-     this.schoolConverter.addSchoolProfile( this.schoolProfileTO,this);
+    //console.log(this.schoolProfileTO);
+    // this.schoolConverter.addSchoolProfile( this.schoolProfileTO,this);
     //this.getSchoolProfile("school01");
-    //this.deleteSchoolProfile("school03");
+    //this.deleteSchoolProfile("-KqaGGoSBQhYT0tU7qAf");
+    this.getSchoolProfileRange("1","2");
     //this.getAllSchoolProfiles();
      // this.searchSchoolProfile("sa");
   }
@@ -143,6 +144,11 @@ export class SchoolComponent implements OnInit,SchoolComponentInterface {
    */
   getSchoolProfile(schoolId:string){
     this.schoolConverter.getSchoolProfile(schoolId,this);
+  }
+
+  getSchoolProfileRange(start:string,end:string){
+    this.schoolConverter.getSchoolProfileRange(start,end,this);
+
   }
 
 

@@ -9,6 +9,7 @@ export interface SchoolConverter {
   updateSchoolProfile(schoolProfileTO: SchoolProfileTO,schoolComponentInterface:SchoolComponentInterface);
   deleteSchoolProfile(schoolid: string);
   getSchoolProfile(schoolId:string,schoolComponentInterface:SchoolComponentInterface);
+  getSchoolProfileRange(start:string,end:string,schoolComponentInterface:SchoolComponentInterface);
   getAllSchoolProfile(schoolComponentInterface:SchoolComponentInterface);
 
 

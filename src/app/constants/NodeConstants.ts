@@ -11,6 +11,8 @@ export class NodeConstants {
    public static UNIQUE_ID = "uniqueId";
   public static UNIQUEID_VALUE = "uniqueIdValue";
 
+  public static SCHOOL_NAME = "schoolName";
+
 
    public static SCHOOLS = "schools";
    public static STUDENTS = "students";
