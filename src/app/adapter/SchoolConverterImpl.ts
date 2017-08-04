@@ -61,7 +61,11 @@ export class SchoolConverterImpl extends CommonConverter implements SchoolConver
    * @param schoolComponentInterface
    */
   addSchoolProfile(schoolProfileTO: SchoolProfileTO,schoolComponentInterface:SchoolComponentInterface){
-    this.schoolService.addSchoolProfile( this.getVOFromTO(schoolProfileTO),schoolComponentInterface);
+    try{
+        this.schoolService.addSchoolProfile( this.getVOFromTO(schoolProfileTO),schoolComponentInterface);
+    }catch(schoolError){
+       throw schoolError;
+    }
   }
 
 

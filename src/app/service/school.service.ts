@@ -28,7 +28,8 @@ export class SchoolService {
   }
 
   addSchoolProfile(schoolProfileVO: SchoolProfileVO,schoolComponentInterface:SchoolComponentInterface) {
-    this.searchAndAddSchoolProfile(schoolProfileVO,schoolComponentInterface);
+      this.searchAndAddSchoolProfile(schoolProfileVO, schoolComponentInterface);
+
   }
 
   updateSchoolProfile(schoolProfileVO: SchoolProfileVO,schoolComponentInterface:SchoolComponentInterface) {
@@ -48,10 +49,10 @@ export class SchoolService {
             return;
           }
         });
-        throw new SchoolError(Messages.SCHOOL_EXISTS);
+        schoolComponentInterface.errorMessageCallBack(Messages.SCHOOL_EXISTS);
 
       }else{
-        console.log("Record not existed..so going and updating the same record..");
+        console.log("You are trying to update the school with a school name which is not there in DB. ");
         var dbRef = firebaseObject.object(PathUtil.getSchoolProfilePath()+schoolProfileVO.schoolId).$ref;
         dbRef.set(schoolProfileVO);
         schoolComponentInterface.successMessageCallBack(Messages.SCHOOL_UPDATED);
@@ -108,7 +109,8 @@ export class SchoolService {
       var exists = (snapshot.val() !== null);
       if(exists){
           console.log("Record already exists..");
-          throw new SchoolError(Messages.SCHOOL_EXISTS);
+        schoolComponentInterface.errorMessageCallBack(Messages.SCHOOL_EXISTS);
+
       }else{
         console.log("Record not existed..");
         var dbRef = firebaseObject.object(PathUtil.getSchoolProfilePath()).$ref.push(PathUtil.getSchoolProfilePath());

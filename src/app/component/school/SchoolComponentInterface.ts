@@ -1,9 +1,10 @@
 import {SchoolProfileTO} from "../../to/SchoolProfileTO";
 import { FirebaseListObservable} from "angularfire2";
+import {CommonInterface} from "../common/CommonInterface";
 /**
  * Created by ravisha on 7/7/17.
  */
-export interface SchoolComponentInterface {
+export interface SchoolComponentInterface extends  CommonInterface{
   /**
    * This is a call back method
    * @param schoolProfileTO
@@ -15,12 +16,4 @@ export interface SchoolComponentInterface {
    * @param schoolProfileTO
    */
   displayAllSchoolProfileCallBack(schoolProfileTO:FirebaseListObservable<SchoolProfileTO>);
-
-
-  /**
-   * method  that will be called for the success message.
-   * @param message
-   */
-  successMessageCallBack(message:string);
-
 }

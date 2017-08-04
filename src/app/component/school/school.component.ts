@@ -1,4 +1,4 @@
-import {Component, OnInit, Input, Inject, PipeTransform, Pipe} from '@angular/core';
+import {Component, OnInit, Input, Inject, PipeTransform, Pipe, Injector} from '@angular/core';
 import {SchoolService} from "../../service/school.service";
 import {SchoolProfileTO} from "../../to/SchoolProfileTO";
 import {SchoolConverterImpl} from "../../adapter/SchoolConverterImpl";
@@ -8,6 +8,11 @@ import {SchoolConverter} from "../../adapter/interfaces/SchoolConverter";
 import {SchoolComponentInterface} from "./SchoolComponentInterface";
 import {jsonpFactory} from "@angular/http/src/http_module";
 import {FirebaseObjectObservable, FirebaseListObservable} from "angularfire2";
+import {SchoolError} from "../../error/SchoolError";
+import {Messages} from "../../constants/Messages";
+import {Router} from "@angular/router";
+import {ErrorService} from "../../service/error.service";
+import {BehaviorSubject, Observable, Subscription} from "rxjs";
 declare var $:any;
 
 
@@ -23,43 +28,58 @@ export class SchoolComponent implements OnInit,SchoolComponentInterface {
   schoolFormGroup: FormGroup;
   schoolProfileTOMap = new Map<string,SchoolProfileTO>();
   x:string;
-  //obj:FirebaseListObservable<any>;
   schoolProfileTOList:FirebaseListObservable<SchoolProfileTO>;
+  errorMessage:string;
+  subscription: Subscription;
+  message: string = '';
+
+  private updateSubject: BehaviorSubject<string> = new BehaviorSubject<string>(''); // Holds the error message
 
 
 
+  updateMessage(message: string) { // updates the error message
+    this.updateSubject.next(message);
+
+  }
+
+  update$: Observable<string> = this.updateSubject.asObservable(); // observer for the above message
 
 
-  errorMessage: string;
   fb: FormBuilder;
   @Input() inputArray: ArrayType[];
 
-  constructor(@Inject('SchoolConverter') private schoolConverter: SchoolConverter, fb: FormBuilder) {
+  constructor(@Inject('SchoolConverter') private schoolConverter: SchoolConverter, fb: FormBuilder, private injector: Injector,private errorService: ErrorService) {
     this.fb = fb;
+    this.subscription = this.update$.subscribe(
+      message => {
+        this.message = message;
+      });
 
 
   }
 
-
+  public getRouter():Router{
+    return this.injector.get(Router);
+  }
 
 
   ngOnInit() {
     this.schoolFormGroup = new FormGroup(
       {
-        schoolId: new FormControl(''),
-        schoolName: new FormControl(''),
-        schoolDisplayName: new FormControl(''),
-        contactName: new FormControl(''),
-        contactNumber: new FormControl(''),
-        addressOne: new FormControl(''),
-        addressTwo: new FormControl(''),
-        city: new FormControl(''),
-        state: new FormControl(''),
-        pincode: new FormControl(''),
-        country: new FormControl(''),
-        active: new FormControl(''),
-        schoolLogo: new FormControl(''),
-        remarks: new FormControl('')
+        schoolId: new FormControl('ww'),
+        schoolName: new FormControl('schoolName'),
+        schoolDisplayName: new FormControl('displaySchool'),
+        contactName: new FormControl('ww'),
+        contactNumber: new FormControl('ww'),
+        addressOne: new FormControl('ww'),
+        addressTwo: new FormControl('ww'),
+        city: new FormControl('ww'),
+        state: new FormControl('ww'),
+        pincode: new FormControl('ww'),
+        country: new FormControl('ww'),
+        active: new FormControl('ww'),
+        schoolLogo: new FormControl('ww'),
+        remarks: new FormControl('ww')
 
       })
 
@@ -129,10 +149,14 @@ export class SchoolComponent implements OnInit,SchoolComponentInterface {
   addSchoolProfile({value, valid}: {value: SchoolProfileTO, valid: boolean}) {
     this.schoolProfileTO = value;
     //console.log(this.schoolProfileTO);
-    // this.schoolConverter.addSchoolProfile( this.schoolProfileTO,this);
+
+    //throw new SchoolError("Error from Component..");
+      this.schoolConverter.addSchoolProfile(this.schoolProfileTO, this);
+
+
     //this.getSchoolProfile("school01");
     //this.deleteSchoolProfile("-KqaGGoSBQhYT0tU7qAf");
-    this.getSchoolProfileRange("1","2");
+   // this.getSchoolProfileRange("1","2");
     //this.getAllSchoolProfiles();
      // this.searchSchoolProfile("sa");
   }
@@ -201,6 +225,20 @@ export class SchoolComponent implements OnInit,SchoolComponentInterface {
      console.log(message);
   }
 
+  /**
+   * Handle all the error messages here . Basing on the error message decide where you want to display
+   * the Error Message, Also if required you can recirect to any page basing on the navigate method
+   * given below.
+   *
+   * @param message
+   */
+  errorMessageCallBack(message:string){
+    console.log("error message call back..")
+    this.errorMessage = message;
+    //this.schoolFormGroup.reset();
+    this.updateMessage(this.errorMessage);
+    this.getRouter().navigate(['']);
+  }
 
 }
 
