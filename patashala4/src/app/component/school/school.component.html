@@ -1,0 +1,214 @@
+
+
+
+<app-header-admin></app-header-admin>
+
+
+
+{{messsage}}
+
+
+
+
+
+
+
+
+<div class="all_pages_content">
+
+
+  <div style="padding-top:1px;"></div>
+  <div class="clear"></div>
+  <div class="clear"></div>
+  <div class="page_content_here">
+    <div class="manage_school_table">
+      <div class="col-md-6 padding0"><h3>Manage Schools</h3>
+        <p class="breadscrum_text"><a  routerLink="/">Home </a> &nbsp; <i class="fa fa-chevron-right"></i> &nbsp; Manage Schools</p>
+      </div>
+      <div class="col-md-6 padding0 text-right">
+        <div class="buttons_div">
+          <button class="add_more_btn"><i class="fa fa-plus"></i> Add</button>
+          <button class="edit_field_btn"><i class="fa fa-pencil"></i> Modify</button>
+          <button><i class="fa fa-trash"></i> Delete</button>
+          <button><i class="fa fa-eye"></i> View</button>
+        </div>
+      </div>
+      <div class="clear"></div>
+      <div class="little_gap"></div>
+
+
+
+      <div class="add_fields addschool_div">
+
+        <form [formGroup]="schoolFormGroup" (ngSubmit)="addSchoolProfile(schoolFormGroup)">
+          <div class="col-md-6">
+            <div class="col-md-4"><p>School Id</p></div><div class="col-md-8"><input type="text" placeholder="Enter schoolid " formControlName="schoolId" required title="Please Enter schoolId"></div><div class="clear"></div>
+
+            <div class="col-md-4"><p>School Name</p></div><div class="col-md-8"><input type="text" placeholder="Enter Full Name of School" formControlName="schoolName" required title="Please Enter School Name"></div><div class="clear"></div>
+            <div class="col-md-4"><p>Display Short Name</p></div><div class="col-md-8"><input type="text" placeholder="Enter Full Name of School" formControlName="schoolDisplayName" required></div><div class="clear"></div>
+            <div class="col-md-4"><p>City</p></div><div class="col-md-8"><input type="text" placeholder="Enter City" formControlName="city" required></div><div class="clear"></div>
+            <div class="col-md-4"><p>Address1</p></div><div class="col-md-8"><textarea placeholder="Enter Address1" formControlName="addressOne" required></textarea></div><div class="clear"></div>
+            <div class="col-md-4"><p>Address2</p></div><div class="col-md-8"><textarea placeholder="Enter Address2" formControlName="addressTwo" required></textarea></div><div class="clear"></div>
+
+            <div class="little_gap"></div>
+          </div>
+          <div class="col-md-6">
+            <div class="col-md-4"><p>State</p></div><div class="col-md-8"><input type="text" placeholder="Enter State" formControlName="state" required></div><div class="clear"></div>
+            <div class="col-md-4"><p>Pincode</p></div><div class="col-md-8"><input type="text" placeholder="Enter pincode" formControlName="pincode" required></div><div class="clear"></div>
+            <div class="col-md-4"><p>Country</p></div><div class="col-md-8"><input type="text" placeholder="Enter Country" formControlName="country" required></div><div class="clear"></div>
+            <div class="col-md-4"><p>Primary Contact</p></div><div class="col-md-8"><input type="text" placeholder="Enter Primary Contact Number" formControlName="contactName" required></div><div class="clear"></div>
+            <div class="col-md-4"><p>Contact #</p></div><div class="col-md-8"><input type="text" placeholder="Enter Contact Number" formControlName="contactNumber" required></div><div class="clear"></div>
+            <!--<div class="col-md-4"><p>Principal</p></div><div class="col-md-8"><input type="text" placeholder="Enter Principal Name"></div><div class="clear"></div>-->
+            <div class="col-md-4"><p>Active</p></div><div class="col-md-8">
+            <!-- <div id="toggles">
+               <input type="checkbox" name="checkbox1" id="checkbox1" formControlName="active" class="ios-toggle" checked/>
+               <label for="checkbox1" class="checkbox-label" data-off="off" data-on="on"></label>
+             </div>-->
+          </div><div class="clear"></div>
+            <div class="col-md-4"><p>Remarks</p></div><div class="col-md-8"><input type="text" placeholder="Enter Remarks"formControlName="remarks" ></div><div class="clear"></div>
+          </div>
+          <div class="clear"></div>
+          <div class="text-center"><button class="update_btn" type="submit">Add School</button> <span class="cancel_btn_add button_type_span">Cancel</span></div>
+        </form>
+
+
+
+
+
+      </div>
+
+
+
+
+
+
+
+      <div class="modify_fields addschool_div">
+
+        <div class="col-md-6">
+          <div class="col-md-4"><p>School Name</p></div><div class="col-md-8"><input type="text" value="Sat Gyan High School"></div><div class="clear"></div>
+          <div class="col-md-4"><p>Display Short Name</p></div><div class="col-md-8"><input type="text" value="SGHS"></div><div class="clear"></div>
+          <div class="col-md-4"><p>Address</p></div><div class="col-md-8"><textarea>Quthbullapur, Hyderabad, Telangana 500055</textarea></div><div class="clear"></div>
+          <div class="col-md-4"><p>Address1</p></div><div class="col-md-8"><textarea>Quthbullapur, Hyderabad, Telangana 500055</textarea></div><div class="clear"></div>
+          <div class="col-md-4"><p>City</p></div><div class="col-md-8"><input type="text" value="Hyderabad"></div><div class="clear"></div>
+          <div class="little_gap"></div>
+        </div>
+
+        <div class="col-md-6">
+          <div class="col-md-4"><p>State</p></div><div class="col-md-8"><input type="text" value="Telangana"></div><div class="clear"></div>
+          <div class="col-md-4"><p>Pincode</p></div><div class="col-md-8"><input type="text" value="500035"></div><div class="clear"></div>
+          <div class="col-md-4"><p>Country</p></div><div class="col-md-8"><input type="text" value="India"></div><div class="clear"></div>
+          <div class="col-md-4"><p>Primary Contact</p></div><div class="col-md-8"><input type="text" value="040 - 6543210"></div><div class="clear"></div>
+          <div class="col-md-4"><p>Contact #</p></div><div class="col-md-8"><input type="text" value="+91 9874563210"></div><div class="clear"></div>
+          <!--<div class="col-md-4"><p>Principal</p></div><div class="col-md-8"><input type="text" value="Mr.DineshChoudhary"></div><div class="clear"></div>-->
+          <div class="col-md-4"><p>School Logo</p></div><div class="col-md-8"><input type="file" value="Upload School Logo"></div><div class="clear"></div>
+          <div class="col-md-4"><p>Active</p></div><div class="col-md-8">
+          <div id="toggles">
+            <input type="checkbox" name="checkbox1" id="checkbox2" class="ios-toggle" checked/>
+            <label for="checkbox2" class="checkbox-label" data-off="off" data-on="on"></label>
+          </div>
+        </div><div class="clear"></div>
+          <div class="col-md-4"><p>Remarks</p></div><div class="col-md-8"><input type="text" placeholder="Enter Remarks"></div><div class="clear"></div>
+        </div>
+        <div class="clear"></div>
+        <div class="text-center"><button class="update_btn">Modify School</button> <button class="cancel_btn_modify">Cancel</button></div>
+      </div>
+
+
+
+
+      <div class="datatable_toggle">
+
+        <table id="myTable" class="my_table_width">
+          <thead>
+          <tr>
+            <th>S.No</th>
+            <th></th>
+            <th>Name</th>
+            <th>Area</th>
+            <th>City</th>
+            <th>Primary Contact</th>
+            <th>Active</th>
+            <th style="width: 92px;">Action</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr data-refid="1">
+            <td>1</td>
+            <td><input type="checkbox"></td>
+            <td>St.Andrews Keys High School</td>
+            <td>Quthbullapur</td>
+            <td>Hyderabad</td>
+            <td>040&nbsp;-&nbsp;6543210</td>
+            <td><i class="fa fa-toggle-on"></i></td>
+
+            <td>
+              <!--<a routerLink="/ManageSchoolEdit"><button md-raised-button><i class="fa fa-pencil"></i></button></a>
+              <button md-raised-button><i class="fa fa-trash"></i></button>-->
+              <a routerLink="/TabService"><button md-raised-button>Manage</button></a>
+            </td>
+          </tr>
+          <tr data-refid="2">
+            <td>2</td>
+            <td><input type="checkbox"></td>
+            <td>Sat Gyan High School</td>
+            <td>Quthbullapur</td>
+            <td>Hyderabad</td>
+            <td>040&nbsp;-&nbsp;6543210</td>
+            <td><i class="fa fa-toggle-on"></i></td>
+            <td>
+              <a routerLink="/TabService"><button md-raised-button>Manage</button></a>
+            </td>
+          </tr>
+          <tr data-refid="3">
+            <td>3</td>
+            <td><input type="checkbox"></td>
+            <td>Sat Gyan High School</td>
+            <td>Quthbullapur</td>
+            <td>Hyderabad</td>
+            <td>040&nbsp;-&nbsp;6543210</td>
+            <td><i class="fa fa-toggle-on"></i></td>
+            <td>
+              <a routerLink="/TabService"><button md-raised-button>Manage</button></a>
+            </td>
+          </tr>
+          <tr data-refid="4">
+            <td>4</td>
+            <td><input type="checkbox"></td>
+            <td>Sat Gyan High School</td>
+            <td>Quthbullapur</td>
+            <td>Hyderabad</td>
+            <td>040&nbsp;-&nbsp;6543210</td>
+            <td><i class="fa fa-toggle-off"></i></td>
+            <td>
+              <a routerLink="/TabService"><button md-raised-button>Manage</button></a>
+            </td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  <div class="clear"></div>
+
+
+
+
+
+</div>
+
+DISPLAYING LIST
+<ul>
+  <li class="text" *ngFor="let schoolProfileTO of schoolProfileTOList  ">
+    {{schoolProfileTO.$key}}
+    {{schoolProfileTO.country}}
+  </li>
+</ul>
+
+<p>{{ schoolProfileTOList}}</p> <!-- Output: "[1, 2]" -->
+
+
+{{errorMessage}}
+{{message}}
+
+
