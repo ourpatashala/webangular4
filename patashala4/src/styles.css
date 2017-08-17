@@ -813,3 +813,21 @@ button:hover:after
   transition: 0.2s;
   height: 100%;
 }
+
+
+.show_styles_sucess
+{
+  color: #fff;
+  background-color: green;
+  padding: 15px;
+  border-radius: 10px;
+  transition: 0.3s;
+}
+.error_styles_sucess
+{
+  color: #fff;
+  background-color: red;
+  padding: 15px;
+  border-radius: 10px;
+  transition: 0.3s;
+}
