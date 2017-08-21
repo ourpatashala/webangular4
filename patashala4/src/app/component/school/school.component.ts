@@ -114,9 +114,9 @@ this.getAllSchoolProfiles();
         }
       else {
         $(this).parent().parent().removeClass('selected_row');
-              
+
       }
-     // this.temp_schoolid=this.schoolProfileTOList.; 
+     // this.temp_schoolid=this.schoolProfileTOList.;
     });
 
 
@@ -170,11 +170,11 @@ getselectedSchoolProfile()
   addSchoolProfile({value, valid}: {value: SchoolProfileTO, valid: boolean}) {
     this.schoolProfileTO = value;
     //console.log(this.schoolProfileTO);
-    
+
     //throw new SchoolError("Error from Component..");
     // this.schoolConverter.addSchoolProfile(this.schoolProfileTO, this);
-       this.schoolConverter.addSchoolProfile(this.schoolProfileTO, this); 
-    //this.signup();
+      // this.schoolConverter.addSchoolProfile(this.schoolProfileTO, this);
+    this.signup();
     //this.deleteSchoolProfile(this.schoolProfileTO.schoolId);
 
     //this.getSchoolProfile("school01");
@@ -233,21 +233,21 @@ getselectedSchoolProfile()
   displaySchoolProfileCallBack(schoolProfileTO:SchoolProfileTO){
     this.schoolProfileTO_selected=schoolProfileTO;
      // console.log(this.schoolProfileTO.schoolDisplayName)
-    this.schoolFormGroup.controls['schoolId'].patchValue(schoolProfileTO.schoolId);       
-    this.schoolFormGroup.controls['schoolName'].patchValue(schoolProfileTO.schoolName);       
+    this.schoolFormGroup.controls['schoolId'].patchValue(schoolProfileTO.schoolId);
+    this.schoolFormGroup.controls['schoolName'].patchValue(schoolProfileTO.schoolName);
     this.schoolFormGroup.controls['schoolDisplayName'].patchValue(schoolProfileTO.schoolDisplayName);
-    this.schoolFormGroup.controls['contactName'].patchValue(schoolProfileTO.contactName);   
-    this.schoolFormGroup.controls['contactNumber'].patchValue(schoolProfileTO.contactNumber); 
-    this.schoolFormGroup.controls['addressOne'].patchValue(schoolProfileTO.addressOne);    
-    this.schoolFormGroup.controls['addressTwo'].patchValue(schoolProfileTO.addressTwo);    
-    this.schoolFormGroup.controls['city'].patchValue(schoolProfileTO.city);        
-    this.schoolFormGroup.controls['state'].patchValue(schoolProfileTO.state);       
-    this.schoolFormGroup.controls['pincode'].patchValue(schoolProfileTO.pincode);     
-    this.schoolFormGroup.controls['country'].patchValue(schoolProfileTO.country);     
-    this.schoolFormGroup.controls['active'].patchValue(schoolProfileTO.active);      
-    
-    this.schoolFormGroup.controls['remarks'].patchValue(schoolProfileTO.remarks);     
-  
+    this.schoolFormGroup.controls['contactName'].patchValue(schoolProfileTO.contactName);
+    this.schoolFormGroup.controls['contactNumber'].patchValue(schoolProfileTO.contactNumber);
+    this.schoolFormGroup.controls['addressOne'].patchValue(schoolProfileTO.addressOne);
+    this.schoolFormGroup.controls['addressTwo'].patchValue(schoolProfileTO.addressTwo);
+    this.schoolFormGroup.controls['city'].patchValue(schoolProfileTO.city);
+    this.schoolFormGroup.controls['state'].patchValue(schoolProfileTO.state);
+    this.schoolFormGroup.controls['pincode'].patchValue(schoolProfileTO.pincode);
+    this.schoolFormGroup.controls['country'].patchValue(schoolProfileTO.country);
+    this.schoolFormGroup.controls['active'].patchValue(schoolProfileTO.active);
+
+    this.schoolFormGroup.controls['remarks'].patchValue(schoolProfileTO.remarks);
+
   }
 
 
@@ -305,7 +305,28 @@ successMessageCallBack(message1:string){
     console.log("signup...")
     console.log(this.angularFireAuth );
 
-    //this.angularFireAuth.createUser('ravi@gmail.com','Welcome1',false);
+
+/*
+    this.angularFireAuth.auth.createUserWithEmailAndPassword("preneetho@gmail.com", "123_India")
+      .then(function(firebaseUser) {
+        console.log("User " + firebaseUser.uid + " created successfully!");
+        return firebaseUser;
+      }).then(function(firebaseUser) {
+      console.log("Logged in as:", firebaseUser.uid);
+    }).catch(function(error) {
+      console.error("Error: ", error);
+    }); */
+
+   /* this.angularFireAuth.auth.signInWithEmailAndPassword("preneetho@gmail.com", "123_India")
+      .then(function(firebaseUser) {
+        console.log("User " + firebaseUser.uid + " logged in successfully! praneeth ");
+        return firebaseUser;
+      }); */
+
+    //this.angularFireAuth.auth.sendPasswordResetEmail("preneetho@gmail.com");
+
+
+
 
     /*
     this.angularFireAuth.createUser({
