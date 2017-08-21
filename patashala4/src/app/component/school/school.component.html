@@ -3,18 +3,7 @@
 
 <app-header-admin></app-header-admin>
 
-
-
-{{messsage}}
-
-
-
-
-
-
-
 <div class="all_pages_content">
-
 
   <div style="padding-top:1px;"></div>
   <div class="clear"></div>
@@ -27,14 +16,17 @@
       <div class="col-md-6 padding0 text-right">
         <div class="buttons_div">
           <button class="add_more_btn"><i class="fa fa-plus"></i> Add</button>
-          <button class="edit_field_btn"><i class="fa fa-pencil"></i> Modify</button>
-          <button><i class="fa fa-trash"></i> Delete</button>
+          <button class="edit_field_btn" (click)="getselectedSchoolProfile()"><i class="fa fa-pencil"></i> Modify</button>
+          <button (click)="deleteSchoolProfile()"><i class="fa fa-trash"></i> Delete</button>
           <button><i class="fa fa-eye"></i> View</button>
         </div>
       </div>
       <div class="clear"></div>
       <div class="little_gap"></div>
 
+
+<div class="sucess_msg_text"><p [ngClass]="{'show_styles_sucess': active=='1'}">{{sucessMessage}}</p></div>
+<div class="error_msg_text"><p [ngClass]="{'error_styles_sucess': active=='2'}">{{errorMessage}}</p></div>
 
 
       <div class="add_fields addschool_div">
@@ -83,34 +75,37 @@
 
 
       <div class="modify_fields addschool_div">
-
+      <form [formGroup]="schoolFormGroup" (ngSubmit)="updateSchoolProfile(schoolFormGroup)">
         <div class="col-md-6">
-          <div class="col-md-4"><p>School Name</p></div><div class="col-md-8"><input type="text" value="Sat Gyan High School"></div><div class="clear"></div>
-          <div class="col-md-4"><p>Display Short Name</p></div><div class="col-md-8"><input type="text" value="SGHS"></div><div class="clear"></div>
-          <div class="col-md-4"><p>Address</p></div><div class="col-md-8"><textarea>Quthbullapur, Hyderabad, Telangana 500055</textarea></div><div class="clear"></div>
-          <div class="col-md-4"><p>Address1</p></div><div class="col-md-8"><textarea>Quthbullapur, Hyderabad, Telangana 500055</textarea></div><div class="clear"></div>
-          <div class="col-md-4"><p>City</p></div><div class="col-md-8"><input type="text" value="Hyderabad"></div><div class="clear"></div>
+         <div class="col-md-4"><p>School Id</p></div><div class="col-md-8"><input type="text" value="{{this.temp_schoolid}}" title="Please Enter schoolId"></div><div class="clear"></div>
+          <div class="col-md-4"><p>School Name</p></div><div class="col-md-8"><input type="text" formControlName="schoolName" ></div><div class="clear"></div>
+          <div class="col-md-4"><p>Display Short Name</p></div><div class="col-md-8"><input type="text" formControlName="schoolDisplayName" ></div><div class="clear"></div>
+           <div class="col-md-4"><p>City</p></div><div class="col-md-8"><input type="text" formControlName="city" value=""></div><div class="clear"></div>
+          <div class="col-md-4"><p>Address1</p></div><div class="col-md-8"><textarea formControlName="addressOne"></textarea></div><div class="clear"></div>
+          <div class="col-md-4"><p>Address2</p></div><div class="col-md-8"><textarea formControlName="addressTwo"></textarea></div><div class="clear"></div>
+         
           <div class="little_gap"></div>
         </div>
 
         <div class="col-md-6">
-          <div class="col-md-4"><p>State</p></div><div class="col-md-8"><input type="text" value="Telangana"></div><div class="clear"></div>
-          <div class="col-md-4"><p>Pincode</p></div><div class="col-md-8"><input type="text" value="500035"></div><div class="clear"></div>
-          <div class="col-md-4"><p>Country</p></div><div class="col-md-8"><input type="text" value="India"></div><div class="clear"></div>
-          <div class="col-md-4"><p>Primary Contact</p></div><div class="col-md-8"><input type="text" value="040 - 6543210"></div><div class="clear"></div>
-          <div class="col-md-4"><p>Contact #</p></div><div class="col-md-8"><input type="text" value="+91 9874563210"></div><div class="clear"></div>
+          <div class="col-md-4"><p>State</p></div><div class="col-md-8"><input type="text" formControlName="state" value=""></div><div class="clear"></div>
+          <div class="col-md-4"><p>Pincode</p></div><div class="col-md-8"><input type="text" formControlName="pincode" value=""></div><div class="clear"></div>
+          <div class="col-md-4"><p>Country</p></div><div class="col-md-8"><input type="text" formControlName="schoolDisplayName"  value=""></div><div class="clear"></div>
+          <div class="col-md-4"><p>Primary Contact</p></div><div class="col-md-8"><input type="text" formControlName="contactName" value=""></div><div class="clear"></div>
+          <div class="col-md-4"><p>Contact #</p></div><div class="col-md-8"><input type="text" formControlName="contactNumber" value=""></div><div class="clear"></div>
           <!--<div class="col-md-4"><p>Principal</p></div><div class="col-md-8"><input type="text" value="Mr.DineshChoudhary"></div><div class="clear"></div>-->
-          <div class="col-md-4"><p>School Logo</p></div><div class="col-md-8"><input type="file" value="Upload School Logo"></div><div class="clear"></div>
+          <div class="col-md-4"><p>School Logo</p></div><div class="col-md-8"><input type="file" value=""></div><div class="clear"></div>
           <div class="col-md-4"><p>Active</p></div><div class="col-md-8">
           <div id="toggles">
             <input type="checkbox" name="checkbox1" id="checkbox2" class="ios-toggle" checked/>
             <label for="checkbox2" class="checkbox-label" data-off="off" data-on="on"></label>
           </div>
         </div><div class="clear"></div>
-          <div class="col-md-4"><p>Remarks</p></div><div class="col-md-8"><input type="text" placeholder="Enter Remarks"></div><div class="clear"></div>
+          <div class="col-md-4"><p>Remarks</p></div><div class="col-md-8"><input type="text" formControlName="remarks" ></div><div class="clear"></div>
         </div>
         <div class="clear"></div>
-        <div class="text-center"><button class="update_btn">Modify School</button> <button class="cancel_btn_modify">Cancel</button></div>
+        <div class="text-center"><button class="update_btn">Modify School</button> <span class="cancel_btn_modify button_type_span">Cancel</span></div>
+      </form>
       </div>
 
 
@@ -132,7 +127,7 @@
           </tr>
           </thead>
           <tbody>
-          <tr data-refid="1">
+          <!-- <tr data-refid="1">
             <td>1</td>
             <td><input type="checkbox"></td>
             <td>St.Andrews Keys High School</td>
@@ -142,8 +137,6 @@
             <td><i class="fa fa-toggle-on"></i></td>
 
             <td>
-              <!--<a routerLink="/ManageSchoolEdit"><button md-raised-button><i class="fa fa-pencil"></i></button></a>
-              <button md-raised-button><i class="fa fa-trash"></i></button>-->
               <a routerLink="/TabService"><button md-raised-button>Manage</button></a>
             </td>
           </tr>
@@ -170,8 +163,8 @@
             <td>
               <a routerLink="/TabService"><button md-raised-button>Manage</button></a>
             </td>
-          </tr>
-          <tr data-refid="4">
+          </tr> -->
+          <tr>
             <td>4</td>
             <td><input type="checkbox"></td>
             <td>Sat Gyan High School</td>
@@ -179,6 +172,18 @@
             <td>Hyderabad</td>
             <td>040&nbsp;-&nbsp;6543210</td>
             <td><i class="fa fa-toggle-off"></i></td>
+            <td>
+              <a routerLink="/TabService"><button md-raised-button>Manage</button></a>
+            </td>
+          </tr>
+          <tr *ngFor="let schoolProfileTO of schoolProfileTOList ; let i=index ">
+            <td>{{i + 1}}</td>
+            <td><input type="checkbox" value="{{schoolProfileTO.schoolId}}" (change)="updateCheckedOptions(schoolProfileTO.schoolId)"></td>
+            <td>{{schoolProfileTO.schoolName}}</td>
+            <td>{{schoolProfileTO.addressOne}} , {{schoolProfileTO.addressTwo}}</td>
+            <td>{{schoolProfileTO.city}}</td>
+            <td>{{schoolProfileTO.contactNumber}}</td>
+            <td>{{schoolProfileTO.Active}}</td>
             <td>
               <a routerLink="/TabService"><button md-raised-button>Manage</button></a>
             </td>
@@ -196,7 +201,7 @@
 
 </div>
 
-DISPLAYING LIST
+<!-- DISPLAYING LIST
 <ul>
   <li class="text" *ngFor="let schoolProfileTO of schoolProfileTOList  ">
     {{schoolProfileTO.$key}}
@@ -204,10 +209,10 @@ DISPLAYING LIST
   </li>
 </ul>
 
-<p>{{ schoolProfileTOList}}</p> <!-- Output: "[1, 2]" -->
+<p>{{ schoolProfileTOList}}</p>  Output: "[1, 2]" 
 
 
 {{errorMessage}}
-{{message}}
+{{message}} -->
 
 

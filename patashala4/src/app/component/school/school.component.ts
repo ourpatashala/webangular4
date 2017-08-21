@@ -27,19 +27,23 @@ declare var $:any;
 export class SchoolComponent implements OnInit,SchoolComponentInterface {
 
   schoolProfileTO: SchoolProfileTO;
+  schoolProfileTO_selected: SchoolProfileTO;
   schoolFormGroup: FormGroup;
+
   schoolProfileTOMap = new Map<string,SchoolProfileTO>();
   x:string;
   schoolProfileTOList:FirebaseListObservable<SchoolProfileTO>;
   errorMessage:string;
+  sucessMessage:string;
   subscription: Subscription;
   message: string = '';
+  temp_schoolid: string = 'default';
   angularFireAuth: AngularFireAuth;
 
 
   private updateSubject: BehaviorSubject<string> = new BehaviorSubject<string>(''); // Holds the error message
 
-
+  active:string="0";//0 for no content, 1 for success, 2 for error
 
   updateMessage(message: string) { // updates the error message
     this.updateSubject.next(message);
@@ -60,7 +64,7 @@ export class SchoolComponent implements OnInit,SchoolComponentInterface {
       message => {
         this.message = message;
       });
-
+this.getAllSchoolProfiles();
 
   }
 
@@ -70,29 +74,29 @@ export class SchoolComponent implements OnInit,SchoolComponentInterface {
 
 
   ngOnInit() {
-    this.schoolFormGroup = new FormGroup(
+    this.schoolFormGroup = this.fb.group(
       {
-        schoolId: new FormControl('ww'),
-        schoolName: new FormControl('schoolName'),
-        schoolDisplayName: new FormControl('displaySchool'),
-        contactName: new FormControl('ww'),
-        contactNumber: new FormControl('ww'),
-        addressOne: new FormControl('ww'),
-        addressTwo: new FormControl('ww'),
-        city: new FormControl('ww'),
-        state: new FormControl('ww'),
-        pincode: new FormControl('ww'),
-        country: new FormControl('ww'),
-        active: new FormControl('ww'),
-        schoolLogo: new FormControl('ww'),
-        remarks: new FormControl('ww')
+        schoolId: [''],
+        schoolName: [''],
+        schoolDisplayName:[''],
+        contactName: [''],
+        contactNumber: [''],
+        addressOne: [''],
+        addressTwo: [''],
+        city:[''],
+        state: [''],
+        pincode: [''],
+        country: [''],
+        active: [''],
+        schoolLogo:[''],
+        remarks: ['']
 
       })
 
 
 
     // all datatables script
-    $(document).ready(function(){
+   $(document).ready(function(){
       $('#myTable').DataTable();
 
       $('.dataTables_wrapper').css('overflow-x', 'hidden');
@@ -104,13 +108,15 @@ export class SchoolComponent implements OnInit,SchoolComponentInterface {
     // });
 
 // row selection script
-    $('#myTable tbody tr td input').change(function() {
+    $(document).on('change','#myTable tbody tr td input',function() {
       if ($(this).is(':checked')) {
         $(this).parent().parent().addClass('selected_row');
-      }
+        }
       else {
         $(this).parent().parent().removeClass('selected_row');
+
       }
+     // this.temp_schoolid=this.schoolProfileTOList.;
     });
 
 
@@ -140,11 +146,20 @@ export class SchoolComponent implements OnInit,SchoolComponentInterface {
     });
 
 
-
-
-
-
   }
+
+
+
+
+  updateCheckedOptions(option) {
+  this.temp_schoolid=option;
+}
+getselectedSchoolProfile()
+{
+  console.log(this.temp_schoolid);
+  this.getSchoolProfile(this.temp_schoolid);
+  console.log(this.temp_schoolid);
+}
 
 
   /**
@@ -158,8 +173,9 @@ export class SchoolComponent implements OnInit,SchoolComponentInterface {
 
     //throw new SchoolError("Error from Component..");
     // this.schoolConverter.addSchoolProfile(this.schoolProfileTO, this);
-    //this.signup();
-    this.deleteSchoolProfile(this.schoolProfileTO.schoolId);
+      // this.schoolConverter.addSchoolProfile(this.schoolProfileTO, this);
+    this.signup();
+    //this.deleteSchoolProfile(this.schoolProfileTO.schoolId);
 
     //this.getSchoolProfile("school01");
     //this.deleteSchoolProfile("-KqaGGoSBQhYT0tU7qAf");
@@ -204,8 +220,10 @@ export class SchoolComponent implements OnInit,SchoolComponentInterface {
    * Used for deleting the school profile.
    * @param schoolId
    */
-  deleteSchoolProfile(schoolId:string){
-    this.schoolConverter.deleteSchoolProfile(schoolId);
+  deleteSchoolProfile(){//schoolId:string
+    //this.schoolConverter.deleteSchoolProfile(schoolId);
+        //console.log(this.temp_schoolid+"   ");
+ this.schoolConverter.deleteSchoolProfile(this.temp_schoolid);
   }
 
   /**
@@ -213,7 +231,23 @@ export class SchoolComponent implements OnInit,SchoolComponentInterface {
    * @param schoolId
    */
   displaySchoolProfileCallBack(schoolProfileTO:SchoolProfileTO){
-    console.log("Response from callback method.."+schoolProfileTO.contactName);
+    this.schoolProfileTO_selected=schoolProfileTO;
+     // console.log(this.schoolProfileTO.schoolDisplayName)
+    this.schoolFormGroup.controls['schoolId'].patchValue(schoolProfileTO.schoolId);
+    this.schoolFormGroup.controls['schoolName'].patchValue(schoolProfileTO.schoolName);
+    this.schoolFormGroup.controls['schoolDisplayName'].patchValue(schoolProfileTO.schoolDisplayName);
+    this.schoolFormGroup.controls['contactName'].patchValue(schoolProfileTO.contactName);
+    this.schoolFormGroup.controls['contactNumber'].patchValue(schoolProfileTO.contactNumber);
+    this.schoolFormGroup.controls['addressOne'].patchValue(schoolProfileTO.addressOne);
+    this.schoolFormGroup.controls['addressTwo'].patchValue(schoolProfileTO.addressTwo);
+    this.schoolFormGroup.controls['city'].patchValue(schoolProfileTO.city);
+    this.schoolFormGroup.controls['state'].patchValue(schoolProfileTO.state);
+    this.schoolFormGroup.controls['pincode'].patchValue(schoolProfileTO.pincode);
+    this.schoolFormGroup.controls['country'].patchValue(schoolProfileTO.country);
+    this.schoolFormGroup.controls['active'].patchValue(schoolProfileTO.active);
+
+    this.schoolFormGroup.controls['remarks'].patchValue(schoolProfileTO.remarks);
+
   }
 
 
@@ -228,8 +262,17 @@ export class SchoolComponent implements OnInit,SchoolComponentInterface {
     });
   }
 
-  successMessageCallBack(message:string){
-    console.log(message);
+successMessageCallBack(message1:string){
+     console.log(message1.length+'sucess');
+     this.sucessMessage= message1;
+      if(message1.length!=0)
+      {
+        this.active="1";
+      }
+      else
+      {
+        this.active="0";
+      }
   }
 
   /**
@@ -239,12 +282,20 @@ export class SchoolComponent implements OnInit,SchoolComponentInterface {
    *
    * @param message
    */
-  errorMessageCallBack(message:string){
+   errorMessageCallBack(message:string){
     console.log("error message call back..")
     this.errorMessage = message;
     //this.schoolFormGroup.reset();
     this.updateMessage(this.errorMessage);
     this.getRouter().navigate(['']);
+    if(message.length!=0)
+    {
+      this.active="2";
+    }
+    else
+    {
+      this.active="0";
+    }
   }
 
 
@@ -254,7 +305,28 @@ export class SchoolComponent implements OnInit,SchoolComponentInterface {
     console.log("signup...")
     console.log(this.angularFireAuth );
 
-    //this.angularFireAuth.createUser('ravi@gmail.com','Welcome1',false);
+
+/*
+    this.angularFireAuth.auth.createUserWithEmailAndPassword("preneetho@gmail.com", "123_India")
+      .then(function(firebaseUser) {
+        console.log("User " + firebaseUser.uid + " created successfully!");
+        return firebaseUser;
+      }).then(function(firebaseUser) {
+      console.log("Logged in as:", firebaseUser.uid);
+    }).catch(function(error) {
+      console.error("Error: ", error);
+    }); */
+
+   /* this.angularFireAuth.auth.signInWithEmailAndPassword("preneetho@gmail.com", "123_India")
+      .then(function(firebaseUser) {
+        console.log("User " + firebaseUser.uid + " logged in successfully! praneeth ");
+        return firebaseUser;
+      }); */
+
+    //this.angularFireAuth.auth.sendPasswordResetEmail("preneetho@gmail.com");
+
+
+
 
     /*
     this.angularFireAuth.createUser({
