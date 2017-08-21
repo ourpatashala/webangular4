@@ -74,22 +74,22 @@ this.getAllSchoolProfiles();
 
 
   ngOnInit() {
-    this.schoolFormGroup = new FormGroup(
+    this.schoolFormGroup = this.fb.group(
       {
-        schoolId: new FormControl('ww'),
-        schoolName: new FormControl('schoolName'),
-        schoolDisplayName: new FormControl('displaySchool'),
-        contactName: new FormControl('ww'),
-        contactNumber: new FormControl('ww'),
-        addressOne: new FormControl('ww'),
-        addressTwo: new FormControl('ww'),
-        city: new FormControl('ww'),
-        state: new FormControl('ww'),
-        pincode: new FormControl('ww'),
-        country: new FormControl('ww'),
-        active: new FormControl('ww'),
-        schoolLogo: new FormControl('ww'),
-        remarks: new FormControl('ww')
+        schoolId: [''],
+        schoolName: [''],
+        schoolDisplayName:[''],
+        contactName: [''],
+        contactNumber: [''],
+        addressOne: [''],
+        addressTwo: [''],
+        city:[''],
+        state: [''],
+        pincode: [''],
+        country: [''],
+        active: [''],
+        schoolLogo:[''],
+        remarks: ['']
 
       })
 
