@@ -15,7 +15,10 @@ import {AppConstants} from "./constants/AppConstants";
 import {ErrorService} from "./service/error.service";
 import {PathUtil} from "./util/PathUtil";
 import {HeaderAdminComponent} from "./component/header-admin/header-admin.component";
+import { Header1Component } from "./component/header1/header1.component";
 import { LoginComponent } from './component/login/login.component';
+import { ForgotpasswordComponent } from './component/login/forgotpassword.component';
+import { RegisterationComponent } from './component/login/registeration.component';
 
 
 export const firebaseConfig = {     apiKey: 'AIzaSyB6WeGfORqOzz5jT_XL6GLMCl8zeQqORHU',     authDomain: 'devpatashala-4e257.firebaseapp.com',     databaseURL: 'https://devpatashala-4e257.firebaseio.com',     storageBucket: 'devpatashala-4e257.appspot.com',     messagingSenderId: '857631726201' };
@@ -27,7 +30,10 @@ export const firebaseConfig = {     apiKey: 'AIzaSyB6WeGfORqOzz5jT_XL6GLMCl8ze
     AppComponent,
     SchoolComponent,
     HeaderAdminComponent,
-    LoginComponent
+    LoginComponent,
+    ForgotpasswordComponent,
+    RegisterationComponent,
+    Header1Component
   ],
   imports: [
     BrowserModule,

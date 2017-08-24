@@ -9,23 +9,28 @@
     </div>
   </div>
   <div class="text-center">
-    <p class="login_text">Login to your account </p>
+    <p class="login_text">Create Account</p>
     <span class="login_text_2">Enter your credentials below</span>
     <div class="little_gap"></div>
-    <form [formGroup]="userForm" (ngSubmit)="userFormLogin(userForm)" ngNativeValidate>
+    <form [formGroup]="userForm">
     <div class="input_filed">
-      <input type="text" placeholder="UserName" formControlName="username" [(ngModel)]='username' required>
+      <input type="text" placeholder="UserName" formControlName="username" required>
       <i class="fa fa-user"></i>
     </div>
     <div class="little_gap"></div>
     <div class="input_filed">
-      <input type="password" placeholder="password" formControlName="password" [(ngModel)]='password' required>
+      <input type="password" placeholder="Password" formControlName="password" required>
       <i class="fa fa-key"></i>
     </div>
     <div class="little_gap"></div>
-    <button type="submit">SignIn </button>
+    <div class="input_filed">
+        <input type="password" placeholder="Confirm Password" formControlName="Confirmpassword" required>
+        <i class="fa fa-key"></i>
+      </div>
+    <div class="little_gap"></div>
+    <button type="submit" (click)="userReg()">SignUp </button>
     </form>
-    <div class="col-md-6 pl0 text-left"><p class=""><a routerLink="/Registration">Sign Up?</a></div>
+    <div class="col-md-6 pl0 text-left"><p class=""><a routerLink="/">Have Account?</a></div>
                                         
     <div class="col-md-6 pr0"><p class=""><a routerLink="/Forgotpassword">Forgot Password?</a></p></div>
   </div>

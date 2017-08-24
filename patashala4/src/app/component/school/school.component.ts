@@ -24,6 +24,7 @@ declare var $:any;
   providers: [SchoolService,{provide: 'SchoolConverter', useClass: SchoolConverterImpl}],
   styleUrls: ['./school.component.css']
 })
+
 export class SchoolComponent implements OnInit,SchoolComponentInterface {
 
   schoolProfileTO: SchoolProfileTO;
@@ -173,7 +174,7 @@ getselectedSchoolProfile()
 
     //throw new SchoolError("Error from Component..");
     // this.schoolConverter.addSchoolProfile(this.schoolProfileTO, this);
-      // this.schoolConverter.addSchoolProfile(this.schoolProfileTO, this);
+    this.schoolConverter.addSchoolProfile(this.schoolProfileTO, this);
     this.signup();
     //this.deleteSchoolProfile(this.schoolProfileTO.schoolId);
 
@@ -273,6 +274,10 @@ successMessageCallBack(message1:string){
       {
         this.active="0";
       }
+      setTimeout(()=>{    //<<<---    using ()=> syntax
+        this.sucessMessage = "";
+        this.active="0";
+      },2000);
   }
 
   /**
@@ -287,7 +292,7 @@ successMessageCallBack(message1:string){
     this.errorMessage = message;
     //this.schoolFormGroup.reset();
     this.updateMessage(this.errorMessage);
-    this.getRouter().navigate(['']);
+    this.getRouter().navigate(['/School']);
     if(message.length!=0)
     {
       this.active="2";
@@ -296,6 +301,10 @@ successMessageCallBack(message1:string){
     {
       this.active="0";
     }
+    setTimeout(()=>{    //<<<---    using ()=> syntax
+      this.errorMessage = "";
+      this.active="0";
+    },2000);
   }
 
 
