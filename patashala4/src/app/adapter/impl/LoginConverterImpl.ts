@@ -3,6 +3,8 @@ import {LoginConverter} from "../interfaces/LoginConverter";
 import {Injectable} from "@angular/core";
 import {LoginVO} from "../../vo/LoginVO";
 import {LoginService} from "../../service/login.service";
+import {LoginComponentInterface} from "../../component/login/LoginComponentInterface";
+import {LoginTO} from "../../to/LoginTO";
 /**
  * Created by ravisha on 8/17/17.
  */
@@ -14,14 +16,24 @@ export class LoginConverterImpl extends CommonConverter implements LoginConverte
     super()
   }
 
-  signUp(loginVo:LoginVO):void{
-    this.loginService.signUp(loginVo.loginUserEmail,loginVo.password);
+  signUp(loginTo:LoginTO,loginComponentInterface:LoginComponentInterface):void{
+    var loginVo  = new LoginVO();
+    loginVo.username = loginTo.username;
+    loginVo.password = loginTo.password;
+    this.loginService.signUp(loginVo.username,loginVo.password,loginComponentInterface);
 
   }
-  login(loginVo:LoginVO):void{
-    this.loginService.login(loginVo.loginUserEmail,loginVo.password);
+  login(loginTo:LoginTO,loginComponentInterface:LoginComponentInterface):void{
+    var loginVo  = new LoginVO();
+    loginVo.username = loginTo.username;
+    loginVo.password = loginTo.password;
+    this.loginService.login(loginVo.username,loginVo.password,loginComponentInterface);
   }
-  resetPassword(loginVo:LoginVO){
-    this.loginService.resetPassword(loginVo.loginUserEmail);
+
+  resetPassword(loginTo:LoginTO,loginComponentInterface:LoginComponentInterface){
+    var loginVo  = new LoginVO();
+    loginVo.username = loginTo.username;
+    loginVo.password = loginTo.password;
+    this.loginService.resetPassword(loginVo.username,loginComponentInterface);
   }
 }

@@ -3,6 +3,6 @@
  */
 
 export class LoginVO{
-  loginUserEmail:string;
+  username:string;
   password:string;
 }

@@ -175,7 +175,7 @@ getselectedSchoolProfile()
     //throw new SchoolError("Error from Component..");
     // this.schoolConverter.addSchoolProfile(this.schoolProfileTO, this);
     this.schoolConverter.addSchoolProfile(this.schoolProfileTO, this);
-    this.signup();
+  //  this.signup();
     //this.deleteSchoolProfile(this.schoolProfileTO.schoolId);
 
     //this.getSchoolProfile("school01");
@@ -307,54 +307,6 @@ successMessageCallBack(message1:string){
     },2000);
   }
 
-
-  signup() {
-    //  const credential = this.angularFireAuth.auth..credential(email, password);
-    //var credential : EmailPasswordCredentials = { email : 'test@test.com', password: '12345' };
-    console.log("signup...")
-    console.log(this.angularFireAuth );
-
-
-/*
-    this.angularFireAuth.auth.createUserWithEmailAndPassword("preneetho@gmail.com", "123_India")
-      .then(function(firebaseUser) {
-        console.log("User " + firebaseUser.uid + " created successfully!");
-        return firebaseUser;
-      }).then(function(firebaseUser) {
-      console.log("Logged in as:", firebaseUser.uid);
-    }).catch(function(error) {
-      console.error("Error: ", error);
-    }); */
-
-   /* this.angularFireAuth.auth.signInWithEmailAndPassword("preneetho@gmail.com", "123_India")
-      .then(function(firebaseUser) {
-        console.log("User " + firebaseUser.uid + " logged in successfully! praneeth ");
-        return firebaseUser;
-      }); */
-
-    //this.angularFireAuth.auth.sendPasswordResetEmail("preneetho@gmail.com");
-
-
-
-
-    /*
-    this.angularFireAuth.createUser({
-      email: 'helloravisha@gmail.com',
-      password: 'Welcome1'
-    }).then(
-      (success) => {
-        // this.router.navigate(['/members'])
-      }).catch(
-      (err) => {
-        //this.error = err;
-      })*/
-
-
-    var emailAddress = "user@example.com";
-
-
-
-  }
 
 }
 
