@@ -597,11 +597,15 @@ button:hover:after
 }
 .add_fields
 {
-  display: none
+ transition: 0.3s;
+ overflow: hidden;
+ height: 480px;
 }
 .modify_fields
 {
-  display: none
+  transition: 0.3s;
+  overflow: hidden;
+  height: 480px;
 }
 .tabs_head
 {
@@ -830,4 +834,9 @@ button:hover:after
   padding: 15px;
   border-radius: 10px;
   transition: 0.3s;
+}
+.disable_btn
+{
+  pointer-events: none;
+  opacity: 0.5;
 }

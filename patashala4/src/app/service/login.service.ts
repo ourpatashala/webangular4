@@ -14,7 +14,7 @@ export class LoginService {
   constructor(angularFireDatabase: AngularFireDatabase,angularFireAuth:AngularFireAuth) {
     this.angularFireDatabase = angularFireDatabase;
     this.angularFireAuth = angularFireAuth;
-    let storageRef = firebase.storage().ref();
+    //let storageRef = firebase.storage().ref();
 
   }
 

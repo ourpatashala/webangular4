@@ -15,8 +15,8 @@ import { ForgotpasswordComponent } from './component/login/forgotpassword.compon
 import { RegisterationComponent } from './component/login/registeration.component';
 
 const appRoutes: Routes = [
-  { path:'School', component: SchoolComponent },
   { path:'', component:LoginComponent },
+  { path:'School', component: SchoolComponent },
   { path: 'Registration', component: RegisterationComponent},
   { path: 'Forgotpassword', component: ForgotpasswordComponent}
 ];

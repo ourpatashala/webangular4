@@ -5,6 +5,7 @@
 
 <div class="all_pages_content">
 
+  
   <div style="padding-top:1px;"></div>
   <div class="clear"></div>
   <div class="clear"></div>
@@ -14,11 +15,11 @@
         <p class="breadscrum_text"><a  routerLink="/">Home </a> &nbsp; <i class="fa fa-chevron-right"></i> &nbsp; Manage Schools</p>
       </div>
       <div class="col-md-6 padding0 text-right">
-        <div class="buttons_div">
-          <button class="add_more_btn"><i class="fa fa-plus"></i> Add</button>
-          <button class="edit_field_btn" (click)="getselectedSchoolProfile()"><i class="fa fa-pencil"></i> Modify</button>
-          <button (click)="deleteSchoolProfile()"><i class="fa fa-trash"></i> Delete</button>
-          <button><i class="fa fa-eye"></i> View</button>
+        <div class="buttons_div" [ngClass]="{'inactive_div': div_Element_Id !='0'}">
+          <button class="add_more_btn" (click)="show_addSchoolFields()" [ngClass]="{'disable_btn': selectedSchoolArray.length!='0'}"><i class="fa fa-plus"></i> Add</button>
+          <button class="edit_field_btn" (click)="getselectedSchoolProfile()" [ngClass]="{'disable_btn': selectedSchoolArray.length!='1'}"><i class="fa fa-pencil"></i> Modify</button>
+          <button (click)="deleteSchoolProfile()" [ngClass]="{'disable_btn': selectedSchoolArray.length=='0'}"><i class="fa fa-trash"></i> Delete</button>
+          <button (click)="viewSingleSchoolProfile()" [ngClass]="{'disable_btn': selectedSchoolArray.length!='1'}"><i class="fa fa-eye"></i> View</button>
         </div>
       </div>
       <div class="clear"></div>
@@ -29,26 +30,47 @@
 <div class="error_msg_text"><p [ngClass]="{'error_styles_sucess': active=='2'}">{{errorMessage}}</p></div>
 
 
-      <div class="add_fields addschool_div">
+      <div class="add_fields addschool_div" [ngClass]="{'inactive_div': div_Element_Id !='1'}">
 
-        <form [formGroup]="schoolFormGroup" (ngSubmit)="addSchoolProfile(schoolFormGroup)">
+        <form [formGroup]="schoolFormGroup" (ngSubmit)="addSchoolProfile(schoolFormGroup)" ngNativeValidate>
           <div class="col-md-6">
-            <div class="col-md-4"><p>School Id</p></div><div class="col-md-8"><input type="text" placeholder="Enter schoolid " formControlName="schoolId" required title="Please Enter schoolId"></div><div class="clear"></div>
-
-            <div class="col-md-4"><p>School Name</p></div><div class="col-md-8"><input type="text" placeholder="Enter Full Name of School" formControlName="schoolName" required title="Please Enter School Name"></div><div class="clear"></div>
-            <div class="col-md-4"><p>Display Short Name</p></div><div class="col-md-8"><input type="text" placeholder="Enter Full Name of School" formControlName="schoolDisplayName" required></div><div class="clear"></div>
-            <div class="col-md-4"><p>City</p></div><div class="col-md-8"><input type="text" placeholder="Enter City" formControlName="city" required></div><div class="clear"></div>
-            <div class="col-md-4"><p>Address1</p></div><div class="col-md-8"><textarea placeholder="Enter Address1" formControlName="addressOne" required></textarea></div><div class="clear"></div>
-            <div class="col-md-4"><p>Address2</p></div><div class="col-md-8"><textarea placeholder="Enter Address2" formControlName="addressTwo" required></textarea></div><div class="clear"></div>
+            <div class="col-md-4"><p>School Id</p></div>
+            <div class="col-md-8"><input type="text" placeholder="SCHOOLID00001" formControlName="schoolId" disabled="true"></div>
+            <div class="clear"></div>
+            <div class="col-md-4"><p>School Name</p></div>
+            <div class="col-md-8"><input type="text" placeholder="Enter Full Name of School" formControlName="schoolName" title="Please Enter School Name"></div>
+            <div class="clear"></div>
+            <div class="col-md-4"><p>Display Short Name</p></div>
+            <div class="col-md-8"><input type="text" placeholder="Enter Full Name of School" formControlName="schoolDisplayName"></div>
+            <div class="clear"></div>
+            <div class="col-md-4"><p>City</p></div>
+            <div class="col-md-8"><input type="text" placeholder="Enter City" formControlName="city"></div>
+            <div class="clear"></div>
+            <div class="col-md-4"><p>Address1</p></div>
+            <div class="col-md-8"><textarea placeholder="Enter Address1" formControlName="addressOne"></textarea></div>
+            <div class="clear"></div>
+            <div class="col-md-4"><p>Address2</p></div>
+            <div class="col-md-8"><textarea placeholder="Enter Address2" formControlName="addressTwo"></textarea></div>
+            <div class="clear"></div>
 
             <div class="little_gap"></div>
           </div>
           <div class="col-md-6">
-            <div class="col-md-4"><p>State</p></div><div class="col-md-8"><input type="text" placeholder="Enter State" formControlName="state" required></div><div class="clear"></div>
-            <div class="col-md-4"><p>Pincode</p></div><div class="col-md-8"><input type="text" placeholder="Enter pincode" formControlName="pincode" required></div><div class="clear"></div>
-            <div class="col-md-4"><p>Country</p></div><div class="col-md-8"><input type="text" placeholder="Enter Country" formControlName="country" required></div><div class="clear"></div>
-            <div class="col-md-4"><p>Primary Contact</p></div><div class="col-md-8"><input type="text" placeholder="Enter Primary Contact Number" formControlName="contactName" required></div><div class="clear"></div>
-            <div class="col-md-4"><p>Contact #</p></div><div class="col-md-8"><input type="text" placeholder="Enter Contact Number" formControlName="contactNumber" required></div><div class="clear"></div>
+            <div class="col-md-4"><p>State</p></div>
+            <div class="col-md-8"><input type="text" placeholder="Enter State" formControlName="state"></div>
+            <div class="clear"></div>
+            <div class="col-md-4"><p>Pincode</p></div>
+            <div class="col-md-8"><input type="text" placeholder="Enter pincode" formControlName="pincode"></div>
+            <div class="clear"></div>
+            <div class="col-md-4"><p>Country</p></div>
+            <div class="col-md-8"><input type="text" placeholder="Enter Country" formControlName="country"></div>
+            <div class="clear"></div>
+            <div class="col-md-4"><p>Primary Contact </p></div>
+            <div class="col-md-8"><input type="text" placeholder="Enter Primary Contact Number" formControlName="contactName"></div>
+            <div class="clear"></div>
+            <div class="col-md-4"><p>Contact #</p></div>
+            <div class="col-md-8"><input type="text" placeholder="Enter Contact Number" formControlName="contactNumber"></div>
+            <div class="clear"></div>
             <!--<div class="col-md-4"><p>Principal</p></div><div class="col-md-8"><input type="text" placeholder="Enter Principal Name"></div><div class="clear"></div>-->
             <div class="col-md-4"><p>Active</p></div><div class="col-md-8">
             <!-- <div id="toggles">
@@ -56,10 +78,12 @@
                <label for="checkbox1" class="checkbox-label" data-off="off" data-on="on"></label>
              </div>-->
           </div><div class="clear"></div>
-            <div class="col-md-4"><p>Remarks</p></div><div class="col-md-8"><input type="text" placeholder="Enter Remarks"formControlName="remarks" ></div><div class="clear"></div>
+            <div class="col-md-4"><p>Remarks</p></div>
+            <div class="col-md-8"><input type="text" placeholder="Enter Remarks" formControlName="remarks" ></div>
+            <div class="clear"></div>
           </div>
           <div class="clear"></div>
-          <div class="text-center"><button class="update_btn" type="submit">Add School</button> <span class="cancel_btn_add button_type_span">Cancel</span></div>
+          <div class="text-center"><button class="update_btn" type="submit">Add School</button> <span class="cancel_btn_add button_type_span" (click)="showSchoolsList()">Cancel</span></div>
         </form>
 
 
@@ -74,15 +98,27 @@
 
 
 
-      <div class="modify_fields addschool_div">
+      <div class="modify_fields addschool_div"  [ngClass]="{'inactive_div': div_Element_Id !='2'}">
       <form [formGroup]="schoolFormGroup" (ngSubmit)="updateSchoolProfile(schoolFormGroup)">
         <div class="col-md-6">
-         <div class="col-md-4"><p>School Id</p></div><div class="col-md-8"><input type="text" value="{{this.temp_schoolid}}" title="Please Enter schoolId"></div><div class="clear"></div>
-          <div class="col-md-4"><p>School Name</p></div><div class="col-md-8"><input type="text" formControlName="schoolName" ></div><div class="clear"></div>
-          <div class="col-md-4"><p>Display Short Name</p></div><div class="col-md-8"><input type="text" formControlName="schoolDisplayName" ></div><div class="clear"></div>
-           <div class="col-md-4"><p>City</p></div><div class="col-md-8"><input type="text" formControlName="city" value=""></div><div class="clear"></div>
-          <div class="col-md-4"><p>Address1</p></div><div class="col-md-8"><textarea formControlName="addressOne"></textarea></div><div class="clear"></div>
-          <div class="col-md-4"><p>Address2</p></div><div class="col-md-8"><textarea formControlName="addressTwo"></textarea></div><div class="clear"></div>
+         <div class="col-md-4"><p>School Id</p></div>
+         <div class="col-md-8"><input type="text" formControlName="schoolId"  title="Please Enter schoolId" required></div>
+         <div class="clear"></div>
+          <div class="col-md-4"><p>School Name</p></div>
+          <div class="col-md-8"><input type="text" formControlName="schoolName" ></div>
+          <div class="clear"></div>
+          <div class="col-md-4"><p>Display Short Name</p></div>
+          <div class="col-md-8"><input type="text" formControlName="schoolDisplayName" ></div>
+          <div class="clear"></div>
+           <div class="col-md-4"><p>City</p></div>
+           <div class="col-md-8"><input type="text" formControlName="city" value=""></div>
+           <div class="clear"></div>
+          <div class="col-md-4"><p>Address1</p></div>
+          <div class="col-md-8"><textarea formControlName="addressOne"></textarea></div>
+          <div class="clear"></div>
+          <div class="col-md-4"><p>Address2</p></div>
+          <div class="col-md-8"><textarea formControlName="addressTwo"></textarea></div>
+          <div class="clear"></div>
          
           <div class="little_gap"></div>
         </div>
@@ -90,7 +126,7 @@
         <div class="col-md-6">
           <div class="col-md-4"><p>State</p></div><div class="col-md-8"><input type="text" formControlName="state" value=""></div><div class="clear"></div>
           <div class="col-md-4"><p>Pincode</p></div><div class="col-md-8"><input type="text" formControlName="pincode" value=""></div><div class="clear"></div>
-          <div class="col-md-4"><p>Country</p></div><div class="col-md-8"><input type="text" formControlName="schoolDisplayName"  value=""></div><div class="clear"></div>
+          <div class="col-md-4"><p>Country</p></div><div class="col-md-8"><input type="text" formControlName="country"  value=""></div><div class="clear"></div>
           <div class="col-md-4"><p>Primary Contact</p></div><div class="col-md-8"><input type="text" formControlName="contactName" value=""></div><div class="clear"></div>
           <div class="col-md-4"><p>Contact #</p></div><div class="col-md-8"><input type="text" formControlName="contactNumber" value=""></div><div class="clear"></div>
           <!--<div class="col-md-4"><p>Principal</p></div><div class="col-md-8"><input type="text" value="Mr.DineshChoudhary"></div><div class="clear"></div>-->
@@ -104,16 +140,70 @@
           <div class="col-md-4"><p>Remarks</p></div><div class="col-md-8"><input type="text" formControlName="remarks" ></div><div class="clear"></div>
         </div>
         <div class="clear"></div>
-        <div class="text-center"><button class="update_btn">Modify School</button> <span class="cancel_btn_modify button_type_span">Cancel</span></div>
+        <div class="text-center"><button class="update_btn">Modify School</button> <span class="cancel_btn_modify button_type_span" (click)="showSchoolsList()">Cancel</span></div>
       </form>
       </div>
 
 
 
 
-      <div class="datatable_toggle">
 
-        <table id="myTable" class="my_table_width">
+
+      <div class="single_school_detail_view inactive_div" [ngClass]="{'inactive_div': div_Element_Id !='3'}">
+        <div class="view_School">
+          <div class="text-right">
+              <span class="cancel_btn_modify button_type_span" (click)="showSchoolsList()">Close</span>
+          </div>
+        <div class="col-md-12">
+         
+          <div class="col-md-6"></div>
+          <div class="col-md-3"></div>
+          <div class="clear"></div>   
+          <div class="large_gap"></div>
+          <div class="school_details">
+            <div class="col-md-12">
+              <div class="profile_image_div">
+                <img src="./assets/images/default_school.jpg">
+                <div class="text_beside_img">
+                  <p class="School_name">School Name: <span> {{schoolProfileTO.schoolName}}</span></p>  
+                  <p class="school_id">School Id: <span>  {{schoolProfileTO.schoolId}}</span></p>
+                </div>                                                                                                    
+              </div>
+              <!-- <img src="./assets/images/webicons/schoolname.png"> -->
+              
+            </div>
+          <!-- <div class="col-md-6">
+            <img src="./assets/images/webicons/SchoolPrinc.png">
+            <p class="school_correspondentname">Correspondent Name: <span>Krishna Swamy</span></p>
+          </div> -->
+          <div class="clear"></div>
+          <div class="large_gap"></div>
+          <div class="col-md-6">
+            <img src="./assets/images/webicons/Address.png" class="img_pos_ab">
+            <p class="schoolAddress">Address1: <span>{{schoolProfileTO.addressOne}}</span></p>
+            <p class="schoolAddress">Address2: <span>{{schoolProfileTO.addressTwo}}</span></p>
+            <p class="schoolAddress">City: <span>{{schoolProfileTO.city}}</span></p>
+            <p class="schoolAddress">State: <span>{{schoolProfileTO.state}}</span></p>
+            <p class="schoolAddress">Pincode: <span>{{schoolProfileTO.pincode}}</span></p>
+            <p class="schoolAddress">Country: <span>{{schoolProfileTO.country}}</span></p>
+          </div>
+          <div class="col-md-6">
+            <img src="./assets/images/webicons/Phone.png" class="img_pos_ab">
+            <p class="school_contact">Primary Contact#: <span>{{schoolProfileTO.contactName}}</span> </p>
+            <p class="school_contact">Contact#: <span>{{schoolProfileTO.contactNumber}}</span> </p>
+          </div>
+          <div class="clear"></div>
+          </div>
+          <div class="large-gap"></div>
+            
+        </div>
+        <div class="clear"></div>
+      </div>
+      </div>
+
+      <div class="datatable_toggle" [ngClass]="{'inactive_div': div_Element_Id !='0'}">
+        
+        <table datatable class="my_table_width">
           <thead>
           <tr>
             <th>S.No</th>
@@ -178,7 +268,8 @@
           </tr>
           <tr *ngFor="let schoolProfileTO of schoolProfileTOList ; let i=index ">
             <td>{{i + 1}}</td>
-            <td><input type="checkbox" value="{{schoolProfileTO.schoolId}}" (change)="updateCheckedOptions(schoolProfileTO.schoolId)"></td>
+            <!-- <td><input type="checkbox" value="{{schoolProfileTO.schoolId}}"  (change)="updateCheckedOptions(schoolProfileTO.schoolId,$this.checkbox.state)"></td> -->
+            <td><input type="checkbox" id="{{schoolProfileTO.schoolId}}" value="{{schoolProfileTO.schoolId}}" (change)="checkedStudents(schoolProfileTO.schoolId)" ></td> 
             <td>{{schoolProfileTO.schoolName}}</td>
             <td>{{schoolProfileTO.addressOne}} , {{schoolProfileTO.addressTwo}}</td>
             <td>{{schoolProfileTO.city}}</td>

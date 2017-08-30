@@ -89,3 +89,16 @@ padding: 7px;
     color: #238270;
     font-weight: 500
 }
+.validate_error
+{
+    font-size: 12px;
+    color: red;
+    font-weight: 600;
+}
+.validate_success
+{
+    font-size: 12px;
+    color: green;
+    font-weight: 600;
+    margin-top: 7px;
+}

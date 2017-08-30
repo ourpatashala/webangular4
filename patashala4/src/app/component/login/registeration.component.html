@@ -12,26 +12,36 @@
     <p class="login_text">Create Account</p>
     <span class="login_text_2">Enter your credentials below</span>
     <div class="little_gap"></div>
-    <form [formGroup]="userForm">
+    <form [formGroup]="userForm" (ngSubmit)="signUp(userForm)" ngNativeValidate>
     <div class="input_filed">
-      <input type="text" placeholder="UserName" formControlName="username" required>
+      <input type="text" placeholder="UserName" formControlName="username" [(ngModel)]='username'  required>
       <i class="fa fa-user"></i>
+      <div *ngIf="userForm.controls.username.touched">
+        <p class="text-left validate_error alert alert-danger" *ngIf="userForm.controls.username.errors?.required">Please Enter Username</p>
+      </div>
     </div>
     <div class="little_gap"></div>
     <div class="input_filed">
-      <input type="password" placeholder="Password" formControlName="password" required>
+      <input type="password" placeholder="Password" formControlName="password" [(ngModel)]='password' required>
       <i class="fa fa-key"></i>
+      <div *ngIf="userForm.controls.password.touched">
+        <p class="text-left validate_error alert alert-danger" *ngIf="userForm.controls.password.errors?.required">Please Enter Password</p>
+      </div>
     </div>
     <div class="little_gap"></div>
     <div class="input_filed">
-        <input type="password" placeholder="Confirm Password" formControlName="Confirmpassword" required>
+        <input type="password" placeholder="Confirm Password" formControlName="Confirmpassword" [(ngModel)]='Confirmpassword' required>
         <i class="fa fa-key"></i>
+        <div *ngIf="userForm.controls.Confirmpassword.touched">
+        <p class="text-left validate_error alert alert-danger" *ngIf="userForm.controls.Confirmpassword.value != userForm.controls.password.value">Password Mismatch</p>
+      </div>
       </div>
     <div class="little_gap"></div>
     <button type="submit" (click)="userReg()">SignUp </button>
     </form>
-    <div class="col-md-6 pl0 text-left"><p class=""><a routerLink="/">Have Account?</a></div>
+    <div class="text-center validate_success">{{sucessMessage}}</div>
+    <div class="padding0 text-center"><p class=""><a routerLink="/">Have Account?</a></div>
                                         
-    <div class="col-md-6 pr0"><p class=""><a routerLink="/Forgotpassword">Forgot Password?</a></p></div>
+    <!-- <div class="col-md-6 pr0"><p class=""><a routerLink="/Forgotpassword">Forgot Password?</a></p></div> -->
   </div>
 </div>

@@ -2,3 +2,107 @@
 {
     margin-top: 0;
 }
+
+
+/* school in details (school detailed view) css */
+.profile_image_div img
+{
+width: 200px;
+height: 200px;
+border-radius: 50%;
+border: 5px solid #199f86;
+}
+.profile_image_div
+{
+    margin-top: 0px;
+}
+.School_name
+{
+font-size: 22px;
+font-weight: 300;
+}
+.School_name span
+{
+color: #007e00;
+}
+.school_id
+{
+font-size: 15px;
+font-weight: 500;
+}
+.school_id span
+{
+color: #b33737;
+}
+.school_correspondentname
+{
+font-size: 15px;
+color: #000;
+}
+.school_correspondentname span
+{
+color: #215474;
+font-size: 20px;
+}
+.schoolAddress
+{
+font-size: 16px;
+color: #000;
+}
+.schoolAddress span
+{
+color: #6a6a6a;
+font-size: 14px;
+}
+.school_contact
+{
+    font-size: 16px;
+    color: #000;
+}
+.school_contact span
+{
+    color: #6a6a6a;
+    font-size: 14px;
+}
+.text_beside_img
+{
+    display: inline-block
+}
+.img_pos_ab
+{
+    position: absolute;
+}
+.school_details p
+{
+    padding-left: 70px;
+}
+.text_beside_img p
+{
+    padding-left: 20px;
+}
+/* school in details (school detailed view) css */
+
+.single_school_detail_view
+{
+    transition: 0.3s;
+    height: 600px;
+    overflow: hidden;
+    
+}
+.inactive_div
+{
+    height: 0;
+    overflow: hidden
+}
+
+.view_School
+{
+    border:1px solid #c8c8c8;
+}
+.view_School .button_type_span
+{
+    border:1px solid #c8c8c8;
+    border-top: 0;
+    border-right: 0;
+    cursor: pointer;
+}

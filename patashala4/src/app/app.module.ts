@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-
+import { DataTablesModule } from 'angular-datatables';
 import { AppComponent } from './app.component';
 import { SchoolComponent } from './component/school/school.component';
 import {Routes, RouterModule} from "@angular/router";
@@ -13,6 +13,7 @@ import { AngularFireAuthModule } from 'angularfire2/auth';
 import {ReactiveFormsModule, FormsModule} from "@angular/forms";
 import {AppConstants} from "./constants/AppConstants";
 import {ErrorService} from "./service/error.service";
+import { LoginService } from "./service/login.service";
 import {PathUtil} from "./util/PathUtil";
 import {HeaderAdminComponent} from "./component/header-admin/header-admin.component";
 import { Header1Component } from "./component/header1/header1.component";
@@ -38,6 +39,7 @@ export const firebaseConfig = {     apiKey: 'AIzaSyB6WeGfORqOzz5jT_XL6GLMCl8ze
   imports: [
     BrowserModule,
     FormsModule,
+    DataTablesModule,
     ReactiveFormsModule,
     AngularFireModule.initializeApp(firebaseConfig),
     routing,
@@ -45,7 +47,7 @@ export const firebaseConfig = {     apiKey: 'AIzaSyB6WeGfORqOzz5jT_XL6GLMCl8ze
     AngularFireAuthModule
 
   ],
-  providers: [AppConstants,ErrorService,PathUtil],
+  providers: [AppConstants,ErrorService,PathUtil,LoginService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
