@@ -201,9 +201,9 @@
       </div>
       </div>
 
-      <div class="datatable_toggle" [ngClass]="{'inactive_div': div_Element_Id !='0'}">
+      <div class="datatable_toggle"  [ngClass]="{'inactive_div': div_Element_Id !='0'}">
         
-        <table datatable class="my_table_width">
+        <table datatable class="my_table_width" [dtTrigger]="dtTrigger">
           <thead>
           <tr>
             <th>S.No</th>
@@ -217,44 +217,7 @@
           </tr>
           </thead>
           <tbody>
-          <!-- <tr data-refid="1">
-            <td>1</td>
-            <td><input type="checkbox"></td>
-            <td>St.Andrews Keys High School</td>
-            <td>Quthbullapur</td>
-            <td>Hyderabad</td>
-            <td>040&nbsp;-&nbsp;6543210</td>
-            <td><i class="fa fa-toggle-on"></i></td>
-
-            <td>
-              <a routerLink="/TabService"><button md-raised-button>Manage</button></a>
-            </td>
-          </tr>
-          <tr data-refid="2">
-            <td>2</td>
-            <td><input type="checkbox"></td>
-            <td>Sat Gyan High School</td>
-            <td>Quthbullapur</td>
-            <td>Hyderabad</td>
-            <td>040&nbsp;-&nbsp;6543210</td>
-            <td><i class="fa fa-toggle-on"></i></td>
-            <td>
-              <a routerLink="/TabService"><button md-raised-button>Manage</button></a>
-            </td>
-          </tr>
-          <tr data-refid="3">
-            <td>3</td>
-            <td><input type="checkbox"></td>
-            <td>Sat Gyan High School</td>
-            <td>Quthbullapur</td>
-            <td>Hyderabad</td>
-            <td>040&nbsp;-&nbsp;6543210</td>
-            <td><i class="fa fa-toggle-on"></i></td>
-            <td>
-              <a routerLink="/TabService"><button md-raised-button>Manage</button></a>
-            </td>
-          </tr> -->
-          <tr>
+          <!-- <tr>
             <td>4</td>
             <td><input type="checkbox"></td>
             <td>Sat Gyan High School</td>
@@ -265,7 +228,7 @@
             <td>
               <a routerLink="/TabService"><button md-raised-button>Manage</button></a>
             </td>
-          </tr>
+          </tr> -->
           <tr *ngFor="let schoolProfileTO of schoolProfileTOList ; let i=index ">
             <td>{{i + 1}}</td>
             <!-- <td><input type="checkbox" value="{{schoolProfileTO.schoolId}}"  (change)="updateCheckedOptions(schoolProfileTO.schoolId,$this.checkbox.state)"></td> -->

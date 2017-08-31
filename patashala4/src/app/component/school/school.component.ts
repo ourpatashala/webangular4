@@ -16,6 +16,7 @@ import {Router} from "@angular/router";
 import {ErrorService} from "../../service/error.service";
 import {BehaviorSubject, Observable, Subscription} from "rxjs";
 declare var $:any;
+import { Subject } from 'rxjs/Rx';
 
 
 @Component({
@@ -41,7 +42,7 @@ export class SchoolComponent implements OnInit,SchoolComponentInterface {
   checkedschoolid:string="";
   temp_schoolid: string = 'default';
   angularFireAuth: AngularFireAuth;
-
+  dtTrigger: Subject<SchoolProfileTO> = new Subject();
 
   private updateSubject: BehaviorSubject<string> = new BehaviorSubject<string>(''); // Holds the error message
 
@@ -109,7 +110,7 @@ this.getAllSchoolProfiles();
         $(this).parent().parent().removeClass('selected_row');
       }
    });
-
+   this.dtTrigger.next();
   }
 
 
@@ -370,6 +371,7 @@ showSchoolsList()
       console.log('SchoolProfileTO:', schoolProfileTO);
       this.schoolProfileTO=schoolProfileTO;
     });
+    this.dtTrigger.next();
   }
 
 successMessageCallBack(message1:string){
