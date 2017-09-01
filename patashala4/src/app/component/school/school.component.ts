@@ -17,6 +17,7 @@ import {ErrorService} from "../../service/error.service";
 import {BehaviorSubject, Observable, Subscription} from "rxjs";
 declare var $:any;
 import { Subject } from 'rxjs/Rx';
+import {MessageTO} from "../../to/MessageTO";
 
 
 @Component({
@@ -46,7 +47,7 @@ export class SchoolComponent implements OnInit,SchoolComponentInterface {
 
   private updateSubject: BehaviorSubject<string> = new BehaviorSubject<string>(''); // Holds the error message
 
-  active:string="0";// for error and success divs;;  0 for no content, 1 for success, 2 for error 
+  active:string="0";// for error and success divs;;  0 for no content, 1 for success, 2 for error
   div_Element_Id: string= "0";//for multiple pages in school list page;; 0 to show list of school , 1 to show add school, 2 to show edit school, 3 to show single school view.
 
   updateMessage(message: string) { // updates the error message
@@ -68,7 +69,7 @@ export class SchoolComponent implements OnInit,SchoolComponentInterface {
       message => {
         this.message = message;
       });
-      
+
 this.getAllSchoolProfiles();
 
 
@@ -79,7 +80,7 @@ this.getAllSchoolProfiles();
   }
 
 
-  
+
   ngOnInit() {
     this.schoolFormGroup = this.fb.group(
       {
@@ -212,12 +213,12 @@ showSchoolsList()
       this.schoolProfileTO = value;
       this.schoolConverter.addSchoolProfile(this.schoolProfileTO, this);
     }
-    
+
     //console.log(this.schoolProfileTO);
 
     //throw new SchoolError("Error from Component..");
     // this.schoolConverter.addSchoolProfile(this.schoolProfileTO, this);
-    
+
   //  this.signup();
     //this.deleteSchoolProfile(this.schoolProfileTO.schoolId);
 
@@ -332,8 +333,8 @@ showSchoolsList()
         console.log(this.selectedSchoolArray[loopvar]);
         //this.schoolConverter.deleteSchoolProfile(this.selectedSchoolArray[loopvar]);
       }
-    
- 
+
+
   }
 
   /**
@@ -374,10 +375,9 @@ showSchoolsList()
     this.dtTrigger.next();
   }
 
-successMessageCallBack(message1:string){
-     console.log(message1+'sucess');
-     this.sucessMessage= message1;
-      if(message1.length!=0)
+successMessageCallBack(messageTO:MessageTO){
+     this.sucessMessage= messageTO.messageInfo;
+      if(this.sucessMessage.length!=0)
       {
         this.active="1";
       }
@@ -398,13 +398,13 @@ successMessageCallBack(message1:string){
    *
    * @param message
    */
-   errorMessageCallBack(message:string){
+   errorMessageCallBack(messageTO:MessageTO){
     console.log("error message call back..")
-    this.errorMessage = message;
+    this.errorMessage = messageTO.messageInfo;
     //this.schoolFormGroup.reset();
     this.updateMessage(this.errorMessage);
     this.getRouter().navigate(['/School']);
-    if(message.length!=0)
+    if(this.errorMessage.length!=0)
     {
       this.active="2";
     }
@@ -426,7 +426,7 @@ successMessageCallBack(message1:string){
   {
     this.sucessMessage = message;
     this.active="1";
-    setTimeout(()=>{ 
+    setTimeout(()=>{
       this.sucessMessage = "";
       this.active="0";
     },2000);
@@ -435,7 +435,7 @@ successMessageCallBack(message1:string){
   {
     this.errorMessage = message;
     this.active="2";
-    setTimeout(()=>{    
+    setTimeout(()=>{
       this.errorMessage = "";
       this.active="0";
     },2000);

@@ -1,8 +1,9 @@
 /**
- * Created by ravisha on 4/27/17.
+ * Created by ravisha on 8/31/17.
  */
-
 export class MessageTO{
-  city: string;
-  doorNo: string;
+  serviceClassName: string;
+  serviceMethodName: string;
+  messageType:String;
+  messageInfo:string;
 }
