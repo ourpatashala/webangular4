@@ -1,0 +1,229 @@
+.manageall_sessions
+{
+margin-top: 30px;
+padding-left: 0;
+}
+.manageall_sessions li
+{
+font-size: 16px;
+padding: 22px;
+position: relative;
+list-style-type: none;
+padding-left: 64px;
+font-family: MyriadProR;
+margin-bottom: 30px;
+transition: 0.3s;
+}
+.manageall_sessions li a img
+{
+width: 42px;
+position: absolute;
+left: 10px;
+top: 12px
+}
+.manageall_sessions li a
+{
+transition: 0.3s;
+}
+.manageall_sessions li a:hover
+{
+padding-left: 10px;
+}
+.school_logo img
+{
+    width: 200px;
+}
+.school_details
+{
+padding-left: 64px;
+}
+.school_name
+{
+color: #3e3e3e;
+font-size: 20px;
+font-weight: 800;
+}
+.schools_ids
+{
+font-weight: 800;
+font-size: 14px;
+color: #5d8035;
+}
+.schools_ids i
+{
+    color: #5d8035;
+}
+.School_addre, .School_addre i
+{
+color: #775c33;
+}
+.contact_no, .contact_noi
+{
+color: #2e6f81;
+}
+.school_details ul
+{
+margin-bottom: 0;
+padding-left: 0;
+}
+.school_details ul li
+{
+list-style-type: none;
+position: relative;
+padding-left: 20px;
+margin: 15px 0;
+}
+.school_details ul li i
+{
+position: absolute;
+left: 0;
+top: 2px;
+font-size: 18px;
+}
+.schools_corespondent
+{
+    color: #5d8035;
+    font-size: 16px;
+}
+.manageall_sessions li a:after
+{
+content: '';
+position: absolute;
+border-right: 1px solid #444;
+border-top: 15px solid #444;
+transform: rotate(25deg);
+right: 12px;
+bottom: 19px;
+}
+.manageall_sessions li a:before
+{
+  content: '';
+position: absolute;
+border-left: 1px solid #444;
+border-bottom: 15px solid #444;
+transform: rotate(-25deg);
+right: 12px;
+top: 19px;  
+}
+.manageall_sessions li:hover
+{
+    background-color: #e9e9e9;
+}
+.listing_tabs
+{
+
+}
+.listing_tabs ul
+{
+padding-left: 0;
+margin-bottom: 0;
+border-bottom: 1px solid #199f86;
+}
+.listing_tabs ul li
+{
+list-style-type: none;
+display: inline-block;
+padding: 10px 30px;
+height: 44px;
+cursor: pointer
+}
+.active_tab
+{
+border-bottom: 4px solid #199f86;
+}
+
+.tab_view_box
+{
+    width: 180px;
+border: 2px solid #199f86;
+height: 180px;
+border-radius: 15%;
+padding: 26px;
+margin-top: 30px;
+}
+.tab_view_box p
+{
+margin-top: 9px;
+}
+.tab_common_grid
+{
+position: relative;
+overflow: hidden;
+width: 114px;
+height: 114px;
+margin: 0 auto;
+}
+.tab_common_grid img
+{
+width: 100%;
+padding: 20px;
+}
+.tab_common_grid:after
+{
+    content: '';
+position: absolute;
+left: 34px;
+background-color: rgba(0, 0, 0, 0.16);
+transform: rotate(45deg);
+top: 33px;
+height: 161px;
+width: 160px;
+transition: 0.3s;
+}
+/*.tab_common_grid:hover:after
+{
+  left: 34px;
+}*/
+.tab_grid1{background-color: #70d146;}
+.tab_grid2{background-color: #c2272b;}
+.tab_grid3{background-color: #7b5e8e;}
+.tab_grid4{background-color: #4d4d4d;}
+.tab_grid5{background-color: #3497db;}
+.tab_grid6{background-color: #e74b3c;}
+.tab_grid7{background-color: #736356;}
+.tab_grid8{background-color: #009244;}
+.tab_grid9{background-color: #33485d;}
+.tab_grid10{background-color: #ff911e;}
+.tab_grid11{background-color: #2a81b7;}
+.inline_Blk
+{
+    display: inline-block;
+    padding-left: 15px;
+    vertical-align: -18px;
+}
+.pl_2201
+{
+    padding-left: 180px;
+}
+.tabs_div p
+{
+text-align: center;
+margin: 4px 0px;
+font-size: 17px;
+font-weight: 400;
+color: #666
+
+}
+.img_desc
+{
+padding: 6px;
+font-size: 13px !important;
+margin-top: 0 !important;
+color: #777 !important;
+}
+
+
+.tabs_div a
+{
+    display: inline-block;
+    margin: 0 auto;
+    background-color: #eaeaea;
+    border: 1px dotted #bbb;
+    text-align: center;
+    width: 100%;
+height: 212px;
+}
+.tabs_div .col-md-2
+{
+    margin-bottom: 30px;
+}
