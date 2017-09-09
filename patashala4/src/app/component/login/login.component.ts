@@ -8,7 +8,6 @@ import {LoginConverter} from "../../adapter/interfaces/LoginConverter";
 
 
 import {LoginConverterImpl} from "../../adapter/impl/LoginConverterImpl";
-import {MessageTO} from "../../to/MessageTO";
 
 @Component({
   selector: 'app-login',
@@ -61,19 +60,19 @@ export class LoginComponent implements OnInit , LoginComponentInterface{
       {
         this.loginConverter.resetPassword(value,this)
       }
-
+   
   }
 
-  successMessageCallBack(messageTO:MessageTO) {
-    console.log("message in Login component..." + messageTO.messageInfo);
+  successMessageCallBack(message1:string) {
+    console.log(message1.length + 'sucess');
+    this.sucessMessage = "Login Success!";
     setTimeout(()=>{
       this.router.navigate(['/School']);
     },2000);
   }
 
-  errorMessageCallBack(messageTO:MessageTO){
-    console.log("message in Login component..." + messageTO.messageInfo);
-
+  errorMessageCallBack(message:string){
+    console.log(message.length + 'Navigate to Error page');
   }
 
 
@@ -84,17 +83,16 @@ export class LoginComponent implements OnInit , LoginComponentInterface{
   {
     this.sucessMessage = message;
     this.active="1";
-    setTimeout(()=>{
+    setTimeout(()=>{ 
       this.sucessMessage = "";
       this.active="0";
     },2000);
   }
-
   setUserErrorMessageonUI(message:string)
   {
     this.errorMessage = message;
     this.active="2";
-    setTimeout(()=>{
+    setTimeout(()=>{    
       this.errorMessage = "";
       this.active="0";
     },2000);

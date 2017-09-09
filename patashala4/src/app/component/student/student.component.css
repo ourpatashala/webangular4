@@ -1,0 +1,35 @@
+.mat-input-container
+{
+    width: 100%;
+}
+.manage_school_table h3
+{
+margin-top: 6px;
+margin-bottom: 22px;
+color: #666;
+}
+.manage_school_table table tbody tr td img
+{
+    width: 56px;
+}
+.manage_school_table table tbody tr td button
+{
+    min-width: 0;
+}
+.manage_school_table table tbody tr td button i
+{
+    color: #666;
+}
+.plus_btn_inline i
+{
+position: absolute;
+top: 9px;
+right: -2px;
+color: #55b1b9;
+cursor: pointer
+}
+.inactive_div
+{
+    height: 0;
+    overflow: hidden
+}
