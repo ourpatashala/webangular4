@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit, Input, Inject, PipeTransform, Pipe, Injector} from '@angular/core';
+
 
 @Component({
   selector: 'app-student',
