@@ -9,6 +9,10 @@ export class Messages{
   public static SCHOOL_ADDED='School  Added.';
   public static SCHOOL_UPDATED='School  Updated.';
 
+  public static STUDENT_EXISTS='Student  already exists.';
+  public static STUDENT_NOT_EXISTS='Student  not  present.';
+  public static STUDENT_ADDED='Student  Added.';
+  public static STUDENT_UPDATED='Student  Updated.';
 
 
 }

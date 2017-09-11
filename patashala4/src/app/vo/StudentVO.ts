@@ -11,24 +11,20 @@ import {NameValueVO} from "./NameValueVO";
  */
 export  class StudentVO {
 
+  id?: string;
+  schoolId?: string;
+  rollNo?: string;
   firstName?: string;
   lastName?: string;
   middleName?: string;
-  dob?: string;
-  id?: string;
-  schoolId?: string;
-  one?: string;
   classId?: string;
+  dob?: string;
+  mobileNumber?: string;
   gender?: string;
+  landLine?: string;
+  bloodGroup?: string;
+  profilePhotoUrl?: string;
   fatherName?: string;
   motherName?: string;
-  remarks?: string;
-  schoolName?: string;
-  className?: string;
-  profilePhotoUrl?: string;
-  bloodGroup?: string;
-  siblings?: NameValueVO[];
-  phoneNumbers?: Object;
-  testing?: string;
-  address?: AddressVO;
+  uniqueId: string;
 }

@@ -11,27 +11,32 @@ import {AddressTO} from "./AddressTO";
  * Value Object( VO) is the one that goes to the database and its scope is within service layer only.
  *
  */
-export  class StudentTO{
+export class StudentTO {
+
+  id?: string;
+  schoolId?: string;
+  rollNo?: string;
   firstName?: string;
   lastName?: string;
   middleName?: string;
-  dob?: string;
-  id?: string;
-  schoolId?: string;
-  one?:string;
   classId?: string;
+  dob?: string;
+  mobileNumber?: string;
   gender?: string;
+  landLine?: string;
+  bloodGroup?: string;
+  profilePhotoUrl?: string;
   fatherName?: string;
   motherName?: string;
-  remarks?: string;
-  schoolName?: string;
-  className?: string;
-  profilePhotoUrl?: string;
-  bloodGroup?: string;
-  siblings?:string[];
-  phoneNumbers?:string[];
-  testing?:string;
-  address?:AddressTO;
+  uniqueId: string;
+
+  toString() {
+    return "id : " + this.id + "\n" +
+      "schoolId : " + this.schoolId + "\n" +
+      "rollNo : " + this.rollNo + "\n" + "" +
+      "firstName : " + this.firstName + "\n" +
+      "lastName : " + this.lastName + "\n";
+  }
 
 
 }
