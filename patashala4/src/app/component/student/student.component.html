@@ -53,34 +53,53 @@
 
 
 <div class="add_fields addschool_div inactive_div"  [ngClass]="{'inactive_div': div_Element_Id !='1'}">
+    <form [formGroup]="studentFormGroup" (ngSubmit)="addStudentProfile(studentFormGroup)" ngNativeValidate>
     <div class="col-md-9 padding0">
         <div class="col-md-6">
-        <div class="col-md-4"><p>First Name</p></div><div class="col-md-8"><input type="text" placeholder="Enter First Name"></div><div class="clear"></div>
-        <div class="col-md-4"><p>Last Name</p></div><div class="col-md-8"><input type="text" placeholder="Enter Last Name"></div><div class="clear"></div>
-        <div class="col-md-4"><p>Middle Name</p></div><div class="col-md-8"><input type="text" placeholder="Enter Middle Name"></div><div class="clear"></div>
-        <!-- <div class="col-md-4"><p>Class</p></div><div class="col-md-8"><input auto-complete [(ngModel)]="myData" [source]="appComponent.classes" placeholder="Search Class"/></div><div class="clear"></div> -->
-        <div class="col-md-4"><p>Registered Mobile</p></div><div class="col-md-8 plus_btn_inline"><input type="text" placeholder="Enter Registered Mobile number"><i class="fa fa-plus"></i>
-            <div class="dlt_btn_inline"><input type="text" placeholder="Enter Registered Mobile number"><i class="fa fa-times"></i></div>
-        </div><div class="clear"></div>
-        <div class="col-md-4"><p>Gender</p></div><div class="col-md-8">
-        <select>
-            <option value="0">Select Gender</option>
-            <option value="Male">Male</option>
-            <option value="Female">Female</option>
-        </select>    
-        </div><div class="clear"></div>
+            <div class="col-md-4"><p>First Name</p></div>
+            <div class="col-md-8"><input type="text" placeholder="Enter First Name" formControlName="firstName"></div>
+            <div class="clear"></div>
+            <div class="col-md-4"><p>Last Name</p></div>
+            <div class="col-md-8"><input type="text" placeholder="Enter Last Name" formControlName="lastName"></div>
+            <div class="clear"></div>
+            <div class="col-md-4"><p>Middle Name</p></div>
+            <div class="col-md-8"><input type="text" placeholder="Enter Middle Name" formControlName="middleName"></div>
+            <div class="clear"></div>
+            <!-- <div class="col-md-4"><p>Class</p></div><div class="col-md-8"><input auto-complete [(ngModel)]="myData" [source]="appComponent.classes" placeholder="Search Class"/></div><div class="clear"></div> -->
+            <div class="col-md-4"><p>Registered Mobile</p></div>
+            <div class="col-md-8 plus_btn_inline"><input type="text" placeholder="Enter Registered Mobile number" formControlName="registerMobile"><i class="fa fa-plus"></i>
+                    <div class="dlt_btn_inline"><input type="text" placeholder="Enter Registered Mobile number"><i class="fa fa-times"></i>
+                    </div>
+            </div><div class="clear"></div>
+            <div class="col-md-4"><p>Gender</p></div>
+            <div class="col-md-8">
+                <select formControlName="gender">
+                    <option value="0">Select Gender</option>
+                    <option value="Male">Male</option>
+                    <option value="Female">Female</option>
+                </select>    
+            </div><div class="clear"></div>
         
         </div>
         <div class="col-md-6">
-        <div class="col-md-4"><p>Landline Number</p></div><div class="col-md-8"><input type="text" placeholder="Enter Landline Number"></div><div class="clear"></div>
-        <div class="col-md-4"><p>Address1</p></div><div class="col-md-8"><input type="text" placeholder="Enter Address1"></div><div class="clear"></div>
-        <div class="col-md-4"><p>Address2</p></div><div class="col-md-8"><input type="text" placeholder="Enter Address2"></div><div class="clear"></div>
-        <div class="col-md-4"><p>city</p></div><div class="col-md-8"><input type="text" placeholder="Enter city"></div><div class="clear"></div>
-        <div class="col-md-4"><p>State</p></div><div class="col-md-8"><input type="text" placeholder="Enter State"></div><div class="clear"></div>
-        <div class="col-md-4"><p>Country</p></div><div class="col-md-8"><input type="text" placeholder="Enter Country"></div><div class="clear"></div>
-        <div class="col-md-4"><p>Pincode</p></div><div class="col-md-8"><input type="text" placeholder="Enter Pincode"></div><div class="clear"></div>
-        <div class="col-md-4"><p>Blood Group</p></div><div class="col-md-8"><input type="text" placeholder="Enter Blood Group"></div><div class="clear"></div>
-        <div class="col-md-4"><p>Date Of Birth</p></div><div class="col-md-8"><input type="text" class="datePicker" placeholder="Enter Date of Birth"></div><div class="clear"></div>
+            <div class="col-md-4"><p>Landline Number</p></div>
+            <div class="col-md-8"><input type="text" placeholder="Enter Landline Number" formControlName="landLineNumber"></div><div class="clear"></div>
+            <div class="col-md-4"><p>Address1</p></div>
+            <div class="col-md-8"><input type="text" placeholder="Enter Address1" formControlName="addressOne"></div><div class="clear"></div>
+            <div class="col-md-4"><p>Address2</p></div>
+            <div class="col-md-8"><input type="text" placeholder="Enter Address2" formControlName="addressTwo"></div><div class="clear"></div>
+            <div class="col-md-4"><p>city</p></div>
+            <div class="col-md-8"><input type="text" placeholder="Enter city" formControlName="city"></div><div class="clear"></div>
+            <div class="col-md-4"><p>State</p></div>
+            <div class="col-md-8"><input type="text" placeholder="Enter State" formControlName="state"></div><div class="clear"></div>
+            <div class="col-md-4"><p>Country</p></div>
+            <div class="col-md-8"><input type="text" placeholder="Enter Country" formControlName="country"></div><div class="clear"></div>
+            <div class="col-md-4"><p>Pincode</p></div>
+            <div class="col-md-8"><input type="text" placeholder="Enter Pincode" formControlName="pincode"></div><div class="clear"></div>
+            <div class="col-md-4"><p>Blood Group</p></div>
+            <div class="col-md-8"><input type="text" placeholder="Enter Blood Group" formControlName="bloodGroup"></div><div class="clear"></div>
+            <div class="col-md-4"><p>Date Of Birth</p></div>
+            <div class="col-md-8"><input type="text" class="datePicker" placeholder="Enter Date of Birth" formControlName="dateOfBirth"></div><div class="clear"></div>
         </div>
        
         
@@ -90,7 +109,7 @@
         <div class="large_gap"></div>
               <p class="text-left">Photo</p>
                     <div class="browse_img_manual">
-                          <input type="file">
+                          <input type="file" formControlName="uploadPhoto">
                           <div class="img_overlay">
                           <img src="./assets/images/profile/default.jpg" class="img100">
                           <p>Upload Photo</p>
@@ -100,23 +119,31 @@
                 <div class="little_gap"></div>
        
     </div>
-<div class="clear"></div>
+    <div class="clear"></div>
+    
 <div class="little_gap"></div>
 <div class="text-center"> <button class="update_btn">Add Student</button> <span class="cancel_btn_add button_type_span" (click)="showSchoolsList()">Cancel</span></div>
+</form>
 <div class="large_gap"></div>
 </div>
 
 
 <div class="modify_fields addschool_div inactive_div" [ngClass]="{'inactive_div': div_Element_Id !='2'}">
+    <form [formGroup]="studentFormGroup" (ngSubmit)="updateStudent(studentFormGroup)" ngNativeValidate>
     <div class="col-md-9">
         <div class="col-md-6">
-            <div class="col-md-4"><p>First Name</p></div><div class="col-md-8"><input type="text" value="SFirstname2"></div><div class="clear"></div>
-            <div class="col-md-4"><p>Last Name</p></div><div class="col-md-8"><input type="text" value="SLastname2"></div><div class="clear"></div>
-            <div class="col-md-4"><p>Middle Name</p></div><div class="col-md-8"><input type="text" value="SMiddlename2"></div><div class="clear"></div>
+            <div class="col-md-4"><p>First Name</p></div>
+            <div class="col-md-8"><input type="text" value="SFirstname2" formControlName="firstName"></div><div class="clear"></div>
+            <div class="col-md-4"><p>Last Name</p></div>
+            <div class="col-md-8"><input type="text" value="SLastname2" formControlName="lastName"></div><div class="clear"></div>
+            <div class="col-md-4"><p>Middle Name</p></div>
+            <div class="col-md-8"><input type="text" value="SMiddlename2" formControlName="middleName"></div><div class="clear"></div>
             <!-- <div class="col-md-4"><p>Class</p></div><div class="col-md-8"><input auto-complete [(ngModel)]="myData" [source]="appComponent.classes" placeholder="Search Class"/></div><div class="clear"></div> -->
-            <div class="col-md-4"><p>Registered Mobile</p></div><div class="col-md-8"><input type="text" value="+91 9876543210"></div><div class="clear"></div>
-            <div class="col-md-4"><p>Gender</p></div><div class="col-md-8">
-                <select>
+            <div class="col-md-4"><p>Registered Mobile</p></div>
+            <div class="col-md-8"><input type="text" value="+91 9876543210" formControlName="registerMobile"></div><div class="clear"></div>
+            <div class="col-md-4"><p>Gender</p></div>
+            <div class="col-md-8">
+                <select formControlName="gender">
                     <option value="0">Select Gender</option>
                     <option value="Male" selected>Male</option>
                     <option value="Female">Female</option>
@@ -124,14 +151,24 @@
             </div><div class="clear"></div>
         </div>
         <div class="col-md-6">
-            <div class="col-md-4"><p>Address1</p></div><div class="col-md-8"><input type="text" placeholder="Enter Address1"></div><div class="clear"></div>
-            <div class="col-md-4"><p>Address2</p></div><div class="col-md-8"><input type="text" placeholder="Enter Address2"></div><div class="clear"></div>
-            <div class="col-md-4"><p>city</p></div><div class="col-md-8"><input type="text" placeholder="Enter city"></div><div class="clear"></div>
-            <div class="col-md-4"><p>State</p></div><div class="col-md-8"><input type="text" placeholder="Enter State"></div><div class="clear"></div>
-            <div class="col-md-4"><p>Country</p></div><div class="col-md-8"><input type="text" placeholder="Enter Country"></div><div class="clear"></div>
-            <div class="col-md-4"><p>Pincode</p></div><div class="col-md-8"><input type="text" placeholder="Enter Pincode"></div><div class="clear"></div>
-            <div class="col-md-4"><p>Blood Group</p></div><div class="col-md-8"><input type="text" value="A +"></div><div class="clear"></div>
-            <div class="col-md-4"><p>Date of Birth</p></div><div class="col-md-8"><input type="text" class="datePicker" value="01/01/2008"></div><div class="clear"></div>
+            <div class="col-md-4"><p>Landline Number</p></div>
+            <div class="col-md-8"><input type="text" placeholder="Enter Landline Number" formControlName="landLineNumber"></div><div class="clear"></div>
+            <div class="col-md-4"><p>Address1</p></div>
+            <div class="col-md-8"><input type="text" placeholder="Enter Address1" formControlName="addressOne"></div><div class="clear"></div>
+            <div class="col-md-4"><p>Address2</p></div>
+            <div class="col-md-8"><input type="text" placeholder="Enter Address2" formControlName="addressTwo"></div><div class="clear"></div>
+            <div class="col-md-4"><p>city</p></div>
+            <div class="col-md-8"><input type="text" placeholder="Enter city" formControlName="city"></div><div class="clear"></div>
+            <div class="col-md-4"><p>State</p></div>
+            <div class="col-md-8"><input type="text" placeholder="Enter State" formControlName="state"></div><div class="clear"></div>
+            <div class="col-md-4"><p>Country</p></div>
+            <div class="col-md-8"><input type="text" placeholder="Enter Country" formControlName="country"></div><div class="clear"></div>
+            <div class="col-md-4"><p>Pincode</p></div>
+            <div class="col-md-8"><input type="text" placeholder="Enter Pincode" formControlName="pincode"></div><div class="clear"></div>
+            <div class="col-md-4"><p>Blood Group</p></div>
+            <div class="col-md-8"><input type="text" value="A +" formControlName="bloodGroup"></div><div class="clear"></div>
+            <div class="col-md-4"><p>Date of Birth</p></div>
+            <div class="col-md-8"><input type="text" class="datePicker" value="01/01/2008" formControlName="dateOfBirth"></div><div class="clear"></div>
         </div>
         
        <div class="clear"></div>
@@ -140,7 +177,7 @@
         <div class="large_gap"></div>
               <p class="text-left">Photo</p>
                    <div class="browse_img_manual">
-                          <input type="file">
+                          <input type="file" formControlName="uploadPhoto">
                           <div class="img_overlay">
                           <img src="./assets/images/profile/default.jpg" class="img100">
                           <p>Upload Photo</p>
@@ -153,6 +190,7 @@
 <div class="clear"></div>
  <div class="little_gap"></div>
 <div class="text-center"> <button class="update_btn">Modify Student</button> <span class="cancel_btn_modify button_type_span" (click)="showSchoolsList()">Cancel</span></div>
+    </form>
 <div class="large_gap"></div>
 </div>
 
@@ -179,7 +217,7 @@
             </thead>
             <tbody>
                 <tr>
-                    <td><input type="checkbox"></td>
+                    <td><input  type="checkbox" id="123" value="123" (change)="checkedStudents('123')" ></td>
                     <td>1</td>
                     <td><img src="./assets/images/profile/1.jpg"></td>
                     <td>SFirstname1</td>
@@ -189,7 +227,7 @@
                     <td>+91 9874563210</td>
                 </tr>
                 <tr>
-                    <td><input type="checkbox"></td>
+                    <td><input type="checkbox" id="123" value="124" (change)="checkedStudents('124')" ></td>
                     <td>2</td>
                     <td><img src="./assets/images/profile/1.jpg"></td>
                     <td>SFirstname1</td>
@@ -199,7 +237,7 @@
                     <td>+91 9874563210</td>
                 </tr>
                 <tr>
-                    <td><input type="checkbox"></td>
+                    <td><input type="checkbox" id="124" value="124" (change)="checkedStudents('124')" ></td>
                     <td>3</td>
                     <td><img src="./assets/images/profile/1.jpg"></td>
                     <td>SFirstname1</td>
@@ -209,7 +247,7 @@
                     <td>+91 9874563210</td>
                 </tr>
                 <tr>
-                    <td><input type="checkbox"></td>
+                    <td><input type="checkbox" id="124" value="124" (change)="checkedStudents('124')" ></td>
                     <td>4</td>
                     <td><img src="./assets/images/profile/1.jpg"></td>
                     <td>SFirstname1</td>

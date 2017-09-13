@@ -3,10 +3,7 @@ import {StudentService} from "../../service/student.service";
 import {StudentConverter} from "../../adapter/interfaces/StudentConverter";
 import {StudentTO} from "../../to/StudentTO";
 import {StudentConverterImpl} from "../../adapter/impl/StudentConverterImpl";
-import {
-  FormGroup, FormControl, Validators, FormBuilder, FormArray, AbstractControl
-}
-  from "@angular/forms";
+import { FormGroup, FormControl, Validators, FormBuilder, FormArray, AbstractControl } from "@angular/forms";
 import {ArrayType} from "@angular/compiler/src/output/output_ast";
 
 import {StudentComponentInterface} from "./StudentComponentInterface";
@@ -73,28 +70,23 @@ export class StudentComponent implements OnInit, StudentComponentInterface {
 
 
   ngOnInit() {
-    this.studentFormGroup = new FormGroup(
+    this.studentFormGroup = this.fb.group(
       {
-        //id: new FormControl(""),
-        //schoolId: new FormControl(""),
-        //rollNo: new FormControl(""),
-
-        firstName: new FormControl(""),
-        //lastName: new FormControl(""),
-        //middleName: new FormControl(""),
-        //classId: new FormControl(""),
-
-        //gender: new FormControl(""),
-        //mobileNumber: new FormControl(""),
-
-        //landLine: new FormControl(""),
-        //bloodGroup: new FormControl(""),
-        //dob: new FormControl(""),
-        //profilePhotoUrl: new FormControl(""),
-
-        //fatherName: new FormControl(""),
-        //motherName: new FormControl(""),
-
+        firstName: [''],
+        lastName: [''],
+        middleName: [''],
+        registerMobile: [''],
+        gender: [''],
+        landLineNumber: [''],
+        addressOne: [''],
+        addressTwo: [''],
+        city: [''],
+        state: [''],
+        country: [''],
+        pincode: [''],
+        bloodGroup: [''],
+        dateOfBirth:[''],
+        uploadPhoto: ['']
       }
     );
 
@@ -139,7 +131,7 @@ export class StudentComponent implements OnInit, StudentComponentInterface {
 
     //console.log("addStudentProfile.." + value.toString().valueOf());
 
-    console.log("addStudentProfile.." );
+    console.log("addStudentProfile..", value);
 
 
     //this.studentConverter.addStudentProfile(this.studentTO.schoolId, this.studentTO, this);
@@ -153,6 +145,7 @@ export class StudentComponent implements OnInit, StudentComponentInterface {
    * @param valid
    */
   updateStudent({schoolId, value, valid}: {schoolId: string, value: StudentTO, valid: boolean}) {
+    console.log("updateStudent", value);
     this.studentTO = value;
     this.studentConverter.updateStudent(schoolId, this.studentTO,this);
   }
@@ -238,7 +231,17 @@ export class StudentComponent implements OnInit, StudentComponentInterface {
 
 
 
-
+  checkedStudents(value) {
+    console.log(value);
+    if ((<HTMLInputElement>document.getElementById(value)).checked === true) {
+        this.selectedStudentArray.push(value);
+    }
+    else if ((<HTMLInputElement>document.getElementById(value)).checked === false) {
+        let indexx = this.selectedStudentArray.indexOf(value);
+        this.selectedStudentArray.splice(indexx,1)
+    }
+    console.log(this.selectedStudentArray)
+}
 
 
 
