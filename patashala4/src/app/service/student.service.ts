@@ -31,12 +31,35 @@ export class StudentService {
 
   addStudentProfile(schoolId: string, studentVO: StudentVO, studentComponentInterface: StudentComponentInterface) {
 
+    studentVO.schoolId = schoolId;
     this.searchAndAddStudent(studentVO, studentComponentInterface);
 
   }
 
+  getAllStudents(schoolId: string) : FirebaseListObservable<any>{
+    var studentProfilePath = PathUtil.getStudentPath(schoolId);
+    var allstudentProfiles=  this.angularFireDatabase.list(studentProfilePath);
+    return allstudentProfiles;
+  }
+
+  getStudentProfileRange(schoolId: string,start:string,end:string){
+    var schoolProfilePath = PathUtil.getStudentPath(schoolId);
+
+    var ref = this.angularFireDatabase.list(NodeConstants.SCHOOLS+schoolProfilePath).$ref.orderByChild("firstName").limitToLast(2).startAt(0).once("value", function(snapshot) {
+      var dbRecord = snapshot.val();
+      Object.keys(dbRecord).forEach(function(key){
+        let schoolVOFromDB = dbRecord[key];
+        console.log(schoolVOFromDB.firstName);
+
+      });
+
+    });
+
+  }
+
+
   getStudentProfile(schoolId: string, studentId: string): FirebaseObjectObservable<any> {
-    var studentInfo = this.firebaseApp.database.object("/schools/" + schoolId + "/studentProfile/" + studentId);
+    var studentInfo = this.angularFireDatabase.object("/schools/" + schoolId + "/studentProfile/" + studentId);
     return studentInfo;
   }
 
@@ -52,31 +75,38 @@ export class StudentService {
     console.log("searchAndAddSchoolProfile --> studentVO.lastName.." + studentVO.lastName);
     console.log("searchAndAddSchoolProfile --> studentVO.rollNo.." + studentVO.rollNo);
     console.log("searchAndAddSchoolProfile --> studentVO.uniqueId.." + studentVO.uniqueId);
-    var firebaseObject = this.firebaseApp.database;
-    var ref = this.firebaseApp.database.object(NodeConstants.STUDENTS).$ref.child(studentProfilePath).orderByChild(NodeConstants.UNIQUE_ID).equalTo(studentVO.uniqueId).once("value", function (snapshot) {
+    var firebaseObject = this.angularFireDatabase;
+    var ref = this.angularFireDatabase.object(NodeConstants.STUDENTS).$ref.child(studentProfilePath).orderByChild(NodeConstants.UNIQUE_ID).equalTo(studentVO.uniqueId).once("value", function (snapshot) {
+
       var exists = (snapshot.val() !== null);
       if (exists) {
         console.log("Record already exists..");
         studentComponentInterface.errorMessageCallBack(Messages.STUDENT_EXISTS);
 
       } else {
-        console.log("Record not existed..");
+        console.log("Record not existed.."+studentProfilePath);
         var dbRef = firebaseObject.object(studentProfilePath).$ref.push(studentProfilePath);
+        //var dbRef = firebaseObject.object(PathUtil.getSchoolProfilePath()).$ref.push(PathUtil.getSchoolProfilePath());
         studentVO.id = dbRef.key;
+
+        console.log("Record not existed.."+ studentVO);
         dbRef.set(studentVO);
-        studentComponentInterface.successMessageCallBack(Messages.STUDENT_ADDED);
+        console.log("Added Record .."+ studentVO);
+        //studentComponentInterface.successMessageCallBack(Messages.STUDENT_ADDED);
       }
     });
 
   }
 
 
+
+
   updateStudentProfile(schoolId: string, studentVO: StudentVO, studentComponentInterface: StudentComponentInterface) {
 
-    var firebaseObject = this.firebaseApp.database;
+    var firebaseObject = this.angularFireDatabase;
     var studentProfilePath = PathUtil.getStudentProfilePath(studentVO.schoolId, studentVO.id);
     console.log("updateStudentProfile studentProfilePath ==> "+ studentProfilePath);
-    var ref = this.firebaseApp.database.object(NodeConstants.STUDENTS).$ref.child(studentProfilePath).orderByChild(NodeConstants.UNIQUE_ID).equalTo(studentVO.uniqueId).once("value", function (snapshot) {
+    var ref = this.angularFireDatabase.object(NodeConstants.STUDENTS).$ref.child(studentProfilePath).orderByChild(NodeConstants.UNIQUE_ID).equalTo(studentVO.uniqueId).once("value", function (snapshot) {
       var exists = (snapshot.val() !== null);
       if (exists) {
         console.log("Record Exists, So validate if the id is matching otherwise don't update the record.")
@@ -103,7 +133,9 @@ export class StudentService {
 
   }
 
-
+  deleteStudentProfile(schoolid: string, studentId: string) {
+    this.angularFireDatabase.object(PathUtil.getStudentProfilePath(schoolid,studentId)).$ref.remove();
+  }
 
 
 }

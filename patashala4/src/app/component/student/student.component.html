@@ -6,7 +6,7 @@
   <div class="large_gap"></div>
   <input type="file" class="upload_img_input">
   <button class="popup_close_btn"><i class="fa fa-times "></i></button>
-  <button class="upld_brw_file"><i class="fa fa-upload"> Upload / Browse File</i></button> 
+  <button class="upld_brw_file"><i class="fa fa-upload"> Upload / Browse File</i></button>
   <button class="openCam"><i class="fa fa-camera"></i> Open Camera</button>
 </div>
 
@@ -29,7 +29,7 @@
     </div>
     <div class="large_gap"></div>
 
-    
+
         <div class="col-md-6 padding0"><h3>Manage Students</h3>
         <p class="breadscrum_text"><a  routerLink="/">Home </a> &nbsp; <i class="fa fa-chevron-right"></i> &nbsp; Manage Students</p>
         </div>
@@ -67,7 +67,7 @@
             <div class="clear"></div>
             <!-- <div class="col-md-4"><p>Class</p></div><div class="col-md-8"><input auto-complete [(ngModel)]="myData" [source]="appComponent.classes" placeholder="Search Class"/></div><div class="clear"></div> -->
             <div class="col-md-4"><p>Registered Mobile</p></div>
-            <div class="col-md-8 plus_btn_inline"><input type="text" placeholder="Enter Registered Mobile number" formControlName="registerMobile"><i class="fa fa-plus"></i>
+            <div class="col-md-8 plus_btn_inline"><input type="text" placeholder="Enter Registered Mobile number" formControlName="mobileNumbers"><i class="fa fa-plus"></i>
                     <div class="dlt_btn_inline"><input type="text" placeholder="Enter Registered Mobile number"><i class="fa fa-times"></i>
                     </div>
             </div><div class="clear"></div>
@@ -77,13 +77,13 @@
                     <option value="0">Select Gender</option>
                     <option value="Male">Male</option>
                     <option value="Female">Female</option>
-                </select>    
+                </select>
             </div><div class="clear"></div>
-        
+
         </div>
         <div class="col-md-6">
             <div class="col-md-4"><p>Landline Number</p></div>
-            <div class="col-md-8"><input type="text" placeholder="Enter Landline Number" formControlName="landLineNumber"></div><div class="clear"></div>
+            <div class="col-md-8"><input type="text" placeholder="Enter Landline Number" formControlName="landLine"></div><div class="clear"></div>
             <div class="col-md-4"><p>Address1</p></div>
             <div class="col-md-8"><input type="text" placeholder="Enter Address1" formControlName="addressOne"></div><div class="clear"></div>
             <div class="col-md-4"><p>Address2</p></div>
@@ -101,8 +101,8 @@
             <div class="col-md-4"><p>Date Of Birth</p></div>
             <div class="col-md-8"><input type="text" class="datePicker" placeholder="Enter Date of Birth" formControlName="dateOfBirth"></div><div class="clear"></div>
         </div>
-       
-        
+
+
         <div class="little_gap"></div>
     </div>
     <div class="col-md-3 text-center">
@@ -114,13 +114,13 @@
                           <img src="./assets/images/profile/default.jpg" class="img100">
                           <p>Upload Photo</p>
                           </div>
-                          </div>  
+                          </div>
                 <div class="clear"></div>
                 <div class="little_gap"></div>
-       
+
     </div>
     <div class="clear"></div>
-    
+
 <div class="little_gap"></div>
 <div class="text-center"> <button class="update_btn">Add Student</button> <span class="cancel_btn_add button_type_span" (click)="showSchoolsList()">Cancel</span></div>
 </form>
@@ -140,19 +140,19 @@
             <div class="col-md-8"><input type="text" value="SMiddlename2" formControlName="middleName"></div><div class="clear"></div>
             <!-- <div class="col-md-4"><p>Class</p></div><div class="col-md-8"><input auto-complete [(ngModel)]="myData" [source]="appComponent.classes" placeholder="Search Class"/></div><div class="clear"></div> -->
             <div class="col-md-4"><p>Registered Mobile</p></div>
-            <div class="col-md-8"><input type="text" value="+91 9876543210" formControlName="registerMobile"></div><div class="clear"></div>
+            <div class="col-md-8"><input type="text" value="+91 9876543210" formControlName="mobileNumbers"></div><div class="clear"></div>
             <div class="col-md-4"><p>Gender</p></div>
             <div class="col-md-8">
                 <select formControlName="gender">
                     <option value="0">Select Gender</option>
                     <option value="Male" selected>Male</option>
                     <option value="Female">Female</option>
-                </select>    
+                </select>
             </div><div class="clear"></div>
         </div>
         <div class="col-md-6">
             <div class="col-md-4"><p>Landline Number</p></div>
-            <div class="col-md-8"><input type="text" placeholder="Enter Landline Number" formControlName="landLineNumber"></div><div class="clear"></div>
+            <div class="col-md-8"><input type="text" placeholder="Enter Landline Number" formControlName="landLine"></div><div class="clear"></div>
             <div class="col-md-4"><p>Address1</p></div>
             <div class="col-md-8"><input type="text" placeholder="Enter Address1" formControlName="addressOne"></div><div class="clear"></div>
             <div class="col-md-4"><p>Address2</p></div>
@@ -170,7 +170,7 @@
             <div class="col-md-4"><p>Date of Birth</p></div>
             <div class="col-md-8"><input type="text" class="datePicker" value="01/01/2008" formControlName="dateOfBirth"></div><div class="clear"></div>
         </div>
-        
+
        <div class="clear"></div>
     </div>
     <div class="col-md-3 text-center">
@@ -182,10 +182,10 @@
                           <img src="./assets/images/profile/default.jpg" class="img100">
                           <p>Upload Photo</p>
                           </div>
-                          </div>  
+                          </div>
                 <div class="clear"></div>
                 <div class="little_gap"></div>
-       
+
     </div>
 <div class="clear"></div>
  <div class="little_gap"></div>
@@ -201,7 +201,7 @@
 
 
 <div class="datatable_toggle"  [ngClass]="{'inactive_div': div_Element_Id !='0'}">
-    
+
     <table datatable class="my_table_width" [dtTrigger]="dtTrigger">
             <thead>
                 <tr>
@@ -260,7 +260,7 @@
         </table>
 </div>
     </div>
-    </div>   
+    </div>
 <div class="clear"></div>
 
 

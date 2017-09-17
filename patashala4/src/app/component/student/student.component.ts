@@ -3,12 +3,12 @@ import {StudentService} from "../../service/student.service";
 import {StudentConverter} from "../../adapter/interfaces/StudentConverter";
 import {StudentTO} from "../../to/StudentTO";
 import {StudentConverterImpl} from "../../adapter/impl/StudentConverterImpl";
-import { FormGroup, FormControl, Validators, FormBuilder, FormArray, AbstractControl } from "@angular/forms";
+import {FormGroup, FormControl, Validators, FormBuilder, FormArray, AbstractControl} from "@angular/forms";
 import {ArrayType} from "@angular/compiler/src/output/output_ast";
 
 import {StudentComponentInterface} from "./StudentComponentInterface";
 import {jsonpFactory} from "@angular/http/src/http_module";
-import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/database';
+import {AngularFireDatabase, FirebaseListObservable} from 'angularfire2/database';
 
 import {AngularFireAuth} from "angularfire2/auth";
 
@@ -17,9 +17,7 @@ import {Router} from "@angular/router";
 import {ErrorService} from "../../service/error.service";
 import {BehaviorSubject, Observable, Subscription} from "rxjs";
 declare var $: any;
-import { Subject } from 'rxjs/Rx';
-
-
+import {Subject} from 'rxjs/Rx';
 
 
 @Component({
@@ -32,11 +30,11 @@ import { Subject } from 'rxjs/Rx';
 export class StudentComponent implements OnInit, StudentComponentInterface {
 
 
-  selectedStudentArray:Array<any>= [];
+  selectedStudentArray: Array<any> = [];
   dtOptions: DataTables.Settings = {};
-  x:string;
-  errorMessage:string;
-  sucessMessage:string;
+  x: string;
+  errorMessage: string;
+  sucessMessage: string;
   subscription: Subscription;
   message: string = '';
   dtTrigger = new Subject();
@@ -44,9 +42,8 @@ export class StudentComponent implements OnInit, StudentComponentInterface {
   studentTO: StudentTO;
   studentFormGroup: FormGroup;
 
-  active:string="0";// for error and success divs;;  0 for no content, 1 for success, 2 for error
-  div_Element_Id: string= "0";//for multiple pages in school list page;;  0 to show list of school , 1 to show add school, 2 to show edit school, 3 to show single school view.
-
+  active: string = "0";// for error and success divs;;  0 for no content, 1 for success, 2 for error
+  div_Element_Id: string = "0";//for multiple pages in school list page;;  0 to show list of school , 1 to show add school, 2 to show edit school, 3 to show single school view.
 
 
   fb: FormBuilder;
@@ -60,41 +57,44 @@ export class StudentComponent implements OnInit, StudentComponentInterface {
 
   constructor(@Inject("StudentConverter") private studentConverter: StudentConverter, fb: FormBuilder, private injector: Injector, private errorService: ErrorService) {
     this.fb = fb;
-    this.subscription = this.update$.subscribe(
-      message => {
-        this.message = message;
-      });
+    this.subscription = this.update$.subscribe(message => {
+      this.message = message;
+    });
   }
 
 
-
-
   ngOnInit() {
-    this.studentFormGroup = this.fb.group(
-      {
-        firstName: [''],
-        lastName: [''],
-        middleName: [''],
-        registerMobile: [''],
-        gender: [''],
-        landLineNumber: [''],
-        addressOne: [''],
-        addressTwo: [''],
-        city: [''],
-        state: [''],
-        country: [''],
-        pincode: [''],
-        bloodGroup: [''],
-        dateOfBirth:[''],
-        uploadPhoto: ['']
-      }
-    );
+    this.studentFormGroup = this.fb.group({
+      firstName: [''],
+      lastName: [''],
+      middleName: [''],
+      mobileNumbers: [''],
+      gender: [''],
+      landLine: [''],
+      addressOne: [''],
+      addressTwo: [''],
+      city: [''],
+      state: [''],
+      country: [''],
+      pincode: [''],
+      bloodGroup: [''],
+      dateOfBirth: [''],
+      uploadPhoto: [''],
+      fatherName: [''],
+      motherName: [''],
+      rollNo: [''],
+      dob: [''],
+      classId: [''],
+      schoolId: ['school04'],
+      id: ['-KuCWQEmwl1MsTD0SPdb']
+      //TODO : Shiva integrate code by removing hardcoding of values.
+    });
 
   }
 
 
   addPhoneNumbers() {
-    const control = <FormArray>this.studentFormGroup.controls["phoneNumbers"];
+    const control = <FormArray>this.studentFormGroup.controls["mobileNumbers"];
     control.push(this.initPhoneNumbers());
   }
 
@@ -107,18 +107,23 @@ export class StudentComponent implements OnInit, StudentComponentInterface {
 
   initPhoneNumbers() {
     return this.fb.group({
-      phoneNumber: [""]
+      mobileNumber: [""]
     });
   }
 
 
   initSiblings() {
     return this.fb.group({
-      keyInfo: [""],
-      valueInfo: [""]
+      keyInfo: [""], valueInfo: [""]
     });
   }
 
+  /**
+   * Used for getting all school profile objects.
+   */
+  getAllStudents(schoolId: string) {
+    this.studentConverter.getAllStudents(schoolId, this);
+  }
 
   getStudentProfile(schoolId: string, studentId: string) {
 
@@ -127,16 +132,10 @@ export class StudentComponent implements OnInit, StudentComponentInterface {
   }
 
   addStudentProfile({value, valid}: { value: StudentTO, valid: boolean }) {
-    //this.studentTO = value;
+    this.studentTO = value;
 
-    //console.log("addStudentProfile.." + value.toString().valueOf());
+    this.studentConverter.addStudentProfile(this.studentTO.schoolId, this.studentTO, this);
 
-    console.log("addStudentProfile..", value);
-
-
-    //this.studentConverter.addStudentProfile(this.studentTO.schoolId, this.studentTO, this);
-    //this.studentConverter.getStudent(this.studentTO.schoolId, this.studentTO.id, this);
-    //this.studentConverter.updateStudent(this.studentTO.schoolId, this.studentTO, this);
   }
 
   /**
@@ -144,10 +143,11 @@ export class StudentComponent implements OnInit, StudentComponentInterface {
    * @param value
    * @param valid
    */
-  updateStudent({schoolId, value, valid}: {schoolId: string, value: StudentTO, valid: boolean}) {
+  updateStudent({schoolId, value, valid}: { schoolId: string, value: StudentTO, valid: boolean }) {
     console.log("updateStudent", value);
     this.studentTO = value;
-    this.studentConverter.updateStudent(schoolId, this.studentTO,this);
+
+    this.studentConverter.updateStudent(schoolId, this.studentTO, this);
   }
 
   /**
@@ -158,6 +158,30 @@ export class StudentComponent implements OnInit, StudentComponentInterface {
     console.log("displayStudentCallBack.." + studentTO.toString().valueOf());
     console.log("displayStudentCallBack..id " + studentTO.id);
     console.log("displayStudentCallBack..firstName " + studentTO.firstName);
+
+
+    console.log(studentTO);
+    this.studentTO = studentTO;
+    this.studentFormGroup.controls['firstName'].patchValue(studentTO.firstName);
+    this.studentFormGroup.controls['lastName'].patchValue(studentTO.lastName);
+    this.studentFormGroup.controls['middleName'].patchValue(studentTO.middleName);
+    this.studentFormGroup.controls['mobileNumbers'].patchValue(studentTO.mobileNumbers);
+    this.studentFormGroup.controls['gender'].patchValue(studentTO.gender);
+    this.studentFormGroup.controls['landLine'].patchValue(studentTO.landLine);
+    this.studentFormGroup.controls['addressOne'].patchValue(studentTO.addressOne);
+    this.studentFormGroup.controls['addressTwo'].patchValue(studentTO.addressTwo);
+    this.studentFormGroup.controls['city'].patchValue(studentTO.city);
+    this.studentFormGroup.controls['state'].patchValue(studentTO.state);
+    this.studentFormGroup.controls['country'].patchValue(studentTO.country);
+    this.studentFormGroup.controls['pincode'].patchValue(studentTO.pincode);
+    this.studentFormGroup.controls['bloodGroup'].patchValue(studentTO.bloodGroup);
+    this.studentFormGroup.controls['dateOfBirth'].patchValue(studentTO.dateOfBirth);
+    //this.studentFormGroup.controls['fatherName'].patchValue(studentTO.fatherName);
+    //this.studentFormGroup.controls['motherName'].patchValue(studentTO.motherName);
+    //this.studentFormGroup.controls['rollNo'].patchValue(studentTO.rollNo);
+    //this.studentFormGroup.controls['classId'].patchValue(studentTO.classId);
+
+
   }
 
   /**
@@ -170,6 +194,17 @@ export class StudentComponent implements OnInit, StudentComponentInterface {
 
   successMessageCallBack(message: string) {
     console.log(message);
+    console.log(message + 'sucess');
+    this.sucessMessage = message;
+    if (message.length != 0) {
+      this.active = "1";
+    } else {
+      this.active = "0";
+    }
+    setTimeout(() => {    //<<<---    using ()=> syntax
+      this.sucessMessage = "";
+      this.active = "0";
+    }, 2000);
   }
 
   /**
@@ -200,49 +235,44 @@ export class StudentComponent implements OnInit, StudentComponentInterface {
    * Used for getting the school profile.
    * @param schoolId
    */
-  getStudent(schoolId:string, studentId: string){
-    this.studentConverter.getStudent(schoolId, studentId,this);
+  getStudent(schoolId: string, studentId: string) {
+    this.studentConverter.getStudent(schoolId, studentId, this);
   }
 
 
-  showSchoolsList()
-  {
-    if(this.selectedStudentArray.length>0)
-      (<HTMLInputElement>document.getElementById(this.selectedStudentArray[0])).checked = false;
+  showSchoolsList() {
+    if (this.selectedStudentArray.length > 0) (<HTMLInputElement>document.getElementById(this.selectedStudentArray[0])).checked = false;
     this.selectedStudentArray = [];
-    this.div_Element_Id="0";
+    this.div_Element_Id = "0";
     this.errorMessage = "";
-    this.active="0";
+    this.active = "0";
   }
 
-  show_addStudentFields()
-  {
-    this.div_Element_Id="1";
-  }
-  getselectedStudentProfile()
-  {
-    this.div_Element_Id="2";
-  }
-  viewSingleStudentProfile()
-  {
-    this.div_Element_Id="3";
+  show_addStudentFields() {
+    this.div_Element_Id = "1";
   }
 
+  getselectedStudentProfile() {
+    this.div_Element_Id = "2";
+    //TODO : Shiva integrate code by removing hardcoding of values.
+    this.getStudentProfile("school04", "-KuCWQEmwl1MsTD0SPdb");
+  }
 
+  viewSingleStudentProfile() {
+    this.div_Element_Id = "3";
+  }
 
 
   checkedStudents(value) {
     console.log(value);
     if ((<HTMLInputElement>document.getElementById(value)).checked === true) {
-        this.selectedStudentArray.push(value);
-    }
-    else if ((<HTMLInputElement>document.getElementById(value)).checked === false) {
-        let indexx = this.selectedStudentArray.indexOf(value);
-        this.selectedStudentArray.splice(indexx,1)
+      this.selectedStudentArray.push(value);
+    } else if ((<HTMLInputElement>document.getElementById(value)).checked === false) {
+      let indexx = this.selectedStudentArray.indexOf(value);
+      this.selectedStudentArray.splice(indexx, 1)
     }
     console.log(this.selectedStudentArray)
-}
-
+  }
 
 
 }

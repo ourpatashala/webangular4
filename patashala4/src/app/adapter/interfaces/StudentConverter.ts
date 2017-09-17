@@ -15,5 +15,10 @@ export interface StudentConverter {
 
   updateStudent(schoolId : string,studentTO: StudentTO, studentComponentInterface: StudentComponentInterface);
 
+  deleteStudentProfile(schoolid: string, studentId:string);
+
+  getStudentProfileRange(schoolid: string,start:string,end:string,studentComponentInterface: StudentComponentInterface);
+
+  getAllStudents(schoolid: string,studentComponentInterface: StudentComponentInterface);
 
 }
