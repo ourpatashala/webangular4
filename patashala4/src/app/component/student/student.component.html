@@ -65,6 +65,10 @@
             <div class="col-md-4"><p>Middle Name</p></div>
             <div class="col-md-8"><input type="text" placeholder="Enter Middle Name" formControlName="middleName"></div>
             <div class="clear"></div>
+            <div class="col-md-4"><p>Father Name</p></div>
+            <div class="col-md-8"><input type="text" placeholder="Enter Father Name" formControlName="fatherName"></div><div class="clear"></div>
+            <div class="col-md-4"><p>Mother Name</p></div>
+            <div class="col-md-8"><input type="text" placeholder="Enter Mother Name" formControlName="motherName"></div><div class="clear"></div>
             <!-- <div class="col-md-4"><p>Class</p></div><div class="col-md-8"><input auto-complete [(ngModel)]="myData" [source]="appComponent.classes" placeholder="Search Class"/></div><div class="clear"></div> -->
             <div class="col-md-4"><p>Registered Mobile</p></div>
             <div class="col-md-8 plus_btn_inline"><input type="text" placeholder="Enter Registered Mobile number" formControlName="mobileNumbers"><i class="fa fa-plus"></i>
@@ -138,6 +142,10 @@
             <div class="col-md-8"><input type="text" value="SLastname2" formControlName="lastName"></div><div class="clear"></div>
             <div class="col-md-4"><p>Middle Name</p></div>
             <div class="col-md-8"><input type="text" value="SMiddlename2" formControlName="middleName"></div><div class="clear"></div>
+            <div class="col-md-4"><p>Father Name</p></div>
+            <div class="col-md-8"><input type="text" value="SMiddlename2" formControlName="fatherName"></div><div class="clear"></div>
+            <div class="col-md-4"><p>Mother Name</p></div>
+            <div class="col-md-8"><input type="text" value="SMiddlename2" formControlName="motherName"></div><div class="clear"></div>
             <!-- <div class="col-md-4"><p>Class</p></div><div class="col-md-8"><input auto-complete [(ngModel)]="myData" [source]="appComponent.classes" placeholder="Search Class"/></div><div class="clear"></div> -->
             <div class="col-md-4"><p>Registered Mobile</p></div>
             <div class="col-md-8"><input type="text" value="+91 9876543210" formControlName="mobileNumbers"></div><div class="clear"></div>
@@ -196,6 +204,46 @@
 
 
 
+<div class="singleStudentViewDiv inactive_div" [ngClass]="{'inactive_div': div_Element_Id !='3'}">
+    <div class="view_Student_profile">
+        <div class="text-right">
+            <span class="cancel_btn_modify button_type_span" (click)="showSchoolsList()">Close</span>
+        </div>
+        <div class="student_details">
+            <div class="col-md-12">
+                <div class="profile_image_div">
+                    <img src="./assets/images/profile/2.jpg" alt="">
+                    <div class="text_beside_img">
+                        <p>Student Full Name: <span>{{studentTO.firstName}} {{studentTO.middleName}} {{studentTO.lastName}}</span></p>
+                        <p>Gender: <span>{{studentTO.gender}}</span></p>
+                        <p>Blood Group: <span>{{studentTO.bloodGroup}}</span></p>
+                        <p>Date of Birth: <span>{{studentTO.dateOfBirth}}</span></p>
+                        <p>Father Name: <span>{{studentTO.fatherName}}</span></p>
+                        <p>Mother Name: <span>{{studentTO.motherName}}</span></p>
+                    </div>
+                </div>
+            </div>
+            <div class="clear"></div>
+            <div class="large_gap"></div>
+            <div class="col-md-6">
+                <img src="./assets/images/webicons/Address.png" class="img_pos_ab">
+                <p class="studentAddress">Address1: <span>{{studentTO.addressOne}}</span></p>
+                <p class="studentAddress">Address2: <span>{{studentTO.addressTwo}}</span></p>
+                <p class="studentAddress">City: <span>{{studentTO.city}}</span></p>
+                <p class="studentAddress">State: <span>{{studentTO.state}}</span></p>
+                <p class="studentAddress">Pincode: <span>{{studentTO.pincode}}</span></p>
+                <p class="studentAddress">Country: <span>{{studentTO.country}}</span></p>
+            </div>
+            <div class="col-md-6">
+                <img src="./assets/images/webicons/Phone.png" class="img_pos_ab">
+                <p class="school_contact">Primary Contact#: <span>{{studentTO.mobileNumbers}}</span> </p>
+                <p class="school_contact">Contact#: <span>{{studentTO.mobileNumbers}}</span> </p>
+            </div>
+            <div class="clear"></div>
+        </div>
+    </div>
+</div>
+
 
 
 
@@ -216,53 +264,24 @@
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td><input  type="checkbox" id="123" value="123" (change)="checkedStudents('123')" ></td>
-                    <td>1</td>
-                    <td><img src="./assets/images/profile/1.jpg"></td>
-                    <td>SFirstname1</td>
-                    <td>SLastname1</td>
-                    <td>SMiddlename1</td>
-                    <td>VIII th</td>
-                    <td>+91 9874563210</td>
-                </tr>
-                <tr>
-                    <td><input type="checkbox" id="123" value="124" (change)="checkedStudents('124')" ></td>
-                    <td>2</td>
-                    <td><img src="./assets/images/profile/1.jpg"></td>
-                    <td>SFirstname1</td>
-                    <td>SLastname1</td>
-                    <td>SMiddlename1</td>
-                    <td>VIII th</td>
-                    <td>+91 9874563210</td>
-                </tr>
-                <tr>
-                    <td><input type="checkbox" id="124" value="124" (change)="checkedStudents('124')" ></td>
-                    <td>3</td>
-                    <td><img src="./assets/images/profile/1.jpg"></td>
-                    <td>SFirstname1</td>
-                    <td>SLastname1</td>
-                    <td>SMiddlename1</td>
-                    <td>VIII th</td>
-                    <td>+91 9874563210</td>
-                </tr>
-                <tr>
-                    <td><input type="checkbox" id="124" value="124" (change)="checkedStudents('124')" ></td>
-                    <td>4</td>
-                    <td><img src="./assets/images/profile/1.jpg"></td>
-                    <td>SFirstname1</td>
-                    <td>SLastname1</td>
-                    <td>SMiddlename1</td>
-                    <td>VIII th</td>
-                    <td>+91 9874563210</td>
-                </tr>
+                
+                <tr *ngFor="let studentProfileTO of studentProfileTOList ; let i=index ">
+                   <!-- <td><input type="checkbox" value="{{schoolProfileTO.schoolId}}"  (change)="updateCheckedOptions(schoolProfileTO.schoolId,$this.checkbox.state)"></td> -->
+                    <td><input type="checkbox" id="{{studentProfileTO.id}}" value="{{studentProfileTO.id}}" (change)="checkedStudents(studentProfileTO.id)" ></td>
+                    <td>{{i + 1}}</td>
+                    <td></td>
+                    <td>{{studentProfileTO.firstName}}</td>
+                    <td>{{studentProfileTO.lastName}}</td>
+                    <td>{{studentProfileTO.middleName}}</td>
+                    <td></td>
+                    <td>{{studentProfileTO.mobileNumbers}}</td>
+                  </tr>
             </tbody>
         </table>
 </div>
     </div>
     </div>
 <div class="clear"></div>
-
 
 <!--<div id="extraDiv">
     <br><div class="clear"></div>

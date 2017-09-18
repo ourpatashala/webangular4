@@ -38,7 +38,7 @@ export class StudentComponent implements OnInit, StudentComponentInterface {
   subscription: Subscription;
   message: string = '';
   dtTrigger = new Subject();
-
+  studentProfileTOList: FirebaseListObservable<StudentTO>;
   studentTO: StudentTO;
   studentFormGroup: FormGroup;
 
@@ -60,6 +60,9 @@ export class StudentComponent implements OnInit, StudentComponentInterface {
     this.subscription = this.update$.subscribe(message => {
       this.message = message;
     });
+    //this.getAllStudents("-KuCWQEmwl1MsTD0SPdb");
+    //this.getStudentProfile("school04", "-KuCWQEmwl1MsTD0SPdb");
+    this.getAllStudents("school04");
   }
 
 
@@ -158,8 +161,9 @@ export class StudentComponent implements OnInit, StudentComponentInterface {
     console.log("displayStudentCallBack.." + studentTO.toString().valueOf());
     console.log("displayStudentCallBack..id " + studentTO.id);
     console.log("displayStudentCallBack..firstName " + studentTO.firstName);
+    this.studentTO=studentTO;
 
-
+    console.log("testttt");
     console.log(studentTO);
     this.studentTO = studentTO;
     this.studentFormGroup.controls['firstName'].patchValue(studentTO.firstName);
@@ -176,8 +180,8 @@ export class StudentComponent implements OnInit, StudentComponentInterface {
     this.studentFormGroup.controls['pincode'].patchValue(studentTO.pincode);
     this.studentFormGroup.controls['bloodGroup'].patchValue(studentTO.bloodGroup);
     this.studentFormGroup.controls['dateOfBirth'].patchValue(studentTO.dateOfBirth);
-    //this.studentFormGroup.controls['fatherName'].patchValue(studentTO.fatherName);
-    //this.studentFormGroup.controls['motherName'].patchValue(studentTO.motherName);
+    this.studentFormGroup.controls['fatherName'].patchValue(studentTO.fatherName);
+    this.studentFormGroup.controls['motherName'].patchValue(studentTO.motherName);
     //this.studentFormGroup.controls['rollNo'].patchValue(studentTO.rollNo);
     //this.studentFormGroup.controls['classId'].patchValue(studentTO.classId);
 
@@ -189,6 +193,14 @@ export class StudentComponent implements OnInit, StudentComponentInterface {
    * @param schoolProfileTO
    */
   displayAllStudentCallBack(studentTO: FirebaseListObservable<StudentTO>) {
+    console.log("sdfsdf");
+    this.studentProfileTOList=studentTO;
+    console.log("sdfsdf");
+
+    this.studentProfileTOList.forEach(schoolProfileTO => {
+      console.log('Student Profile:', schoolProfileTO);
+    });
+    this.dtTrigger.next();
 
   }
 
@@ -255,11 +267,14 @@ export class StudentComponent implements OnInit, StudentComponentInterface {
   getselectedStudentProfile() {
     this.div_Element_Id = "2";
     //TODO : Shiva integrate code by removing hardcoding of values.
-    this.getStudentProfile("school04", "-KuCWQEmwl1MsTD0SPdb");
+    //this.getStudentProfile("school04", "-KuCWQEmwl1MsTD0SPdb");
+    this.getStudentProfile("school04", this.selectedStudentArray[0]);
+    console.log(this.selectedStudentArray[0]);
   }
 
   viewSingleStudentProfile() {
     this.div_Element_Id = "3";
+    this.getStudentProfile("school04", this.selectedStudentArray[0]);
   }
 
 

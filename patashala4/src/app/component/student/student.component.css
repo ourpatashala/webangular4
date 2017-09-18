@@ -33,3 +33,52 @@ cursor: pointer
     height: 0;
     overflow: hidden
 }
+
+.singleStudentViewDiv
+{
+    transition: 0.3s;
+    height: 600px;
+    overflow: hidden;
+    
+}
+.inactive_div
+{
+    height: 0;
+    overflow: hidden
+}
+.school_details p
+{
+    padding-left: 70px;
+}
+.profile_image_div img
+{
+width: 200px;
+height: 200px;
+border-radius: 50%;
+border: 5px solid #199f86;
+}
+.profile_image_div
+{
+    margin-top: 0px;
+}
+.text_beside_img
+{
+    display: inline-block;
+    vertical-align: middle
+}
+.text_beside_img p
+{
+    padding-left: 20px;
+}
+.img_pos_ab
+{
+    position: absolute;
+}
+.student_details p
+{
+    padding-left: 70px;
+}
+.view_Student_profile
+{
+    border: 1px solid #c8c8c8;   
+}
