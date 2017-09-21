@@ -69,7 +69,16 @@
             <div class="col-md-8"><input type="text" placeholder="Enter Father Name" formControlName="fatherName"></div><div class="clear"></div>
             <div class="col-md-4"><p>Mother Name</p></div>
             <div class="col-md-8"><input type="text" placeholder="Enter Mother Name" formControlName="motherName"></div><div class="clear"></div>
-            <!-- <div class="col-md-4"><p>Class</p></div><div class="col-md-8"><input auto-complete [(ngModel)]="myData" [source]="appComponent.classes" placeholder="Search Class"/></div><div class="clear"></div> -->
+            <div class="col-md-4"><p>Class</p></div><div class="col-md-8">
+                <select formControlName="classId">
+                    <option value="">Select Class</option>
+                    <option value="Class1">Class1</option>
+                    <option value="Class2">Class2</option>
+                    <option value="Class3">Class3</option>
+                    <option value="Class4">Class4</option>
+                    <option value="Class5">Class5</option>
+                </select>    
+            </div><div class="clear"></div> 
             <div class="col-md-4"><p>Registered Mobile</p></div>
             <div class="col-md-8 plus_btn_inline"><input type="text" placeholder="Enter Registered Mobile number" formControlName="mobileNumbers"><i class="fa fa-plus"></i>
                     <div class="dlt_btn_inline"><input type="text" placeholder="Enter Registered Mobile number"><i class="fa fa-times"></i>
@@ -113,7 +122,7 @@
         <div class="large_gap"></div>
               <p class="text-left">Photo</p>
                     <div class="browse_img_manual">
-                          <input type="file" formControlName="uploadPhoto">
+                          <input type="file" >
                           <div class="img_overlay">
                           <img src="./assets/images/profile/default.jpg" class="img100">
                           <p>Upload Photo</p>
@@ -185,7 +194,7 @@
         <div class="large_gap"></div>
               <p class="text-left">Photo</p>
                    <div class="browse_img_manual">
-                          <input type="file" formControlName="uploadPhoto">
+                          <input type="file">
                           <div class="img_overlay">
                           <img src="./assets/images/profile/default.jpg" class="img100">
                           <p>Upload Photo</p>
@@ -214,7 +223,7 @@
                 <div class="profile_image_div">
                     <img src="./assets/images/profile/2.jpg" alt="">
                     <div class="text_beside_img">
-                        <p>Student Full Name: <span>{{studentTO.firstName}} {{studentTO.middleName}} {{studentTO.lastName}}</span></p>
+                        <p>Student Full Name: <span>{{studentTO.firstName}}, {{studentTO.middleName}}, {{studentTO.lastName}}</span></p>
                         <p>Gender: <span>{{studentTO.gender}}</span></p>
                         <p>Blood Group: <span>{{studentTO.bloodGroup}}</span></p>
                         <p>Date of Birth: <span>{{studentTO.dateOfBirth}}</span></p>
@@ -250,7 +259,7 @@
 
 <div class="datatable_toggle"  [ngClass]="{'inactive_div': div_Element_Id !='0'}">
 
-    <table datatable class="my_table_width" [dtTrigger]="dtTrigger">
+    <table datatable class="my_table_width" [dtTrigger]="dtTrigger" [dtOptions]="dtOptions" >
             <thead>
                 <tr>
                     <th></th>

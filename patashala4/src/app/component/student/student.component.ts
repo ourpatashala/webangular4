@@ -18,6 +18,7 @@ import {ErrorService} from "../../service/error.service";
 import {BehaviorSubject, Observable, Subscription} from "rxjs";
 declare var $: any;
 import {Subject} from 'rxjs/Rx';
+import { DataTableDirective } from 'angular-datatables';
 
 
 @Component({
@@ -41,6 +42,7 @@ export class StudentComponent implements OnInit, StudentComponentInterface {
   studentProfileTOList: FirebaseListObservable<StudentTO>;
   studentTO: StudentTO;
   studentFormGroup: FormGroup;
+  dtElement: DataTableDirective;
 
   active: string = "0";// for error and success divs;;  0 for no content, 1 for success, 2 for error
   div_Element_Id: string = "0";//for multiple pages in school list page;;  0 to show list of school , 1 to show add school, 2 to show edit school, 3 to show single school view.
@@ -63,6 +65,7 @@ export class StudentComponent implements OnInit, StudentComponentInterface {
     //this.getAllStudents("-KuCWQEmwl1MsTD0SPdb");
     //this.getStudentProfile("school04", "-KuCWQEmwl1MsTD0SPdb");
     this.getAllStudents("school04");
+
   }
 
 
@@ -89,7 +92,7 @@ export class StudentComponent implements OnInit, StudentComponentInterface {
       dob: [''],
       classId: [''],
       schoolId: ['school04'],
-      id: ['-KuCWQEmwl1MsTD0SPdb']
+      id: ['']
       //TODO : Shiva integrate code by removing hardcoding of values.
     });
 
@@ -149,10 +152,26 @@ export class StudentComponent implements OnInit, StudentComponentInterface {
   updateStudent({schoolId, value, valid}: { schoolId: string, value: StudentTO, valid: boolean }) {
     console.log("updateStudent", value);
     this.studentTO = value;
-
+    console.log(value.id);
     this.studentConverter.updateStudent(schoolId, this.studentTO, this);
   }
 
+
+  /**
+   * Used for deleting the school profile.
+   * @param schoolId , Studentid Array
+   */
+  deleteStudentProfile() {
+    for (var loopvar = 0; loopvar < this.selectedStudentArray.length; loopvar++) {
+      console.log(this.selectedStudentArray[loopvar]);
+      this.studentConverter.deleteStudentProfile("school04",this.selectedStudentArray[loopvar]);
+    }
+
+
+  }
+
+
+  //
   /**
    * This is a call back method
    * @param studentTO
@@ -166,6 +185,7 @@ export class StudentComponent implements OnInit, StudentComponentInterface {
     console.log("testttt");
     console.log(studentTO);
     this.studentTO = studentTO;
+    this.studentFormGroup.controls['id'].patchValue(studentTO.id);
     this.studentFormGroup.controls['firstName'].patchValue(studentTO.firstName);
     this.studentFormGroup.controls['lastName'].patchValue(studentTO.lastName);
     this.studentFormGroup.controls['middleName'].patchValue(studentTO.middleName);
@@ -193,16 +213,16 @@ export class StudentComponent implements OnInit, StudentComponentInterface {
    * @param schoolProfileTO
    */
   displayAllStudentCallBack(studentTO: FirebaseListObservable<StudentTO>) {
-    console.log("sdfsdf");
+  //  this.dtTrigger=new Subject();
     this.studentProfileTOList=studentTO;
-    console.log("sdfsdf");
-
     this.studentProfileTOList.forEach(schoolProfileTO => {
       console.log('Student Profile:', schoolProfileTO);
     });
-    this.dtTrigger.next();
 
+    this.dtTrigger.next();
   }
+
+
 
   successMessageCallBack(message: string) {
     console.log(message);
