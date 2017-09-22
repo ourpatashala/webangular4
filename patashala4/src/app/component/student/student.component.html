@@ -1,0 +1,307 @@
+<app-header></app-header>
+
+<div class="overlay"></div>
+<div class="brow_img_popup text-center">
+  <h3>Change Profile Picture</h3>
+  <div class="large_gap"></div>
+  <input type="file" class="upload_img_input">
+  <button class="popup_close_btn"><i class="fa fa-times "></i></button>
+  <button class="upld_brw_file"><i class="fa fa-upload"> Upload / Browse File</i></button>
+  <button class="openCam"><i class="fa fa-camera"></i> Open Camera</button>
+</div>
+
+
+
+
+
+
+
+<div class="all_pages_content">
+    <div class="clear"></div>
+    <div class="page_content_here">
+     <div class="manage_school_table">
+
+           <div class="listing_tabs">
+      <ul class="">
+         <a routerLink="/TabService"><li class="active_tab" id="service_tab">Services</li></a>
+         <a routerLink="/TabManage"><li class="" id="manage_tab">Manage</li></a>
+      </ul>
+    </div>
+    <div class="large_gap"></div>
+
+
+        <div class="col-md-6 padding0"><h3>Manage Students</h3>
+        <p class="breadscrum_text"><a  routerLink="/">Home </a> &nbsp; <i class="fa fa-chevron-right"></i> &nbsp; Manage Students</p>
+        </div>
+        <div class="col-md-6 padding0 text-right">
+            <div class="buttons_div" [ngClass]="{'inactive_div': div_Element_Id !='0'}">
+                <button class="add_more_btn" (click)="show_addStudentFields()" [ngClass]="{'disable_btn': selectedStudentArray.length!='0'}"><i class="fa fa-plus"></i> Add</button>
+                <button class="edit_field_btn" (click)="getselectedStudentProfile()" [ngClass]="{'disable_btn': selectedStudentArray.length!='1'}"><i class="fa fa-pencil"></i> Modify</button>
+                <button (click)="deleteStudentProfile()" [ngClass]="{'disable_btn': selectedStudentArray.length=='0'}"><i class="fa fa-trash"></i> Delete</button>
+                <button (click)="viewSingleStudentProfile()" [ngClass]="{'disable_btn': selectedStudentArray.length!='1'}"><i class="fa fa-eye"></i> View</button>
+            </div>
+          </div>
+        <div class="clear"></div>
+
+<div class="little_gap"></div>
+
+
+
+
+<div class="sucess_msg_text"><p [ngClass]="{'show_styles_sucess': active=='1'}">{{sucessMessage}}</p></div>
+<div class="error_msg_text"><p [ngClass]="{'error_styles_sucess': active=='2'}">{{errorMessage}}</p></div>
+
+
+<div class="add_fields addschool_div inactive_div"  [ngClass]="{'inactive_div': div_Element_Id !='1'}">
+    <form [formGroup]="studentFormGroup" (ngSubmit)="addStudentProfile(studentFormGroup)" ngNativeValidate>
+    <div class="col-md-9 padding0">
+        <div class="col-md-6">
+            <div class="col-md-4"><p>First Name</p></div>
+            <div class="col-md-8"><input type="text" placeholder="Enter First Name" formControlName="firstName"></div>
+            <div class="clear"></div>
+            <div class="col-md-4"><p>Last Name</p></div>
+            <div class="col-md-8"><input type="text" placeholder="Enter Last Name" formControlName="lastName"></div>
+            <div class="clear"></div>
+            <div class="col-md-4"><p>Middle Name</p></div>
+            <div class="col-md-8"><input type="text" placeholder="Enter Middle Name" formControlName="middleName"></div>
+            <div class="clear"></div>
+            <div class="col-md-4"><p>Father Name</p></div>
+            <div class="col-md-8"><input type="text" placeholder="Enter Father Name" formControlName="fatherName"></div><div class="clear"></div>
+            <div class="col-md-4"><p>Mother Name</p></div>
+            <div class="col-md-8"><input type="text" placeholder="Enter Mother Name" formControlName="motherName"></div><div class="clear"></div>
+            <div class="col-md-4"><p>Class</p></div><div class="col-md-8">
+                <select formControlName="classId">
+                    <option value="">Select Class</option>
+                    <option value="Class1">Class1</option>
+                    <option value="Class2">Class2</option>
+                    <option value="Class3">Class3</option>
+                    <option value="Class4">Class4</option>
+                    <option value="Class5">Class5</option>
+                </select>    
+            </div><div class="clear"></div> 
+            <div class="col-md-4"><p>Registered Mobile</p></div>
+            <div class="col-md-8 plus_btn_inline"><input type="text" placeholder="Enter Registered Mobile number" formControlName="mobileNumbers"><i class="fa fa-plus"></i>
+                    <div class="dlt_btn_inline"><input type="text" placeholder="Enter Registered Mobile number"><i class="fa fa-times"></i>
+                    </div>
+            </div><div class="clear"></div>
+            <div class="col-md-4"><p>Gender</p></div>
+            <div class="col-md-8">
+                <select formControlName="gender">
+                    <option value="0">Select Gender</option>
+                    <option value="Male">Male</option>
+                    <option value="Female">Female</option>
+                </select>
+            </div><div class="clear"></div>
+
+        </div>
+        <div class="col-md-6">
+            <div class="col-md-4"><p>Landline Number</p></div>
+            <div class="col-md-8"><input type="text" placeholder="Enter Landline Number" formControlName="landLine"></div><div class="clear"></div>
+            <div class="col-md-4"><p>Address1</p></div>
+            <div class="col-md-8"><input type="text" placeholder="Enter Address1" formControlName="addressOne"></div><div class="clear"></div>
+            <div class="col-md-4"><p>Address2</p></div>
+            <div class="col-md-8"><input type="text" placeholder="Enter Address2" formControlName="addressTwo"></div><div class="clear"></div>
+            <div class="col-md-4"><p>city</p></div>
+            <div class="col-md-8"><input type="text" placeholder="Enter city" formControlName="city"></div><div class="clear"></div>
+            <div class="col-md-4"><p>State</p></div>
+            <div class="col-md-8"><input type="text" placeholder="Enter State" formControlName="state"></div><div class="clear"></div>
+            <div class="col-md-4"><p>Country</p></div>
+            <div class="col-md-8"><input type="text" placeholder="Enter Country" formControlName="country"></div><div class="clear"></div>
+            <div class="col-md-4"><p>Pincode</p></div>
+            <div class="col-md-8"><input type="text" placeholder="Enter Pincode" formControlName="pincode"></div><div class="clear"></div>
+            <div class="col-md-4"><p>Blood Group</p></div>
+            <div class="col-md-8"><input type="text" placeholder="Enter Blood Group" formControlName="bloodGroup"></div><div class="clear"></div>
+            <div class="col-md-4"><p>Date Of Birth</p></div>
+            <div class="col-md-8"><input type="text" class="datePicker" placeholder="Enter Date of Birth" formControlName="dateOfBirth"></div><div class="clear"></div>
+        </div>
+
+
+        <div class="little_gap"></div>
+    </div>
+    <div class="col-md-3 text-center">
+        <div class="large_gap"></div>
+              <p class="text-left">Photo</p>
+                    <div class="browse_img_manual">
+                          <input type="file" >
+                          <div class="img_overlay">
+                          <img src="./assets/images/profile/default.jpg" class="img100">
+                          <p>Upload Photo</p>
+                          </div>
+                          </div>
+                <div class="clear"></div>
+                <div class="little_gap"></div>
+
+    </div>
+    <div class="clear"></div>
+
+<div class="little_gap"></div>
+<div class="text-center"> <button class="update_btn">Add Student</button> <span class="cancel_btn_add button_type_span" (click)="showSchoolsList()">Cancel</span></div>
+</form>
+<div class="large_gap"></div>
+</div>
+
+
+<div class="modify_fields addschool_div inactive_div" [ngClass]="{'inactive_div': div_Element_Id !='2'}">
+    <form [formGroup]="studentFormGroup" (ngSubmit)="updateStudent(studentFormGroup)" ngNativeValidate>
+    <div class="col-md-9">
+        <div class="col-md-6">
+            <div class="col-md-4"><p>First Name</p></div>
+            <div class="col-md-8"><input type="text" value="SFirstname2" formControlName="firstName"></div><div class="clear"></div>
+            <div class="col-md-4"><p>Last Name</p></div>
+            <div class="col-md-8"><input type="text" value="SLastname2" formControlName="lastName"></div><div class="clear"></div>
+            <div class="col-md-4"><p>Middle Name</p></div>
+            <div class="col-md-8"><input type="text" value="SMiddlename2" formControlName="middleName"></div><div class="clear"></div>
+            <div class="col-md-4"><p>Father Name</p></div>
+            <div class="col-md-8"><input type="text" value="SMiddlename2" formControlName="fatherName"></div><div class="clear"></div>
+            <div class="col-md-4"><p>Mother Name</p></div>
+            <div class="col-md-8"><input type="text" value="SMiddlename2" formControlName="motherName"></div><div class="clear"></div>
+            <!-- <div class="col-md-4"><p>Class</p></div><div class="col-md-8"><input auto-complete [(ngModel)]="myData" [source]="appComponent.classes" placeholder="Search Class"/></div><div class="clear"></div> -->
+            <div class="col-md-4"><p>Registered Mobile</p></div>
+            <div class="col-md-8"><input type="text" value="+91 9876543210" formControlName="mobileNumbers"></div><div class="clear"></div>
+            <div class="col-md-4"><p>Gender</p></div>
+            <div class="col-md-8">
+                <select formControlName="gender">
+                    <option value="0">Select Gender</option>
+                    <option value="Male" selected>Male</option>
+                    <option value="Female">Female</option>
+                </select>
+            </div><div class="clear"></div>
+        </div>
+        <div class="col-md-6">
+            <div class="col-md-4"><p>Landline Number</p></div>
+            <div class="col-md-8"><input type="text" placeholder="Enter Landline Number" formControlName="landLine"></div><div class="clear"></div>
+            <div class="col-md-4"><p>Address1</p></div>
+            <div class="col-md-8"><input type="text" placeholder="Enter Address1" formControlName="addressOne"></div><div class="clear"></div>
+            <div class="col-md-4"><p>Address2</p></div>
+            <div class="col-md-8"><input type="text" placeholder="Enter Address2" formControlName="addressTwo"></div><div class="clear"></div>
+            <div class="col-md-4"><p>city</p></div>
+            <div class="col-md-8"><input type="text" placeholder="Enter city" formControlName="city"></div><div class="clear"></div>
+            <div class="col-md-4"><p>State</p></div>
+            <div class="col-md-8"><input type="text" placeholder="Enter State" formControlName="state"></div><div class="clear"></div>
+            <div class="col-md-4"><p>Country</p></div>
+            <div class="col-md-8"><input type="text" placeholder="Enter Country" formControlName="country"></div><div class="clear"></div>
+            <div class="col-md-4"><p>Pincode</p></div>
+            <div class="col-md-8"><input type="text" placeholder="Enter Pincode" formControlName="pincode"></div><div class="clear"></div>
+            <div class="col-md-4"><p>Blood Group</p></div>
+            <div class="col-md-8"><input type="text" value="A +" formControlName="bloodGroup"></div><div class="clear"></div>
+            <div class="col-md-4"><p>Date of Birth</p></div>
+            <div class="col-md-8"><input type="text" class="datePicker" value="01/01/2008" formControlName="dateOfBirth"></div><div class="clear"></div>
+        </div>
+
+       <div class="clear"></div>
+    </div>
+    <div class="col-md-3 text-center">
+        <div class="large_gap"></div>
+              <p class="text-left">Photo</p>
+                   <div class="browse_img_manual">
+                          <input type="file">
+                          <div class="img_overlay">
+                          <img src="./assets/images/profile/default.jpg" class="img100">
+                          <p>Upload Photo</p>
+                          </div>
+                          </div>
+                <div class="clear"></div>
+                <div class="little_gap"></div>
+
+    </div>
+<div class="clear"></div>
+ <div class="little_gap"></div>
+<div class="text-center"> <button class="update_btn">Modify Student</button> <span class="cancel_btn_modify button_type_span" (click)="showSchoolsList()">Cancel</span></div>
+    </form>
+<div class="large_gap"></div>
+</div>
+
+
+
+<div class="singleStudentViewDiv inactive_div" [ngClass]="{'inactive_div': div_Element_Id !='3'}">
+    <div class="view_Student_profile">
+        <div class="text-right">
+            <span class="cancel_btn_modify button_type_span" (click)="showSchoolsList()">Close</span>
+        </div>
+        <div class="student_details">
+            <div class="col-md-12">
+                <div class="profile_image_div">
+                    <img src="./assets/images/profile/2.jpg" alt="">
+                    <div class="text_beside_img">
+                        <p>Student Full Name: <span>{{studentTO.firstName}}, {{studentTO.middleName}}, {{studentTO.lastName}}</span></p>
+                        <p>Gender: <span>{{studentTO.gender}}</span></p>
+                        <p>Blood Group: <span>{{studentTO.bloodGroup}}</span></p>
+                        <p>Date of Birth: <span>{{studentTO.dateOfBirth}}</span></p>
+                        <p>Father Name: <span>{{studentTO.fatherName}}</span></p>
+                        <p>Mother Name: <span>{{studentTO.motherName}}</span></p>
+                    </div>
+                </div>
+            </div>
+            <div class="clear"></div>
+            <div class="large_gap"></div>
+            <div class="col-md-6">
+                <img src="./assets/images/webicons/Address.png" class="img_pos_ab">
+                <p class="studentAddress">Address1: <span>{{studentTO.addressOne}}</span></p>
+                <p class="studentAddress">Address2: <span>{{studentTO.addressTwo}}</span></p>
+                <p class="studentAddress">City: <span>{{studentTO.city}}</span></p>
+                <p class="studentAddress">State: <span>{{studentTO.state}}</span></p>
+                <p class="studentAddress">Pincode: <span>{{studentTO.pincode}}</span></p>
+                <p class="studentAddress">Country: <span>{{studentTO.country}}</span></p>
+            </div>
+            <div class="col-md-6">
+                <img src="./assets/images/webicons/Phone.png" class="img_pos_ab">
+                <p class="school_contact">Primary Contact#: <span>{{studentTO.mobileNumbers}}</span> </p>
+                <p class="school_contact">Contact#: <span>{{studentTO.mobileNumbers}}</span> </p>
+            </div>
+            <div class="clear"></div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+<div class="datatable_toggle"  [ngClass]="{'inactive_div': div_Element_Id !='0'}">
+
+    <table datatable class="my_table_width" [dtTrigger]="dtTrigger" [dtOptions]="dtOptions" >
+            <thead>
+                <tr>
+                    <th></th>
+                    <th>S.no</th>
+                    <th>Photo</th>
+                    <th>First&nbsp;Name</th>
+                    <th>Last&nbsp;Name</th>
+                    <th>Middle&nbsp;Name</th>
+                    <th>Class</th>
+                    <th>Registered&nbsp;Mobile</th>
+                </tr>
+            </thead>
+            <tbody>
+                
+                <tr *ngFor="let studentProfileTO of studentProfileTOList ; let i=index ">
+                   <!-- <td><input type="checkbox" value="{{schoolProfileTO.schoolId}}"  (change)="updateCheckedOptions(schoolProfileTO.schoolId,$this.checkbox.state)"></td> -->
+                    <td><input type="checkbox" id="{{studentProfileTO.id}}" value="{{studentProfileTO.id}}" (change)="checkedStudents(studentProfileTO.id)" ></td>
+                    <td>{{i + 1}}</td>
+                    <td></td>
+                    <td>{{studentProfileTO.firstName}}</td>
+                    <td>{{studentProfileTO.lastName}}</td>
+                    <td>{{studentProfileTO.middleName}}</td>
+                    <td></td>
+                    <td>{{studentProfileTO.mobileNumbers}}</td>
+                  </tr>
+            </tbody>
+        </table>
+</div>
+    </div>
+    </div>
+<div class="clear"></div>
+
+<!--<div id="extraDiv">
+    <br><div class="clear"></div>
+<span></span><div class="gap_btwn_btns"></div>
+
+
+
+</div>-->
+
+
+</div>
+
+
+

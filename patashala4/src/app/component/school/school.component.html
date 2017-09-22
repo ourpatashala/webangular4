@@ -1,11 +1,9 @@
 
-
-
 <app-header-admin></app-header-admin>
 
 <div class="all_pages_content">
 
-  
+
   <div style="padding-top:1px;"></div>
   <div class="clear"></div>
   <div class="clear"></div>
@@ -14,6 +12,7 @@
       <div class="col-md-6 padding0"><h3>Manage Schools</h3>
         <p class="breadscrum_text"><a  routerLink="/">Home </a> &nbsp; <i class="fa fa-chevron-right"></i> &nbsp; Manage Schools</p>
       </div>
+
       <div class="col-md-6 padding0 text-right">
         <div class="buttons_div" [ngClass]="{'inactive_div': div_Element_Id !='0'}">
           <button class="add_more_btn" (click)="show_addSchoolFields()" [ngClass]="{'disable_btn': selectedSchoolArray.length!='0'}"><i class="fa fa-plus"></i> Add</button>
@@ -119,7 +118,7 @@
           <div class="col-md-4"><p>Address2</p></div>
           <div class="col-md-8"><textarea formControlName="addressTwo"></textarea></div>
           <div class="clear"></div>
-         
+
           <div class="little_gap"></div>
         </div>
 
@@ -155,22 +154,22 @@
               <span class="cancel_btn_modify button_type_span" (click)="showSchoolsList()">Close</span>
           </div>
         <div class="col-md-12">
-         
+
           <div class="col-md-6"></div>
           <div class="col-md-3"></div>
-          <div class="clear"></div>   
+          <div class="clear"></div>
           <div class="large_gap"></div>
           <div class="school_details">
             <div class="col-md-12">
               <div class="profile_image_div">
                 <img src="./assets/images/default_school.jpg">
                 <div class="text_beside_img">
-                  <p class="School_name">School Name: <span> {{schoolProfileTO.schoolName}}</span></p>  
+                  <p class="School_name">School Name: <span> {{schoolProfileTO.schoolName}}</span></p>
                   <p class="school_id">School Id: <span>  {{schoolProfileTO.schoolId}}</span></p>
-                </div>                                                                                                    
+                </div>
               </div>
               <!-- <img src="./assets/images/webicons/schoolname.png"> -->
-              
+
             </div>
           <!-- <div class="col-md-6">
             <img src="./assets/images/webicons/SchoolPrinc.png">
@@ -195,14 +194,14 @@
           <div class="clear"></div>
           </div>
           <div class="large-gap"></div>
-            
+
         </div>
         <div class="clear"></div>
       </div>
       </div>
 
       <div class="datatable_toggle"  [ngClass]="{'inactive_div': div_Element_Id !='0'}">
-        
+
         <table datatable class="my_table_width" [dtTrigger]="dtTrigger">
           <thead>
           <tr>
@@ -232,7 +231,7 @@
           <tr *ngFor="let schoolProfileTO of schoolProfileTOList ; let i=index ">
             <td>{{i + 1}}</td>
             <!-- <td><input type="checkbox" value="{{schoolProfileTO.schoolId}}"  (change)="updateCheckedOptions(schoolProfileTO.schoolId,$this.checkbox.state)"></td> -->
-            <td><input type="checkbox" id="{{schoolProfileTO.schoolId}}" value="{{schoolProfileTO.schoolId}}" (change)="checkedStudents(schoolProfileTO.schoolId)" ></td> 
+            <td><input type="checkbox" id="{{schoolProfileTO.schoolId}}" value="{{schoolProfileTO.schoolId}}" (change)="checkedStudents(schoolProfileTO.schoolId)" ></td>
             <td>{{schoolProfileTO.schoolName}}</td>
             <td>{{schoolProfileTO.addressOne}} , {{schoolProfileTO.addressTwo}}</td>
             <td>{{schoolProfileTO.city}}</td>
@@ -263,7 +262,7 @@
   </li>
 </ul>
 
-<p>{{ schoolProfileTOList}}</p>  Output: "[1, 2]" 
+<p>{{ schoolProfileTOList}}</p>  Output: "[1, 2]"
 
 
 {{errorMessage}}

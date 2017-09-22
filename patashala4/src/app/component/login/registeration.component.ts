@@ -8,17 +8,16 @@ import {LoginConverter} from "../../adapter/interfaces/LoginConverter";
 
 
 import {LoginConverterImpl} from "../../adapter/impl/LoginConverterImpl";
-import {MessageTO} from "../../to/MessageTO";
 
 @Component({
     selector: 'app-login',
     templateUrl: './registeration.component.html',
-    providers: [{provide: 'LoginConverter', useClass: LoginConverterImpl}],
+    providers: [{provide: 'LoginConverter', useClass: LoginConverterImpl}],   
     styleUrls: ['./login.component.css']
   })
 
 
-
+  
 export class RegisterationComponent  implements OnInit , LoginComponentInterface {
   userForm: any;
   errorMessage:string;
@@ -37,45 +36,47 @@ export class RegisterationComponent  implements OnInit , LoginComponentInterface
       ngOnInit() {
       }
 
-
+      
       userReg()
       {
 
       }
 
-
-
+      
+  
 
       signUp({value, valid}: {value: LoginTO, valid: boolean}) {
         this.loginConverter.signUp(value,this)
-
+    
       }
-
+    
       login({value, valid}: {value: LoginTO, valid: boolean}) {
       this.loginConverter.login(value,this)
-
+    
       }
-
+    
       resetPassword({value, valid}: {value: LoginTO, valid: boolean}) {
         this.loginConverter.resetPassword(value,this)
-
+    
       }
-
-      successMessageCallBack(messageTo:MessageTO) {
-        setTimeout(()=>{
+    
+      successMessageCallBack(message1:string) {
+        console.log(message1.length + 'sucess');
+        setTimeout(()=>{    
           this.router.navigate(['/School']);
         },2000);
         this.setUserSuccessMessageonUI("user registered successfully");
       }
-
-      errorMessageCallBack(messageTo:MessageTO){
-        this.setUserErrorMessageonUI(messageTo.messageInfo);
+    
+      errorMessageCallBack(message:string){
+        console.log(message.length + 'Navigate to Error page');
+        this.setUserErrorMessageonUI(message);
       }
       setUserSuccessMessageonUI(message:string)
       {
         this.sucessMessage = message;
         this.active="1";
-        setTimeout(()=>{
+        setTimeout(()=>{ 
           this.sucessMessage = "";
           this.active="0";
         },2000);
@@ -84,7 +85,7 @@ export class RegisterationComponent  implements OnInit , LoginComponentInterface
       {
         this.errorMessage = message;
         this.active="2";
-        setTimeout(()=>{
+        setTimeout(()=>{    
           this.errorMessage = "";
           this.active="0";
         },2000);
