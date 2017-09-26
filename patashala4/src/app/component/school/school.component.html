@@ -202,7 +202,7 @@
 
       <div class="datatable_toggle"  [ngClass]="{'inactive_div': div_Element_Id !='0'}">
 
-        <table datatable class="my_table_width" [dtTrigger]="dtTrigger">
+        <table datatable class="my_table_width" [dtTrigger]="dtTrigger"  [dtOptions]="dtOptions"  >
           <thead>
           <tr>
             <th>S.No</th>
@@ -253,20 +253,4 @@
 
 
 </div>
-
-<!-- DISPLAYING LIST
-<ul>
-  <li class="text" *ngFor="let schoolProfileTO of schoolProfileTOList  ">
-    {{schoolProfileTO.$key}}
-    {{schoolProfileTO.country}}
-  </li>
-</ul>
-
-<p>{{ schoolProfileTOList}}</p>  Output: "[1, 2]"
-
-
-{{errorMessage}}
-{{message}} -->
-
-
 

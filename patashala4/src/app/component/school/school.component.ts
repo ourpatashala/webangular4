@@ -1,4 +1,5 @@
 import {Component, OnInit, Input, Inject, PipeTransform, Pipe, Injector} from '@angular/core';
+import {ViewChild} from '@angular/core';
 import {SchoolService} from "../../service/school.service";
 import {SchoolProfileTO} from "../../to/SchoolProfileTO";
 import {SchoolConverterImpl} from "../../adapter/impl/SchoolConverterImpl";
@@ -8,7 +9,7 @@ import {SchoolConverter} from "../../adapter/interfaces/SchoolConverter";
 import {SchoolComponentInterface} from "./SchoolComponentInterface";
 import {jsonpFactory} from "@angular/http/src/http_module";
 import {AngularFireDatabase, FirebaseListObservable} from 'angularfire2/database';
-
+import { DataTableDirective } from 'angular-datatables';
 import {AngularFireAuth} from "angularfire2/auth";
 
 import {Messages} from "../../constants/Messages";
@@ -31,7 +32,6 @@ export class SchoolComponent implements OnInit, SchoolComponentInterface {
   selectedSchoolArray: Array<any> = [];
   schoolProfileTO: SchoolProfileTO;
   schoolFormGroup: FormGroup;
-  dtOptions: DataTables.Settings = {};
   schoolProfileTOMap = new Map<string, SchoolProfileTO>();
   x: string;
   schoolProfileTOList: FirebaseListObservable<SchoolProfileTO>;
@@ -42,13 +42,16 @@ export class SchoolComponent implements OnInit, SchoolComponentInterface {
   checkedschoolid: string = "";
   temp_schoolid: string = 'default';
   angularFireAuth: AngularFireAuth;
-  dtTrigger: Subject<SchoolProfileTO> = new Subject();
-
+  @ViewChild(DataTableDirective)
+  dtElement: DataTableDirective;
+  dtOptions: DataTables.Settings = {};
+  //dtTrigger = new Subject();
+  dtTrigger: Subject<any> = new Subject();
+  dtInstance: DataTables.Api;
   private updateSubject: BehaviorSubject<string> = new BehaviorSubject<string>(''); // Holds the error message
-
   active: string = "0";// for error and success divs;;  0 for no content, 1 for success, 2 for error
   div_Element_Id: string = "0";//for multiple pages in school list page;; 0 to show list of school , 1 to show add school, 2 to show edit school, 3 to show single school view.
-
+  flag: boolean = false;
   updateMessage(message: string) { // updates the error message
     this.updateSubject.next(message);
 
@@ -67,12 +70,14 @@ export class SchoolComponent implements OnInit, SchoolComponentInterface {
     this.subscription = this.update$.subscribe(message => {
       this.message = message;
     });
-
+    this.schoolProfileTO=new SchoolProfileTO();
     this.getAllSchoolProfiles();
 
 
   }
-
+  ngAfterViewInit(): void {
+    this.dtTrigger.next();
+  }
   public getRouter(): Router {
     return this.injector.get(Router);
   }
@@ -99,14 +104,14 @@ export class SchoolComponent implements OnInit, SchoolComponentInterface {
 
 
 // row selection script
-    $(document).on('change', '#myTable tbody tr td input', function () {
-      if ($(this).is(':checked')) {
-        $(this).parent().parent().addClass('selected_row');
-      } else {
-        $(this).parent().parent().removeClass('selected_row');
-      }
-    });
-    this.dtTrigger.next();
+    // $(document).on('change', '#myTable tbody tr td input', function () {
+    //   if ($(this).is(':checked')) {
+    //     $(this).parent().parent().addClass('selected_row');
+    //   } else {
+    //     $(this).parent().parent().removeClass('selected_row');
+    //   }
+    // });
+//    this.dtTrigger.next();
   }
 
 
@@ -145,6 +150,7 @@ export class SchoolComponent implements OnInit, SchoolComponentInterface {
     this.div_Element_Id = "0";
     this.errorMessage = "";
     this.active = "0";
+    this.getAllSchoolProfiles();
   }
 
   /**
@@ -192,6 +198,7 @@ export class SchoolComponent implements OnInit, SchoolComponentInterface {
     } else {
       this.schoolProfileTO = value;
       this.schoolConverter.addSchoolProfile(this.schoolProfileTO, this);
+      
     }
 
     //console.log(this.schoolProfileTO);
@@ -326,7 +333,6 @@ export class SchoolComponent implements OnInit, SchoolComponentInterface {
 
   }
 
-
   /**
    * Used for displaying all school profile objects.
    * @param schoolProfileTO
@@ -337,7 +343,10 @@ export class SchoolComponent implements OnInit, SchoolComponentInterface {
       console.log('SchoolProfileTO:', schoolProfileTO);
       this.schoolProfileTO = schoolProfileTO;
     });
-    this.dtTrigger.next();
+   // dtInstance.destroy();
+   //this.dtTrigger.();
+   this.rerender();
+  
   }
 
   successMessageCallBack(message1: string) {
@@ -406,6 +415,20 @@ export class SchoolComponent implements OnInit, SchoolComponentInterface {
       this.selectedSchoolArray.splice(indexx, 1)
     }
     console.log(this.selectedSchoolArray)
+  }
+  rerender(): void {
+    console.log("render call "+this.flag);
+    if(!this.flag && this.dtElement!=null)  {
+      this.flag=true;
+      this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+        // Destroy the table first
+        dtInstance.destroy();
+        // Call the dtTrigger to rerender again
+        console.log("shiva");
+        this.dtTrigger.next();
+        this.flag=false;
+      });
+    }
   }
 
 }

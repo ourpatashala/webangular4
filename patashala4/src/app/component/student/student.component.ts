@@ -1,17 +1,16 @@
 import {Component, OnInit, Input, Inject, PipeTransform, Pipe, Injector} from '@angular/core';
+import {ViewChild} from '@angular/core';
 import {StudentService} from "../../service/student.service";
 import {StudentConverter} from "../../adapter/interfaces/StudentConverter";
 import {StudentTO} from "../../to/StudentTO";
 import {StudentConverterImpl} from "../../adapter/impl/StudentConverterImpl";
 import {FormGroup, FormControl, Validators, FormBuilder, FormArray, AbstractControl} from "@angular/forms";
 import {ArrayType} from "@angular/compiler/src/output/output_ast";
-
 import {StudentComponentInterface} from "./StudentComponentInterface";
 import {jsonpFactory} from "@angular/http/src/http_module";
 import {AngularFireDatabase, FirebaseListObservable} from 'angularfire2/database';
 
 import {AngularFireAuth} from "angularfire2/auth";
-
 import {Messages} from "../../constants/Messages";
 import {Router} from "@angular/router";
 import {ErrorService} from "../../service/error.service";
@@ -19,6 +18,7 @@ import {BehaviorSubject, Observable, Subscription} from "rxjs";
 declare var $: any;
 import {Subject} from 'rxjs/Rx';
 import { DataTableDirective } from 'angular-datatables';
+
 
 
 @Component({
@@ -30,42 +30,44 @@ import { DataTableDirective } from 'angular-datatables';
 
 export class StudentComponent implements OnInit, StudentComponentInterface {
 
-
   selectedStudentArray: Array<any> = [];
-  dtOptions: DataTables.Settings = {};
-  x: string;
   errorMessage: string;
   sucessMessage: string;
   subscription: Subscription;
   message: string = '';
-  dtTrigger = new Subject();
   studentProfileTOList: FirebaseListObservable<StudentTO>;
   studentTO: StudentTO;
   studentFormGroup: FormGroup;
+  @ViewChild(DataTableDirective)
   dtElement: DataTableDirective;
-
+  dtOptions: DataTables.Settings = {};
+  //dtTrigger = new Subject();
+  dtTrigger: Subject<any> = new Subject();
+  dtInstance: DataTables.Api;
+  flag: boolean = false;
   active: string = "0";// for error and success divs;;  0 for no content, 1 for success, 2 for error
   div_Element_Id: string = "0";//for multiple pages in school list page;;  0 to show list of school , 1 to show add school, 2 to show edit school, 3 to show single school view.
-
-
   fb: FormBuilder;
   @Input() inputArray: ArrayType[];
-
-
   updateSubject: BehaviorSubject<string> = new BehaviorSubject<string>(""); // Holds the error message
 
   update$: Observable<string> = this.updateSubject.asObservable(); // observer for the above message
-
-
   constructor(@Inject("StudentConverter") private studentConverter: StudentConverter, fb: FormBuilder, private injector: Injector, private errorService: ErrorService) {
     this.fb = fb;
     this.subscription = this.update$.subscribe(message => {
       this.message = message;
     });
+    
+   this.studentTO=new StudentTO();
     //this.getAllStudents("-KuCWQEmwl1MsTD0SPdb");
     //this.getStudentProfile("school04", "-KuCWQEmwl1MsTD0SPdb");
+    //this.dtTrigger.complete();
+   //this.dtTrigger.next();
     this.getAllStudents("school04");
-
+  }
+  
+  ngAfterViewInit(): void {
+    this.dtTrigger.next();
   }
 
 
@@ -95,7 +97,7 @@ export class StudentComponent implements OnInit, StudentComponentInterface {
       id: ['']
       //TODO : Shiva integrate code by removing hardcoding of values.
     });
-
+    
   }
 
 
@@ -166,7 +168,7 @@ export class StudentComponent implements OnInit, StudentComponentInterface {
       console.log(this.selectedStudentArray[loopvar]);
       this.studentConverter.deleteStudentProfile("school04",this.selectedStudentArray[loopvar]);
     }
-
+    this.getAllStudents("school04");
 
   }
 
@@ -182,8 +184,6 @@ export class StudentComponent implements OnInit, StudentComponentInterface {
     console.log("displayStudentCallBack..firstName " + studentTO.firstName);
     this.studentTO=studentTO;
 
-    console.log("testttt");
-    console.log(studentTO);
     this.studentTO = studentTO;
     this.studentFormGroup.controls['id'].patchValue(studentTO.id);
     this.studentFormGroup.controls['firstName'].patchValue(studentTO.firstName);
@@ -204,7 +204,7 @@ export class StudentComponent implements OnInit, StudentComponentInterface {
     this.studentFormGroup.controls['motherName'].patchValue(studentTO.motherName);
     //this.studentFormGroup.controls['rollNo'].patchValue(studentTO.rollNo);
     //this.studentFormGroup.controls['classId'].patchValue(studentTO.classId);
-
+    //this.dtTrigger.complete();
 
   }
 
@@ -213,13 +213,12 @@ export class StudentComponent implements OnInit, StudentComponentInterface {
    * @param schoolProfileTO
    */
   displayAllStudentCallBack(studentTO: FirebaseListObservable<StudentTO>) {
-  //  this.dtTrigger=new Subject();
     this.studentProfileTOList=studentTO;
     this.studentProfileTOList.forEach(schoolProfileTO => {
       console.log('Student Profile:', schoolProfileTO);
     });
-
-    this.dtTrigger.next();
+   console.log('Display all Students' );
+   this.rerender();
   }
 
 
@@ -278,10 +277,13 @@ export class StudentComponent implements OnInit, StudentComponentInterface {
     this.div_Element_Id = "0";
     this.errorMessage = "";
     this.active = "0";
+    this.getAllStudents("school04");
+    
   }
 
   show_addStudentFields() {
     this.div_Element_Id = "1";
+   // this.dtTrigger.complete();
   }
 
   getselectedStudentProfile() {
@@ -294,6 +296,7 @@ export class StudentComponent implements OnInit, StudentComponentInterface {
 
   viewSingleStudentProfile() {
     this.div_Element_Id = "3";
+   // this.dtTrigger.complete();
     this.getStudentProfile("school04", this.selectedStudentArray[0]);
   }
 
@@ -309,5 +312,19 @@ export class StudentComponent implements OnInit, StudentComponentInterface {
     console.log(this.selectedStudentArray)
   }
 
+  rerender(): void {
+    console.log("render call "+this.flag);
+    if(!this.flag && this.dtElement!=null) {
+      this.flag=true;
+      this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+        // Destroy the table first
+        dtInstance.destroy();
+        // Call the dtTrigger to rerender again
+        console.log("shiva");
+        this.dtTrigger.next();
+        this.flag=false;
+      });
+    }
+  }
 
 }

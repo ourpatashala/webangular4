@@ -255,11 +255,13 @@
 
 
 
-
+<!-- <table datatable class="my_table_width" [dtTrigger]="dtTrigger"  [dtOptions]="dtOptions" id="datatable1"> -->
+        
 
 <div class="datatable_toggle"  [ngClass]="{'inactive_div': div_Element_Id !='0'}">
 
-    <table datatable class="my_table_width" [dtTrigger]="dtTrigger" [dtOptions]="dtOptions" >
+    
+            <table datatable [dtOptions]="dtOptions"  [dtTrigger]="dtTrigger" class="my_table_width" >
             <thead>
                 <tr>
                     <th></th>
