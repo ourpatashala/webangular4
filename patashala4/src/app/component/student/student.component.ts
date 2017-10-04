@@ -76,7 +76,8 @@ export class StudentComponent implements OnInit, StudentComponentInterface {
       firstName: [''],
       lastName: [''],
       middleName: [''],
-      mobileNumbers: [''],
+      //mobileNumbers: [''],
+      mobileNumbers:this.fb.array([this.initPhoneNumbers()]), // here
       gender: [''],
       landLine: [''],
       addressOne: [''],
@@ -94,37 +95,18 @@ export class StudentComponent implements OnInit, StudentComponentInterface {
       dob: [''],
       classId: [''],
       schoolId: ['school04'],
-      id: ['']
+      id: [''],
+      siblings: this.fb.array([this.initSiblings()]) // here
       //TODO : Shiva integrate code by removing hardcoding of values.
+      
     });
+
+
+    
     
   }
 
 
-  addPhoneNumbers() {
-    const control = <FormArray>this.studentFormGroup.controls["mobileNumbers"];
-    control.push(this.initPhoneNumbers());
-  }
-
-
-  addSiblings() {
-    const control = <FormArray>this.studentFormGroup.controls["siblings"];
-    control.push(this.initSiblings());
-  }
-
-
-  initPhoneNumbers() {
-    return this.fb.group({
-      mobileNumber: [""]
-    });
-  }
-
-
-  initSiblings() {
-    return this.fb.group({
-      keyInfo: [""], valueInfo: [""]
-    });
-  }
 
   /**
    * Used for getting all school profile objects.
@@ -141,10 +123,11 @@ export class StudentComponent implements OnInit, StudentComponentInterface {
 
   addStudentProfile({value, valid}: { value: StudentTO, valid: boolean }) {
     this.studentTO = value;
-
+console.log(value);
     this.studentConverter.addStudentProfile(this.studentTO.schoolId, this.studentTO, this);
 
   }
+  
 
   /**
    * Used for updating the school profile.
@@ -179,6 +162,8 @@ export class StudentComponent implements OnInit, StudentComponentInterface {
    * @param studentTO
    */
   displayStudentCallBack(studentTO: StudentTO) {
+    console.log('Student Profile:', studentTO);
+    
     console.log("displayStudentCallBack.." + studentTO.toString().valueOf());
     console.log("displayStudentCallBack..id " + studentTO.id);
     console.log("displayStudentCallBack..firstName " + studentTO.firstName);
@@ -190,6 +175,8 @@ export class StudentComponent implements OnInit, StudentComponentInterface {
     this.studentFormGroup.controls['lastName'].patchValue(studentTO.lastName);
     this.studentFormGroup.controls['middleName'].patchValue(studentTO.middleName);
     this.studentFormGroup.controls['mobileNumbers'].patchValue(studentTO.mobileNumbers);
+
+    
     this.studentFormGroup.controls['gender'].patchValue(studentTO.gender);
     this.studentFormGroup.controls['landLine'].patchValue(studentTO.landLine);
     this.studentFormGroup.controls['addressOne'].patchValue(studentTO.addressOne);
@@ -326,5 +313,65 @@ export class StudentComponent implements OnInit, StudentComponentInterface {
       });
     }
   }
+
+
+
+  initPhoneNumbers() {
+    return this.fb.group({
+        // list all your form controls here, which belongs to your form array
+        mobileNumber: ['']
+    });
+}
+
+
+addPhoneNumber() {
+  // control refers to your formarray
+  const control = <FormArray>this.studentFormGroup.controls['mobileNumbers'];
+  // add new formgroup
+  control.push(this.initPhoneNumbers());
+}
+
+deletePhoneNumber(index: number) {
+  // control refers to your formarray
+  const control = <FormArray>this.studentFormGroup.controls['mobileNumbers'];
+  // remove the chosen row
+  control.removeAt(index);
+}
+
+
+
+
+addSiblings() {
+  const control = <FormArray>this.studentFormGroup.controls["siblings"];
+  control.push(this.initSiblings());
+}
+
+
+
+initSiblings() {
+  return this.fb.group({
+    //keyInfo: [""], valueInfo: [""]
+    Name:[""]
+  });
+}
+
+deleteSiblings(index: number) {
+  // control refers to your formarray
+  const control = <FormArray>this.studentFormGroup.controls['siblings'];
+  // remove the chosen row
+  control.removeAt(index);
+}
+
+// initPhoneNumbers() {
+//   return this.fb.group({
+//     mobileNumber: [""]
+//   });
+// }
+
+
+// addPhoneNumbers() {
+//   const control = <FormArray>this.studentFormGroup.controls["mobileNumbers"];
+//   control.push(this.initPhoneNumbers());
+// }
 
 }

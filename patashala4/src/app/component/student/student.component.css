@@ -24,9 +24,16 @@ color: #666;
 {
 position: absolute;
 top: 9px;
-right: -2px;
+right: -16px;
 color: #55b1b9;
 cursor: pointer
+}
+.dlt_btn_inline .fa-trash
+{
+    position: absolute;
+    top: 9px;
+    color: #55b1b9;
+    cursor: pointer
 }
 .inactive_div
 {
@@ -81,4 +88,8 @@ border: 5px solid #199f86;
 .view_Student_profile
 {
     border: 1px solid #c8c8c8;   
+}
+.add_fields
+{
+   
 }

@@ -599,13 +599,13 @@ button:hover:after
 {
  transition: 0.3s;
  overflow: hidden;
- height: 480px;
+ height: 980px;
 }
 .modify_fields
 {
   transition: 0.3s;
   overflow: hidden;
-  height: 480px;
+  height: 980px;
 }
 .tabs_head
 {
