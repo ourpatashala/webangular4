@@ -18,6 +18,7 @@ import {BehaviorSubject, Observable, Subscription} from "rxjs";
 declare var $: any;
 import {Subject} from 'rxjs/Rx';
 import { DataTableDirective } from 'angular-datatables';
+import {MessageTO} from "../../to/MessageTO";
 
 
 
@@ -57,7 +58,7 @@ export class StudentComponent implements OnInit, StudentComponentInterface {
     this.subscription = this.update$.subscribe(message => {
       this.message = message;
     });
-    
+
    this.studentTO=new StudentTO();
     //this.getAllStudents("-KuCWQEmwl1MsTD0SPdb");
     //this.getStudentProfile("school04", "-KuCWQEmwl1MsTD0SPdb");
@@ -65,7 +66,7 @@ export class StudentComponent implements OnInit, StudentComponentInterface {
    //this.dtTrigger.next();
     this.getAllStudents("school04");
   }
-  
+
   ngAfterViewInit(): void {
     this.dtTrigger.next();
   }
@@ -98,12 +99,12 @@ export class StudentComponent implements OnInit, StudentComponentInterface {
       id: [''],
       siblings: this.fb.array([this.initSiblings()]) // here
       //TODO : Shiva integrate code by removing hardcoding of values.
-      
+
     });
 
 
-    
-    
+
+
   }
 
 
@@ -127,7 +128,7 @@ console.log(value);
     this.studentConverter.addStudentProfile(this.studentTO.schoolId, this.studentTO, this);
 
   }
-  
+
 
   /**
    * Used for updating the school profile.
@@ -163,7 +164,7 @@ console.log(value);
    */
   displayStudentCallBack(studentTO: StudentTO) {
     console.log('Student Profile:', studentTO);
-    
+
     console.log("displayStudentCallBack.." + studentTO.toString().valueOf());
     console.log("displayStudentCallBack..id " + studentTO.id);
     console.log("displayStudentCallBack..firstName " + studentTO.firstName);
@@ -176,7 +177,7 @@ console.log(value);
     this.studentFormGroup.controls['middleName'].patchValue(studentTO.middleName);
     this.studentFormGroup.controls['mobileNumbers'].patchValue(studentTO.mobileNumbers);
 
-    
+
     this.studentFormGroup.controls['gender'].patchValue(studentTO.gender);
     this.studentFormGroup.controls['landLine'].patchValue(studentTO.landLine);
     this.studentFormGroup.controls['addressOne'].patchValue(studentTO.addressOne);
@@ -210,11 +211,11 @@ console.log(value);
 
 
 
-  successMessageCallBack(message: string) {
-    console.log(message);
-    console.log(message + 'sucess');
-    this.sucessMessage = message;
-    if (message.length != 0) {
+  successMessageCallBack(messageTO:MessageTO) {
+    console.log("successMessageCallBack : "+ messageTO);
+
+    this.sucessMessage = messageTO.messageInfo;
+    if (messageTO.messageInfo.length != 0) {
       this.active = "1";
     } else {
       this.active = "0";
@@ -232,12 +233,23 @@ console.log(value);
    *
    * @param message
    */
-  errorMessageCallBack(message: string) {
-    console.log("error message call back..")
-    this.errorMessage = message;
+  errorMessageCallBack(messageTO:MessageTO) {
+    console.log("errorMessageCallBack ==>" + messageTO);
+    //TODO Shiva - commented  to compile the code. Please fix it.
+    this.errorMessage = messageTO.messageInfo;
     //this.schoolFormGroup.reset();
     this.updateMessage(this.errorMessage);
-    this.getRouter().navigate([""]);
+    this.getRouter().navigate(['/School']);
+    if (messageTO.messageInfo.length != 0) {
+      this.active = "2";
+    } else {
+      this.active = "0";
+    }
+    setTimeout(() => {    //<<<---    using ()=> syntax
+      this.errorMessage = "";
+      this.active = "0";
+    }, 2000);
+
   }
 
   updateMessage(message: string) { // updates the error message
@@ -265,7 +277,7 @@ console.log(value);
     this.errorMessage = "";
     this.active = "0";
     this.getAllStudents("school04");
-    
+
   }
 
   show_addStudentFields() {

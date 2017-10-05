@@ -18,6 +18,7 @@ import {ErrorService} from "../../service/error.service";
 import {BehaviorSubject, Observable, Subscription} from "rxjs";
 declare var $: any;
 import {Subject} from 'rxjs/Rx';
+import {MessageTO} from "../../to/MessageTO";
 
 
 @Component({
@@ -198,7 +199,7 @@ export class SchoolComponent implements OnInit, SchoolComponentInterface {
     } else {
       this.schoolProfileTO = value;
       this.schoolConverter.addSchoolProfile(this.schoolProfileTO, this);
-      
+
     }
 
     //console.log(this.schoolProfileTO);
@@ -346,12 +347,13 @@ export class SchoolComponent implements OnInit, SchoolComponentInterface {
    // dtInstance.destroy();
    //this.dtTrigger.();
    this.rerender();
-  
+
   }
 
-  successMessageCallBack(message1: string) {
-    console.log(message1 + 'sucess');
-    this.sucessMessage = message1;
+  successMessageCallBack(messageTO:MessageTO) {
+    console.log("successMessageCallBack ==>" + messageTO);
+    //TODO Shiva - commented  to compile the code. Please fix it.
+    /*this.sucessMessage = message1;
     if (message1.length != 0) {
       this.active = "1";
     } else {
@@ -361,6 +363,7 @@ export class SchoolComponent implements OnInit, SchoolComponentInterface {
       this.sucessMessage = "";
       this.active = "0";
     }, 2000);
+    */
   }
 
   /**
@@ -370,13 +373,14 @@ export class SchoolComponent implements OnInit, SchoolComponentInterface {
    *
    * @param message
    */
-  errorMessageCallBack(message: string) {
-    console.log("error message call back..")
-    this.errorMessage = message;
+  errorMessageCallBack(messageTO:MessageTO) {
+    console.log("errorMessageCallBack ==>" + messageTO);
+    //TODO Shiva - commented  to compile the code. Please fix it.
+    this.errorMessage = messageTO.messageInfo;
     //this.schoolFormGroup.reset();
     this.updateMessage(this.errorMessage);
     this.getRouter().navigate(['/School']);
-    if (message.length != 0) {
+    if (messageTO.messageInfo.length != 0) {
       this.active = "2";
     } else {
       this.active = "0";
@@ -385,6 +389,7 @@ export class SchoolComponent implements OnInit, SchoolComponentInterface {
       this.errorMessage = "";
       this.active = "0";
     }, 2000);
+
   }
 
 

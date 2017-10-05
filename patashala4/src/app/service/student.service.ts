@@ -3,6 +3,7 @@ import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/databa
 import { AngularFireAuth } from 'angularfire2/auth';
 import { Observable } from 'rxjs/Observable';
 import * as firebase from 'firebase/app';
+import {MessageTO} from "../to/MessageTO";
 
 
 
@@ -68,20 +69,22 @@ export class StudentService {
 
     var studentProfilePath = PathUtil.getStudentPath(studentVO.schoolId);
 
-    console.log("searchAndAddSchoolProfile --> studentProfilePath.." + studentProfilePath);
+    var messageTO = new MessageTO();
+    messageTO.serviceClassName = "StudentService";
+    messageTO.serviceMethodName = "searchAndAddStudent()";
 
-    console.log("searchAndAddSchoolProfile --> studentVO.schoolId.." + studentVO.schoolId);
-    console.log("searchAndAddSchoolProfile --> studentVO.firstName.." + studentVO.firstName);
-    console.log("searchAndAddSchoolProfile --> studentVO.lastName.." + studentVO.lastName);
-    console.log("searchAndAddSchoolProfile --> studentVO.rollNo.." + studentVO.rollNo);
-    console.log("searchAndAddSchoolProfile --> studentVO.uniqueId.." + studentVO.uniqueId);
+
     var firebaseObject = this.angularFireDatabase;
     var ref = this.angularFireDatabase.object(NodeConstants.STUDENTS).$ref.child(studentProfilePath).orderByChild(NodeConstants.UNIQUE_ID).equalTo(studentVO.uniqueId).once("value", function (snapshot) {
 
       var exists = (snapshot.val() !== null);
       if (exists) {
         console.log("Record already exists..");
-        studentComponentInterface.errorMessageCallBack(Messages.STUDENT_EXISTS);
+
+        messageTO.messageInfo = Messages.STUDENT_EXISTS;
+
+        studentComponentInterface.errorMessageCallBack(messageTO);
+
 
       } else {
         console.log("Record not existed.."+studentProfilePath);
@@ -92,7 +95,8 @@ export class StudentService {
         console.log("Record not existed.."+ studentVO);
         dbRef.set(studentVO);
         console.log("Added Record .."+ studentVO);
-        //studentComponentInterface.successMessageCallBack(Messages.STUDENT_ADDED);
+        messageTO.messageInfo = Messages.STUDENT_ADDED;
+        studentComponentInterface.successMessageCallBack(messageTO);
       }
     });
 
@@ -104,6 +108,10 @@ export class StudentService {
   updateStudentProfile(schoolId: string, studentVO: StudentVO, studentComponentInterface: StudentComponentInterface) {
 
     var firebaseObject = this.angularFireDatabase;
+    var messageTO = new MessageTO();
+    messageTO.serviceClassName = "StudentService";
+    messageTO.serviceMethodName = "updateStudentProfile()";
+
     var studentProfilePath = PathUtil.getStudentProfilePath(studentVO.schoolId, studentVO.id);
     console.log("updateStudentProfile studentProfilePath ==> "+ studentProfilePath);
     var ref = this.angularFireDatabase.object(NodeConstants.STUDENTS).$ref.child(studentProfilePath).orderByChild(NodeConstants.UNIQUE_ID).equalTo(studentVO.uniqueId).once("value", function (snapshot) {
@@ -117,17 +125,23 @@ export class StudentService {
           if (schoolVOFromDB.id == studentVO.id) {
             var dbRef = firebaseObject.object(studentProfilePath + studentVO.id).$ref;
             dbRef.set(studentVO);
-            studentComponentInterface.successMessageCallBack(Messages.STUDENT_UPDATED);
+            messageTO.messageInfo = Messages.STUDENT_UPDATED;
+
+            studentComponentInterface.errorMessageCallBack(messageTO);
+
             return;
           }
         });
-        studentComponentInterface.errorMessageCallBack(Messages.STUDENT_EXISTS);
+        messageTO.messageInfo = Messages.STUDENT_EXISTS;
+        studentComponentInterface.errorMessageCallBack(messageTO);
 
       } else {
         console.log("You are trying to update the student with a student name which is not there in DB. ");
         var dbRef = firebaseObject.object(studentProfilePath).$ref;
         dbRef.set(studentVO);
-        studentComponentInterface.successMessageCallBack(Messages.STUDENT_UPDATED);
+        messageTO.messageInfo = Messages.STUDENT_UPDATED;
+
+        studentComponentInterface.errorMessageCallBack(messageTO);
       }
     });
 

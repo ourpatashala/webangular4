@@ -8,6 +8,8 @@ export class Messages{
   public static SCHOOL_NOT_EXISTS='School  not  present.';
   public static SCHOOL_ADDED='School  Added.';
   public static SCHOOL_UPDATED='School  Updated.';
+  public static LOGIN_SUCCEFULL = 'User login successfull'
+  public static SIGNUP_SUCCEFULL = 'User signup successfull'
 
   public static STUDENT_EXISTS='Student  already exists.';
   public static STUDENT_NOT_EXISTS='Student  not  present.';

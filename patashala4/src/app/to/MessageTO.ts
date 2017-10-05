@@ -3,6 +3,8 @@
  */
 
 export class MessageTO{
-  city: string;
-  doorNo: string;
+  serviceClassName: string;
+  serviceMethodName: string;
+  messageType:String;
+  messageInfo:string;
 }
