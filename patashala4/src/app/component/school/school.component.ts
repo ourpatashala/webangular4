@@ -197,6 +197,7 @@ export class SchoolComponent implements OnInit, SchoolComponentInterface {
       this.errorMessage = "Please enter" + field_name;
       this.active = "2";
     } else {
+     console.log(this.schoolProfileTO.schoolId);
       this.schoolProfileTO = value;
       this.schoolConverter.addSchoolProfile(this.schoolProfileTO, this);
 
@@ -315,7 +316,7 @@ export class SchoolComponent implements OnInit, SchoolComponentInterface {
    * @param schoolId
    */
   displaySchoolProfileCallBack(schoolProfileTO: SchoolProfileTO) {
-    console.log(schoolProfileTO);
+    console.log(" displaySchoolProfileCallBack "+schoolProfileTO);
     this.schoolProfileTO = schoolProfileTO;
     this.schoolFormGroup.controls['schoolId'].patchValue(schoolProfileTO.schoolId);
     this.schoolFormGroup.controls['schoolName'].patchValue(schoolProfileTO.schoolName);
@@ -342,7 +343,7 @@ export class SchoolComponent implements OnInit, SchoolComponentInterface {
     this.schoolProfileTOList = schoolProfileTOList;
     this.schoolProfileTOList.forEach(schoolProfileTO => {
       console.log('SchoolProfileTO:', schoolProfileTO);
-      this.schoolProfileTO = schoolProfileTO;
+     // this.schoolProfileTO = schoolProfileTO;
     });
    // dtInstance.destroy();
    //this.dtTrigger.();
@@ -374,7 +375,7 @@ export class SchoolComponent implements OnInit, SchoolComponentInterface {
    * @param message
    */
   errorMessageCallBack(messageTO:MessageTO) {
-    console.log("errorMessageCallBack ==>" + messageTO);
+    console.log("errorMessageCallBack ==>" + messageTO.messageInfo);
     //TODO Shiva - commented  to compile the code. Please fix it.
     this.errorMessage = messageTO.messageInfo;
     //this.schoolFormGroup.reset();
