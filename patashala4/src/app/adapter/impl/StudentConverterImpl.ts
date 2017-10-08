@@ -40,6 +40,8 @@ export class StudentConverterImpl extends CommonConverter implements StudentConv
 
     studentVO.classId = studentTO.classId;
     studentVO.mobileNumbers = studentTO.mobileNumbers;
+
+    studentVO.siblings = studentTO.siblings;
     studentVO.gender = studentTO.gender;
 
     studentVO.landLine = studentTO.landLine;
@@ -88,6 +90,7 @@ export class StudentConverterImpl extends CommonConverter implements StudentConv
 
     studentTO.classId = studentVO.classId;
     studentTO.mobileNumbers = studentVO.mobileNumbers;
+    studentTO.siblings = studentVO.siblings;
     studentTO.gender = studentVO.gender;
 
     studentTO.landLine = studentVO.landLine;

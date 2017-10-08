@@ -17,9 +17,8 @@ import {ErrorService} from "../../service/error.service";
 import {BehaviorSubject, Observable, Subscription} from "rxjs";
 declare var $: any;
 import {Subject} from 'rxjs/Rx';
-import { DataTableDirective } from 'angular-datatables';
+import {DataTableDirective} from 'angular-datatables';
 import {MessageTO} from "../../to/MessageTO";
-
 
 
 @Component({
@@ -39,8 +38,7 @@ export class StudentComponent implements OnInit, StudentComponentInterface {
   studentProfileTOList: FirebaseListObservable<StudentTO>;
   studentTO: StudentTO;
   studentFormGroup: FormGroup;
-  @ViewChild(DataTableDirective)
-  dtElement: DataTableDirective;
+  @ViewChild(DataTableDirective) dtElement: DataTableDirective;
   dtOptions: DataTables.Settings = {};
   //dtTrigger = new Subject();
   dtTrigger: Subject<any> = new Subject();
@@ -59,11 +57,11 @@ export class StudentComponent implements OnInit, StudentComponentInterface {
       this.message = message;
     });
 
-   this.studentTO=new StudentTO();
+    this.studentTO = new StudentTO();
     //this.getAllStudents("-KuCWQEmwl1MsTD0SPdb");
     //this.getStudentProfile("school04", "-KuCWQEmwl1MsTD0SPdb");
     //this.dtTrigger.complete();
-   //this.dtTrigger.next();
+    //this.dtTrigger.next();
     this.getAllStudents("school04");
   }
 
@@ -76,9 +74,8 @@ export class StudentComponent implements OnInit, StudentComponentInterface {
     this.studentFormGroup = this.fb.group({
       firstName: [''],
       lastName: [''],
-      middleName: [''],
-      //mobileNumbers: [''],
-      mobileNumbers:this.fb.array([this.initPhoneNumbers()]), // here
+      middleName: [''], //mobileNumbers: [''],
+      mobileNumbers: this.fb.array([this.initPhoneNumbers()]), // here
       gender: [''],
       landLine: [''],
       addressOne: [''],
@@ -103,10 +100,7 @@ export class StudentComponent implements OnInit, StudentComponentInterface {
     });
 
 
-
-
   }
-
 
 
   /**
@@ -124,7 +118,7 @@ export class StudentComponent implements OnInit, StudentComponentInterface {
 
   addStudentProfile({value, valid}: { value: StudentTO, valid: boolean }) {
     this.studentTO = value;
-console.log(value);
+    console.log(value);
     this.studentConverter.addStudentProfile(this.studentTO.schoolId, this.studentTO, this);
 
   }
@@ -150,7 +144,7 @@ console.log(value);
   deleteStudentProfile() {
     for (var loopvar = 0; loopvar < this.selectedStudentArray.length; loopvar++) {
       console.log(this.selectedStudentArray[loopvar]);
-      this.studentConverter.deleteStudentProfile("school04",this.selectedStudentArray[loopvar]);
+      this.studentConverter.deleteStudentProfile("school04", this.selectedStudentArray[loopvar]);
     }
     this.getAllStudents("school04");
 
@@ -168,7 +162,7 @@ console.log(value);
     console.log("displayStudentCallBack.." + studentTO.toString().valueOf());
     console.log("displayStudentCallBack..id " + studentTO.id);
     console.log("displayStudentCallBack..firstName " + studentTO.firstName);
-    this.studentTO=studentTO;
+    this.studentTO = studentTO;
 
     this.studentTO = studentTO;
     this.studentFormGroup.controls['id'].patchValue(studentTO.id);
@@ -176,6 +170,7 @@ console.log(value);
     this.studentFormGroup.controls['lastName'].patchValue(studentTO.lastName);
     this.studentFormGroup.controls['middleName'].patchValue(studentTO.middleName);
     this.studentFormGroup.controls['mobileNumbers'].patchValue(studentTO.mobileNumbers);
+    this.studentFormGroup.controls['sibilings'].patchValue(studentTO.siblings);
 
 
     this.studentFormGroup.controls['gender'].patchValue(studentTO.gender);
@@ -201,18 +196,17 @@ console.log(value);
    * @param schoolProfileTO
    */
   displayAllStudentCallBack(studentTO: FirebaseListObservable<StudentTO>) {
-    this.studentProfileTOList=studentTO;
+    this.studentProfileTOList = studentTO;
     this.studentProfileTOList.forEach(schoolProfileTO => {
       console.log('Student Profile:', schoolProfileTO);
     });
-   console.log('Display all Students' );
-   this.rerender();
+    console.log('Display all Students');
+    this.rerender();
   }
 
 
-
-  successMessageCallBack(messageTO:MessageTO) {
-    console.log("successMessageCallBack : "+ messageTO);
+  successMessageCallBack(messageTO: MessageTO) {
+    console.log("successMessageCallBack : " + messageTO);
 
     this.sucessMessage = messageTO.messageInfo;
     if (messageTO.messageInfo.length != 0) {
@@ -233,7 +227,7 @@ console.log(value);
    *
    * @param message
    */
-  errorMessageCallBack(messageTO:MessageTO) {
+  errorMessageCallBack(messageTO: MessageTO) {
     console.log("errorMessageCallBack ==>" + messageTO);
     //TODO Shiva - commented  to compile the code. Please fix it.
     this.errorMessage = messageTO.messageInfo;
@@ -282,7 +276,7 @@ console.log(value);
 
   show_addStudentFields() {
     this.div_Element_Id = "1";
-   // this.dtTrigger.complete();
+    // this.dtTrigger.complete();
   }
 
   getselectedStudentProfile() {
@@ -295,7 +289,7 @@ console.log(value);
 
   viewSingleStudentProfile() {
     this.div_Element_Id = "3";
-   // this.dtTrigger.complete();
+    // this.dtTrigger.complete();
     this.getStudentProfile("school04", this.selectedStudentArray[0]);
   }
 
@@ -312,67 +306,63 @@ console.log(value);
   }
 
   rerender(): void {
-    console.log("render call "+this.flag);
-    if(!this.flag && this.dtElement!=null) {
-      this.flag=true;
+    console.log("render call " + this.flag);
+    if (!this.flag && this.dtElement != null) {
+      this.flag = true;
       this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
         // Destroy the table first
         dtInstance.destroy();
         // Call the dtTrigger to rerender again
         console.log("shiva");
         this.dtTrigger.next();
-        this.flag=false;
+        this.flag = false;
       });
     }
   }
 
 
-
   initPhoneNumbers() {
     return this.fb.group({
-        // list all your form controls here, which belongs to your form array
-        mobileNumber: ['']
+      // list all your form controls here, which belongs to your form array
+      mobileNumber: ['']
     });
-}
+  }
 
 
-addPhoneNumber() {
-  // control refers to your formarray
-  const control = <FormArray>this.studentFormGroup.controls['mobileNumbers'];
-  // add new formgroup
-  control.push(this.initPhoneNumbers());
-}
+  addPhoneNumber() {
+    // control refers to your formarray
+    const control = <FormArray>this.studentFormGroup.controls['mobileNumbers'];
+    // add new formgroup
+    control.push(this.initPhoneNumbers());
+  }
 
-deletePhoneNumber(index: number) {
-  // control refers to your formarray
-  const control = <FormArray>this.studentFormGroup.controls['mobileNumbers'];
-  // remove the chosen row
-  control.removeAt(index);
-}
-
-
+  deletePhoneNumber(index: number) {
+    // control refers to your formarray
+    const control = <FormArray>this.studentFormGroup.controls['mobileNumbers'];
+    // remove the chosen row
+    control.removeAt(index);
+  }
 
 
-addSiblings() {
-  const control = <FormArray>this.studentFormGroup.controls["siblings"];
-  control.push(this.initSiblings());
-}
+  addSiblings() {
+    const control = <FormArray>this.studentFormGroup.controls["siblings"];
+    control.push(this.initSiblings());
+  }
 
 
+  initSiblings() {
+    return this.fb.group({
+      //keyInfo: [""], valueInfo: [""]
+      sibling: [""]
+    });
+  }
 
-initSiblings() {
-  return this.fb.group({
-    //keyInfo: [""], valueInfo: [""]
-    Name:[""]
-  });
-}
-
-deleteSiblings(index: number) {
-  // control refers to your formarray
-  const control = <FormArray>this.studentFormGroup.controls['siblings'];
-  // remove the chosen row
-  control.removeAt(index);
-}
+  deleteSiblings(index: number) {
+    // control refers to your formarray
+    const control = <FormArray>this.studentFormGroup.controls['siblings'];
+    // remove the chosen row
+    control.removeAt(index);
+  }
 
 // initPhoneNumbers() {
 //   return this.fb.group({

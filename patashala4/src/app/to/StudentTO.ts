@@ -22,6 +22,7 @@ export class StudentTO {
   classId?: string;
   dateOfBirth?: string;
   mobileNumbers?: string[];
+  siblings?: string[];
   gender?: string;
   landLine?: string;
   bloodGroup?: string;
@@ -41,6 +42,8 @@ export class StudentTO {
       "schoolId : " + this.schoolId + "\n" +
       "rollNo : " + this.rollNo + "\n" + "" +
       "firstName : " + this.firstName + "\n" +
+      "mobilenumbers : " + this.mobileNumbers + "\n" +
+      "siblings : " + this.siblings + "\n" +
       "lastName : " + this.lastName + "\n";
   }
 

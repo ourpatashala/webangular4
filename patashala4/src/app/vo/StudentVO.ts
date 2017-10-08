@@ -20,6 +20,7 @@ export  class StudentVO {
   classId: string;
   dob: string;
   mobileNumbers: string[];
+  siblings: string[];
   gender: string;
   landLine: string;
   bloodGroup: string;
@@ -40,7 +41,9 @@ export  class StudentVO {
       "schoolId : " + this.schoolId + "\n" +
       "rollNo : " + this.rollNo + "\n" + "" +
       "firstName : " + this.firstName + "\n" +
-      "lastName : " + this.lastName + "\n";
+      "lastName : " + this.lastName + "\n" +
+      "mobilenumbers : " + this.mobileNumbers + "\n" +
+      "sibling : " + this.siblings;
   }
 
 
