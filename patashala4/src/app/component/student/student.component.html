@@ -89,25 +89,20 @@
                 </select>    
             </div><div class="clear"></div> 
             
-            <pre>{{studentFormGroup.controls.mobileNumbers.value | json}}</pre>
-            
             <div class="col-md-4">Mobile</div>
             <div class="col-md-8 plus_btn_inline">
                     <i class="fa fa-plus" (click)="addPhoneNumber()"></i>
-                <div formArrayName="mobileNumbers">
-                        
-                
-                    <div *ngFor="let itemrow of studentFormGroup.controls.mobileNumbers.controls; let i=index"  [formGroupName]="i" class="dlt_btn_inline">
-                    <div class="form-group">
-                        <input formControlName="mobileNumber" class="form-control">
-                    </div>
-                    <i *ngIf="studentFormGroup.controls.mobileNumbers.controls.length > 1" (click)="deletePhoneNumber(i)" class="fa fa-trash"></i>
-                    </div>        
-                    
-                </div>
+                    <div formArrayName="mobileNumbers">
+                        <div *ngFor="let itemrow of studentFormGroup.controls.mobileNumbers.controls; let i=index"  [formGroupName]="i" class="dlt_btn_inline">
+                            <div class="form-group">
+                                <input formControlName="mobileNumber" value="" class="form-control"> 
+                            </div>
+                            <i *ngIf="studentFormGroup.controls.mobileNumbers.controls.length > 1" (click)="deletePhoneNumber(i)" class="fa fa-trash"></i>
+                        </div>                          
+                    </div>    
+                   
             </div>
             <div class="clear"></div>
-            <pre>{{studentFormGroup.controls.siblings.value | json}}</pre>
             
             <div class="col-md-4">Siblings</div>
             <div class="col-md-8 plus_btn_inline">
@@ -200,20 +195,16 @@
             <div class="col-md-8"><input type="text" value="SMiddlename2" formControlName="motherName"></div><div class="clear"></div>
             <!-- <div class="col-md-4"><p>Class</p></div><div class="col-md-8"><input auto-complete [(ngModel)]="myData" [source]="appComponent.classes" placeholder="Search Class"/></div><div class="clear"></div> -->
             <div class="col-md-4"><p>Registered Mobile </p></div>
+            
             <div class="col-md-8 plus_btn_inline">
                     <i class="fa fa-plus" (click)="addPhoneNumber()"></i>
                 <div formArrayName="mobileNumbers">
-                        
-                
                     <div *ngFor="let itemrow of studentFormGroup.controls.mobileNumbers.controls; let i=index"  [formGroupName]="i" class="dlt_btn_inline">
-                    <div class="form-group">
-                        <input formControlName="mobileNumber" class="form-control">
-                    </div>
-
-                    {{ mobileNumber }} zdfsd 
-                    <i *ngIf="studentFormGroup.controls.mobileNumbers.controls.length > 1" (click)="deletePhoneNumber(i)" class="fa fa-trash"></i>
-                    </div>        
-                    
+                        <div class="form-group">
+                            <input formControlName="mobileNumber" value="" class="form-control"> 
+                        </div>
+                        <i *ngIf="studentFormGroup.controls.mobileNumbers.controls.length > 1" (click)="deletePhoneNumber(i)" class="fa fa-trash"></i>
+                    </div>                          
                 </div>
             </div>
             <!-- <div class="col-md-8"><input type="text" value="+91 9876543210" formControlName="mobileNumbers"></div>-->
@@ -222,15 +213,12 @@
             <div class="col-md-8 plus_btn_inline">
                     <i class="fa fa-plus" (click)="addSiblings()"></i>
                 <div formArrayName="siblings">
-                        
-                
                     <div *ngFor="let itemrow of studentFormGroup.controls.siblings.controls; let i=index"  [formGroupName]="i" class="dlt_btn_inline">
                     <div class="form-group">
                         <input formControlName="Name" class="form-control">
                     </div>
                     <i *ngIf="studentFormGroup.controls.siblings.controls.length > 1" (click)="deleteSiblings(i)" class="fa fa-trash"></i>
-                    </div>        
-                    
+                    </div> 
                 </div>
             </div>
 
@@ -323,7 +311,11 @@
             </div>
             <div class="col-md-6">
                 <img src="./assets/images/webicons/Phone.png" class="img_pos_ab">
-                <p class="school_contact">Primary Contact#: <span>{{studentTO.mobileNumbers}}</span> </p>
+                <p class="school_contact">Primary Contact#: <span>
+                        <div *ngFor="let mobileNumber of studentTO.mobileNumbers ; let i=index ">
+                                {{mobileNumber.mobileNumber}},
+                        </div>    
+                </span> </p>
                 <p class="school_contact">Contact#: <span>{{studentTO.mobileNumbers}}</span> </p>
             </div>
             <div class="clear"></div>
@@ -363,7 +355,11 @@
                     <td>{{studentProfileTO.lastName}}</td>
                     <td>{{studentProfileTO.middleName}}</td>
                     <td></td>
-                    <td>{{studentProfileTO.mobileNumbers}}</td>
+                    <td>
+                            <span *ngFor="let mobileNumber of studentProfileTO.mobileNumbers ; let i=index ">
+                                {{mobileNumber.mobileNumber}} ,
+                            </span>
+                    </td>
                   </tr>
             </tbody>
         </table>

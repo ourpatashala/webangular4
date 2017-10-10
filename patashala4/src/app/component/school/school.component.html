@@ -33,51 +33,51 @@
 
         <form [formGroup]="schoolFormGroup" (ngSubmit)="addSchoolProfile(schoolFormGroup)" ngNativeValidate>
           <div class="col-md-6">
-            <div class="col-md-4"><p>School Id</p></div>
+            <div class="col-md-4 text-right"><p>School Id</p></div>
             <div class="col-md-8"><input type="text" placeholder="" formControlName="schoolId" ></div>
             <div class="clear"></div>
-            <div class="col-md-4"><p>School Name</p></div>
+            <div class="col-md-4 text-right"><p>School Name</p></div>
             <div class="col-md-8"><input type="text" placeholder="Enter Full Name of School" formControlName="schoolName" title="Please Enter School Name"></div>
             <div class="clear"></div>
-            <div class="col-md-4"><p>Display Short Name</p></div>
+            <div class="col-md-4 text-right"><p>Display Short Name</p></div>
             <div class="col-md-8"><input type="text" placeholder="Enter Full Name of School" formControlName="schoolDisplayName"></div>
             <div class="clear"></div>
-            <div class="col-md-4"><p>City</p></div>
+            <div class="col-md-4 text-right"><p>City</p></div>
             <div class="col-md-8"><input type="text" placeholder="Enter City" formControlName="city"></div>
             <div class="clear"></div>
-            <div class="col-md-4"><p>Address1</p></div>
+            <div class="col-md-4 text-right"><p>Address1</p></div>
             <div class="col-md-8"><textarea placeholder="Enter Address1" formControlName="addressOne"></textarea></div>
             <div class="clear"></div>
-            <div class="col-md-4"><p>Address2</p></div>
+            <div class="col-md-4 text-right"><p>Address2</p></div>
             <div class="col-md-8"><textarea placeholder="Enter Address2" formControlName="addressTwo"></textarea></div>
             <div class="clear"></div>
 
             <div class="little_gap"></div>
           </div>
           <div class="col-md-6">
-            <div class="col-md-4"><p>State</p></div>
+            <div class="col-md-4 text-right"><p>State</p></div>
             <div class="col-md-8"><input type="text" placeholder="Enter State" formControlName="state"></div>
             <div class="clear"></div>
-            <div class="col-md-4"><p>Pincode</p></div>
+            <div class="col-md-4 text-right"><p>Pincode</p></div>
             <div class="col-md-8"><input type="text" placeholder="Enter pincode" formControlName="pincode"></div>
             <div class="clear"></div>
-            <div class="col-md-4"><p>Country</p></div>
+            <div class="col-md-4 text-right"><p>Country</p></div>
             <div class="col-md-8"><input type="text" placeholder="Enter Country" formControlName="country"></div>
             <div class="clear"></div>
-            <div class="col-md-4"><p>Primary Contact Name </p></div>
+            <div class="col-md-4 text-right"><p>Primary Contact Name </p></div>
             <div class="col-md-8"><input type="text" placeholder="Enter Primary Contact Name" formControlName="contactName"></div>
             <div class="clear"></div>
-            <div class="col-md-4"><p>Primary Contact #</p></div>
+            <div class="col-md-4 text-right"><p>Primary Contact #</p></div>
             <div class="col-md-8"><input type="text" placeholder="Enter Contact Number" formControlName="contactNumber"></div>
             <div class="clear"></div>
             <!--<div class="col-md-4"><p>Principal</p></div><div class="col-md-8"><input type="text" placeholder="Enter Principal Name"></div><div class="clear"></div>-->
-            <div class="col-md-4"><p>Active</p></div><div class="col-md-8">
+            <div class="col-md-4 text-right"><p>Active</p></div><div class="col-md-8">
             <div id="toggles">
                <input type="checkbox" name="checkbox1" id="checkbox1" formControlName="active" class="ios-toggle" checked/>
                <label for="checkbox1" class="checkbox-label" data-off="off" data-on="on"></label>
              </div>
           </div><div class="clear"></div>
-            <div class="col-md-4"><p>Remarks</p></div>
+            <div class="col-md-4 text-right"><p>Remarks</p></div>
             <div class="col-md-8"><input type="text" placeholder="Enter Remarks" formControlName="remarks" ></div>
             <div class="clear"></div>
           </div>
@@ -100,22 +100,22 @@
       <div class="modify_fields addschool_div"  [ngClass]="{'inactive_div': div_Element_Id !='2'}">
       <form [formGroup]="schoolFormGroup" (ngSubmit)="updateSchoolProfile(schoolFormGroup)">
         <div class="col-md-6">
-         <div class="col-md-4"><p>School Id</p></div>
+         <div class="col-md-4 text-right"><p>School Id</p></div>
          <div class="col-md-8"><input type="text" formControlName="schoolId"  title="Please Enter schoolId" required></div>
          <div class="clear"></div>
-          <div class="col-md-4"><p>School Name</p></div>
+          <div class="col-md-4 text-right"><p>School Name</p></div>
           <div class="col-md-8"><input type="text" formControlName="schoolName" ></div>
           <div class="clear"></div>
-          <div class="col-md-4"><p>Display Short Name</p></div>
+          <div class="col-md-4 text-right"><p>Display Short Name</p></div>
           <div class="col-md-8"><input type="text" formControlName="schoolDisplayName" ></div>
           <div class="clear"></div>
-           <div class="col-md-4"><p>City</p></div>
+           <div class="col-md-4 text-right"><p>City</p></div>
            <div class="col-md-8"><input type="text" formControlName="city" value=""></div>
            <div class="clear"></div>
-          <div class="col-md-4"><p>Address1</p></div>
+          <div class="col-md-4 text-right"><p>Address1</p></div>
           <div class="col-md-8"><textarea formControlName="addressOne"></textarea></div>
           <div class="clear"></div>
-          <div class="col-md-4"><p>Address2</p></div>
+          <div class="col-md-4 text-right"><p>Address2</p></div>
           <div class="col-md-8"><textarea formControlName="addressTwo"></textarea></div>
           <div class="clear"></div>
 
@@ -123,20 +123,20 @@
         </div>
 
         <div class="col-md-6">
-          <div class="col-md-4"><p>State</p></div><div class="col-md-8"><input type="text" formControlName="state" value=""></div><div class="clear"></div>
-          <div class="col-md-4"><p>Pincode</p></div><div class="col-md-8"><input type="text" formControlName="pincode" value=""></div><div class="clear"></div>
-          <div class="col-md-4"><p>Country</p></div><div class="col-md-8"><input type="text" formControlName="country"  value=""></div><div class="clear"></div>
-          <div class="col-md-4"><p>Primary Contact</p></div><div class="col-md-8"><input type="text" formControlName="contactName" value=""></div><div class="clear"></div>
-          <div class="col-md-4"><p>Contact #</p></div><div class="col-md-8"><input type="text" formControlName="contactNumber" value=""></div><div class="clear"></div>
+          <div class="col-md-4 text-right"><p>State</p></div><div class="col-md-8"><input type="text" formControlName="state" value=""></div><div class="clear"></div>
+          <div class="col-md-4 text-right"><p>Pincode</p></div><div class="col-md-8"><input type="text" formControlName="pincode" value=""></div><div class="clear"></div>
+          <div class="col-md-4 text-right"><p>Country</p></div><div class="col-md-8"><input type="text" formControlName="country"  value=""></div><div class="clear"></div>
+          <div class="col-md-4 text-right"><p>Primary Contact</p></div><div class="col-md-8"><input type="text" formControlName="contactName" value=""></div><div class="clear"></div>
+          <div class="col-md-4 text-right"><p>Contact #</p></div><div class="col-md-8"><input type="text" formControlName="contactNumber" value=""></div><div class="clear"></div>
           <!--<div class="col-md-4"><p>Principal</p></div><div class="col-md-8"><input type="text" value="Mr.DineshChoudhary"></div><div class="clear"></div>-->
-          <div class="col-md-4"><p>School Logo</p></div><div class="col-md-8"><input type="file" value=""></div><div class="clear"></div>
-          <div class="col-md-4"><p>Active</p></div><div class="col-md-8">
+          <div class="col-md-4 text-right"><p>School Logo</p></div><div class="col-md-8"><input type="file" value=""></div><div class="clear"></div>
+          <div class="col-md-4 text-right"><p>Active</p></div><div class="col-md-8">
           <div id="toggles">
             <input type="checkbox" name="checkbox1" id="checkbox2" class="ios-toggle" checked/>
             <label for="checkbox2" class="checkbox-label" data-off="off" data-on="on"></label>
           </div>
         </div><div class="clear"></div>
-          <div class="col-md-4"><p>Remarks</p></div><div class="col-md-8"><input type="text" formControlName="remarks" ></div><div class="clear"></div>
+          <div class="col-md-4 text-right"><p>Remarks</p></div><div class="col-md-8"><input type="text" formControlName="remarks" ></div><div class="clear"></div>
         </div>
         <div class="clear"></div>
         <div class="text-center"><button class="update_btn">Modify School</button> <span class="cancel_btn_modify button_type_span" (click)="showSchoolsList()">Cancel</span></div>
@@ -158,18 +158,24 @@
           <div class="col-md-6"></div>
           <div class="col-md-3"></div>
           <div class="clear"></div>
-          <div class="large_gap"></div>
+          
           <div class="school_details">
-            <div class="col-md-12">
+            <div class="col-md-7">
               <div class="profile_image_div">
                 <img src="./assets/images/default_school.jpg">
                 <div class="text_beside_img">
                   <p class="School_name">School Name: <span> {{schoolProfileTO.schoolName}}</span></p>
                   <p class="school_id">School Id: <span>  {{schoolProfileTO.schoolId}}</span></p>
+                  <p><i class="fa fa-map-marker"></i> {{schoolProfileTO.addressOne}}, {{schoolProfileTO.addressTwo}}, {{schoolProfileTO.city}}, {{schoolProfileTO.state}}, {{schoolProfileTO.pincode}}, {{schoolProfileTO.country}}</p>
                 </div>
               </div>
               <!-- <img src="./assets/images/webicons/schoolname.png"> -->
 
+            </div>
+            <div class="col-md-5">
+              <div class="large_gap"></div>
+              <p class="school_contact">Primary Contact Name: <span>{{schoolProfileTO.contactName}}</span> </p>
+              <p class="school_contact">Contact Number: <span>{{schoolProfileTO.contactNumber}}</span> </p>
             </div>
           <!-- <div class="col-md-6">
             <img src="./assets/images/webicons/SchoolPrinc.png">
@@ -177,7 +183,7 @@
           </div> -->
           <div class="clear"></div>
           <div class="large_gap"></div>
-          <div class="col-md-6">
+          <!-- <div class="col-md-6">
             <img src="./assets/images/webicons/Address.png" class="img_pos_ab">
             <p class="schoolAddress">Address1: <span>{{schoolProfileTO.addressOne}}</span></p>
             <p class="schoolAddress">Address2: <span>{{schoolProfileTO.addressTwo}}</span></p>
@@ -185,11 +191,11 @@
             <p class="schoolAddress">State: <span>{{schoolProfileTO.state}}</span></p>
             <p class="schoolAddress">Pincode: <span>{{schoolProfileTO.pincode}}</span></p>
             <p class="schoolAddress">Country: <span>{{schoolProfileTO.country}}</span></p>
-          </div>
+          </div> -->
           <div class="col-md-6">
-            <img src="./assets/images/webicons/Phone.png" class="img_pos_ab">
+            <!-- <img src="./assets/images/webicons/Phone.png" class="img_pos_ab">
             <p class="school_contact">Primary Contact#: <span>{{schoolProfileTO.contactName}}</span> </p>
-            <p class="school_contact">Contact#: <span>{{schoolProfileTO.contactNumber}}</span> </p>
+            <p class="school_contact">Contact#: <span>{{schoolProfileTO.contactNumber}}</span> </p> -->
           </div>
           <div class="clear"></div>
           </div>
@@ -228,7 +234,7 @@
               <a routerLink="/TabService"><button md-raised-button>Manage</button></a>
             </td>
           </tr> -->
-          <tr *ngFor="let schoolProfileTO of schoolProfileTOList ; let i=index ">
+          <tr *ngFor="let schoolProfileTO of schoolProfileTOList ; let i=index "  >
             <td>{{i + 1}}</td>
             <!-- <td><input type="checkbox" value="{{schoolProfileTO.schoolId}}"  (change)="updateCheckedOptions(schoolProfileTO.schoolId,$this.checkbox.state)"></td> -->
             <td><input type="checkbox" id="{{schoolProfileTO.schoolId}}" value="{{schoolProfileTO.schoolId}}" (change)="checkedStudents(schoolProfileTO.schoolId)" ></td>

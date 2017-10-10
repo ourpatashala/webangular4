@@ -365,6 +365,7 @@ export class SchoolComponent implements OnInit, SchoolComponentInterface {
       this.active = "0";
     }, 2000);
     */
+    this.setUserSuccessMessageonUI(messageTO.messageInfo);
   }
 
   /**

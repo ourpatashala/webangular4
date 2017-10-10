@@ -124,7 +124,6 @@ export class StudentComponent implements OnInit, StudentComponentInterface {
 
   addStudentProfile({value, valid}: { value: StudentTO, valid: boolean }) {
     this.studentTO = value;
-console.log(value);
     this.studentConverter.addStudentProfile(this.studentTO.schoolId, this.studentTO, this);
 
   }
@@ -175,9 +174,13 @@ console.log(value);
     this.studentFormGroup.controls['firstName'].patchValue(studentTO.firstName);
     this.studentFormGroup.controls['lastName'].patchValue(studentTO.lastName);
     this.studentFormGroup.controls['middleName'].patchValue(studentTO.middleName);
+    this.clearPhoneNumbers();
+    console.log(studentTO.mobileNumbers.length);
+    for(var loopvar=0;loopvar<studentTO.mobileNumbers.length;loopvar++)
+    {
+        this.addPhoneNumber();
+    }
     this.studentFormGroup.controls['mobileNumbers'].patchValue(studentTO.mobileNumbers);
-
-
     this.studentFormGroup.controls['gender'].patchValue(studentTO.gender);
     this.studentFormGroup.controls['landLine'].patchValue(studentTO.landLine);
     this.studentFormGroup.controls['addressOne'].patchValue(studentTO.addressOne);
@@ -234,12 +237,12 @@ console.log(value);
    * @param message
    */
   errorMessageCallBack(messageTO:MessageTO) {
-    console.log("errorMessageCallBack ==>" + messageTO);
+    console.log("errorMessageCallBack ==>" + messageTO.messageInfo+"  "+ messageTO.messageType+"  "+messageTO.serviceClassName+"  "+messageTO.serviceMethodName);
     //TODO Shiva - commented  to compile the code. Please fix it.
     this.errorMessage = messageTO.messageInfo;
     //this.schoolFormGroup.reset();
     this.updateMessage(this.errorMessage);
-    this.getRouter().navigate(['/School']);
+  //  this.getRouter().navigate(['/School']);
     if (messageTO.messageInfo.length != 0) {
       this.active = "2";
     } else {
@@ -282,6 +285,7 @@ console.log(value);
 
   show_addStudentFields() {
     this.div_Element_Id = "1";
+    
    // this.dtTrigger.complete();
   }
 
@@ -340,8 +344,9 @@ addPhoneNumber() {
   // control refers to your formarray
   const control = <FormArray>this.studentFormGroup.controls['mobileNumbers'];
   // add new formgroup
-  control.push(this.initPhoneNumbers());
+    control.push(this.initPhoneNumbers());
 }
+
 
 deletePhoneNumber(index: number) {
   // control refers to your formarray
@@ -350,6 +355,13 @@ deletePhoneNumber(index: number) {
   control.removeAt(index);
 }
 
+
+clearPhoneNumbers()
+{
+ const control = <FormArray>this.studentFormGroup.controls['mobileNumbers'];
+ for(var loop=0;loop<control.length;loop++)
+    this.deletePhoneNumber(loop);
+}
 
 
 
@@ -373,6 +385,15 @@ deleteSiblings(index: number) {
   // remove the chosen row
   control.removeAt(index);
 }
+
+clearSiblings()
+{
+ const control = <FormArray>this.studentFormGroup.controls['siblings'];
+ for(var loop=0;loop<control.length;loop++)
+    this.deletePhoneNumber(loop);
+}
+
+
 
 // initPhoneNumbers() {
 //   return this.fb.group({
