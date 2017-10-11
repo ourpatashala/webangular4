@@ -49,6 +49,9 @@ export class SchoolConverterImpl extends CommonConverter implements SchoolConver
     schoolProfileVO.pincode = schoolProfileTO.pincode;
     schoolProfileVO.remarks = schoolProfileTO.remarks;
     schoolProfileVO.uniqueId = this.getUniqueKey(schoolProfileTO);
+    schoolProfileVO.contactNumber = schoolProfileTO.contactNumber;
+    schoolProfileVO.contactName = schoolProfileTO.contactName;
+
     console.log("Unique Key.."+schoolProfileVO.uniqueId);
 
     console.log("in converter impl"+schoolProfileVO.state);

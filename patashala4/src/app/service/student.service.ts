@@ -132,8 +132,8 @@ export class StudentService {
             return;
           }
         });
-        messageTO.messageInfo = Messages.STUDENT_EXISTS;
-        studentComponentInterface.errorMessageCallBack(messageTO);
+        //messageTO.messageInfo = Messages.STUDENT_EXISTS;
+        //studentComponentInterface.errorMessageCallBack(messageTO);
 
       } else {
         console.log("You are trying to update the student with a student name which is not there in DB. ");

@@ -48,17 +48,23 @@ export class SchoolService {
         var dbRecord = snapshot.val();
         Object.keys(dbRecord).forEach(function(key){
           let schoolVOFromDB = dbRecord[key];
+
+          console.log("schoolVOFromDB.schoolId : " + schoolVOFromDB.schoolId + " schoolProfileVO.schoolId : " + schoolProfileVO.schoolId);
+
           if(schoolVOFromDB.schoolId == schoolProfileVO.schoolId){
             var dbRef = firebaseObject.object(PathUtil.getSchoolProfilePath()+schoolProfileVO.schoolId).$ref;
             dbRef.set(schoolProfileVO);
+            console.log(" schoolProfileVO.contactName : " + schoolProfileVO.contactName);
+            console.log(" schoolProfileVO.contactNumber : " + schoolProfileVO.contactNumber);
+
             messageTO.messageInfo = Messages.SCHOOL_UPDATED;
             schoolComponentInterface.successMessageCallBack(messageTO);
             return;
           }
         });
-        messageTO.messageInfo = Messages.SCHOOL_EXISTS;
+        //messageTO.messageInfo = Messages.SCHOOL_EXISTS;
 
-        schoolComponentInterface.errorMessageCallBack(messageTO);
+        //schoolComponentInterface.errorMessageCallBack(messageTO);
 
       }else{
         console.log("You are trying to update the school with a school name which is not there in DB. ");

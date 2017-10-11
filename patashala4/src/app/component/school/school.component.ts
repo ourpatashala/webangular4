@@ -352,7 +352,10 @@ export class SchoolComponent implements OnInit, SchoolComponentInterface {
   }
 
   successMessageCallBack(messageTO:MessageTO) {
-    console.log("successMessageCallBack ==>" + messageTO);
+    console.log("*** successMessageCallBack ==>" + messageTO.messageInfo);
+
+
+
     //TODO Shiva - commented  to compile the code. Please fix it.
     /*this.sucessMessage = message1;
     if (message1.length != 0) {
