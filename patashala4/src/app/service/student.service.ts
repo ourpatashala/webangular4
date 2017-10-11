@@ -67,7 +67,7 @@ export class StudentService {
 
   searchAndAddStudent(studentVO: StudentVO, studentComponentInterface: StudentComponentInterface) {
 
-    var studentProfilePath = PathUtil.getStudentPath(studentVO.schoolId);
+
 
     var messageTO = new MessageTO();
     messageTO.serviceClassName = "StudentService";
@@ -75,8 +75,9 @@ export class StudentService {
 
 
     var firebaseObject = this.angularFireDatabase;
-    var ref = this.angularFireDatabase.object(NodeConstants.STUDENTS).$ref.child(studentProfilePath).orderByChild(NodeConstants.UNIQUE_ID).equalTo(studentVO.uniqueId).once("value", function (snapshot) {
-
+    var studentProfilePath = PathUtil.getStudentProfilePathNode(studentVO.schoolId);
+    console.log("updateStudentProfile studentProfilePath ==> "+ studentProfilePath);
+    var ref = this.angularFireDatabase.object(NodeConstants.SCHOOLS).$ref.child(studentProfilePath).orderByChild(NodeConstants.UNIQUE_ID).equalTo(studentVO.uniqueId).once("value", function (snapshot) {
       var exists = (snapshot.val() !== null);
       if (exists) {
         console.log("Record already exists..");
