@@ -223,7 +223,7 @@ export class StudentComponent implements OnInit, StudentComponentInterface {
       this.studentTO = value;
       this.studentConverter.addStudentProfile(this.studentTO.schoolId, this.studentTO, this);
     }
-    
+
 
   }
 
@@ -394,7 +394,7 @@ export class StudentComponent implements OnInit, StudentComponentInterface {
 
   show_addStudentFields() {
     this.div_Element_Id = "1";
-    
+
    // this.dtTrigger.complete();
   }
 

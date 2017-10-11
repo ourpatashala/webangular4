@@ -111,44 +111,78 @@ export class StudentService {
     var messageTO = new MessageTO();
     messageTO.serviceClassName = "StudentService";
     messageTO.serviceMethodName = "updateStudentProfile()";
+    console.log("updateStudentProfile xxx " + studentVO.schoolId + " " + studentVO.id);
 
-    var studentProfilePath = PathUtil.getStudentProfilePath(studentVO.schoolId, studentVO.id);
+
+    var studentProfilePath = PathUtil.getStudentProfilePathNode(studentVO.schoolId);
     console.log("updateStudentProfile studentProfilePath ==> "+ studentProfilePath);
-    var ref = this.angularFireDatabase.object(NodeConstants.STUDENTS).$ref.child(studentProfilePath).orderByChild(NodeConstants.UNIQUE_ID).equalTo(studentVO.uniqueId).once("value", function (snapshot) {
+    var ref = this.angularFireDatabase.object(NodeConstants.SCHOOLS).$ref.child(studentProfilePath).orderByChild(NodeConstants.UNIQUE_ID).equalTo(studentVO.uniqueId).once("value", function (snapshot) {
       var exists = (snapshot.val() !== null);
+
+      console.log("exists  ==> "+ exists);
+
       if (exists) {
         console.log("Record Exists, So validate if the id is matching otherwise don't update the record.")
         // if the  existing record id and your id from UI are equal, then only update the DB , else dont update because that's not your record.
         var dbRecord = snapshot.val();
+
+        var flag = "false";
+
         Object.keys(dbRecord).forEach(function (key) {
+
           let schoolVOFromDB = dbRecord[key];
+
+          console.log("schoolVOFromDB.id == studentVO.id " + schoolVOFromDB.id + " " +studentVO.id );
+
           if (schoolVOFromDB.id == studentVO.id) {
-            var dbRef = firebaseObject.object(studentProfilePath + studentVO.id).$ref;
+            var dbRef = firebaseObject.object(PathUtil.getStudentProfilePath(studentVO.schoolId, studentVO.id)).$ref;
             dbRef.set(studentVO);
             messageTO.messageInfo = Messages.STUDENT_UPDATED;
 
             studentComponentInterface.successMessageCallBack(messageTO);
+            flag = "true";
 
             return;
           }else{
-
             messageTO.messageInfo = Messages.STUDENT_EXISTS;
-
             studentComponentInterface.errorMessageCallBack(messageTO);
           }
 
         });
+
+        if (flag == "true"){
+          //this.updateRegistrationNode (schoolId, studentVO);
+        }
+
         //messageTO.messageInfo = Messages.STUDENT_EXISTS;
         //studentComponentInterface.errorMessageCallBack(messageTO);
 
       } else {
         console.log("You are trying to update the student with a student name which is not there in DB. ");
         var dbRef = firebaseObject.object(studentProfilePath).$ref;
-        dbRef.set(studentVO);
+        //dbRef.set(studentVO);
         messageTO.messageInfo = Messages.STUDENT_UPDATED;
 
         studentComponentInterface.errorMessageCallBack(messageTO);
       }
+    });
+
+  }
+
+  updateRegistrationNode (schoolId: string, studentVO: StudentVO){
+
+    Object.keys(studentVO.mobileNumbers).forEach(index=> {
+
+      var fieldNameValue = studentVO.mobileNumbers[index];
+      Object.keys(fieldNameValue).forEach(fieldName=> {
+
+        console.log(fieldName)
+        var fieldValue = fieldNameValue[fieldName];
+        console.log('Mobile #s : '+fieldValue);
+
+        //values[i] = fieldValue
+      });
+
     });
 
   }
