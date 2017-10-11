@@ -89,7 +89,7 @@ border: 5px solid #199f86;
 {
     border: 1px solid #c8c8c8;   
 }
-.add_fields
+.my_table_width tbody tr td:nth-child(1), .my_table_width tbody tr td:nth-child(2), .my_table_width tbody tr td:nth-child(3)
 {
-   
+    text-align: center
 }

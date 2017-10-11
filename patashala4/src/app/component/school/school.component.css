@@ -107,12 +107,7 @@ font-size: 14px;
     border-right: 0;
     cursor: pointer;
 }
-.my_table_width thead tr th
-{
-    text-align: center;
-    background-color: #777;
-    color: #fff;
-}
+
 .my_table_width tbody tr td:nth-child(1), .my_table_width tbody tr td:nth-child(2), .my_table_width tbody tr td:nth-child(7), .my_table_width tbody tr td:nth-child(8)
 {
     text-align: center
