@@ -461,7 +461,7 @@ button:hover:after
 }
 
 #toggles{
-  width:60px;
+  width:42px;
   text-align:center;
 }
 .ios-toggle,.ios-toggle:active{
@@ -481,13 +481,14 @@ button:hover:after
   font-size:12px;
   line-height:16px;
   width:100%;
-  height:26px;
+  height:20px;
   /*border-radius*/
   -webkit-border-radius:18px;
   -moz-border-radius:18px;
   border-radius:18px;
   background:#e1e1e1;
   cursor:pointer;
+  margin-left: 26px;
 }
 .checkbox-label:before{
   content:'';
@@ -496,8 +497,8 @@ button:hover:after
   z-index:1;
   line-height:34px;
   text-indent:40px;
-  height:30px;
-  width:30px;
+  height:20px;
+  width:20px;
   /*border-radius*/
   -webkit-border-radius:100%;
   -moz-border-radius:100%;
@@ -506,7 +507,7 @@ button:hover:after
   -moz-transition:.25s ease-in-out;
   -o-transition:.25s ease-in-out;
   transition:.25s ease-in-out;
-  top:-2px;
+  top:0px;
   left:0px;
   right:auto;
   background:white;
@@ -520,7 +521,7 @@ button:hover:after
   display:block;
   position:absolute;
   z-index:0;
-  top:0;
+  top:-7px;
   left:-300px;
   padding:10px;
   height:100%;
@@ -540,7 +541,7 @@ button:hover:after
   box-shadow:inset 0 0 0 20px rgba(19,191,17,1),0 0 0 2px rgba(19,191,17,1);
 }
 .ios-toggle:checked + .checkbox-label:before{
-  left:calc(100% - 28px);
+  left:calc(100% - 18px);
   /*box-shadow*/
   -webkit-box-shadow:0 0 0 2px transparent,0 3px 3px rgba(0,0,0,.3);
   -moz-box-shadow:0 0 0 2px transparent,0 3px 3px rgba(0,0,0,.3);
@@ -548,7 +549,7 @@ button:hover:after
 }
 .ios-toggle:checked + .checkbox-label:after{
   content:attr(data-on);
-  left:60px;
+  left:40px;
   width:36px;
 }
 
@@ -821,22 +822,41 @@ button:hover:after
 
 .show_styles_sucess
 {
-  color: #fff;
-  background-color: green;
+  color: #205823;
+  background-color: #E8F5E9;
   padding: 15px;
+  padding-left: 25px;
+  padding-right: 25px;
+  border:1px solid #4CAF50;
   border-radius: 10px;
   transition: 0.3s;
+  font-size: 13px;
 }
 .error_styles_sucess
 {
-  color: #fff;
-  background-color: red;
+  /* color: #ca5a5a;
+  background-color: #ffe4e4;
   padding: 15px;
-  border-radius: 10px;
+  border-radius: 0px;
   transition: 0.3s;
+  border: 2px solid #ffaaaa;
+  font-weight: 600; */
+  color: #9c1f1f;
+  border-radius: 10px;
+  border-color: 1px solid #FF5722;
+  background-color: #FBE9E7;
+  padding: 15px;
+  padding-left: 25px;
+  padding-right: 25px;
+  transition: 0.3s;
+  font-size: 13px;
 }
 .disable_btn
 {
   pointer-events: none;
   opacity: 0.5;
+}
+.hideblock
+{
+display: none;
 }
