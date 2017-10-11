@@ -93,7 +93,6 @@ export class StudentComponent implements OnInit, StudentComponentInterface {
       fatherName: [''],
       motherName: [''],
       rollNo: [''],
-      dob: [''],
       classId: [''],
       schoolId: ['school04'],
       id: [''],
@@ -123,8 +122,108 @@ export class StudentComponent implements OnInit, StudentComponentInterface {
   }
 
   addStudentProfile({value, valid}: { value: StudentTO, valid: boolean }) {
-    this.studentTO = value;
-    this.studentConverter.addStudentProfile(this.studentTO.schoolId, this.studentTO, this);
+    var field_name = "";
+    this.errorMessage = field_name;
+    this.active = "0";
+    if(value.firstName == null || value.firstName == "")
+    {
+      field_name = field_name + "firstName, ";
+    }
+    if(value.lastName == null || value.lastName == "")
+    {
+      field_name = field_name + "lastName, ";
+    }
+    if(value.middleName == null || value.middleName == "")
+    {
+      field_name = field_name + "middleName, ";
+    }
+    // if(value.mobileNumbers == null || value.mobileNumbers == "")
+    // {
+    //   field_name = field_name + "mobileNumbers, ";
+    // }
+    if(value.gender == null || value.gender == "")
+    {
+      field_name = field_name + "gender, ";
+    }
+    if(value.landLine == null || value.landLine == "")
+    {
+      field_name = field_name + "landLine, ";
+    }
+    if(value.addressOne == null || value.addressOne == "")
+    {
+      field_name = field_name + "addressOne, ";
+    }
+    if(value.addressTwo == null || value.addressTwo == "")
+    {
+      field_name = field_name + "addressTwo, ";
+    }
+    if(value.city == null || value.city == "")
+    {
+      field_name = field_name + "city, ";
+    }
+    if(value.state == null || value.state == "")
+    {
+      field_name = field_name + "state, ";
+    }
+    if(value.country == null || value.country == "")
+    {
+      field_name = field_name + "country, ";
+    }
+    if(value.pincode == null || value.pincode == "")
+    {
+      field_name = field_name + "pincode, ";
+    }
+    if(value.bloodGroup == null || value.bloodGroup == "")
+    {
+      field_name = field_name + "bloodGroup, ";
+    }
+    if(value.dateOfBirth == null || value.dateOfBirth == "")
+    {
+      field_name = field_name + "dateOfBirth, ";
+    }
+    // if(value.uploadPhoto == null || value.uploadPhoto == "")
+    // {
+    //   field_name = field_name + "uploadPhoto, ";
+    // }
+    if(value.fatherName == null || value.fatherName == "")
+    {
+      field_name = field_name + "fatherName, ";
+    }
+    if(value.motherName == null || value.motherName == "")
+    {
+      field_name = field_name + "motherName, ";
+    }
+    // if(value.rollNo == null || value.rollNo == "")
+    // {
+    //   field_name = field_name + "rollNo, ";
+    // }
+    if(value.dateOfBirth == null || value.dateOfBirth == "")
+    {
+      field_name = field_name + "dateOfBirth, ";
+    }
+    if(value.classId == null || value.classId == "")
+    {
+      field_name = field_name + "classId, ";
+    }
+    if(value.schoolId == null || value.schoolId == "")
+    {
+      field_name = field_name + "schoolId, ";
+    }
+    // if(value.siblings == null || value.siblings == "")
+    // {
+    //   field_name = field_name + "siblings, ";
+    // }
+    if(field_name.length !=0 )
+    {
+      this.errorMessage = "Please enter " + field_name;
+      this.active = "2";
+    }
+    else
+    {
+      this.studentTO = value;
+      this.studentConverter.addStudentProfile(this.studentTO.schoolId, this.studentTO, this);
+    }
+    
 
   }
 
@@ -214,8 +313,18 @@ export class StudentComponent implements OnInit, StudentComponentInterface {
 
 
 
+  closePopup()
+  {
+    this.sucessMessage = "";
+    this.active = "0";
+  }
+
+
   successMessageCallBack(messageTO:MessageTO) {
-    console.log("successMessageCallBack : "+ messageTO);
+    console.log("successMessageCallBack : "+ messageTO.serviceMethodName);
+    if(messageTO.serviceMethodName == "searchAndAddStudent()")
+    this.studentFormGroup.reset();
+
 
     this.sucessMessage = messageTO.messageInfo;
     if (messageTO.messageInfo.length != 0) {
@@ -223,10 +332,10 @@ export class StudentComponent implements OnInit, StudentComponentInterface {
     } else {
       this.active = "0";
     }
-    setTimeout(() => {    //<<<---    using ()=> syntax
-      this.sucessMessage = "";
-      this.active = "0";
-    }, 2000);
+    // setTimeout(() => {    //<<<---    using ()=> syntax
+    //   this.sucessMessage = "";
+    //   this.active = "0";
+    // }, 2000);
   }
 
   /**

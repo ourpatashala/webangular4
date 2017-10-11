@@ -3,8 +3,8 @@ import { NgModule } from '@angular/core';
 import { DataTablesModule } from 'angular-datatables';
 import { AppComponent } from './app.component';
 import { SchoolComponent } from './component/school/school.component';
-import {Routes, RouterModule} from "@angular/router";
-import {routing} from './app.routing';
+import { Routes, RouterModule } from "@angular/router";
+import { routing } from './app.routing';
 import { AngularFireModule } from 'angularfire2';
 
 // New imports to update based on AngularFire2 version 4
@@ -51,8 +51,7 @@ export const firebaseConfig = {     apiKey: 'AIzaSyB6WeGfORqOzz5jT_XL6GLMCl8ze
     AngularFireModule.initializeApp(firebaseConfig),
     routing,
     AngularFireDatabaseModule,
-    AngularFireAuthModule
-
+    AngularFireAuthModule    
   ],
   providers: [AppConstants,ErrorService,PathUtil,LoginService],
   bootstrap: [AppComponent]

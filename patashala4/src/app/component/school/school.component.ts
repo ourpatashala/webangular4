@@ -11,7 +11,6 @@ import {jsonpFactory} from "@angular/http/src/http_module";
 import {AngularFireDatabase, FirebaseListObservable} from 'angularfire2/database';
 import { DataTableDirective } from 'angular-datatables';
 import {AngularFireAuth} from "angularfire2/auth";
-
 import {Messages} from "../../constants/Messages";
 import {Router} from "@angular/router";
 import {ErrorService} from "../../service/error.service";
@@ -74,6 +73,8 @@ export class SchoolComponent implements OnInit, SchoolComponentInterface {
     this.schoolProfileTO=new SchoolProfileTO();
     this.getAllSchoolProfiles();
 
+
+    
 
   }
   ngAfterViewInit(): void {
@@ -196,11 +197,12 @@ export class SchoolComponent implements OnInit, SchoolComponentInterface {
     if (field_name.length != 0) {
       this.errorMessage = "Please enter" + field_name;
       this.active = "2";
-    } else {
+    } 
+    else {
      console.log(this.schoolProfileTO.schoolId);
       this.schoolProfileTO = value;
       this.schoolConverter.addSchoolProfile(this.schoolProfileTO, this);
-
+      
     }
 
     //console.log(this.schoolProfileTO);
@@ -292,9 +294,14 @@ export class SchoolComponent implements OnInit, SchoolComponentInterface {
     if (field_name.length != 0) {
       this.errorMessage = "Please enter" + field_name;
       this.active = "2";
-    } else {
+    } 
+    else {
       this.schoolProfileTO = value;
       this.schoolConverter.updateSchoolProfile(this.schoolProfileTO, this);
+      // setTimeout(() => {
+      // this.showSchoolsList();
+      // }, 2000);
+      
     }
   }
 
@@ -352,9 +359,15 @@ export class SchoolComponent implements OnInit, SchoolComponentInterface {
   }
 
   successMessageCallBack(messageTO:MessageTO) {
-    console.log("*** successMessageCallBack ==>" + messageTO.messageInfo);
-
-
+    console.log("successMessageCallBack ==>" + messageTO.messageInfo+"  "+ messageTO.messageType+"  "+messageTO.serviceClassName+"  "+messageTO.serviceMethodName);
+    //console.log("*** successMessageCallBack ==>" + messageTO.messageInfo);
+    if(messageTO.serviceMethodName == "searchAndAddSchoolProfile()")
+    this.schoolFormGroup.reset();
+    else if(messageTO.serviceMethodName == "updateSchoolProfile()")
+    {
+      //this.showSchoolsList();
+    }
+    
 
     //TODO Shiva - commented  to compile the code. Please fix it.
     /*this.sucessMessage = message1;
@@ -397,14 +410,19 @@ export class SchoolComponent implements OnInit, SchoolComponentInterface {
 
   }
 
+  closePopup()
+  {
+    this.sucessMessage = "";
+    this.active = "0";
+  }
 
   setUserSuccessMessageonUI(message: string) {
     this.sucessMessage = message;
     this.active = "1";
-    setTimeout(() => {
-      this.sucessMessage = "";
-      this.active = "0";
-    }, 2000);
+    // setTimeout(() => {
+    //   this.sucessMessage = "";
+    //   this.active = "0";
+    // }, 2000);
   }
 
   setUserErrorMessageonUI(message: string) {
