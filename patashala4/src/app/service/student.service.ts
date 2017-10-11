@@ -127,10 +127,16 @@ export class StudentService {
             dbRef.set(studentVO);
             messageTO.messageInfo = Messages.STUDENT_UPDATED;
 
-            studentComponentInterface.errorMessageCallBack(messageTO);
+            studentComponentInterface.successMessageCallBack(messageTO);
 
             return;
+          }else{
+
+            messageTO.messageInfo = Messages.STUDENT_EXISTS;
+
+            studentComponentInterface.errorMessageCallBack(messageTO);
           }
+
         });
         //messageTO.messageInfo = Messages.STUDENT_EXISTS;
         //studentComponentInterface.errorMessageCallBack(messageTO);
