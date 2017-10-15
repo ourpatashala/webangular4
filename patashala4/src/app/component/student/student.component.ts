@@ -237,7 +237,7 @@ export class StudentComponent implements OnInit, StudentComponentInterface {
     console.log("updateStudent", value);
     this.studentTO = value;
     console.log(value.id);
-    this.studentConverter.updateStudent(schoolId, this.studentTO, this);
+    this.studentConverter.updateStudent("school04", this.studentTO, this);
   }
 
 

@@ -75,7 +75,7 @@ export class StudentService {
 
 
     var firebaseObject = this.angularFireDatabase;
-    var studentProfilePath = PathUtil.getStudentProfilePathNode(studentVO.schoolId);
+    var studentProfilePath = PathUtil.getStudentPath(studentVO.schoolId);
     console.log("updateStudentProfile studentProfilePath ==> "+ studentProfilePath);
     var ref = this.angularFireDatabase.object(NodeConstants.SCHOOLS).$ref.child(studentProfilePath).orderByChild(NodeConstants.UNIQUE_ID).equalTo(studentVO.uniqueId).once("value", function (snapshot) {
       var exists = (snapshot.val() !== null);
@@ -112,10 +112,10 @@ export class StudentService {
     var messageTO = new MessageTO();
     messageTO.serviceClassName = "StudentService";
     messageTO.serviceMethodName = "updateStudentProfile()";
-    console.log("updateStudentProfile xxx " + studentVO.schoolId + " " + studentVO.id);
+    console.log("updateStudentProfile xxx " + schoolId + " " + studentVO.id);
 
 
-    var studentProfilePath = PathUtil.getStudentProfilePathNode(studentVO.schoolId);
+    var studentProfilePath = PathUtil.getStudentProfilePathNode(schoolId);
     console.log("updateStudentProfile studentProfilePath ==> "+ studentProfilePath);
     var ref = this.angularFireDatabase.object(NodeConstants.SCHOOLS).$ref.child(studentProfilePath).orderByChild(NodeConstants.UNIQUE_ID).equalTo(studentVO.uniqueId).once("value", function (snapshot) {
       var exists = (snapshot.val() !== null);
