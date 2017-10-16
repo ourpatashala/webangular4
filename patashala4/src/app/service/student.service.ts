@@ -4,7 +4,7 @@ import { AngularFireAuth } from 'angularfire2/auth';
 import { Observable } from 'rxjs/Observable';
 import * as firebase from 'firebase/app';
 import {MessageTO} from "../to/MessageTO";
-
+import {RegisteredUser} from "../vo/RegisteredUser";
 
 
 import {PathUtil} from "../util/PathUtil";
@@ -90,6 +90,7 @@ export class StudentService {
       } else {
         console.log("Record not existed.."+studentProfilePath);
         var dbRef = firebaseObject.object(studentProfilePath).$ref.push(studentProfilePath);
+
         //var dbRef = firebaseObject.object(PathUtil.getSchoolProfilePath()).$ref.push(PathUtil.getSchoolProfilePath());
         studentVO.id = dbRef.key;
 
@@ -108,6 +109,7 @@ export class StudentService {
 
   updateStudentProfile(schoolId: string, studentVO: StudentVO, studentComponentInterface: StudentComponentInterface) {
 
+    var serviceObject = this;
     var firebaseObject = this.angularFireDatabase;
     var messageTO = new MessageTO();
     messageTO.serviceClassName = "StudentService";
@@ -152,7 +154,8 @@ export class StudentService {
         });
 
         if (flag == "true"){
-          //this.updateRegistrationNode (schoolId, studentVO);
+          StudentService.updateRegistrationNode (schoolId, studentVO, serviceObject);
+
         }
 
         //messageTO.messageInfo = Messages.STUDENT_EXISTS;
@@ -170,18 +173,29 @@ export class StudentService {
 
   }
 
-  updateRegistrationNode (schoolId: string, studentVO: StudentVO){
+
+
+  public static updateRegistrationNode (schoolId: string, studentVO: StudentVO, studentService: StudentService){
+
+    var firebaseObject = studentService.angularFireDatabase;
 
     Object.keys(studentVO.mobileNumbers).forEach(index=> {
 
       var fieldNameValue = studentVO.mobileNumbers[index];
       Object.keys(fieldNameValue).forEach(fieldName=> {
 
-        console.log(fieldName)
-        var fieldValue = fieldNameValue[fieldName];
-        console.log('Mobile #s : '+fieldValue);
+        var phoneNumber = fieldNameValue[fieldName];
+        console.log('Mobile #s : '+phoneNumber);
 
-        //values[i] = fieldValue
+        var registeredUser = new RegisteredUser();
+        registeredUser.active = "true";
+        registeredUser.phoneNumber = phoneNumber;
+        registeredUser.userType = "parent";
+
+
+        var dbRef = firebaseObject.object(PathUtil.getRegisteredUsersPath(phoneNumber)).$ref;
+        dbRef.set(registeredUser);
+
       });
 
     });

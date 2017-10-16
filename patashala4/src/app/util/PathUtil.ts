@@ -395,6 +395,24 @@ export class PathUtil {
 
   }
 
+  /**
+   * Can also be a Utility method for getting the path of the school
+   * @param schoolId
+   * @return
+   */
+  public static  getRegisteredUsersPath(mobileNumber: string): string {
+
+    var schoolPath: string = "";
+
+    schoolPath = schoolPath + NodeConstants.SCHOOLS;
+    schoolPath = schoolPath + NodeConstants.SEPARATOR;
+    schoolPath = schoolPath + mobileNumber;
+    schoolPath = schoolPath + NodeConstants.SEPARATOR;
+    console.log('school path...' + schoolPath)
+    return schoolPath;
+
+  }
+
   public static  getSchoolPathWithoutTopNode(schoolId: string): string {
 
     var schoolPath: string = "";
@@ -530,6 +548,12 @@ export class PathUtil {
     tokenPath = tokenPath + (NodeConstants.SEPARATOR);
     return tokenPath;
 
+
+  }
+
+  public static test (){
+
+    console.log("Called Test");
 
   }
 
