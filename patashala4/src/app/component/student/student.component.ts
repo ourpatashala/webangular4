@@ -51,7 +51,7 @@ export class StudentComponent implements OnInit, StudentComponentInterface {
   @Input() inputArray: ArrayType[];
   updateSubject: BehaviorSubject<string> = new BehaviorSubject<string>(""); // Holds the error message
   popupstatus:string="0"; //0 for default close //1 for close and show listing
-  
+
   update$: Observable<string> = this.updateSubject.asObservable(); // observer for the above message
   constructor(@Inject("StudentConverter") private studentConverter: StudentConverter, fb: FormBuilder, private injector: Injector,private router: Router, private errorService: ErrorService) {
     this.fb = fb;
@@ -68,7 +68,7 @@ export class StudentComponent implements OnInit, StudentComponentInterface {
      this.router.navigate(['/']);
    }
    var selectedSchoolId=localStorage.getItem('schoolid');
-   
+
    console.log("Selected School "+selectedSchoolId);
    if(selectedSchoolId=="" || selectedSchoolId=="Undefined" || selectedSchoolId==null)
    {
