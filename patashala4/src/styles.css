@@ -832,7 +832,7 @@ button:hover:after
 
 .show_styles_sucess
 {
-  color: #205823;
+  color: #6f6f6f;
   /* background-color: #E8F5E9;
   padding: 15px;
   padding-left: 25px;
@@ -841,7 +841,7 @@ button:hover:after
   border-radius: 10px; */
   transition: 0.3s;
   text-align: center;
-  font-size: 20px;
+  font-size: 18px;
 }
 .error_styles_sucess
 {
@@ -885,13 +885,14 @@ display: block;
         -ms-transform: translate(-50%,-50%);
          -o-transform: translate(-50%,-50%);
             transform: translate(-50%,-50%);
-    padding: 20px;
+    padding: 50px 0 0;
     background-color: #fff;
-    border: 1px solid #c8c8c8;
     box-shadow: 1px 1px 4px #4d4d4d;
     z-index: 100;
     width: 300px;
     text-align: center;
+    border-radius: 15px;
+    overflow: hidden;
 }
 .my_table_width thead tr th
 {
@@ -903,4 +904,26 @@ display: block;
 {
   background-color: #4cc4db;
   color: #fff;
+}
+.popup_ok_btn
+{
+  background-color: #199f86;
+  width: 100%;
+}
+.checkicon
+{
+  width: 50px;
+  height: 50px;
+  color: #41c7be;
+  border: 2px solid #41c7be;
+  display: inline-block;
+  padding: 10px;
+  font-size: 20px;
+  border-radius: 50%;
+  margin-bottom: 24px
+}
+.popup_ok_btn
+{
+  width: 100%;
+  padding: 12px 28px;
 }

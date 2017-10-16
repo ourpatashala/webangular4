@@ -175,35 +175,35 @@ export class SchoolComponent implements OnInit, SchoolComponentInterface {
     this.errorMessage = field_name;
     this.active = "0";
     if (value.schoolName == null || value.schoolName == "") {
-      field_name = field_name + " schoolName, ";
+      field_name = field_name + " School Name, ";
     }
     if (value.schoolDisplayName == null || value.schoolDisplayName == "") {
-      field_name = field_name + " schoolDisplayName, ";
+      field_name = field_name + " School Display Name, ";
     }
     if (value.city == null || value.city == "") {
-      field_name = field_name + " city, ";
+      field_name = field_name + " City, ";
     }
     if (value.addressOne == null || value.addressOne == "") {
-      field_name = field_name + " addressOne, ";
+      field_name = field_name + " Address One, ";
     }
-    if (value.addressTwo == null || value.addressTwo == "") {
-      field_name = field_name + " addressTwo, ";
-    }
+    // if (value.addressTwo == null || value.addressTwo == "") {
+    //   field_name = field_name + " Address Two, ";
+    // }
     if (value.state == null || value.state == "") {
-      field_name = field_name + " state, ";
+      field_name = field_name + " State, ";
     }
-    if (value.pincode == null || value.pincode == "") {
-      field_name = field_name + " pincode, ";
-    }
+    // if (value.pincode == null || value.pincode == "") {
+    //   field_name = field_name + " Pincode, ";
+    // }
     if (value.country == null || value.country == "") {
-      field_name = field_name + " country, ";
+      field_name = field_name + " Country, ";
     }
-    if (value.contactName == null || value.contactName == "") {
-      field_name = field_name + " contactName, ";
-    }
-    if (value.contactNumber == null || value.contactNumber == "") {
-      field_name = field_name + " contactNumber, ";
-    }
+    // if (value.contactName == null || value.contactName == "") {
+    //   field_name = field_name + " Contact Name, ";
+    // }
+    // if (value.contactNumber == null || value.contactNumber == "") {
+    //   field_name = field_name + " Contact Number, ";
+    // }
     if (field_name.length != 0) {
       this.errorMessage = "Please enter" + field_name;
       this.active = "2";
@@ -278,39 +278,39 @@ export class SchoolComponent implements OnInit, SchoolComponentInterface {
     var field_name = "";
     this.errorMessage = field_name;
     this.active = "0";
-    if (value.schoolId == null || value.schoolId == "") {
-      field_name = field_name + " schoolId, ";
-    }
+    // if (value.schoolId == null || value.schoolId == "") {
+    //   field_name = field_name + " schoolId, ";
+    // }
     if (value.schoolName == null || value.schoolName == "") {
-      field_name = field_name + " schoolName, ";
+      field_name = field_name + " School Name, ";
     }
     if (value.schoolDisplayName == null || value.schoolDisplayName == "") {
-      field_name = field_name + " schoolDisplayName, ";
+      field_name = field_name + " School Display Name, ";
     }
     if (value.city == null || value.city == "") {
-      field_name = field_name + " city, ";
+      field_name = field_name + " City, ";
     }
     if (value.addressOne == null || value.addressOne == "") {
-      field_name = field_name + " addressOne, ";
+      field_name = field_name + " AddressOne, ";
     }
-    if (value.addressTwo == null || value.addressTwo == "") {
-      field_name = field_name + " addressTwo, ";
-    }
+    // if (value.addressTwo == null || value.addressTwo == "") {
+    //   field_name = field_name + " addressTwo, ";
+    // }
     if (value.state == null || value.state == "") {
-      field_name = field_name + " state, ";
+      field_name = field_name + " State, ";
     }
-    if (value.pincode == null || value.pincode == "") {
-      field_name = field_name + " pincode, ";
-    }
+    // if (value.pincode == null || value.pincode == "") {
+    //   field_name = field_name + " pincode, ";
+    // }
     if (value.country == null || value.country == "") {
-      field_name = field_name + " country, ";
+      field_name = field_name + " Country, ";
     }
-    if (value.contactName == null || value.contactName == "") {
-      field_name = field_name + " contactName, ";
-    }
-    if (value.contactNumber == null || value.contactNumber == "") {
-      field_name = field_name + " contactNumber, ";
-    }
+    // if (value.contactName == null || value.contactName == "") {
+    //   field_name = field_name + " contactName, ";
+    // }
+    // if (value.contactNumber == null || value.contactNumber == "") {
+    //   field_name = field_name + " contactNumber, ";
+    // }
     if (field_name.length != 0) {
       this.errorMessage = "Please enter" + field_name;
       this.active = "2";

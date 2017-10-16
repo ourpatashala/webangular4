@@ -3,9 +3,9 @@
 <div class="overlay hideblock" [ngClass]="{'showblock': active=='1'}"></div>
 
 <div class="popup_screen hideblock " [ngClass]="{'showblock': active=='1'}">
-  <div class="sucess_msg_text"><p [ngClass]="{'show_styles_sucess': active=='1'}">{{sucessMessage}}</p></div>
+  <div class="sucess_msg_text"><span class="checkicon"> &#x2714;</span> <p [ngClass]="{'show_styles_sucess': active=='1'}"> {{sucessMessage}}!</p></div>
   <div class="little_gap"></div>
-  <button class="update_btn" (click)="closePopup()">Ok</button>
+  <button class="update_btn popup_ok_btn" (click)="closePopup()">Ok</button>
 </div>
 
 
@@ -50,38 +50,38 @@
             <div class="col-md-8"><input type="text" placeholder="" formControlName="schoolId" ></div>
             <div class="clear"></div> -->
             <div class="col-md-4 text-right"><p>School Name</p></div>
-            <div class="col-md-8"><input type="text" placeholder="Enter Full Name of School" formControlName="schoolName" title="Please Enter School Name"></div>
+            <div class="col-md-8"><input type="text" placeholder="Enter Full Name of School" maxlength="30" formControlName="schoolName" title="Please Enter School Name"></div>
             <div class="clear"></div>
             <div class="col-md-4 text-right"><p>Display Short Name</p></div>
-            <div class="col-md-8"><input type="text" placeholder="Enter Full Name of School" formControlName="schoolDisplayName"></div>
+            <div class="col-md-8"><input type="text" placeholder="Enter Full Name of School" maxlength="12" formControlName="schoolDisplayName"></div>
             <div class="clear"></div>
             <div class="col-md-4 text-right"><p>City</p></div>
-            <div class="col-md-8"><input type="text" placeholder="Enter City" formControlName="city"></div>
+            <div class="col-md-8"><input type="text" placeholder="Enter City" maxlength="50" formControlName="city"></div>
             <div class="clear"></div>
             <div class="col-md-4 text-right"><p>Address1</p></div>
-            <div class="col-md-8"><textarea placeholder="Enter Address1" formControlName="addressOne"></textarea></div>
+            <div class="col-md-8"><textarea placeholder="Enter Address1" maxlength="100" formControlName="addressOne"></textarea></div>
             <div class="clear"></div>
             <div class="col-md-4 text-right"><p>Address2</p></div>
-            <div class="col-md-8"><textarea placeholder="Enter Address2" formControlName="addressTwo"></textarea></div>
+            <div class="col-md-8"><textarea placeholder="Enter Address2" maxlength="100" formControlName="addressTwo"></textarea></div>
             <div class="clear"></div>
 
             <div class="little_gap"></div>
           </div>
           <div class="col-md-6">
             <div class="col-md-4 text-right"><p>State</p></div>
-            <div class="col-md-8"><input type="text" placeholder="Enter State" formControlName="state"></div>
+            <div class="col-md-8"><input type="text" placeholder="Enter State" maxlength="50" formControlName="state"></div>
             <div class="clear"></div>
             <div class="col-md-4 text-right"><p>Pincode</p></div>
-            <div class="col-md-8"><input type="text" placeholder="Enter pincode" formControlName="pincode"></div>
+            <div class="col-md-8"><input type="text" placeholder="Enter pincode" maxlength="10" formControlName="pincode"></div>
             <div class="clear"></div>
             <div class="col-md-4 text-right"><p>Country</p></div>
-            <div class="col-md-8"><input type="text" placeholder="Enter Country" formControlName="country"></div>
+            <div class="col-md-8"><input type="text" placeholder="Enter Country" maxlength="20" formControlName="country"></div>
             <div class="clear"></div>
             <div class="col-md-4 text-right"><p>Primary Contact Name </p></div>
-            <div class="col-md-8"><input type="text" placeholder="Enter Primary Contact Name" formControlName="contactName"></div>
+            <div class="col-md-8"><input type="text" placeholder="Enter Primary Contact Name" maxlength="50" formControlName="contactName"></div>
             <div class="clear"></div>
             <div class="col-md-4 text-right"><p>Primary Contact #</p></div>
-            <div class="col-md-8"><input type="text" placeholder="Enter Contact Number" formControlName="contactNumber"></div>
+            <div class="col-md-8"><input type="text" placeholder="Enter Contact Number" maxlength="10" formControlName="contactNumber"></div>
             <div class="clear"></div>
             <!--<div class="col-md-4"><p>Principal</p></div><div class="col-md-8"><input type="text" placeholder="Enter Principal Name"></div><div class="clear"></div>-->
             <div class="col-md-4 text-right"><p>Active</p></div><div class="col-md-8">
@@ -91,7 +91,7 @@
              </div>
           </div><div class="clear"></div>
             <div class="col-md-4 text-right"><p>Remarks</p></div>
-            <div class="col-md-8"><input type="text" placeholder="Enter Remarks" formControlName="remarks" ></div>
+            <div class="col-md-8"><input type="text" placeholder="Enter Remarks" maxlength="200" formControlName="remarks" ></div>
             <div class="clear"></div>
           </div>
           <div class="clear"></div>
@@ -117,39 +117,39 @@
          <div class="col-md-8"><input type="text" formControlName="schoolId"  title="Please Enter schoolId" required></div>
          <div class="clear"></div> -->
           <div class="col-md-4 text-right"><p>School Name</p></div>
-          <div class="col-md-8"><input type="text" formControlName="schoolName" ></div>
+          <div class="col-md-8"><input type="text" formControlName="schoolName" maxlength="30"></div>
           <div class="clear"></div>
           <div class="col-md-4 text-right"><p>Display Short Name</p></div>
-          <div class="col-md-8"><input type="text" formControlName="schoolDisplayName" ></div>
+          <div class="col-md-8"><input type="text" formControlName="schoolDisplayName" maxlength="12"></div>
           <div class="clear"></div>
            <div class="col-md-4 text-right"><p>City</p></div>
-           <div class="col-md-8"><input type="text" formControlName="city" value=""></div>
+           <div class="col-md-8"><input type="text" formControlName="city" value="" maxlength="50"></div>
            <div class="clear"></div>
           <div class="col-md-4 text-right"><p>Address1</p></div>
-          <div class="col-md-8"><textarea formControlName="addressOne"></textarea></div>
+          <div class="col-md-8"><textarea formControlName="addressOne" maxlength="100"></textarea></div>
           <div class="clear"></div>
           <div class="col-md-4 text-right"><p>Address2</p></div>
-          <div class="col-md-8"><textarea formControlName="addressTwo"></textarea></div>
+          <div class="col-md-8"><textarea formControlName="addressTwo" maxlength="100"></textarea></div>
           <div class="clear"></div>
 
           <div class="little_gap"></div>
         </div>
 
         <div class="col-md-6">
-          <div class="col-md-4 text-right"><p>State</p></div><div class="col-md-8"><input type="text" formControlName="state" value=""></div><div class="clear"></div>
-          <div class="col-md-4 text-right"><p>Pincode</p></div><div class="col-md-8"><input type="text" formControlName="pincode" value=""></div><div class="clear"></div>
-          <div class="col-md-4 text-right"><p>Country</p></div><div class="col-md-8"><input type="text" formControlName="country"  value=""></div><div class="clear"></div>
-          <div class="col-md-4 text-right"><p>Primary Contact</p></div><div class="col-md-8"><input type="text" formControlName="contactName" value=""></div><div class="clear"></div>
-          <div class="col-md-4 text-right"><p>Contact #</p></div><div class="col-md-8"><input type="text" formControlName="contactNumber" value=""></div><div class="clear"></div>
+          <div class="col-md-4 text-right"><p>State</p></div><div class="col-md-8"><input type="text" formControlName="state" value="" maxlength="50"></div><div class="clear"></div>
+          <div class="col-md-4 text-right"><p>Pincode</p></div><div class="col-md-8"><input type="text" formControlName="pincode" value="" maxlength="10"></div><div class="clear"></div>
+          <div class="col-md-4 text-right"><p>Country</p></div><div class="col-md-8"><input type="text" formControlName="country"  value="" maxlength="20"></div><div class="clear"></div>
+          <div class="col-md-4 text-right"><p>Primary Contact</p></div><div class="col-md-8"><input type="text" formControlName="contactName" maxlength="50" value=""></div><div class="clear"></div>
+          <div class="col-md-4 text-right"><p>Contact #</p></div><div class="col-md-8"><input type="text" formControlName="contactNumber" maxlength="10" value=""></div><div class="clear"></div>
           <!--<div class="col-md-4"><p>Principal</p></div><div class="col-md-8"><input type="text" value="Mr.DineshChoudhary"></div><div class="clear"></div>-->
-          <div class="col-md-4 text-right"><p>School Logo</p></div><div class="col-md-8"><input type="file" value=""></div><div class="clear"></div>
+          <!-- <div class="col-md-4 text-right"><p>School Logo</p></div><div class="col-md-8"><input type="file" value=""></div><div class="clear"></div> -->
           <div class="col-md-4 text-right"><p>Active</p></div><div class="col-md-8">
           <div id="toggles">
             <input type="checkbox" name="checkbox1" id="checkbox2" class="ios-toggle" checked/>
             <label for="checkbox2" class="checkbox-label" data-off="off" data-on="on"></label>
           </div>
         </div><div class="clear"></div>
-          <div class="col-md-4 text-right"><p>Remarks</p></div><div class="col-md-8"><input type="text" formControlName="remarks" ></div><div class="clear"></div>
+          <div class="col-md-4 text-right"><p>Remarks</p></div><div class="col-md-8"><input type="text" formControlName="remarks" maxlength="200"></div><div class="clear"></div>
         </div>
         <div class="clear"></div>
         <div class="text-center"><button class="update_btn">Modify School</button> <span class="cancel_btn_modify button_type_span" (click)="showSchoolsList()">Cancel</span></div>
