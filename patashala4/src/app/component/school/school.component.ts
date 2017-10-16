@@ -52,6 +52,7 @@ export class SchoolComponent implements OnInit, SchoolComponentInterface {
   active: string = "0";// for error and success divs;;  0 for no content, 1 for success, 2 for error
   div_Element_Id: string = "0";//for multiple pages in school list page;; 0 to show list of school , 1 to show add school, 2 to show edit school, 3 to show single school view.
   flag: boolean = false;
+  popupstatus:string="0"; //0 for default close //1 for close and show listing
   updateMessage(message: string) { // updates the error message
     this.updateSubject.next(message);
 
@@ -63,9 +64,18 @@ export class SchoolComponent implements OnInit, SchoolComponentInterface {
   fb: FormBuilder;
   @Input() inputArray: ArrayType[];
 
-  constructor(@Inject('SchoolConverter') private schoolConverter: SchoolConverter, fb: FormBuilder, private injector: Injector, private errorService: ErrorService, afAuth: AngularFireAuth) {
+  constructor(@Inject('SchoolConverter') private schoolConverter: SchoolConverter, fb: FormBuilder, private injector: Injector,private router: Router, private errorService: ErrorService, afAuth: AngularFireAuth) {
     this.fb = fb;
     this.angularFireAuth = afAuth;
+    var username=localStorage.getItem('userlogin');
+    console.log("user logged in "+username);
+    if(username=="" || username=="Undefined" || username==null)
+    {
+      this.router.navigate(['/']);
+    }
+
+
+
 
     this.subscription = this.update$.subscribe(message => {
       this.message = message;
@@ -241,6 +251,16 @@ export class SchoolComponent implements OnInit, SchoolComponentInterface {
 
   }
 
+  redirecttoschooldashboard(schoolId: string)
+  {
+    console.log("selected school id "+schoolId);
+    console.log("old "+ localStorage.getItem('schoolid'));
+    localStorage.setItem('schoolid',schoolId);
+    console.log("New "+ localStorage.getItem('schoolid'));
+    this.getRouter().navigate(['/TabService']);
+    
+    //="/TabService"
+  }
 
   /**
    * Used for getting all school profile objects.

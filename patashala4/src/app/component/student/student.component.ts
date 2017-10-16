@@ -9,7 +9,6 @@ import {ArrayType} from "@angular/compiler/src/output/output_ast";
 import {StudentComponentInterface} from "./StudentComponentInterface";
 import {jsonpFactory} from "@angular/http/src/http_module";
 import {AngularFireDatabase, FirebaseListObservable} from 'angularfire2/database';
-
 import {AngularFireAuth} from "angularfire2/auth";
 import {Messages} from "../../constants/Messages";
 import {Router} from "@angular/router";
@@ -51,20 +50,37 @@ export class StudentComponent implements OnInit, StudentComponentInterface {
   fb: FormBuilder;
   @Input() inputArray: ArrayType[];
   updateSubject: BehaviorSubject<string> = new BehaviorSubject<string>(""); // Holds the error message
-
+  popupstatus:string="0"; //0 for default close //1 for close and show listing
+  
   update$: Observable<string> = this.updateSubject.asObservable(); // observer for the above message
-  constructor(@Inject("StudentConverter") private studentConverter: StudentConverter, fb: FormBuilder, private injector: Injector, private errorService: ErrorService) {
+  constructor(@Inject("StudentConverter") private studentConverter: StudentConverter, fb: FormBuilder, private injector: Injector,private router: Router, private errorService: ErrorService) {
     this.fb = fb;
     this.subscription = this.update$.subscribe(message => {
       this.message = message;
     });
 
    this.studentTO=new StudentTO();
+
+   var username=localStorage.getItem('userlogin');
+   console.log("user logged in "+username);
+   if(username=="" || username=="Undefined"  || username==null )
+   {
+     this.router.navigate(['/']);
+   }
+   var selectedSchoolId=localStorage.getItem('schoolid');
+   
+   console.log("Selected School "+selectedSchoolId);
+   if(selectedSchoolId=="" || selectedSchoolId=="Undefined" || selectedSchoolId==null)
+   {
+     this.router.navigate(['/School']);
+   }
+
+
     //this.getAllStudents("-KuCWQEmwl1MsTD0SPdb");
     //this.getStudentProfile("school04", "-KuCWQEmwl1MsTD0SPdb");
     //this.dtTrigger.complete();
    //this.dtTrigger.next();
-    this.getAllStudents("school04");
+    this.getAllStudents(localStorage.getItem('schoolid'));
   }
 
   ngAfterViewInit(): void {
@@ -94,7 +110,7 @@ export class StudentComponent implements OnInit, StudentComponentInterface {
       motherName: [''],
       rollNo: [''],
       classId: [''],
-      schoolId: ['school04'],
+      schoolId: [localStorage.getItem('schoolid')],
       id: [''],
       siblings: this.fb.array([this.initSiblings()]) // here
       //TODO : Shiva integrate code by removing hardcoding of values.
@@ -234,12 +250,110 @@ export class StudentComponent implements OnInit, StudentComponentInterface {
    * @param valid
    */
   updateStudent({schoolId, value, valid}: { schoolId: string, value: StudentTO, valid: boolean }) {
+    var field_name = "";
+    this.errorMessage = field_name;
+    this.active = "0";
+    if(value.firstName == null || value.firstName == "")
+    {
+      field_name = field_name + "firstName, ";
+    }
+    if(value.lastName == null || value.lastName == "")
+    {
+      field_name = field_name + "lastName, ";
+    }
+    if(value.middleName == null || value.middleName == "")
+    {
+      field_name = field_name + "middleName, ";
+    }
+    // if(value.mobileNumbers == null || value.mobileNumbers == "")
+    // {
+    //   field_name = field_name + "mobileNumbers, ";
+    // }
+    if(value.gender == null || value.gender == "")
+    {
+      field_name = field_name + "gender, ";
+    }
+    if(value.landLine == null || value.landLine == "")
+    {
+      field_name = field_name + "landLine, ";
+    }
+    if(value.addressOne == null || value.addressOne == "")
+    {
+      field_name = field_name + "addressOne, ";
+    }
+    if(value.addressTwo == null || value.addressTwo == "")
+    {
+      field_name = field_name + "addressTwo, ";
+    }
+    if(value.city == null || value.city == "")
+    {
+      field_name = field_name + "city, ";
+    }
+    if(value.state == null || value.state == "")
+    {
+      field_name = field_name + "state, ";
+    }
+    if(value.country == null || value.country == "")
+    {
+      field_name = field_name + "country, ";
+    }
+    if(value.pincode == null || value.pincode == "")
+    {
+      field_name = field_name + "pincode, ";
+    }
+    if(value.bloodGroup == null || value.bloodGroup == "")
+    {
+      field_name = field_name + "bloodGroup, ";
+    }
+    if(value.dateOfBirth == null || value.dateOfBirth == "")
+    {
+      field_name = field_name + "dateOfBirth, ";
+    }
+    // if(value.uploadPhoto == null || value.uploadPhoto == "")
+    // {
+    //   field_name = field_name + "uploadPhoto, ";
+    // }
+    if(value.fatherName == null || value.fatherName == "")
+    {
+      field_name = field_name + "fatherName, ";
+    }
+    if(value.motherName == null || value.motherName == "")
+    {
+      field_name = field_name + "motherName, ";
+    }
+    // if(value.rollNo == null || value.rollNo == "")
+    // {
+    //   field_name = field_name + "rollNo, ";
+    // }
+    if(value.dateOfBirth == null || value.dateOfBirth == "")
+    {
+      field_name = field_name + "dateOfBirth, ";
+    }
+    if(value.classId == null || value.classId == "")
+    {
+      field_name = field_name + "classId, ";
+    }
+    if(value.schoolId == null || value.schoolId == "")
+    {
+      field_name = field_name + "schoolId, ";
+    }
+    // if(value.siblings == null || value.siblings == "")
+    // {
+    //   field_name = field_name + "siblings, ";
+    // }
+    if(field_name.length !=0 )
+    {
+      this.errorMessage = "Please enter " + field_name;
+      this.active = "2";
+    }
+    else
+    {
     console.log("updateStudent", value);
     this.studentTO = value;
     console.log(value.id);
-    this.studentConverter.updateStudent("school04", this.studentTO, this);
+    this.studentConverter.updateStudent(localStorage.getItem('schoolid'), this.studentTO, this);
   }
-
+  }
 
   /**
    * Used for deleting the school profile.
@@ -248,9 +362,9 @@ export class StudentComponent implements OnInit, StudentComponentInterface {
   deleteStudentProfile() {
     for (var loopvar = 0; loopvar < this.selectedStudentArray.length; loopvar++) {
       console.log(this.selectedStudentArray[loopvar]);
-      this.studentConverter.deleteStudentProfile("school04",this.selectedStudentArray[loopvar]);
+      this.studentConverter.deleteStudentProfile(localStorage.getItem('schoolid'),this.selectedStudentArray[loopvar]);
     }
-    this.getAllStudents("school04");
+    this.getAllStudents(localStorage.getItem('schoolid'));
 
   }
 
@@ -280,6 +394,15 @@ export class StudentComponent implements OnInit, StudentComponentInterface {
         this.addPhoneNumber();
     }
     this.studentFormGroup.controls['mobileNumbers'].patchValue(studentTO.mobileNumbers);
+
+    this.clearSiblings();
+    console.log(studentTO.siblings.length);
+    for(var loopvar=0;loopvar<studentTO.siblings.length;loopvar++)
+    {
+        this.addSiblings();
+    }
+    this.studentFormGroup.controls['siblings'].patchValue(studentTO.siblings);
+
     this.studentFormGroup.controls['gender'].patchValue(studentTO.gender);
     this.studentFormGroup.controls['landLine'].patchValue(studentTO.landLine);
     this.studentFormGroup.controls['addressOne'].patchValue(studentTO.addressOne);
@@ -293,7 +416,7 @@ export class StudentComponent implements OnInit, StudentComponentInterface {
     this.studentFormGroup.controls['fatherName'].patchValue(studentTO.fatherName);
     this.studentFormGroup.controls['motherName'].patchValue(studentTO.motherName);
     //this.studentFormGroup.controls['rollNo'].patchValue(studentTO.rollNo);
-    //this.studentFormGroup.controls['classId'].patchValue(studentTO.classId);
+    this.studentFormGroup.controls['classId'].patchValue(studentTO.classId);
     //this.dtTrigger.complete();
 
   }
@@ -317,6 +440,8 @@ export class StudentComponent implements OnInit, StudentComponentInterface {
   {
     this.sucessMessage = "";
     this.active = "0";
+    if(this.popupstatus=="1")
+      this.getAllStudents(localStorage.getItem('schoolid'));
   }
 
 
@@ -325,7 +450,8 @@ export class StudentComponent implements OnInit, StudentComponentInterface {
     if(messageTO.serviceMethodName == "searchAndAddStudent()")
     this.studentFormGroup.reset();
 
-
+    if(messageTO.serviceMethodName=="updateStudentProfile()")
+      this.popupstatus="1";
     this.sucessMessage = messageTO.messageInfo;
     if (messageTO.messageInfo.length != 0) {
       this.active = "1";
@@ -388,7 +514,7 @@ export class StudentComponent implements OnInit, StudentComponentInterface {
     this.div_Element_Id = "0";
     this.errorMessage = "";
     this.active = "0";
-    this.getAllStudents("school04");
+    this.getAllStudents(localStorage.getItem('schoolid'));
 
   }
 
@@ -402,14 +528,14 @@ export class StudentComponent implements OnInit, StudentComponentInterface {
     this.div_Element_Id = "2";
     //TODO : Shiva integrate code by removing hardcoding of values.
     //this.getStudentProfile("school04", "-KuCWQEmwl1MsTD0SPdb");
-    this.getStudentProfile("school04", this.selectedStudentArray[0]);
+    this.getStudentProfile(localStorage.getItem('schoolid'), this.selectedStudentArray[0]);
     console.log(this.selectedStudentArray[0]);
   }
 
   viewSingleStudentProfile() {
     this.div_Element_Id = "3";
    // this.dtTrigger.complete();
-    this.getStudentProfile("school04", this.selectedStudentArray[0]);
+    this.getStudentProfile(localStorage.getItem('schoolid'), this.selectedStudentArray[0]);
   }
 
 

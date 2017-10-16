@@ -5,15 +5,13 @@ import {routing} from './../../app.routing';
 import {LoginComponentInterface} from "./LoginComponentInterface";
 import {LoginTO} from "../../to/LoginTO";
 import {LoginConverter} from "../../adapter/interfaces/LoginConverter";
-
-
 import {LoginConverterImpl} from "../../adapter/impl/LoginConverterImpl";
 import {MessageTO} from "../../to/MessageTO";
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
- providers: [{provide: 'LoginConverter', useClass: LoginConverterImpl}],
+  providers: [{provide: 'LoginConverter', useClass: LoginConverterImpl}],
   styleUrls: ['./login.component.css']
 })
 
@@ -22,7 +20,7 @@ export class LoginComponent implements OnInit , LoginComponentInterface{
   errorMessage:string;
   sucessMessage:string;
   active:string="0";//0 for no content, 1 for success, 2 for error
-
+  username: string="";
 
   constructor(@Inject('LoginConverter') private loginConverter: LoginConverter,private router: Router, private formBuilder: FormBuilder){
     this.userForm = formBuilder.group({
@@ -43,19 +41,45 @@ export class LoginComponent implements OnInit , LoginComponentInterface{
 
 
   signUp({value, valid}: {value: LoginTO, valid: boolean}) {
+    
     this.loginConverter.signUp(value,this)
 
   }
 
   login({value, valid}: {value: LoginTO, valid: boolean}) {
-  this.loginConverter.login(value,this)
+    this.username=value.username;
+    var atpos = value.username.indexOf("@");
+    var dotpos = value.username.lastIndexOf(".");
+    
+    
+    if(value.username == null)
+      {
+        this.setUserErrorMessageonUI("Please Enter Username");
+      }
+      else if (atpos<1 || dotpos<atpos+2 || dotpos+2>=value.username.length) {
+        this.setUserErrorMessageonUI("invalid Email");
+      }
+    else
+    {
+      this.username=value.username;
+      this.loginConverter.login(value,this)
+    }
 
   }
 
   resetPassword({value, valid}: {value: LoginTO, valid: boolean}) {
+
+    this.username=value.username;
+    var atpos = value.username.indexOf("@");
+    var dotpos = value.username.lastIndexOf(".");
+    
+    
     if(value.username == null)
       {
         this.setUserErrorMessageonUI("Please Enter Username");
+      }
+      else if (atpos<1 || dotpos<atpos+2 || dotpos+2>=value.username.length) {
+        this.setUserErrorMessageonUI("invalid Email");
       }
     else
       {
@@ -65,10 +89,20 @@ export class LoginComponent implements OnInit , LoginComponentInterface{
   }
 
   successMessageCallBack(messageTO:MessageTO) {
-    console.log("message in Login component..." + messageTO.messageInfo);
-    setTimeout(()=>{
-      this.router.navigate(['/School']);
-    },2000);
+    console.log(" successMessageCallBack ==>" + messageTO.messageInfo+"  "+ messageTO.messageType+"  "+messageTO.serviceClassName+"  "+messageTO.serviceMethodName);
+    if(messageTO.serviceMethodName=="login()")
+    {
+      localStorage.setItem('userlogin',this.username);
+      this.setUserSuccessMessageonUI("Login Successfull");
+      setTimeout(()=>{
+        this.router.navigate(['/School']);
+      },2000);
+    }
+    else if(messageTO.serviceMethodName=="resetPassword()")
+    {
+     // localStorage.setItem('schoolid',this.username);
+      this.setUserSuccessMessageonUI("reset link sent successfully");
+    }
   }
 
   errorMessageCallBack(messageTO:MessageTO){

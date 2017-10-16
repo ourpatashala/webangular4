@@ -257,7 +257,7 @@
             <td>{{schoolProfileTO.contactNumber}}</td>
             <td>{{schoolProfileTO.Active}}</td>
             <td>
-              <a routerLink="/TabService"><button md-raised-button class="table_blue_btn">Manage</button></a>
+              <button md-raised-button class="table_blue_btn" (click)="redirecttoschooldashboard(schoolProfileTO.schoolId)">Manage</button>
             </td>
           </tr>
           </tbody>
