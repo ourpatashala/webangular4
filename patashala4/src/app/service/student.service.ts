@@ -189,14 +189,22 @@ export class StudentService {
         var phoneNumber = fieldNameValue[fieldName];
         console.log('Mobile #s : '+phoneNumber);
 
-        var registeredUser = new RegisteredUser();
-        registeredUser.active = "true";
-        registeredUser.phoneNumber = phoneNumber;
-        registeredUser.userType = "parent";
+        if (phoneNumber != "" ) {
 
+          var registeredUser = new RegisteredUser();
+          registeredUser.active = "true";
+          registeredUser.phoneNumber = phoneNumber;
+          registeredUser.userType = "parent";
 
-        var dbRef = firebaseObject.object(PathUtil.getRegisteredUsersPath(phoneNumber)).$ref;
-        dbRef.set(registeredUser);
+          console.log('Create Registration Node : '+PathUtil.getRegisteredUsersPath(phoneNumber));
+          //var dbRef = firebaseObject.object(PathUtil.getRegisteredUsersPath(phoneNumber)).$ref;
+          //dbRef.set(registeredUser);
+
+        }else{
+
+          console.log(' Registration Node Not Created : '+ phoneNumber);
+        }
+
 
       });
 
