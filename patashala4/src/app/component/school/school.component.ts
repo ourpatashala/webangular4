@@ -84,7 +84,7 @@ export class SchoolComponent implements OnInit, SchoolComponentInterface {
     this.getAllSchoolProfiles();
 
 
-    
+
 
   }
   ngAfterViewInit(): void {
@@ -207,27 +207,15 @@ export class SchoolComponent implements OnInit, SchoolComponentInterface {
     if (field_name.length != 0) {
       this.errorMessage = "Please enter" + field_name;
       this.active = "2";
-    } 
+    }
     else {
      console.log(this.schoolProfileTO.schoolId);
       this.schoolProfileTO = value;
       this.schoolConverter.addSchoolProfile(this.schoolProfileTO, this);
-      
+
     }
 
-    //console.log(this.schoolProfileTO);
 
-    //throw new SchoolError("Error from Component..");
-    // this.schoolConverter.addSchoolProfile(this.schoolProfileTO, this);
-
-    //  this.signup();
-    //this.deleteSchoolProfile(this.schoolProfileTO.schoolId);
-
-    //this.getSchoolProfile("school01");
-    //this.deleteSchoolProfile("-KqaGGoSBQhYT0tU7qAf");
-    // this.getSchoolProfileRange("1","2");
-    //this.getAllSchoolProfiles();
-    // this.searchSchoolProfile("sa");
   }
 
 
@@ -258,7 +246,7 @@ export class SchoolComponent implements OnInit, SchoolComponentInterface {
     localStorage.setItem('schoolid',schoolId);
     console.log("New "+ localStorage.getItem('schoolid'));
     this.getRouter().navigate(['/TabService']);
-    
+
     //="/TabService"
   }
 
@@ -314,14 +302,12 @@ export class SchoolComponent implements OnInit, SchoolComponentInterface {
     if (field_name.length != 0) {
       this.errorMessage = "Please enter" + field_name;
       this.active = "2";
-    } 
+    }
     else {
       this.schoolProfileTO = value;
       this.schoolConverter.updateSchoolProfile(this.schoolProfileTO, this);
-      // setTimeout(() => {
-      // this.showSchoolsList();
-      // }, 2000);
-      
+      console.log("  this.schoolProfileTO.active ===>"+ this.schoolProfileTO.active);
+
     }
   }
 
@@ -387,7 +373,7 @@ export class SchoolComponent implements OnInit, SchoolComponentInterface {
     {
       //this.showSchoolsList();
     }
-    
+
 
     //TODO Shiva - commented  to compile the code. Please fix it.
     /*this.sucessMessage = message1;

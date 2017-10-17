@@ -51,6 +51,9 @@ export class SchoolConverterImpl extends CommonConverter implements SchoolConver
     schoolProfileVO.uniqueId = this.getUniqueKey(schoolProfileTO);
     schoolProfileVO.contactNumber = schoolProfileTO.contactNumber;
     schoolProfileVO.contactName = schoolProfileTO.contactName;
+    schoolProfileVO.active = ""+schoolProfileTO.active
+
+    console.log("schoolProfileVO.active.."+schoolProfileVO.active);
 
     console.log("Unique Key.."+schoolProfileVO.uniqueId);
 
