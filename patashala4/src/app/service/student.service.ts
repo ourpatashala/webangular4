@@ -5,6 +5,10 @@ import { Observable } from 'rxjs/Observable';
 import * as firebase from 'firebase/app';
 import {MessageTO} from "../to/MessageTO";
 import {RegisteredUser} from "../vo/RegisteredUser";
+import {RegisteredStudent} from "../vo/RegisteredStudent";
+import {SchoolProfileVO} from "../vo/SchoolProfileVO";
+
+
 
 
 import {PathUtil} from "../util/PathUtil";
@@ -129,8 +133,6 @@ export class StudentService {
         // if the  existing record id and your id from UI are equal, then only update the DB , else dont update because that's not your record.
         var dbRecord = snapshot.val();
 
-        var flag = "false";
-
         Object.keys(dbRecord).forEach(function (key) {
 
           let schoolVOFromDB = dbRecord[key];
@@ -140,12 +142,11 @@ export class StudentService {
           if (schoolVOFromDB.id == studentVO.id) {
             var dbRef = firebaseObject.object(PathUtil.getStudentProfilePath(studentVO.schoolId, studentVO.id)).$ref;
             dbRef.set(studentVO);
+            StudentService.updateRegistrationNode (schoolId, studentVO, serviceObject);
             messageTO.messageInfo = Messages.STUDENT_UPDATED;
 
             studentComponentInterface.successMessageCallBack(messageTO);
-            flag = "true";
 
-            return;
           }else{
             messageTO.messageInfo = Messages.STUDENT_EXISTS;
             studentComponentInterface.errorMessageCallBack(messageTO);
@@ -153,23 +154,15 @@ export class StudentService {
 
         });
 
-        if (flag == "true"){
-          StudentService.updateRegistrationNode (schoolId, studentVO, serviceObject);
-
-        }
-
-        //messageTO.messageInfo = Messages.STUDENT_EXISTS;
-        //studentComponentInterface.errorMessageCallBack(messageTO);
-
       } else {
         console.log("You are trying to update the student with a student name which is not there in DB. ");
         console.log("schoolVOFromDB.id == studentVO.id " + studentVO.id + " " +studentVO.id );
 
         var dbRef = firebaseObject.object(PathUtil.getStudentProfilePath(studentVO.schoolId, studentVO.id)).$ref;
         dbRef.set(studentVO);
+        StudentService.updateRegistrationNode (schoolId, studentVO, serviceObject);
         messageTO.messageInfo = Messages.STUDENT_UPDATED;
-
-        studentComponentInterface.successMessageCallBack(messageTO);
+       studentComponentInterface.successMessageCallBack(messageTO);
       }
     });
 
@@ -197,19 +190,59 @@ export class StudentService {
           registeredUser.userType = "parent";
 
           console.log('Create Registration Node : '+PathUtil.getRegisteredUsersPath(phoneNumber));
-          //var dbRef = firebaseObject.object(PathUtil.getRegisteredUsersPath(phoneNumber)).$ref;
-          //dbRef.set(registeredUser);
+          var dbRef = firebaseObject.object(PathUtil.getRegisteredUsersPath(phoneNumber)).$ref;
+          dbRef.set(registeredUser);
+
+
+          var registeredStudent = new RegisteredStudent();
+          registeredStudent.schoolId = schoolId;
+          registeredStudent.firstName = studentVO.firstName;
+          registeredStudent.middleName = studentVO.middleName;
+          registeredStudent.lastName = studentVO.lastName;
+          registeredStudent.studentId = studentVO.id;
+          registeredStudent.classId = studentVO.classId;
+          registeredStudent.className = studentVO.classId;//TODO need to change it to class name.
+
+          registeredStudent.profilePic = "TBD";//TODO Implementation pending
+          registeredStudent.schoolActive = "true";
+
+
+          StudentService.addStudentInRegistration(schoolId,phoneNumber,registeredStudent,firebaseObject);
 
         }else{
 
           console.log(' Registration Node Not Created : '+ phoneNumber);
         }
 
-
       });
 
     });
 
+  }
+
+
+  public static addStudentInRegistration(schoolId:string, phoneNumber: string, registeredStudent: RegisteredStudent, angularFireDatabase: AngularFireDatabase){
+    var schoolProfileVO=  new SchoolProfileVO();
+    var schoolObject = StudentService.getSchoolProfile(schoolId, angularFireDatabase);
+    schoolObject.subscribe(snapshot => {
+      schoolProfileVO = snapshot;
+
+      registeredStudent.schoolName = schoolProfileVO.schoolName;
+      registeredStudent.schoolDisplayShortName = schoolProfileVO.schoolDisplayName;
+
+      console.log('Create Student Node : '+PathUtil.getRegisteredUsersPath(phoneNumber)+"students/"+schoolId+"/"+registeredStudent.studentId);
+
+      var dbRef = angularFireDatabase.object(PathUtil.getRegisteredUsersPath(phoneNumber)+"students/"+schoolId+"/"+registeredStudent.studentId).$ref;
+      dbRef.set(registeredStudent);
+
+
+    });
+  }
+
+
+  public static getSchoolProfile(schoolId: string, angularFireDatabase: AngularFireDatabase): FirebaseObjectObservable<any> {
+    var schoolProfile = angularFireDatabase.object("/schools/schoolProfile/" + schoolId);
+    return schoolProfile;
   }
 
   deleteStudentProfile(schoolid: string, studentId: string) {

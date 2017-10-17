@@ -238,9 +238,9 @@
             <th></th>
             <th>S.No</th>
             <th>Name</th>
-            <th>Area</th>
+
             <th>City</th>
-            <th>Primary Contact</th>
+            <th>Contact #</th>
             <th>Active</th>
             <th style="width: 92px;">Action</th>
           </tr>
@@ -263,7 +263,6 @@
             <td>{{i + 1}}</td>
             <!-- <td><input type="checkbox" value="{{schoolProfileTO.schoolId}}"  (change)="updateCheckedOptions(schoolProfileTO.schoolId,$this.checkbox.state)"></td> -->
             <td>{{schoolProfileTO.schoolName}}</td>
-            <td>{{schoolProfileTO.addressOne}} , {{schoolProfileTO.addressTwo}}</td>
             <td>{{schoolProfileTO.city}}</td>
             <td>{{schoolProfileTO.contactNumber}}</td>
             <td> 
@@ -275,6 +274,7 @@
                   </div>
 
             </td>
+
             <td>
               <button md-raised-button class="table_blue_btn" (click)="redirecttoschooldashboard(schoolProfileTO.schoolId)">Manage</button>
             </td>
