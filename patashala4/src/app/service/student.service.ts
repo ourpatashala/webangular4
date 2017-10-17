@@ -163,7 +163,9 @@ export class StudentService {
 
       } else {
         console.log("You are trying to update the student with a student name which is not there in DB. ");
-        var dbRef = firebaseObject.object(studentProfilePath).$ref;
+        console.log("schoolVOFromDB.id == studentVO.id " + studentVO.id + " " +studentVO.id );
+
+        var dbRef = firebaseObject.object(PathUtil.getStudentProfilePath(studentVO.schoolId, studentVO.id)).$ref;
         dbRef.set(studentVO);
         messageTO.messageInfo = Messages.STUDENT_UPDATED;
 
