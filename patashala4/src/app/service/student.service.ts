@@ -73,6 +73,7 @@ export class StudentService {
 
 
 
+    var serviceObject = this;
     var messageTO = new MessageTO();
     messageTO.serviceClassName = "StudentService";
     messageTO.serviceMethodName = "searchAndAddStudent()";
@@ -100,6 +101,7 @@ export class StudentService {
 
         console.log("Record not existed.."+ studentVO);
         dbRef.set(studentVO);
+        StudentService.updateRegistrationNode (studentVO.schoolId, studentVO, serviceObject);
         console.log("Added Record .."+ studentVO);
         messageTO.messageInfo = Messages.STUDENT_ADDED;
         studentComponentInterface.successMessageCallBack(messageTO);

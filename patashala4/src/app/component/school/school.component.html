@@ -73,8 +73,8 @@
             <div class="little_gap"></div>
           </div>
           <div class="col-md-6">
-           
-            
+
+
             <div class="col-md-4 text-right"><p>Country</p></div>
             <div class="col-md-8"><input type="text" placeholder="Enter Country" maxlength="20" formControlName="country"></div>
             <div class="clear"></div>
@@ -138,8 +138,8 @@
         </div>
 
         <div class="col-md-6">
-          
-         
+
+
           <div class="col-md-4 text-right"><p>Country</p></div><div class="col-md-8"><input type="text" formControlName="country"  value="" maxlength="20"></div><div class="clear"></div>
           <div class="col-md-4 text-right"><p>Primary Contact</p></div><div class="col-md-8"><input type="text" formControlName="contactName" maxlength="50" value=""></div><div class="clear"></div>
           <div class="col-md-4 text-right"><p>Contact #</p></div><div class="col-md-8"><input type="text" formControlName="contactNumber" maxlength="10" value=""></div><div class="clear"></div>
@@ -181,7 +181,7 @@
                 <div class="text_beside_img">
                   <p class="School_name">School Name: <span>   {{ (schoolProfileTO.schoolName != null && schoolProfileTO.schoolName.length != 0) ?  schoolProfileTO.schoolName:'-' }} </span></p>
                   <p class="school_id">School Id: <span>    {{ (schoolProfileTO.schoolId != null && schoolProfileTO.schoolId.length != 0) ?  schoolProfileTO.schoolId :'-'}}  </span>   </p>
-                  <p class="school_contact">Primary Contact#: <span>{{ (schoolProfileTO.contactName != null && schoolProfileTO.contactName.length != 0) ?  schoolProfileTO.contactName:'-' }}  
+                  <p class="school_contact">Primary Contact#: <span>{{ (schoolProfileTO.contactName != null && schoolProfileTO.contactName.length != 0) ?  schoolProfileTO.contactName:'-' }}
                     </span> </p>
                   <p class="school_contact">Contact#: <span>{{ (schoolProfileTO.contactNumber != null && schoolProfileTO.contactNumber.length != 0) ? schoolProfileTO.contactNumber :'-'}}  </span> </p>
                   <!-- <p><i class="fa fa-map-marker"></i> {{schoolProfileTO.addressOne}}, {{schoolProfileTO.addressTwo}}, {{schoolProfileTO.city}}, {{schoolProfileTO.state}}, {{schoolProfileTO.pincode}}, {{schoolProfileTO.country}}</p> -->
@@ -265,13 +265,13 @@
             <td>{{schoolProfileTO.schoolName}}</td>
             <td>{{schoolProfileTO.city}}</td>
             <td>{{schoolProfileTO.contactNumber}}</td>
-            <td> 
-               <!--  {{schoolProfileTO.Active}} -->
+            <td>
+                {{schoolProfileTO.active}}
 
-                <div id="toggles">
+               <!-- <div id="toggles">
                     <input type="checkbox" name="checkbox1" id="checkbox1" formControlName="active" class="ios-toggle" checked>
                     <label for="checkbox1" class="checkbox-label" data-on="On"  data-off="Off"></label>
-                  </div>
+                  </div> -->
 
             </td>
 

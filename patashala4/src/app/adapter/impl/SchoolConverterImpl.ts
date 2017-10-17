@@ -43,6 +43,8 @@ export class SchoolConverterImpl extends CommonConverter implements SchoolConver
     schoolProfileVO.schoolName = schoolProfileTO.schoolName;
     schoolProfileVO.schoolDisplayName = schoolProfileTO.schoolDisplayName;
     schoolProfileVO.state = schoolProfileTO.state;
+    schoolProfileVO.city = schoolProfileTO.city;
+
     schoolProfileVO.country = schoolProfileTO.country;
     schoolProfileVO.addressOne = schoolProfileTO.addressOne;
     schoolProfileVO.addressTwo = schoolProfileTO.addressTwo;
