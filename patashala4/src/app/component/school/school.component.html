@@ -55,25 +55,26 @@
             <div class="col-md-4 text-right"><p>Display Short Name</p></div>
             <div class="col-md-8"><input type="text" placeholder="Enter School Display Name" maxlength="12" formControlName="schoolDisplayName"></div>
             <div class="clear"></div>
+            <div class="col-md-4 text-right"><p>Address1</p></div>
+            <div class="col-md-8"><input type="text" placeholder="Enter Address1" maxlength="100" formControlName="addressOne"></div>
+            <div class="clear"></div>
+            <div class="col-md-4 text-right"><p>Address2</p></div>
+            <div class="col-md-8"><input type="text" placeholder="Enter Address2" maxlength="100" formControlName="addressTwo"></div>
+            <div class="clear"></div>
             <div class="col-md-4 text-right"><p>City</p></div>
             <div class="col-md-8"><input type="text" placeholder="Enter City" maxlength="50" formControlName="city"></div>
             <div class="clear"></div>
-            <div class="col-md-4 text-right"><p>Address1</p></div>
-            <div class="col-md-8"><textarea placeholder="Enter Address1" maxlength="100" formControlName="addressOne"></textarea></div>
-            <div class="clear"></div>
-            <div class="col-md-4 text-right"><p>Address2</p></div>
-            <div class="col-md-8"><textarea placeholder="Enter Address2" maxlength="100" formControlName="addressTwo"></textarea></div>
-            <div class="clear"></div>
-
-            <div class="little_gap"></div>
-          </div>
-          <div class="col-md-6">
             <div class="col-md-4 text-right"><p>State</p></div>
             <div class="col-md-8"><input type="text" placeholder="Enter State" maxlength="50" formControlName="state"></div>
             <div class="clear"></div>
             <div class="col-md-4 text-right"><p>Pincode</p></div>
             <div class="col-md-8"><input type="text" placeholder="Enter pincode" maxlength="10" formControlName="pincode"></div>
             <div class="clear"></div>
+            <div class="little_gap"></div>
+          </div>
+          <div class="col-md-6">
+           
+            
             <div class="col-md-4 text-right"><p>Country</p></div>
             <div class="col-md-8"><input type="text" placeholder="Enter Country" maxlength="20" formControlName="country"></div>
             <div class="clear"></div>
@@ -86,12 +87,12 @@
             <!--<div class="col-md-4"><p>Principal</p></div><div class="col-md-8"><input type="text" placeholder="Enter Principal Name"></div><div class="clear"></div>-->
             <div class="col-md-4 text-right"><p>Active</p></div><div class="col-md-8">
             <div id="toggles">
-               <input type="checkbox" name="checkbox1" id="checkbox1" formControlName="active" class="ios-toggle" checked/>
-               <label for="checkbox1" class="checkbox-label" data-off="Off" data-on="On"></label>
+               <input type="checkbox" name="checkbox1" id="checkbox1" formControlName="active" class="ios-toggle" checked>
+               <label for="checkbox1" class="checkbox-label" data-on="On"  data-off="Off"></label>
              </div>
           </div><div class="clear"></div>
             <div class="col-md-4 text-right"><p>Remarks</p></div>
-            <div class="col-md-8"><input type="text" placeholder="Enter Remarks" maxlength="200" formControlName="remarks" ></div>
+            <div class="col-md-8"><textarea placeholder="Enter Remarks" maxlength="200" formControlName="remarks" ></textarea></div>
             <div class="clear"></div>
           </div>
           <div class="clear"></div>
@@ -122,22 +123,23 @@
           <div class="col-md-4 text-right"><p>Display Short Name</p></div>
           <div class="col-md-8"><input type="text" formControlName="schoolDisplayName" maxlength="12"></div>
           <div class="clear"></div>
-           <div class="col-md-4 text-right"><p>City</p></div>
-           <div class="col-md-8"><input type="text" formControlName="city" value="" maxlength="50"></div>
-           <div class="clear"></div>
           <div class="col-md-4 text-right"><p>Address1</p></div>
-          <div class="col-md-8"><textarea formControlName="addressOne" maxlength="100"></textarea></div>
+          <div class="col-md-8"><input type="text" formControlName="addressOne" maxlength="100"></div>
           <div class="clear"></div>
           <div class="col-md-4 text-right"><p>Address2</p></div>
-          <div class="col-md-8"><textarea formControlName="addressTwo" maxlength="100"></textarea></div>
+          <div class="col-md-8"><input type="text" formControlName="addressTwo" maxlength="100"></div>
           <div class="clear"></div>
-
+          <div class="col-md-4 text-right"><p>City</p></div>
+          <div class="col-md-8"><input type="text" formControlName="city" value="" maxlength="50"></div>
+          <div class="clear"></div>
+          <div class="col-md-4 text-right"><p>State</p></div><div class="col-md-8"><input type="text" formControlName="state" value="" maxlength="50"></div><div class="clear"></div>
+          <div class="col-md-4 text-right"><p>Pincode</p></div><div class="col-md-8"><input type="text" formControlName="pincode" value="" maxlength="10"></div><div class="clear"></div>
           <div class="little_gap"></div>
         </div>
 
         <div class="col-md-6">
-          <div class="col-md-4 text-right"><p>State</p></div><div class="col-md-8"><input type="text" formControlName="state" value="" maxlength="50"></div><div class="clear"></div>
-          <div class="col-md-4 text-right"><p>Pincode</p></div><div class="col-md-8"><input type="text" formControlName="pincode" value="" maxlength="10"></div><div class="clear"></div>
+          
+         
           <div class="col-md-4 text-right"><p>Country</p></div><div class="col-md-8"><input type="text" formControlName="country"  value="" maxlength="20"></div><div class="clear"></div>
           <div class="col-md-4 text-right"><p>Primary Contact</p></div><div class="col-md-8"><input type="text" formControlName="contactName" maxlength="50" value=""></div><div class="clear"></div>
           <div class="col-md-4 text-right"><p>Contact #</p></div><div class="col-md-8"><input type="text" formControlName="contactNumber" maxlength="10" value=""></div><div class="clear"></div>
@@ -149,7 +151,7 @@
             <label for="checkbox2" class="checkbox-label" data-off="Off" data-on="On"></label>
           </div>
         </div><div class="clear"></div>
-          <div class="col-md-4 text-right"><p>Remarks</p></div><div class="col-md-8"><input type="text" formControlName="remarks" maxlength="200"></div><div class="clear"></div>
+          <div class="col-md-4 text-right"><p>Remarks</p></div><div class="col-md-8"><textarea formControlName="remarks" maxlength="200"></textarea></div><div class="clear"></div>
         </div>
         <div class="clear"></div>
         <div class="text-center"><button class="update_btn">Modify School</button> <span class="cancel_btn_modify button_type_span" (click)="showSchoolsList()">Cancel</span></div>
@@ -177,9 +179,12 @@
               <div class="profile_image_div">
                 <img src="./assets/images/default_school.jpg">
                 <div class="text_beside_img">
-                  <p class="School_name">School Name: <span> {{schoolProfileTO.schoolName}}</span></p>
-                  <p class="school_id">School Id: <span>  {{schoolProfileTO.schoolId}}</span></p>
-                  <p><i class="fa fa-map-marker"></i> {{schoolProfileTO.addressOne}}, {{schoolProfileTO.addressTwo}}, {{schoolProfileTO.city}}, {{schoolProfileTO.state}}, {{schoolProfileTO.pincode}}, {{schoolProfileTO.country}}</p>
+                  <p class="School_name">School Name: <span>   {{ (schoolProfileTO.schoolName != null && schoolProfileTO.schoolName.length != 0) ?  schoolProfileTO.schoolName:'-' }} </span></p>
+                  <p class="school_id">School Id: <span>    {{ (schoolProfileTO.schoolId != null && schoolProfileTO.schoolId.length != 0) ?  schoolProfileTO.schoolId :'-'}}  </span>   </p>
+                  <p class="school_contact">Primary Contact#: <span>{{ (schoolProfileTO.contactName != null && schoolProfileTO.contactName.length != 0) ?  schoolProfileTO.contactName:'-' }}  
+                    </span> </p>
+                  <p class="school_contact">Contact#: <span>{{ (schoolProfileTO.contactNumber != null && schoolProfileTO.contactNumber.length != 0) ? schoolProfileTO.contactNumber :'-'}}  </span> </p>
+                  <!-- <p><i class="fa fa-map-marker"></i> {{schoolProfileTO.addressOne}}, {{schoolProfileTO.addressTwo}}, {{schoolProfileTO.city}}, {{schoolProfileTO.state}}, {{schoolProfileTO.pincode}}, {{schoolProfileTO.country}}</p> -->
                 </div>
               </div>
               <!-- <img src="./assets/images/webicons/schoolname.png"> -->
@@ -187,8 +192,13 @@
             </div>
             <div class="col-md-5">
               <div class="large_gap"></div>
-              <p class="school_contact">Primary Contact Name: <span>{{schoolProfileTO.contactName}}</span> </p>
-              <p class="school_contact">Contact Number: <span>{{schoolProfileTO.contactNumber}}</span> </p>
+              <img src="./assets/images/webicons/Address.png" class="img_pos_ab">
+              <p class="schoolAddress">Address1: <span>{{ (schoolProfileTO.addressOne != null && schoolProfileTO.addressOne.length != 0) ?  schoolProfileTO.addressOne : '-' }} </span></p>
+              <p class="schoolAddress">Address2: <span> {{ (schoolProfileTO.addressTwo != null && schoolProfileTO.addressTwo.length != 0) ?  schoolProfileTO.addressTwo : '-' }} </span></p>
+              <p class="schoolAddress">City: <span>  {{ (schoolProfileTO.city != null && schoolProfileTO.city.length != 0) ? schoolProfileTO.city : '-'  }}</span></p>
+              <p class="schoolAddress">State: <span> {{ (schoolProfileTO.state != null && schoolProfileTO.state.length != 0) ?  schoolProfileTO.state:'-' }}</span></p>
+              <p class="schoolAddress">Pincode: <span> {{ (schoolProfileTO.pincode != null && schoolProfileTO.pincode.length != 0) ?  schoolProfileTO.pincode : '-' }}  </span></p>
+              <p class="schoolAddress">Country: <span> {{ (schoolProfileTO.country != null && schoolProfileTO.country.length != 0) ?  schoolProfileTO.country :'-' }}  </span></p>
             </div>
           <!-- <div class="col-md-6">
             <img src="./assets/images/webicons/SchoolPrinc.png">
@@ -205,6 +215,7 @@
             <p class="schoolAddress">Pincode: <span>{{schoolProfileTO.pincode}}</span></p>
             <p class="schoolAddress">Country: <span>{{schoolProfileTO.country}}</span></p>
           </div> -->
+          <div class="col-md-2"></div>
           <div class="col-md-6">
             <!-- <img src="./assets/images/webicons/Phone.png" class="img_pos_ab">
             <p class="school_contact">Primary Contact#: <span>{{schoolProfileTO.contactName}}</span> </p>
@@ -224,8 +235,8 @@
         <table datatable class="my_table_width" [dtTrigger]="dtTrigger"  [dtOptions]="dtOptions"  >
           <thead>
           <tr>
-            <th>S.No</th>
             <th></th>
+            <th>S.No</th>
             <th>Name</th>
             <th>Area</th>
             <th>City</th>
@@ -248,14 +259,22 @@
             </td>
           </tr> -->
           <tr *ngFor="let schoolProfileTO of schoolProfileTOList ; let i=index "  >
+            <td><input type="checkbox" id="{{schoolProfileTO.schoolId}}" value="{{schoolProfileTO.schoolId}}" (change)="checkedStudents(schoolProfileTO.schoolId)" ></td>
             <td>{{i + 1}}</td>
             <!-- <td><input type="checkbox" value="{{schoolProfileTO.schoolId}}"  (change)="updateCheckedOptions(schoolProfileTO.schoolId,$this.checkbox.state)"></td> -->
-            <td><input type="checkbox" id="{{schoolProfileTO.schoolId}}" value="{{schoolProfileTO.schoolId}}" (change)="checkedStudents(schoolProfileTO.schoolId)" ></td>
             <td>{{schoolProfileTO.schoolName}}</td>
             <td>{{schoolProfileTO.addressOne}} , {{schoolProfileTO.addressTwo}}</td>
             <td>{{schoolProfileTO.city}}</td>
             <td>{{schoolProfileTO.contactNumber}}</td>
-            <td>{{schoolProfileTO.Active}}</td>
+            <td> 
+               <!--  {{schoolProfileTO.Active}} -->
+
+                <div id="toggles">
+                    <input type="checkbox" name="checkbox1" id="checkbox1" formControlName="active" class="ios-toggle" checked>
+                    <label for="checkbox1" class="checkbox-label" data-on="On"  data-off="Off"></label>
+                  </div>
+
+            </td>
             <td>
               <button md-raised-button class="table_blue_btn" (click)="redirecttoschooldashboard(schoolProfileTO.schoolId)">Manage</button>
             </td>

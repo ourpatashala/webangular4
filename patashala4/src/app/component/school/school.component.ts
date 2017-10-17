@@ -53,6 +53,7 @@ export class SchoolComponent implements OnInit, SchoolComponentInterface {
   div_Element_Id: string = "0";//for multiple pages in school list page;; 0 to show list of school , 1 to show add school, 2 to show edit school, 3 to show single school view.
   flag: boolean = false;
   popupstatus:string="0"; //0 for default close //1 for close and show listing
+  
   updateMessage(message: string) { // updates the error message
     this.updateSubject.next(message);
 
@@ -152,7 +153,7 @@ export class SchoolComponent implements OnInit, SchoolComponentInterface {
     this.schoolFormGroup.controls['state'].patchValue('');
     this.schoolFormGroup.controls['pincode'].patchValue('');
     this.schoolFormGroup.controls['country'].patchValue('');
-    this.schoolFormGroup.controls['active'].patchValue('');
+    this.schoolFormGroup.controls['active'].patchValue('true');
     this.schoolFormGroup.controls['remarks'].patchValue('');
   }
 
@@ -180,15 +181,16 @@ export class SchoolComponent implements OnInit, SchoolComponentInterface {
     if (value.schoolDisplayName == null || value.schoolDisplayName == "") {
       field_name = field_name + " School Display Name, ";
     }
-    if (value.city == null || value.city == "") {
-      field_name = field_name + " City, ";
-    }
+   
     if (value.addressOne == null || value.addressOne == "") {
       field_name = field_name + " Address One, ";
     }
     // if (value.addressTwo == null || value.addressTwo == "") {
     //   field_name = field_name + " Address Two, ";
     // }
+    if (value.city == null || value.city == "") {
+      field_name = field_name + " City, ";
+    }
     if (value.state == null || value.state == "") {
       field_name = field_name + " State, ";
     }
@@ -209,7 +211,7 @@ export class SchoolComponent implements OnInit, SchoolComponentInterface {
       this.active = "2";
     } 
     else {
-     console.log(this.schoolProfileTO.schoolId);
+     console.log(value.active);
       this.schoolProfileTO = value;
       this.schoolConverter.addSchoolProfile(this.schoolProfileTO, this);
       
@@ -287,15 +289,16 @@ export class SchoolComponent implements OnInit, SchoolComponentInterface {
     if (value.schoolDisplayName == null || value.schoolDisplayName == "") {
       field_name = field_name + " School Display Name, ";
     }
-    if (value.city == null || value.city == "") {
-      field_name = field_name + " City, ";
-    }
+ 
     if (value.addressOne == null || value.addressOne == "") {
       field_name = field_name + " AddressOne, ";
     }
     // if (value.addressTwo == null || value.addressTwo == "") {
     //   field_name = field_name + " addressTwo, ";
     // }
+    if (value.city == null || value.city == "") {
+      field_name = field_name + " City, ";
+    }
     if (value.state == null || value.state == "") {
       field_name = field_name + " State, ";
     }
@@ -316,6 +319,7 @@ export class SchoolComponent implements OnInit, SchoolComponentInterface {
       this.active = "2";
     } 
     else {
+      console.log("city:" +value.city);
       this.schoolProfileTO = value;
       this.schoolConverter.updateSchoolProfile(this.schoolProfileTO, this);
       // setTimeout(() => {
@@ -352,8 +356,8 @@ export class SchoolComponent implements OnInit, SchoolComponentInterface {
     this.schoolFormGroup.controls['contactNumber'].patchValue(schoolProfileTO.contactNumber);
     this.schoolFormGroup.controls['addressOne'].patchValue(schoolProfileTO.addressOne);
     this.schoolFormGroup.controls['addressTwo'].patchValue(schoolProfileTO.addressTwo);
-    //this.schoolFormGroup.controls['city'].patchValue(schoolProfileTO.city);
-    this.schoolFormGroup.controls['city'].patchValue(schoolProfileTO.country);
+    this.schoolFormGroup.controls['city'].patchValue(schoolProfileTO.city);
+    this.schoolFormGroup.controls['country'].patchValue(schoolProfileTO.country);
     this.schoolFormGroup.controls['state'].patchValue(schoolProfileTO.state);
     this.schoolFormGroup.controls['pincode'].patchValue(schoolProfileTO.pincode);
     this.schoolFormGroup.controls['country'].patchValue(schoolProfileTO.country);
@@ -386,7 +390,9 @@ export class SchoolComponent implements OnInit, SchoolComponentInterface {
     else if(messageTO.serviceMethodName == "updateSchoolProfile()")
     {
       //this.showSchoolsList();
+      this.popupstatus="1";
     }
+    
     
 
     //TODO Shiva - commented  to compile the code. Please fix it.
@@ -417,16 +423,18 @@ export class SchoolComponent implements OnInit, SchoolComponentInterface {
     this.errorMessage = messageTO.messageInfo;
     //this.schoolFormGroup.reset();
     this.updateMessage(this.errorMessage);
-    this.getRouter().navigate(['/School']);
-    if (messageTO.messageInfo.length != 0) {
-      this.active = "2";
-    } else {
-      this.active = "0";
-    }
-    setTimeout(() => {    //<<<---    using ()=> syntax
-      this.errorMessage = "";
-      this.active = "0";
-    }, 2000);
+    this.setUserErrorMessageonUI(this.errorMessage);
+
+    //  this.getRouter().navigate(['/School']);
+    // if (messageTO.messageInfo.length != 0) {
+    //   this.active = "2";
+    // } else {
+    //   this.active = "0";
+    // }
+    // setTimeout(() => {    //<<<---    using ()=> syntax
+    //   this.errorMessage = "";
+    //   this.active = "0";
+    // }, 2000);
 
   }
 
@@ -434,6 +442,8 @@ export class SchoolComponent implements OnInit, SchoolComponentInterface {
   {
     this.sucessMessage = "";
     this.active = "0";
+    if(this.popupstatus=="1")
+      this.showSchoolsList();
   }
 
   setUserSuccessMessageonUI(message: string) {
@@ -448,10 +458,10 @@ export class SchoolComponent implements OnInit, SchoolComponentInterface {
   setUserErrorMessageonUI(message: string) {
     this.errorMessage = message;
     this.active = "2";
-    setTimeout(() => {
-      this.errorMessage = "";
-      this.active = "0";
-    }, 2000);
+    // setTimeout(() => {
+    //   this.errorMessage = "";
+    //   this.active = "0";
+    // }, 2000);
   }
 
   checkedStudents(value) {

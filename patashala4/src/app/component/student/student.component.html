@@ -186,7 +186,7 @@
     <div class="clear"></div>
 
 <div class="little_gap"></div>
-<div class="text-center"> <button class="update_btn">Add Student</button> <span class="cancel_btn_add button_type_span" (click)="showSchoolsList()">Cancel</span></div>
+<div class="text-center"> <button class="update_btn">Add Student</button> <span class="cancel_btn_add button_type_span" (click)="showStudentsList()">Cancel</span></div>
 </form>
 <div class="large_gap"></div>
 </div>
@@ -299,7 +299,7 @@
     </div>
 <div class="clear"></div>
  <div class="little_gap"></div>
-<div class="text-center"> <button class="update_btn">Modify Student</button> <span class="cancel_btn_modify button_type_span" (click)="showSchoolsList()">Cancel</span></div>
+<div class="text-center"> <button class="update_btn">Modify Student</button> <span class="cancel_btn_modify button_type_span" (click)="showStudentsList()">Cancel</span></div>
     </form>
 <div class="large_gap"></div>
 </div>
@@ -309,7 +309,7 @@
 <div class="singleStudentViewDiv inactive_div" [ngClass]="{'inactive_div': div_Element_Id !='3'}">
     <div class="view_Student_profile">
         <div class="text-right">
-            <span class="cancel_btn_modify button_type_span" (click)="showSchoolsList()">Close</span>
+            <span class="cancel_btn_modify button_type_span" (click)="showStudentsList()">Close</span>
         </div>
         <div class="student_details">
             <div class="col-md-6">
@@ -317,23 +317,23 @@
                     <img src="./assets/images/profile/2.jpg" alt="">
                     <div class="text_beside_img">
                         <p>Student Full Name: <span>{{studentTO.firstName}}, {{studentTO.middleName}}, {{studentTO.lastName}}</span></p>
-                        <p>Gender: <span>{{studentTO.gender}}</span></p>
-                        <p>Blood Group: <span>{{studentTO.bloodGroup}}</span></p>
-                        <p>Date of Birth: <span>{{studentTO.dateOfBirth}}</span></p>
-                        <p>Father Name: <span>{{studentTO.fatherName}}</span></p>
-                        <p>Mother Name: <span>{{studentTO.motherName}}</span></p>
+                        <p>Gender: <span> {{ (studentTO.gender != null && studentTO.gender.length != 0) ?  studentTO.gender:'-' }}</span></p>
+                        <p>Blood Group: <span> {{ (studentTO.bloodGroup != null && studentTO.bloodGroup.length != 0) ?  studentTO.bloodGroup:'-' }} </span></p>
+                        <p>Date of Birth: <span>  {{ (studentTO.dateOfBirth != null && studentTO.dateOfBirth.length != 0) ?  studentTO.dateOfBirth:'-' }} </span></p>
+                        <p>Father Name: <span> {{ (studentTO.fatherName != null && studentTO.fatherName.length != 0) ?  studentTO.fatherName:'-' }} </span></p>
+                        <p>Mother Name: <span> {{ (studentTO.motherName != null && studentTO.motherName.length != 0) ?  studentTO.motherName:'-' }} </span></p>
                     </div>
                 </div>
             </div>
 
             <div class="col-md-6">
                 <img src="./assets/images/webicons/Address.png" class="img_pos_ab">
-                <p class="studentAddress">Address1: <span>{{studentTO.addressOne}}</span></p>
-                <p class="studentAddress">Address2: <span>{{studentTO.addressTwo}}</span></p>
-                <p class="studentAddress">City: <span>{{studentTO.city}}</span></p>
-                <p class="studentAddress">State: <span>{{studentTO.state}}</span></p>
-                <p class="studentAddress">Pincode: <span>{{studentTO.pincode}}</span></p>
-                <p class="studentAddress">Country: <span>{{studentTO.country}}</span></p>
+                <p class="studentAddress">Address1: <span>  {{ (studentTO.addressOne != null && studentTO.addressOne.length != 0) ?  studentTO.addressOne:'-' }}   </span></p>
+                <p class="studentAddress">Address2: <span> {{ (studentTO.addressTwo != null && studentTO.addressTwo.length != 0) ?  studentTO.addressTwo:'-' }}  </span></p>
+                <p class="studentAddress">City: <span> {{ (studentTO.city != null && studentTO.city.length != 0) ?  studentTO.city:'-' }}  </span></p>
+                <p class="studentAddress">State: <span> {{ (studentTO.state != null && studentTO.state.length != 0) ?  studentTO.state:'-' }}  </span></p>
+                <p class="studentAddress">Pincode: <span> {{ (studentTO.pincode != null && studentTO.pincode.length != 0) ?  studentTO.pincode:'-' }}  </span></p>
+                <p class="studentAddress">Country: <span> {{ (studentTO.country != null && studentTO.country.length != 0) ?  studentTO.country:'-' }}  </span></p>
             </div>
             <div class="clear"></div>
             <div class="large_gap"></div>

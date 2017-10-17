@@ -161,10 +161,10 @@ export class StudentComponent implements OnInit, StudentComponentInterface {
     {
       field_name = field_name + "Gender, ";
     }
-    if(value.landLine == null || value.landLine == "")
-    {
-      field_name = field_name + "Landline Number ";
-    }
+    // if(value.landLine == null || value.landLine == "")
+    // {
+    //   field_name = field_name + "Landline Number ";
+    // }
     // if(value.addressOne == null || value.addressOne == "")
     // {
     //   field_name = field_name + "addressOne, ";
@@ -213,10 +213,10 @@ export class StudentComponent implements OnInit, StudentComponentInterface {
     // {
     //   field_name = field_name + "rollNo, ";
     // }
-    // if(value.dateOfBirth == null || value.dateOfBirth == "")
-    // {
-    //   field_name = field_name + "Date , ";
-    // }
+    if(value.dateOfBirth == null || value.dateOfBirth == "")
+    {
+      field_name = field_name + "Date , ";
+    }
     // if(value.classId == null || value.classId == "")
     // {
     //   field_name = field_name + "classId, ";
@@ -236,7 +236,19 @@ export class StudentComponent implements OnInit, StudentComponentInterface {
     }
     else
     {
-      this.studentTO = value;
+      // var mobileNumbers_main=[];
+      // for(var i=0;i<value.mobileNumbers.length;i++)
+      // {
+      //   console.log(value.mobileNumbers[i].toString()+"   sample  ");
+      //   if(value.mobileNumbers[i].toString()!="")
+      //   {
+      //     mobileNumbers_main.push(value.mobileNumbers);
+      //   }
+      // }
+      // console.log(value);
+      // value.mobileNumbers=mobileNumbers_main;
+      this.studentTO = value;     
+      console.log(value); 
       this.studentConverter.addStudentProfile(this.studentTO.schoolId, this.studentTO, this);
     }
 
@@ -273,10 +285,10 @@ export class StudentComponent implements OnInit, StudentComponentInterface {
     {
       field_name = field_name + "Gender, ";
     }
-    if(value.landLine == null || value.landLine == "")
-    {
-      field_name = field_name + "LandLine Number ";
-    }
+    // if(value.landLine == null || value.landLine == "")
+    // {
+    //   field_name = field_name + "LandLine Number ";
+    // }
     // if(value.addressOne == null || value.addressOne == "")
     // {
     //   field_name = field_name + "addressOne, ";
@@ -325,10 +337,10 @@ export class StudentComponent implements OnInit, StudentComponentInterface {
     // {
     //   field_name = field_name + "rollNo, ";
     // }
-    // if(value.dateOfBirth == null || value.dateOfBirth == "")
-    // {
-    //   field_name = field_name + "dateOfBirth, ";
-    // }
+    if(value.dateOfBirth == null || value.dateOfBirth == "")
+    {
+      field_name = field_name + "dateOfBirth, ";
+    }
     // if(value.classId == null || value.classId == "")
     // {
     //   field_name = field_name + "classId, ";
@@ -348,9 +360,18 @@ export class StudentComponent implements OnInit, StudentComponentInterface {
     }
     else
     {
-    console.log("updateStudent", value);
-    this.studentTO = value;
-    console.log(value.id);
+      // var mobileNumbers_main=[];
+      // for(var i=0;i<value.mobileNumbers.length;i++)
+      // {
+      //   if(value.mobileNumbers[i]!="")
+      //   {
+      //     mobileNumbers_main.push(value.mobileNumbers);
+      //   }
+      // }
+      // console.log(value);
+      // value.mobileNumbers=mobileNumbers_main;
+      this.studentTO = value;     
+      console.log(value); 
     this.studentConverter.updateStudent(localStorage.getItem('schoolid'), this.studentTO, this);
   }
   }
@@ -441,7 +462,8 @@ export class StudentComponent implements OnInit, StudentComponentInterface {
     this.sucessMessage = "";
     this.active = "0";
     if(this.popupstatus=="1")
-      this.getAllStudents(localStorage.getItem('schoolid'));
+      this.showStudentsList();
+      
   }
 
 
@@ -508,7 +530,7 @@ export class StudentComponent implements OnInit, StudentComponentInterface {
   }
 
 
-  showSchoolsList() {
+  showStudentsList() {
     if (this.selectedStudentArray.length > 0) (<HTMLInputElement>document.getElementById(this.selectedStudentArray[0])).checked = false;
     this.selectedStudentArray = [];
     this.div_Element_Id = "0";
