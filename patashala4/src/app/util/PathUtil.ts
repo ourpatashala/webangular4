@@ -406,9 +406,11 @@ export class PathUtil {
 
     schoolPath = schoolPath + NodeConstants.SCHOOLS;
     schoolPath = schoolPath + NodeConstants.SEPARATOR;
+    schoolPath = schoolPath + NodeConstants.REGISTERED_USERS;
+    schoolPath = schoolPath + NodeConstants.SEPARATOR;
     schoolPath = schoolPath + mobileNumber;
     schoolPath = schoolPath + NodeConstants.SEPARATOR;
-    console.log('school path...' + schoolPath)
+    console.log('getRegisteredUsersPath...' + schoolPath)
     return schoolPath;
 
   }

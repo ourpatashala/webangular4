@@ -164,10 +164,10 @@ export class StudentService {
       } else {
         console.log("You are trying to update the student with a student name which is not there in DB. ");
         var dbRef = firebaseObject.object(studentProfilePath).$ref;
-        //dbRef.set(studentVO);
+        dbRef.set(studentVO);
         messageTO.messageInfo = Messages.STUDENT_UPDATED;
 
-        studentComponentInterface.errorMessageCallBack(messageTO);
+        studentComponentInterface.successMessageCallBack(messageTO);
       }
     });
 

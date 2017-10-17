@@ -1,4 +1,5 @@
 <app-header></app-header>
+<app-header></app-header>
 
 <div class="overlay hideblock" [ngClass]="{'showblock': active=='1'}"></div>
 
@@ -97,43 +98,43 @@
                     <option value="Class3">Class3</option>
                     <option value="Class4">Class4</option>
                     <option value="Class5">Class5</option>
-                </select>    
-            </div><div class="clear"></div> 
-            
+                </select>
+            </div><div class="clear"></div>
+
             <div class="col-md-4 text-right">Mobile</div>
             <div class="col-md-8 plus_btn_inline">
                     <i class="fa fa-plus" (click)="addPhoneNumber()"></i>
                     <div formArrayName="mobileNumbers">
                         <div *ngFor="let itemrow of studentFormGroup.controls.mobileNumbers.controls; let i=index"  [formGroupName]="i" class="dlt_btn_inline">
                             <div class="form-group">
-                                <input formControlName="mobileNumber" value="" class="form-control" maxlength="10"> 
+                                <input formControlName="mobileNumber" value="" class="form-control" maxlength="10">
                             </div>
                             <i *ngIf="studentFormGroup.controls.mobileNumbers.controls.length > 1" (click)="deletePhoneNumber(i)" class="fa fa-trash"></i>
-                        </div>                          
-                    </div>    
-                   
+                        </div>
+                    </div>
+
             </div>
             <div class="clear"></div>
-            
+
             <div class="col-md-4 text-right">Siblings</div>
             <div class="col-md-8 plus_btn_inline">
                     <i class="fa fa-plus" (click)="addSiblings()"></i>
                 <div formArrayName="siblings">
-                        
-                
+
+
                     <div *ngFor="let itemrow of studentFormGroup.controls.siblings.controls; let i=index"  [formGroupName]="i" class="dlt_btn_inline">
                     <div class="form-group">
                         <input formControlName="Name" class="form-control" maxlength="50">
                     </div>
                     <i *ngIf="studentFormGroup.controls.siblings.controls.length > 1" (click)="deleteSiblings(i)" class="fa fa-trash"></i>
-                    </div>        
-                    
+                    </div>
+
                 </div>
             </div>
 
             <div class="clear"></div>
 
-           
+
 
         </div>
         <div class="col-md-6">
@@ -162,7 +163,7 @@
             <div class="col-md-4 text-right"><p>Blood Group</p></div>
             <div class="col-md-8"><input type="text" placeholder="Enter Blood Group" formControlName="bloodGroup" maxlength="10"></div><div class="clear"></div>
             <div class="col-md-4 text-right"><p>Date Of Birth</p></div>
-            <div class="col-md-8"><input type="text" class="datePicker" placeholder="Enter Date of Birth" formControlName="dateOfBirth"></div><div class="clear"></div>
+            <div class="col-md-8"><input type="text" class="datePicker" placeholder="dd-mmm-yyyy" formControlName="dateOfBirth"></div><div class="clear"></div>
         </div>
 
 
@@ -216,24 +217,24 @@
                     <option value="Class3">Class3</option>
                     <option value="Class4">Class4</option>
                     <option value="Class5">Class5</option>
-                </select>    
-            </div><div class="clear"></div> 
+                </select>
+            </div><div class="clear"></div>
             <!-- <div class="col-md-4"><p>Class</p></div><div class="col-md-8"><input auto-complete [(ngModel)]="myData" [source]="appComponent.classes" placeholder="Search Class"/></div><div class="clear"></div> -->
             <div class="col-md-4 text-right"><p>Registered Mobile </p></div>
-            
+
             <div class="col-md-8 plus_btn_inline">
                     <i class="fa fa-plus" (click)="addPhoneNumber()"></i>
                 <div formArrayName="mobileNumbers">
                     <div *ngFor="let itemrow of studentFormGroup.controls.mobileNumbers.controls; let i=index"  [formGroupName]="i" class="dlt_btn_inline">
                         <div class="form-group">
-                            <input formControlName="mobileNumber" value="" class="form-control" maxlength="10"> 
+                            <input formControlName="mobileNumber" value="" class="form-control" maxlength="10">
                         </div>
                         <i *ngIf="studentFormGroup.controls.mobileNumbers.controls.length > 1" (click)="deletePhoneNumber(i)" class="fa fa-trash"></i>
-                    </div>                          
+                    </div>
                 </div>
             </div>
             <!-- <div class="col-md-8"><input type="text" value="+91 9876543210" formControlName="mobileNumbers"></div>-->
-            <div class="clear"></div> 
+            <div class="clear"></div>
             <div class="col-md-4 text-right">Siblings</div>
             <div class="col-md-8 plus_btn_inline">
                     <i class="fa fa-plus" (click)="addSiblings()"></i>
@@ -243,13 +244,13 @@
                         <input formControlName="Name" class="form-control" maxlength="50">
                     </div>
                     <i *ngIf="studentFormGroup.controls.siblings.controls.length > 1" (click)="deleteSiblings(i)" class="fa fa-trash"></i>
-                    </div> 
+                    </div>
                 </div>
             </div>
 
             <div class="clear"></div>
-            
-            
+
+
         </div>
         <div class="col-md-6">
             <div class="col-md-4 text-right"><p>Gender</p></div>
@@ -277,7 +278,7 @@
             <div class="col-md-4 text-right"><p>Blood Group</p></div>
             <div class="col-md-8"><input type="text" value="A +" formControlName="bloodGroup" maxlength="10"></div><div class="clear"></div>
             <div class="col-md-4 text-right"><p>Date of Birth</p></div>
-            <div class="col-md-8"><input type="text" class="datePicker" value="01/01/2008" formControlName="dateOfBirth"></div><div class="clear"></div>
+            <div class="col-md-8"><input type="text" class="datePicker" value="dd-mmm-yyyy" formControlName="dateOfBirth"></div><div class="clear"></div>
         </div>
 
        <div class="clear"></div>
@@ -324,7 +325,7 @@
                     </div>
                 </div>
             </div>
-           
+
             <div class="col-md-6">
                 <img src="./assets/images/webicons/Address.png" class="img_pos_ab">
                 <p class="studentAddress">Address1: <span>{{studentTO.addressOne}}</span></p>
@@ -339,12 +340,12 @@
             <div class="col-md-2"></div>
             <div class="col-md-10">
                 <img src="./assets/images/webicons/Phone.png" class="img_pos_ab">
-                <p class="school_contact">Primary Contact#: 
+                <p class="school_contact">Primary Contact#:
                     <span>
                         <div *ngFor="let mobileNumber of studentTO.mobileNumbers ; let i=index ">
                                 {{mobileNumber.mobileNumber}},
-                        </div>    
-                    </span> 
+                        </div>
+                    </span>
                 </p>
                 <p class="school_contact">Contact#: <span>{{studentTO.mobileNumbers}}</span> </p>
             </div>
@@ -356,11 +357,11 @@
 
 
 <!-- <table datatable class="my_table_width" [dtTrigger]="dtTrigger"  [dtOptions]="dtOptions" id="datatable1"> -->
-        
+
 
 <div class="datatable_toggle"  [ngClass]="{'inactive_div': div_Element_Id !='0'}">
 
-    
+
             <table datatable [dtOptions]="dtOptions"  [dtTrigger]="dtTrigger" class="my_table_width" >
             <thead>
                 <tr>
@@ -375,7 +376,7 @@
                 </tr>
             </thead>
             <tbody>
-                
+
                 <tr *ngFor="let studentProfileTO of studentProfileTOList ; let i=index ">
                    <!-- <td><input type="checkbox" value="{{schoolProfileTO.schoolId}}"  (change)="updateCheckedOptions(schoolProfileTO.schoolId,$this.checkbox.state)"></td> -->
                    <td>{{i + 1}}</td>
