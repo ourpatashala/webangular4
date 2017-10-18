@@ -322,7 +322,7 @@ export class SchoolComponent implements OnInit, SchoolComponentInterface {
   deleteSchoolProfile() {
     for (var loopvar = 0; loopvar < this.selectedSchoolArray.length; loopvar++) {
       console.log(this.selectedSchoolArray[loopvar]);
-      //this.schoolConverter.deleteSchoolProfile(this.selectedSchoolArray[loopvar]);
+      this.schoolConverter.deleteSchoolProfile(this.selectedSchoolArray[loopvar]);
     }
 
 
@@ -373,6 +373,11 @@ export class SchoolComponent implements OnInit, SchoolComponentInterface {
     //console.log("*** successMessageCallBack ==>" + messageTO.messageInfo);
     if(messageTO.serviceMethodName == "searchAndAddSchoolProfile()")
     this.schoolFormGroup.reset();
+    else if(messageTO.serviceMethodName == "updateSchoolProfile()")
+    {
+      //this.showSchoolsList();
+      this.popupstatus="1";
+    }
     else if(messageTO.serviceMethodName == "updateSchoolProfile()")
     {
       //this.showSchoolsList();
