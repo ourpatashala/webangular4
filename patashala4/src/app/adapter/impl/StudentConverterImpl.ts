@@ -6,6 +6,8 @@ import {CommonConverter} from "./CommonConverter";
 import {StudentVO} from "../../vo/StudentVO";
 import {StudentComponentInterface} from "../../component/student/StudentComponentInterface";
 import {FirebaseListObservable} from "angularfire2/database";
+import {ClassProfileVO} from "../../vo/ClassProfileVO";
+import {ClassProfileTO} from "../../to/ClassProfileTO";
 
 /**
  * Created by ravisha on 4/21/17.
@@ -170,23 +172,25 @@ export class StudentConverterImpl extends CommonConverter implements StudentConv
   getAllStudents(schoolId : string, studentComponentInterface:StudentComponentInterface){
     var objData:FirebaseListObservable<StudentVO>;
     var schoolObject = this.studentService.getAllStudents(schoolId);
-    var studentTO = new StudentTO();
+
     schoolObject.subscribe(snapshot => {
       objData = snapshot;
-      //studentTO = this.getTOFromVO( objData);
+
       studentComponentInterface.displayAllStudentCallBack(objData);
 
     });
   }
 
   getAllClassesProfile(schoolId : string, studentComponentInterface:StudentComponentInterface){
-    var objData:FirebaseListObservable<StudentVO>;
-    var schoolObject = this.studentService.getAllStudents(schoolId);
-    var studentTO = new StudentTO();
-    schoolObject.subscribe(snapshot => {
+    var objData:FirebaseListObservable<ClassProfileVO>;
+    var classesObject = this.studentService.getAllClassProfiles(schoolId);
+
+    classesObject.subscribe(snapshot => {
       objData = snapshot;
       //studentTO = this.getTOFromVO( objData);
-      studentComponentInterface.displayAllStudentCallBack(objData);
+
+      studentComponentInterface.displayAllClassesCallBack(objData);
+
 
     });
   }

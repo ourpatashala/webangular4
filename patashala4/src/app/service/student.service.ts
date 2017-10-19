@@ -62,6 +62,13 @@ export class StudentService {
 
   }
 
+  getAllClassProfiles(schoolId: string) : FirebaseListObservable<any>{
+    //var studentProfilePath = PathUtil.getStudentPath(schoolId);
+    var allClassProfiles=  this.angularFireDatabase.list("/schools/"+schoolId+"/2017/classProfile/");
+    return allClassProfiles;
+  }
+
+
 
   getStudentProfile(schoolId: string, studentId: string): FirebaseObjectObservable<any> {
     var studentInfo = this.angularFireDatabase.object("/schools/" + schoolId + "/studentProfile/" + studentId);
@@ -79,6 +86,12 @@ export class StudentService {
 
     var firebaseObject = this.angularFireDatabase;
     var studentProfilePath = PathUtil.getStudentPath(studentVO.schoolId);
+
+    if (studentVO.schoolId == null || studentVO.schoolId == ""){
+      messageTO.messageInfo = Messages.SCHOOL_ID_EMPTY
+      studentComponentInterface.errorMessageCallBack(messageTO);
+    }
+
     console.log("updateStudentProfile studentProfilePath ==> "+ studentProfilePath);
     var ref = this.angularFireDatabase.object(NodeConstants.SCHOOLS).$ref.child(studentProfilePath).orderByChild(NodeConstants.UNIQUE_ID).equalTo(studentVO.uniqueId).once("value", function (snapshot) {
       var exists = (snapshot.val() !== null);

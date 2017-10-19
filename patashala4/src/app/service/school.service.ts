@@ -103,22 +103,6 @@ export class SchoolService {
       }
     });
 
-    /*console.log ("==>"+ this.angularFireDatabase.object("/").$ref.child(NodeConstants.SCHOOLS+"/"+schoolid))
-
-    var ref = this.angularFireDatabase.object("/").$ref.child(NodeConstants.SCHOOLS+"/"+schoolid).equalTo(schoolid).once("value", function (snapshot) {
-
-      console.log ("snapshot.val() ==>"+ snapshot.val())
-
-      var exists = (snapshot.val() !== null);
-      if (exists) {
-        console.log("Cannot delete")
-      } else {
-        console.log(" deleted")
-        //this.angularFireDatabase.object(PathUtil.getSchoolIdProfilePath(schoolid)).$ref.remove();
-      }
-
-    });*/
-
   }
 
 

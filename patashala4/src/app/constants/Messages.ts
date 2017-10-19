@@ -18,6 +18,8 @@ export class Messages{
   public static STUDENT_ADDED='Student Added Successfully!!';
   public static STUDENT_UPDATED='Student Updated Successfully!!';
 
+  public static SCHOOL_ID_EMPTY='Invalid School Id!!';
+
 
 
 }

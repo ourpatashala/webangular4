@@ -4,6 +4,8 @@ import { AngularFireAuth } from 'angularfire2/auth';
 import { Observable } from 'rxjs/Observable';
 import * as firebase from 'firebase/app';
 import {CommonInterface} from "../common/CommonInterface";
+import {ClassProfileTO} from "../../to/ClassProfileTO";
+import {ClassProfileVO} from "../../vo/ClassProfileVO";
 
 export interface StudentComponentInterface extends  CommonInterface{
   /**
@@ -17,5 +19,9 @@ export interface StudentComponentInterface extends  CommonInterface{
    * @param schoolProfileTO
    */
   displayAllStudentCallBack(studentTO:FirebaseListObservable<StudentTO>);
+
+  displayAllClassesCallBack(classProfileTO:FirebaseListObservable<ClassProfileTO>);
+
+
 }
 
