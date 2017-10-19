@@ -53,7 +53,7 @@ export class SchoolComponent implements OnInit, SchoolComponentInterface {
   div_Element_Id: string = "0";//for multiple pages in school list page;; 0 to show list of school , 1 to show add school, 2 to show edit school, 3 to show single school view.
   flag: boolean = false;
   popupstatus:string="0"; //0 for default close //1 for close and show listing
-  
+
   updateMessage(message: string) { // updates the error message
     this.updateSubject.next(message);
 
@@ -115,16 +115,6 @@ export class SchoolComponent implements OnInit, SchoolComponentInterface {
 
     });
 
-
-// row selection script
-    // $(document).on('change', '#myTable tbody tr td input', function () {
-    //   if ($(this).is(':checked')) {
-    //     $(this).parent().parent().addClass('selected_row');
-    //   } else {
-    //     $(this).parent().parent().removeClass('selected_row');
-    //   }
-    // });
-//    this.dtTrigger.next();
   }
 
 
@@ -181,7 +171,7 @@ export class SchoolComponent implements OnInit, SchoolComponentInterface {
     if (value.schoolDisplayName == null || value.schoolDisplayName == "") {
       field_name = field_name + " School Display Name, ";
     }
-   
+
     if (value.addressOne == null || value.addressOne == "") {
       field_name = field_name + " Address One, ";
     }
@@ -268,40 +258,29 @@ export class SchoolComponent implements OnInit, SchoolComponentInterface {
     var field_name = "";
     this.errorMessage = field_name;
     this.active = "0";
-    // if (value.schoolId == null || value.schoolId == "") {
-    //   field_name = field_name + " schoolId, ";
-    // }
+
     if (value.schoolName == null || value.schoolName == "") {
       field_name = field_name + " School Name, ";
     }
     if (value.schoolDisplayName == null || value.schoolDisplayName == "") {
       field_name = field_name + " School Display Name, ";
     }
- 
+
     if (value.addressOne == null || value.addressOne == "") {
       field_name = field_name + " AddressOne, ";
     }
-    // if (value.addressTwo == null || value.addressTwo == "") {
-    //   field_name = field_name + " addressTwo, ";
-    // }
+
     if (value.city == null || value.city == "") {
       field_name = field_name + " City, ";
     }
     if (value.state == null || value.state == "") {
       field_name = field_name + " State, ";
     }
-    // if (value.pincode == null || value.pincode == "") {
-    //   field_name = field_name + " pincode, ";
-    // }
+
     if (value.country == null || value.country == "") {
       field_name = field_name + " Country, ";
     }
-    // if (value.contactName == null || value.contactName == "") {
-    //   field_name = field_name + " contactName, ";
-    // }
-    // if (value.contactNumber == null || value.contactNumber == "") {
-    //   field_name = field_name + " contactNumber, ";
-    // }
+
     if (field_name.length != 0) {
       this.errorMessage = "Please enter" + field_name;
       this.active = "2";
@@ -321,11 +300,9 @@ export class SchoolComponent implements OnInit, SchoolComponentInterface {
    */
   deleteSchoolProfile() {
     for (var loopvar = 0; loopvar < this.selectedSchoolArray.length; loopvar++) {
-      console.log(this.selectedSchoolArray[loopvar]);
-      this.schoolConverter.deleteSchoolProfile(this.selectedSchoolArray[loopvar]);
+
+      this.schoolConverter.deleteSchoolProfile(this.selectedSchoolArray[loopvar], this);
     }
-
-
   }
 
   /**
@@ -333,7 +310,7 @@ export class SchoolComponent implements OnInit, SchoolComponentInterface {
    * @param schoolId
    */
   displaySchoolProfileCallBack(schoolProfileTO: SchoolProfileTO) {
-    console.log(" displaySchoolProfileCallBack "+schoolProfileTO);
+
     this.schoolProfileTO = schoolProfileTO;
     this.schoolFormGroup.controls['schoolId'].patchValue(schoolProfileTO.schoolId);
     this.schoolFormGroup.controls['schoolName'].patchValue(schoolProfileTO.schoolName);
@@ -362,40 +339,32 @@ export class SchoolComponent implements OnInit, SchoolComponentInterface {
       console.log('SchoolProfileTO:', schoolProfileTO);
      // this.schoolProfileTO = schoolProfileTO;
     });
-   // dtInstance.destroy();
-   //this.dtTrigger.();
+
    this.rerender();
 
   }
 
+
+  /**
+   * Used for getting all classes profile objects of the school.
+   */
+  getAllClassProfiles(schoolId: string) {
+    this.schoolConverter.getAllSchoolProfile(this);
+  }
+
+
   successMessageCallBack(messageTO:MessageTO) {
     console.log("successMessageCallBack ==>" + messageTO.messageInfo+"  "+ messageTO.messageType+"  "+messageTO.serviceClassName+"  "+messageTO.serviceMethodName);
     //console.log("*** successMessageCallBack ==>" + messageTO.messageInfo);
-    if(messageTO.serviceMethodName == "searchAndAddSchoolProfile()")
-    this.schoolFormGroup.reset();
-    else if(messageTO.serviceMethodName == "updateSchoolProfile()")
-    {
-      //this.showSchoolsList();
-      this.popupstatus="1";
+    if(messageTO.serviceMethodName == "searchAndAddSchoolProfile()"){
+      this.schoolFormGroup.reset();
     }
     else if(messageTO.serviceMethodName == "updateSchoolProfile()")
     {
-      //this.showSchoolsList();
       this.popupstatus="1";
     }
 
-    //TODO Shiva - commented  to compile the code. Please fix it.
-    /*this.sucessMessage = message1;
-    if (message1.length != 0) {
-      this.active = "1";
-    } else {
-      this.active = "0";
-    }
-    setTimeout(() => {    //<<<---    using ()=> syntax
-      this.sucessMessage = "";
-      this.active = "0";
-    }, 2000);
-    */
+
     this.setUserSuccessMessageonUI(messageTO.messageInfo);
   }
 
@@ -408,22 +377,11 @@ export class SchoolComponent implements OnInit, SchoolComponentInterface {
    */
   errorMessageCallBack(messageTO:MessageTO) {
     console.log("errorMessageCallBack ==>" + messageTO.messageInfo);
-    //TODO Shiva - commented  to compile the code. Please fix it.
+
     this.errorMessage = messageTO.messageInfo;
     //this.schoolFormGroup.reset();
     this.updateMessage(this.errorMessage);
     this.setUserErrorMessageonUI(this.errorMessage);
-
-    //  this.getRouter().navigate(['/School']);
-    // if (messageTO.messageInfo.length != 0) {
-    //   this.active = "2";
-    // } else {
-    //   this.active = "0";
-    // }
-    // setTimeout(() => {    //<<<---    using ()=> syntax
-    //   this.errorMessage = "";
-    //   this.active = "0";
-    // }, 2000);
 
   }
 
@@ -438,19 +396,11 @@ export class SchoolComponent implements OnInit, SchoolComponentInterface {
   setUserSuccessMessageonUI(message: string) {
     this.sucessMessage = message;
     this.active = "1";
-    // setTimeout(() => {
-    //   this.sucessMessage = "";
-    //   this.active = "0";
-    // }, 2000);
   }
 
   setUserErrorMessageonUI(message: string) {
     this.errorMessage = message;
     this.active = "2";
-    // setTimeout(() => {
-    //   this.errorMessage = "";
-    //   this.active = "0";
-    // }, 2000);
   }
 
   checkedStudents(value) {
@@ -463,6 +413,8 @@ export class SchoolComponent implements OnInit, SchoolComponentInterface {
     }
     console.log(this.selectedSchoolArray)
   }
+
+
   rerender(): void {
     console.log("render call "+this.flag);
     if(!this.flag && this.dtElement!=null)  {

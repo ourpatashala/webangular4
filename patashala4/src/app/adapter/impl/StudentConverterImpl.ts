@@ -179,6 +179,18 @@ export class StudentConverterImpl extends CommonConverter implements StudentConv
     });
   }
 
+  getAllClassesProfile(schoolId : string, studentComponentInterface:StudentComponentInterface){
+    var objData:FirebaseListObservable<StudentVO>;
+    var schoolObject = this.studentService.getAllStudents(schoolId);
+    var studentTO = new StudentTO();
+    schoolObject.subscribe(snapshot => {
+      objData = snapshot;
+      //studentTO = this.getTOFromVO( objData);
+      studentComponentInterface.displayAllStudentCallBack(objData);
+
+    });
+  }
+
   deleteStudentProfile(schoolid: string, studentId:string,){
     this.studentService.deleteStudentProfile(schoolid, studentId);
 

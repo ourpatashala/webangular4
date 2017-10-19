@@ -122,8 +122,8 @@ export class SchoolConverterImpl extends CommonConverter implements SchoolConver
 
   }
 
-  deleteSchoolProfile(schoolid: string){
-    this.schoolService.deleteSchoolProfile(schoolid);
+  deleteSchoolProfile(schoolid: string, schoolComponentInterface:SchoolComponentInterface){
+    this.schoolService.deleteSchoolProfile(schoolid, schoolComponentInterface);
 
   }
 

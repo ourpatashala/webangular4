@@ -131,6 +131,15 @@ export class StudentComponent implements OnInit, StudentComponentInterface {
     this.studentConverter.getAllStudents(schoolId, this);
   }
 
+
+  /**
+   * Used for getting all classes profile objects of the school.
+   */
+  getAllClassesProfile(schoolId: string) {
+    this.studentConverter.getAllClassesProfile(schoolId, this);
+  }
+
+
   getStudentProfile(schoolId: string, studentId: string) {
 
     this.studentConverter.getStudent(schoolId, studentId, this);
@@ -247,8 +256,8 @@ export class StudentComponent implements OnInit, StudentComponentInterface {
       // }
       // console.log(value);
       // value.mobileNumbers=mobileNumbers_main;
-      this.studentTO = value;     
-      console.log(value); 
+      this.studentTO = value;
+
       this.studentConverter.addStudentProfile(this.studentTO.schoolId, this.studentTO, this);
     }
 
@@ -370,8 +379,8 @@ export class StudentComponent implements OnInit, StudentComponentInterface {
       // }
       // console.log(value);
       // value.mobileNumbers=mobileNumbers_main;
-      this.studentTO = value;     
-      console.log(value); 
+      this.studentTO = value;
+      console.log(value);
     this.studentConverter.updateStudent(localStorage.getItem('schoolid'), this.studentTO, this);
   }
   }
@@ -463,7 +472,7 @@ export class StudentComponent implements OnInit, StudentComponentInterface {
     this.active = "0";
     if(this.popupstatus=="1")
       this.showStudentsList();
-      
+
   }
 
 

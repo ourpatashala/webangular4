@@ -21,4 +21,6 @@ export interface StudentConverter {
 
   getAllStudents(schoolid: string,studentComponentInterface: StudentComponentInterface);
 
+  getAllClassesProfile(schoolid: string,studentComponentInterface: StudentComponentInterface);
+
 }

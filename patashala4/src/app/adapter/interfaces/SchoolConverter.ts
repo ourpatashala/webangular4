@@ -7,10 +7,11 @@ import {SchoolComponentInterface} from "../../component/school/SchoolComponentIn
 export interface SchoolConverter {
   addSchoolProfile(schoolProfileTO: SchoolProfileTO,schoolComponentInterface:SchoolComponentInterface);
   updateSchoolProfile(schoolProfileTO: SchoolProfileTO,schoolComponentInterface:SchoolComponentInterface);
-  deleteSchoolProfile(schoolid: string);
+  deleteSchoolProfile(schoolid: string, schoolComponentInterface:SchoolComponentInterface);
   getSchoolProfile(schoolId:string,schoolComponentInterface:SchoolComponentInterface);
   getSchoolProfileRange(start:string,end:string,schoolComponentInterface:SchoolComponentInterface);
   getAllSchoolProfile(schoolComponentInterface:SchoolComponentInterface);
+
 
 
 }

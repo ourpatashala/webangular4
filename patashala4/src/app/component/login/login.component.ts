@@ -41,7 +41,7 @@ export class LoginComponent implements OnInit , LoginComponentInterface{
 
 
   signUp({value, valid}: {value: LoginTO, valid: boolean}) {
-    
+
     this.loginConverter.signUp(value,this)
 
   }
@@ -50,8 +50,8 @@ export class LoginComponent implements OnInit , LoginComponentInterface{
     this.username=value.username;
     var atpos = value.username.indexOf("@");
     var dotpos = value.username.lastIndexOf(".");
-    
-    
+
+
     if(value.username == null)
       {
         this.setUserErrorMessageonUI("Please Enter Username");
@@ -72,8 +72,8 @@ export class LoginComponent implements OnInit , LoginComponentInterface{
     this.username=value.username;
     var atpos = value.username.indexOf("@");
     var dotpos = value.username.lastIndexOf(".");
-    
-    
+
+
     if(value.username == null)
       {
         this.setUserErrorMessageonUI("Please Enter Username");
@@ -93,10 +93,10 @@ export class LoginComponent implements OnInit , LoginComponentInterface{
     if(messageTO.serviceMethodName=="login()")
     {
       localStorage.setItem('userlogin',this.username);
-      this.setUserSuccessMessageonUI("Login Successfull");
+      this.setUserSuccessMessageonUI("Login Successful");
       setTimeout(()=>{
         this.router.navigate(['/School']);
-      },2000);
+      },500);
     }
     else if(messageTO.serviceMethodName=="resetPassword()")
     {

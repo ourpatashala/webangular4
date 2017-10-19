@@ -71,8 +71,6 @@ export class StudentService {
 
   searchAndAddStudent(studentVO: StudentVO, studentComponentInterface: StudentComponentInterface) {
 
-
-
     var serviceObject = this;
     var messageTO = new MessageTO();
     messageTO.serviceClassName = "StudentService";
