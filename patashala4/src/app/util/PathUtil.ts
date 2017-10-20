@@ -415,6 +415,25 @@ export class PathUtil {
 
   }
 
+  /**
+   * Can also be a Utility method for getting the path of the school
+   * @param schoolId
+   * @return
+   */
+  public static  getRegisteredUsersNodePath(): string {
+
+    var path: string = "";
+
+    path = path + NodeConstants.SCHOOLS;
+    path = path + NodeConstants.SEPARATOR;
+    path = path + NodeConstants.REGISTERED_USERS;
+    path = path + NodeConstants.SEPARATOR;
+
+    console.log('getRegisteredUsersNodePath...' + path)
+    return path;
+
+  }
+
   public static  getSchoolPathWithoutTopNode(schoolId: string): string {
 
     var schoolPath: string = "";

@@ -197,16 +197,6 @@ export class StudentService {
 
         if (phoneNumber != "" ) {
 
-          var registeredUser = new RegisteredUser();
-          registeredUser.active = "true";
-          registeredUser.phoneNumber = phoneNumber;
-          registeredUser.userType = "parent";
-
-          console.log('Create Registration Node : '+PathUtil.getRegisteredUsersPath(phoneNumber));
-          var dbRef = firebaseObject.object(PathUtil.getRegisteredUsersPath(phoneNumber)).$ref;
-          dbRef.set(registeredUser);
-
-
           var registeredStudent = new RegisteredStudent();
           registeredStudent.schoolId = schoolId;
           registeredStudent.firstName = studentVO.firstName;
@@ -220,7 +210,67 @@ export class StudentService {
           registeredStudent.schoolActive = "true";
 
 
-          StudentService.addStudentInRegistration(schoolId,phoneNumber,registeredStudent,firebaseObject);
+          var users = firebaseObject.object("/").$ref.child(PathUtil.getRegisteredUsersNodePath());
+
+          users.once('value', function(snapshot) {
+
+            console.log("Path ==> "+ PathUtil.getRegisteredUsersNodePath());
+
+            console.log(phoneNumber + " snapshot ==> "+ snapshot.hasChild(phoneNumber))
+
+            var registeredUser = new RegisteredUser();
+            registeredUser.active = "true";
+            registeredUser.phoneNumber = phoneNumber;
+            registeredUser.userType = "parent";
+
+            if (!snapshot.hasChild(phoneNumber)) {
+
+              //Registration node does not exist, so create it
+
+              console.log('Create Registration Node : '+PathUtil.getRegisteredUsersPath(phoneNumber));
+              var dbRef = firebaseObject.object(PathUtil.getRegisteredUsersPath(phoneNumber)).$ref;
+              dbRef.set(registeredUser);
+              StudentService.addStudentInRegistration(schoolId,phoneNumber,registeredStudent,firebaseObject);
+
+
+            }
+            else {
+
+              //Registration node does  exist, so just update the type and add student node
+
+              var regObj = firebaseObject.object(PathUtil.getRegisteredUsersNodePath() +"/"+ phoneNumber);
+              console.log('Create Registration Node already exist, Just create Student : '+PathUtil.getRegisteredUsersPath(phoneNumber));
+
+              var regUser = new RegisteredUser();
+              regObj.subscribe(snapshot => {
+                regUser =  snapshot;
+                console.log("Registration Object " + regUser.userType);
+
+                if (! regUser.userType.includes("parent",0)){
+                  //This is done to append "parent" string to type if teacher or management already exist.
+                  registeredUser.userType = "parent-"+regUser.userType;
+                  console.log('Parent does not exist in Type : '+regUser.userType);
+                }else{
+
+                  registeredUser.userType = regUser.userType
+                  console.log('Parent exist in Type : '+regUser.userType);
+                }
+
+                StudentService.addStudentInRegistration(schoolId,phoneNumber,registeredStudent,firebaseObject);
+
+
+              });
+
+            }
+          });
+
+
+
+
+
+
+
+
 
         }else{
 
