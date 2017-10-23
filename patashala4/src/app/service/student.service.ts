@@ -265,13 +265,6 @@ export class StudentService {
           });
 
 
-
-
-
-
-
-
-
         }else{
 
           console.log(' Registration Node Not Created : '+ phoneNumber);
@@ -311,6 +304,47 @@ export class StudentService {
   deleteStudentProfile(schoolid: string, studentId: string) {
     this.angularFireDatabase.object(PathUtil.getStudentProfilePath(schoolid,studentId)).$ref.remove();
   }
+
+
+  getPhoto(schoolId: string, studentId: string, studentComponentInterface: StudentComponentInterface){
+
+    const storageRef = firebase.storage().ref();
+
+    var photoPath = this.angularFireDatabase.object("/schools/"+schoolId+"/studentProfile/"+studentId);
+
+
+    var studentVO = new StudentVO();
+    photoPath.subscribe(snapshot => {
+      studentVO =  snapshot;
+      console.log("profilePhotoUrl from StudentOjbect:" + studentVO.profilePhotoUrl);
+
+      storageRef.child(studentVO.profilePhotoUrl).getDownloadURL().then(function(url){
+
+        studentComponentInterface.displayPhotoCallBack(url);
+
+      });
+
+
+    });
+
+  }
+
+
+  getWithURLPhoto(schoolId: string, photoURL: string, studentComponentInterface: StudentComponentInterface){
+
+    const storageRef = firebase.storage().ref();
+
+
+      //console.log("profilePhotoUrl from StudentOjbect:" + photoURL);
+
+      storageRef.child(photoURL).getDownloadURL().then(function(url){
+
+        studentComponentInterface.displayPhotoWithURLCallBack(url);
+
+      });
+
+  }
+
 
 
 }

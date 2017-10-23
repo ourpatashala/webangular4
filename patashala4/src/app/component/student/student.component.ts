@@ -16,11 +16,10 @@ import {ErrorService} from "../../service/error.service";
 import {BehaviorSubject, Observable, Subscription} from "rxjs";
 declare var $: any;
 import {Subject} from 'rxjs/Rx';
-import { DataTableDirective } from 'angular-datatables';
+import {DataTableDirective} from 'angular-datatables';
 import {MessageTO} from "../../to/MessageTO";
 import {ClassProfileVO} from "../../vo/ClassProfileVO";
 import {ClassProfileTO} from "../../to/ClassProfileTO";
-
 
 
 @Component({
@@ -40,8 +39,7 @@ export class StudentComponent implements OnInit, StudentComponentInterface {
   studentProfileTOList: FirebaseListObservable<StudentTO>;
   studentTO: StudentTO;
   studentFormGroup: FormGroup;
-  @ViewChild(DataTableDirective)
-  dtElement: DataTableDirective;
+  @ViewChild(DataTableDirective) dtElement: DataTableDirective;
   dtOptions: DataTables.Settings = {};
   //dtTrigger = new Subject();
   dtTrigger: Subject<any> = new Subject();
@@ -52,36 +50,34 @@ export class StudentComponent implements OnInit, StudentComponentInterface {
   fb: FormBuilder;
   @Input() inputArray: ArrayType[];
   updateSubject: BehaviorSubject<string> = new BehaviorSubject<string>(""); // Holds the error message
-  popupstatus:string="0"; //0 for default close //1 for close and show listing
+  popupstatus: string = "0"; //0 for default close //1 for close and show listing
 
   update$: Observable<string> = this.updateSubject.asObservable(); // observer for the above message
-  constructor(@Inject("StudentConverter") private studentConverter: StudentConverter, fb: FormBuilder, private injector: Injector,private router: Router, private errorService: ErrorService) {
+  constructor(@Inject("StudentConverter") private studentConverter: StudentConverter, fb: FormBuilder, private injector: Injector, private router: Router, private errorService: ErrorService) {
     this.fb = fb;
     this.subscription = this.update$.subscribe(message => {
       this.message = message;
     });
 
-   this.studentTO=new StudentTO();
+    this.studentTO = new StudentTO();
 
-   var username=localStorage.getItem('userlogin');
-   console.log("user logged in "+username);
-   if(username=="" || username=="Undefined"  || username==null )
-   {
-     this.router.navigate(['/']);
-   }
-   var selectedSchoolId=localStorage.getItem('schoolid');
+    var username = localStorage.getItem('userlogin');
+    console.log("user logged in " + username);
+    if (username == "" || username == "Undefined" || username == null) {
+      this.router.navigate(['/']);
+    }
+    var selectedSchoolId = localStorage.getItem('schoolid');
 
-   console.log("Selected School "+selectedSchoolId);
-   if(selectedSchoolId=="" || selectedSchoolId=="Undefined" || selectedSchoolId==null)
-   {
-     this.router.navigate(['/School']);
-   }
+    console.log("Selected School " + selectedSchoolId);
+    if (selectedSchoolId == "" || selectedSchoolId == "Undefined" || selectedSchoolId == null) {
+      this.router.navigate(['/School']);
+    }
 
 
     //this.getAllStudents("-KuCWQEmwl1MsTD0SPdb");
     //this.getStudentProfile("school04", "-KuCWQEmwl1MsTD0SPdb");
     //this.dtTrigger.complete();
-   //this.dtTrigger.next();
+    //this.dtTrigger.next();
     this.getAllStudents(localStorage.getItem('schoolid'));
   }
 
@@ -94,9 +90,8 @@ export class StudentComponent implements OnInit, StudentComponentInterface {
     this.studentFormGroup = this.fb.group({
       firstName: [''],
       lastName: [''],
-      middleName: [''],
-      //mobileNumbers: [''],
-      mobileNumbers:this.fb.array([this.initPhoneNumbers()]), // here
+      middleName: [''], //mobileNumbers: [''],
+      mobileNumbers: this.fb.array([this.initPhoneNumbers()]), // here
       gender: [''],
       landLine: [''],
       addressOne: [''],
@@ -118,8 +113,6 @@ export class StudentComponent implements OnInit, StudentComponentInterface {
       //TODO : Shiva integrate code by removing hardcoding of values.
 
     });
-
-
 
 
   }
@@ -146,38 +139,33 @@ export class StudentComponent implements OnInit, StudentComponentInterface {
 
     this.studentConverter.getStudent(schoolId, studentId, this);
 
+    this.getPhoto(schoolId, studentId);
+
   }
 
   addStudentProfile({value, valid}: { value: StudentTO, valid: boolean }) {
     var field_name = "";
     this.errorMessage = field_name;
     this.active = "0";
-    if(value.firstName == null || value.firstName == "")
-    {
+    if (value.firstName == null || value.firstName == "") {
       field_name = field_name + "First Name, ";
     }
-    if(value.lastName == null || value.lastName == "")
-    {
+    if (value.lastName == null || value.lastName == "") {
       field_name = field_name + "Last Name, ";
     }
 
-    if(value.gender == null || value.gender == "")
-    {
+    if (value.gender == null || value.gender == "") {
       field_name = field_name + "Gender, ";
     }
 
-    if(value.dateOfBirth == null || value.dateOfBirth == "")
-    {
+    if (value.dateOfBirth == null || value.dateOfBirth == "") {
       field_name = field_name + "Date , ";
     }
 
-    if(field_name.length !=0 )
-    {
+    if (field_name.length != 0) {
       this.errorMessage = "Please enter " + field_name;
       this.active = "2";
-    }
-    else
-    {
+    } else {
 
       this.studentTO = value;
 
@@ -197,37 +185,30 @@ export class StudentComponent implements OnInit, StudentComponentInterface {
     var field_name = "";
     this.errorMessage = field_name;
     this.active = "0";
-    if(value.firstName == null || value.firstName == "")
-    {
+    if (value.firstName == null || value.firstName == "") {
       field_name = field_name + "First Name, ";
     }
-    if(value.lastName == null || value.lastName == "")
-    {
+    if (value.lastName == null || value.lastName == "") {
       field_name = field_name + "Last Name, ";
     }
 
-    if(value.gender == null || value.gender == "")
-    {
+    if (value.gender == null || value.gender == "") {
       field_name = field_name + "Gender, ";
     }
 
-    if(value.dateOfBirth == null || value.dateOfBirth == "")
-    {
+    if (value.dateOfBirth == null || value.dateOfBirth == "") {
       field_name = field_name + "dateOfBirth, ";
     }
 
-    if(field_name.length !=0 )
-    {
+    if (field_name.length != 0) {
       this.errorMessage = "Please enter " + field_name;
       this.active = "2";
-    }
-    else
-    {
+    } else {
 
       this.studentTO = value;
       console.log(value);
-    this.studentConverter.updateStudent(localStorage.getItem('schoolid'), this.studentTO, this);
-  }
+      this.studentConverter.updateStudent(localStorage.getItem('schoolid'), this.studentTO, this);
+    }
   }
 
   /**
@@ -237,7 +218,7 @@ export class StudentComponent implements OnInit, StudentComponentInterface {
   deleteStudentProfile() {
     for (var loopvar = 0; loopvar < this.selectedStudentArray.length; loopvar++) {
       console.log(this.selectedStudentArray[loopvar]);
-      this.studentConverter.deleteStudentProfile(localStorage.getItem('schoolid'),this.selectedStudentArray[loopvar]);
+      this.studentConverter.deleteStudentProfile(localStorage.getItem('schoolid'), this.selectedStudentArray[loopvar]);
     }
     this.getAllStudents(localStorage.getItem('schoolid'));
 
@@ -255,7 +236,7 @@ export class StudentComponent implements OnInit, StudentComponentInterface {
     console.log("displayStudentCallBack.." + studentTO.toString().valueOf());
     console.log("displayStudentCallBack..id " + studentTO.id);
     console.log("displayStudentCallBack..firstName " + studentTO.firstName);
-    this.studentTO=studentTO;
+    this.studentTO = studentTO;
 
     this.studentTO = studentTO;
     this.studentFormGroup.controls['id'].patchValue(studentTO.id);
@@ -263,20 +244,28 @@ export class StudentComponent implements OnInit, StudentComponentInterface {
     this.studentFormGroup.controls['lastName'].patchValue(studentTO.lastName);
     this.studentFormGroup.controls['middleName'].patchValue(studentTO.middleName);
     this.clearPhoneNumbers();
+
+
+    if (studentTO.mobileNumbers != null) {'' +
+
     console.log(studentTO.mobileNumbers.length);
-    for(var loopvar=0;loopvar<studentTO.mobileNumbers.length;loopvar++)
-    {
+
+      for (var loopvar = 0; loopvar < studentTO.mobileNumbers.length; loopvar++) {
         this.addPhoneNumber();
+      }
+
+      this.studentFormGroup.controls['mobileNumbers'].patchValue(studentTO.mobileNumbers);
     }
-    this.studentFormGroup.controls['mobileNumbers'].patchValue(studentTO.mobileNumbers);
+
 
     this.clearSiblings();
-    console.log(studentTO.siblings.length);
-    for(var loopvar=0;loopvar<studentTO.siblings.length;loopvar++)
-    {
+    if (studentTO.mobileNumbers != null) {
+      console.log(studentTO.siblings.length);
+      for (var loopvar = 0; loopvar < studentTO.siblings.length; loopvar++) {
         this.addSiblings();
+      }
+      this.studentFormGroup.controls['siblings'].patchValue(studentTO.siblings);
     }
-    this.studentFormGroup.controls['siblings'].patchValue(studentTO.siblings);
 
     this.studentFormGroup.controls['gender'].patchValue(studentTO.gender);
     this.studentFormGroup.controls['landLine'].patchValue(studentTO.landLine);
@@ -301,16 +290,22 @@ export class StudentComponent implements OnInit, StudentComponentInterface {
    * @param schoolProfileTO
    */
   displayAllStudentCallBack(studentTO: FirebaseListObservable<StudentTO>) {
-    this.studentProfileTOList=studentTO;
+    this.studentProfileTOList = studentTO;
     this.studentProfileTOList.forEach(schoolProfileTO => {
-      console.log('Student Profile:', schoolProfileTO);
+      console.log('Student Photo URL:', schoolProfileTO.profilePhotoUrl);
+      console.log('Student Ojbect :', schoolProfileTO);
+
+      this.getPhotoWithURL(schoolProfileTO.schoolId, schoolProfileTO.profilePhotoUrl);
+
     });
-   console.log('Display all Students' );
-   this.rerender();
+    console.log('Display all Students');
+    this.rerender();
+
+
   }
 
 
-  displayAllClassesCallBack(classProfileTO:FirebaseListObservable<ClassProfileTO>){
+  displayAllClassesCallBack(classProfileTO: FirebaseListObservable<ClassProfileTO>) {
 
     classProfileTO.forEach(classsProfileTO => {
       console.log('class Profile:', classsProfileTO);
@@ -318,24 +313,19 @@ export class StudentComponent implements OnInit, StudentComponentInterface {
   }
 
 
-
-  closePopup()
-  {
+  closePopup() {
     this.sucessMessage = "";
     this.active = "0";
-    if(this.popupstatus=="1")
-      this.showStudentsList();
+    if (this.popupstatus == "1") this.showStudentsList();
 
   }
 
 
-  successMessageCallBack(messageTO:MessageTO) {
-    console.log("successMessageCallBack : "+ messageTO.serviceMethodName);
-    if(messageTO.serviceMethodName == "searchAndAddStudent()")
-    this.studentFormGroup.reset();
+  successMessageCallBack(messageTO: MessageTO) {
+    console.log("successMessageCallBack : " + messageTO.serviceMethodName);
+    if (messageTO.serviceMethodName == "searchAndAddStudent()") this.studentFormGroup.reset();
 
-    if(messageTO.serviceMethodName=="updateStudentProfile()")
-      this.popupstatus="1";
+    if (messageTO.serviceMethodName == "updateStudentProfile()") this.popupstatus = "1";
     this.sucessMessage = messageTO.messageInfo;
     if (messageTO.messageInfo.length != 0) {
       this.active = "1";
@@ -355,13 +345,13 @@ export class StudentComponent implements OnInit, StudentComponentInterface {
    *
    * @param message
    */
-  errorMessageCallBack(messageTO:MessageTO) {
-    console.log("errorMessageCallBack ==>" + messageTO.messageInfo+"  "+ messageTO.messageType+"  "+messageTO.serviceClassName+"  "+messageTO.serviceMethodName);
+  errorMessageCallBack(messageTO: MessageTO) {
+    console.log("errorMessageCallBack ==>" + messageTO.messageInfo + "  " + messageTO.messageType + "  " + messageTO.serviceClassName + "  " + messageTO.serviceMethodName);
     //TODO Shiva - commented  to compile the code. Please fix it.
     this.errorMessage = messageTO.messageInfo;
     //this.schoolFormGroup.reset();
     this.updateMessage(this.errorMessage);
-  //  this.getRouter().navigate(['/School']);
+    //  this.getRouter().navigate(['/School']);
     if (messageTO.messageInfo.length != 0) {
       this.active = "2";
     } else {
@@ -389,6 +379,9 @@ export class StudentComponent implements OnInit, StudentComponentInterface {
    */
   getStudent(schoolId: string, studentId: string) {
     this.studentConverter.getStudent(schoolId, studentId, this);
+
+    this.getPhoto(schoolId, studentId);
+
   }
 
 
@@ -405,7 +398,7 @@ export class StudentComponent implements OnInit, StudentComponentInterface {
   show_addStudentFields() {
     this.div_Element_Id = "1";
 
-   // this.dtTrigger.complete();
+    // this.dtTrigger.complete();
   }
 
   getselectedStudentProfile() {
@@ -418,7 +411,7 @@ export class StudentComponent implements OnInit, StudentComponentInterface {
 
   viewSingleStudentProfile() {
     this.div_Element_Id = "3";
-   // this.dtTrigger.complete();
+    // this.dtTrigger.complete();
     this.getStudentProfile(localStorage.getItem('schoolid'), this.selectedStudentArray[0]);
   }
 
@@ -435,95 +428,111 @@ export class StudentComponent implements OnInit, StudentComponentInterface {
   }
 
   rerender(): void {
-    console.log("render call "+this.flag);
-    if(!this.flag && this.dtElement!=null) {
-      this.flag=true;
+    console.log("render call " + this.flag);
+    if (!this.flag && this.dtElement != null) {
+      this.flag = true;
       this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
         // Destroy the table first
         dtInstance.destroy();
         // Call the dtTrigger to rerender again
         console.log("shiva");
         this.dtTrigger.next();
-        this.flag=false;
+        this.flag = false;
       });
     }
   }
 
 
-
   initPhoneNumbers() {
     return this.fb.group({
-        // list all your form controls here, which belongs to your form array
-        mobileNumber: ['']
+      // list all your form controls here, which belongs to your form array
+      mobileNumber: ['']
     });
-}
+  }
 
 
-addPhoneNumber() {
-  // control refers to your formarray
-  const control = <FormArray>this.studentFormGroup.controls['mobileNumbers'];
-  // add new formgroup
+  addPhoneNumber() {
+    // control refers to your formarray
+    const control = <FormArray>this.studentFormGroup.controls['mobileNumbers'];
+    // add new formgroup
     control.push(this.initPhoneNumbers());
-}
+  }
 
 
-deletePhoneNumber(index: number) {
-  // control refers to your formarray
-  const control = <FormArray>this.studentFormGroup.controls['mobileNumbers'];
-  // remove the chosen row
-  control.removeAt(index);
-}
+  deletePhoneNumber(index: number) {
+    // control refers to your formarray
+    const control = <FormArray>this.studentFormGroup.controls['mobileNumbers'];
+    // remove the chosen row
+    control.removeAt(index);
+  }
 
 
-clearPhoneNumbers()
-{
- const control = <FormArray>this.studentFormGroup.controls['mobileNumbers'];
- for(var loop=0;loop<control.length;loop++)
-    this.deletePhoneNumber(loop);
-}
+  clearPhoneNumbers() {
+    const control = <FormArray>this.studentFormGroup.controls['mobileNumbers'];
+    for (var loop = 0; loop < control.length; loop++)
+      this.deletePhoneNumber(loop);
+  }
 
 
-
-addSiblings() {
-  const control = <FormArray>this.studentFormGroup.controls["siblings"];
-  control.push(this.initSiblings());
-}
-
+  addSiblings() {
+    const control = <FormArray>this.studentFormGroup.controls["siblings"];
+    control.push(this.initSiblings());
+  }
 
 
-initSiblings() {
-  return this.fb.group({
-    //keyInfo: [""], valueInfo: [""]
-    Name:[""]
-  });
-}
+  initSiblings() {
+    return this.fb.group({
+      //keyInfo: [""], valueInfo: [""]
+      Name: [""]
+    });
+  }
 
-deleteSiblings(index: number) {
-  // control refers to your formarray
-  const control = <FormArray>this.studentFormGroup.controls['siblings'];
-  // remove the chosen row
-  control.removeAt(index);
-}
+  deleteSiblings(index: number) {
+    // control refers to your formarray
+    const control = <FormArray>this.studentFormGroup.controls['siblings'];
+    // remove the chosen row
+    control.removeAt(index);
+  }
 
-clearSiblings()
-{
- const control = <FormArray>this.studentFormGroup.controls['siblings'];
- for(var loop=0;loop<control.length;loop++)
-    this.deletePhoneNumber(loop);
-}
-
+  clearSiblings() {
+    const control = <FormArray>this.studentFormGroup.controls['siblings'];
+    for (var loop = 0; loop < control.length; loop++)
+      this.deletePhoneNumber(loop);
+  }
 
 
-// initPhoneNumbers() {
-//   return this.fb.group({
-//     mobileNumber: [""]
-//   });
-// }
+  getPhoto(schoolId: string, studentId: string) {
 
+    console.log("Called getPhoto ");
 
-// addPhoneNumbers() {
-//   const control = <FormArray>this.studentFormGroup.controls["mobileNumbers"];
-//   control.push(this.initPhoneNumbers());
-// }
+    this.studentConverter.getPhoto(schoolId, studentId, this);
+
+  }
+
+  displayPhotoCallBack(url: string) {
+
+    //TODO Shiva display the Image using the URL
+
+    console.log("displayPhotoCallBack : Image URL " + url)
+  }
+
+  getPhotoWithURL(schoolId: string, photoURL: string) {
+
+    console.log("Called getPhotoWithURL ");
+
+    if (photoURL != null) {
+      this.studentConverter.getPhotoWithURL(schoolId, photoURL, this);
+    } else {
+      console.log("Called getPhotoWithURL UNDEFINED");
+    }
+  }
+
+  displayPhotoWithURLCallBack(url: string) {
+
+    //TODO Shiva display the Image using the URL
+
+    console.log("displayPhotoWithURLCallBack : Image URL " + url)
+  }
+
 
 }

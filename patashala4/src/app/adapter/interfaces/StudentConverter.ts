@@ -23,4 +23,9 @@ export interface StudentConverter {
 
   getAllClassesProfile(schoolid: string,studentComponentInterface: StudentComponentInterface);
 
+  getPhoto(schoolId: string, studentId: string, studentComponentInterface: StudentComponentInterface);
+
+  getPhotoWithURL(schoolId: string, photoURL: string, studentComponentInterface: StudentComponentInterface);
+
+
 }

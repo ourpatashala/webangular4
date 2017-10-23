@@ -207,4 +207,17 @@ export class StudentConverterImpl extends CommonConverter implements StudentConv
 
   }
 
+  getPhoto(schoolId: string, studentId: string, studentComponentInterface: StudentComponentInterface){
+
+    this.studentService.getPhoto(schoolId, studentId, studentComponentInterface);
+
+  }
+
+
+  getPhotoWithURL(schoolId: string, photoURL: string, studentComponentInterface: StudentComponentInterface){
+
+    this.studentService.getWithURLPhoto(schoolId, photoURL, studentComponentInterface);
+
+  }
+
 }

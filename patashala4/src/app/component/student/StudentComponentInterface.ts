@@ -22,6 +22,12 @@ export interface StudentComponentInterface extends  CommonInterface{
 
   displayAllClassesCallBack(classProfileTO:FirebaseListObservable<ClassProfileTO>);
 
+  displayPhotoCallBack(url : string);
+
+  displayPhotoWithURLCallBack(url : string);
+
+
+
 
 }
 

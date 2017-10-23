@@ -44,7 +44,8 @@ export class StudentTO {
       "firstName : " + this.firstName + "\n" +
       "mobilenumbers : " + this.mobileNumbers + "\n" +
       "siblings : " + this.siblings + "\n" +
-      "lastName : " + this.lastName + "\n";
+      "lastName : " + this.lastName + "\n" +
+      "profilePhotoUrl : " + this.profilePhotoUrl + "\n"  ;
   }
 
 

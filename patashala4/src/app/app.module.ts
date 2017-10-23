@@ -24,6 +24,10 @@ import { StudentComponent } from './component/student/student.component';
 import { HeaderComponent } from './component/header/header.component';
 import { TabServiceComponent } from './component/tab-service/tab-service.component';
 import { TabManageComponent } from './component/tab-manage/tab-manage.component';
+import {FormUploadComponent} from './component/form-upload/form-upload.component';
+import {UploadFileService} from './service/upload-file.service';
+
+
 
 export const firebaseConfig = {     apiKey: 'AIzaSyB6WeGfORqOzz5jT_XL6GLMCl8zeQqORHU',     authDomain: 'devpatashala-4e257.firebaseapp.com',     databaseURL: 'https://devpatashala-4e257.firebaseio.com',     storageBucket: 'devpatashala-4e257.appspot.com',     messagingSenderId: '857631726201' };
 
@@ -41,7 +45,8 @@ export const firebaseConfig = {     apiKey: 'AIzaSyB6WeGfORqOzz5jT_XL6GLMCl8ze
     StudentComponent,
     HeaderComponent,
     TabServiceComponent,
-    TabManageComponent
+    TabManageComponent,
+    FormUploadComponent
   ],
   imports: [
     BrowserModule,
@@ -51,9 +56,11 @@ export const firebaseConfig = {     apiKey: 'AIzaSyB6WeGfORqOzz5jT_XL6GLMCl8ze
     AngularFireModule.initializeApp(firebaseConfig),
     routing,
     AngularFireDatabaseModule,
-    AngularFireAuthModule    
+    AngularFireAuthModule
   ],
-  providers: [AppConstants,ErrorService,PathUtil,LoginService],
+
+
+  providers: [AppConstants,ErrorService,PathUtil,LoginService, UploadFileService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
