@@ -45,6 +45,7 @@ export class StudentComponent implements OnInit, StudentComponentInterface {
   dtTrigger: Subject<any> = new Subject();
   dtInstance: DataTables.Api;
   flag: boolean = false;
+  showClassSelection:boolean = false;
   active: string = "0";// for error and success divs;;  0 for no content, 1 for success, 2 for error
   div_Element_Id: string = "0";//for multiple pages in school list page;;  0 to show list of school , 1 to show add school, 2 to show edit school, 3 to show single school view.
   fb: FormBuilder;
@@ -384,6 +385,10 @@ export class StudentComponent implements OnInit, StudentComponentInterface {
 
   }
 
+  showClassPopup()
+  {
+    this.showClassSelection=true;
+  }
 
   showStudentsList() {
     if (this.selectedStudentArray.length > 0) (<HTMLInputElement>document.getElementById(this.selectedStudentArray[0])).checked = false;

@@ -231,11 +231,12 @@ export class SchoolComponent implements OnInit, SchoolComponentInterface {
 
   }
 
-  redirecttoschooldashboard(schoolId: string)
+  redirecttoschooldashboard(schoolId: string, schoolName:string)
   {
     console.log("selected school id "+schoolId);
     console.log("old "+ localStorage.getItem('schoolid'));
     localStorage.setItem('schoolid',schoolId);
+    localStorage.setItem('schoolName',schoolName);
     console.log("New "+ localStorage.getItem('schoolid'));
     this.getRouter().navigate(['/TabService']);
 

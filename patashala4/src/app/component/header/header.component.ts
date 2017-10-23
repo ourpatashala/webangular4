@@ -6,9 +6,16 @@ declare var $:any;
   styleUrls: ['./header.component.css'],
 })
 
+
 export class HeaderComponent implements OnInit {
 
-  constructor() { }
+schoolName :string;
+
+
+  constructor() {
+    console.log("Header "+ localStorage.getItem('schoolName'));
+    this.schoolName = localStorage.getItem('schoolName');    
+   }
 
   ngOnInit() {
 

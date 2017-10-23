@@ -894,6 +894,25 @@ display: block;
     border-radius: 15px;
     overflow: hidden;
 }
+.class_search
+{
+  position: fixed;    
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%,-50%);
+     -moz-transform: translate(-50%,-50%);
+      -ms-transform: translate(-50%,-50%);
+       -o-transform: translate(-50%,-50%);
+          transform: translate(-50%,-50%);
+  padding: 50px 0 0;
+  background-color: #fff;
+  box-shadow: 1px 1px 4px #4d4d4d;
+  z-index: 100;
+  width: 500px;
+  text-align: center;
+  border-radius: 15px;
+  overflow: hidden;
+}
 .my_table_width thead tr th
 {
     text-align: center;

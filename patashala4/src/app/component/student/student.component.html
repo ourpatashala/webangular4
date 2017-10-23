@@ -9,6 +9,23 @@
   <button class="update_btn popup_ok_btn" (click)="closePopup()">Ok</button>
 </div>
 
+<div class="class_search hideblock " [ngClass]="{'showblock': showClassSelection==true}">
+    <table datatable [dtOptions]="dtOptions"  [dtTrigger]="dtTrigger" class="my_table_width" >
+        <thead>
+            <tr><th>Class Name</th></tr>
+        </thead>
+        <tbody>
+            <tr><td>1st Class</td></tr>
+            <tr><td>2nd Class</td></tr>
+            <tr><td>3rd Class</td></tr>
+            <tr><td>4th Class</td></tr>
+            <tr><td>1st Class</td></tr>
+            <tr><td>1st Class</td></tr>
+            <tr><td>1st Class</td></tr>
+        </tbody>
+    </table>
+</div>
+
 
 <div class="brow_img_popup text-center">
   <h3>Change Profile Picture</h3>
@@ -90,15 +107,9 @@
             <div class="col-md-8"><input type="text" placeholder="Enter Father Name" formControlName="fatherName" maxlength="50"></div><div class="clear"></div>
             <div class="col-md-4 text-right"><p>Mother Name</p></div>
             <div class="col-md-8"><input type="text" placeholder="Enter Mother Name" formControlName="motherName" maxlength="100"></div><div class="clear"></div>
-            <div class="col-md-4 text-right"><p>Class</p></div><div class="col-md-8">
-                <select formControlName="classId">
-                    <option value="">Select Class</option>
-                    <option value="Class1">Class1</option>
-                    <option value="Class2">Class2</option>
-                    <option value="Class3">Class3</option>
-                    <option value="Class4">Class4</option>
-                    <option value="Class5">Class5</option>
-                </select>
+            <div class="col-md-4 text-right"><p>Class</p></div><div class="col-md-8 plus_btn_inline">
+                    <i class="fa fa-search" (click)="showClassPopup()"></i> 
+                    <input formControlName="classId" value="" class="form-control">
             </div><div class="clear"></div>
 
             <div class="col-md-4 text-right">Mobile</div>
