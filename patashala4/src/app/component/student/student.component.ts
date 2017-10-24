@@ -30,13 +30,16 @@ import {ClassProfileTO} from "../../to/ClassProfileTO";
 })
 
 export class StudentComponent implements OnInit, StudentComponentInterface {
+  className: any;
 
+  
   selectedStudentArray: Array<any> = [];
   errorMessage: string;
   sucessMessage: string;
   subscription: Subscription;
   message: string = '';
   studentProfileTOList: FirebaseListObservable<StudentTO>;
+  classProfileTOList: FirebaseListObservable<ClassProfileTO>;
   studentTO: StudentTO;
   studentFormGroup: FormGroup;
   @ViewChild(DataTableDirective) dtElement: DataTableDirective;
@@ -167,9 +170,9 @@ export class StudentComponent implements OnInit, StudentComponentInterface {
       this.errorMessage = "Please enter " + field_name;
       this.active = "2";
     } else {
-
+      console.log("add school "+value.mobileNumbers.length);
       this.studentTO = value;
-
+      console.log("adding school class id"+value.classId);
       this.studentConverter.addStudentProfile(this.studentTO.schoolId, this.studentTO, this);
     }
 
@@ -205,7 +208,8 @@ export class StudentComponent implements OnInit, StudentComponentInterface {
       this.errorMessage = "Please enter " + field_name;
       this.active = "2";
     } else {
-
+      console.log("modify school "+value.mobileNumbers.length);
+      
       this.studentTO = value;
       console.log(value);
       this.studentConverter.updateStudent(localStorage.getItem('schoolid'), this.studentTO, this);
@@ -238,35 +242,36 @@ export class StudentComponent implements OnInit, StudentComponentInterface {
     console.log("displayStudentCallBack..id " + studentTO.id);
     console.log("displayStudentCallBack..firstName " + studentTO.firstName);
     this.studentTO = studentTO;
-
-    this.studentTO = studentTO;
     this.studentFormGroup.controls['id'].patchValue(studentTO.id);
     this.studentFormGroup.controls['firstName'].patchValue(studentTO.firstName);
     this.studentFormGroup.controls['lastName'].patchValue(studentTO.lastName);
     this.studentFormGroup.controls['middleName'].patchValue(studentTO.middleName);
     this.clearPhoneNumbers();
-
-
-    if (studentTO.mobileNumbers != null) {'' +
-
-    console.log(studentTO.mobileNumbers.length);
-
+    this.clearPhoneNumbers();    
+    console.log("displayStudentCallBack "+studentTO.mobileNumbers.length);
+    if (studentTO.mobileNumbers != null) {
+      console.log(studentTO.mobileNumbers.length);
       for (var loopvar = 0; loopvar < studentTO.mobileNumbers.length; loopvar++) {
         this.addPhoneNumber();
       }
-
       this.studentFormGroup.controls['mobileNumbers'].patchValue(studentTO.mobileNumbers);
     }
+    if(studentTO.mobileNumbers== null|| studentTO.mobileNumbers.length==0)
+      this.addPhoneNumber();
 
 
     this.clearSiblings();
-    if (studentTO.mobileNumbers != null) {
+    this.clearSiblings();
+    if (studentTO.siblings != null) {
       console.log(studentTO.siblings.length);
       for (var loopvar = 0; loopvar < studentTO.siblings.length; loopvar++) {
         this.addSiblings();
       }
       this.studentFormGroup.controls['siblings'].patchValue(studentTO.siblings);
     }
+
+    if(studentTO.siblings==null || studentTO.siblings.length==0)
+      this.addSiblings();
 
     this.studentFormGroup.controls['gender'].patchValue(studentTO.gender);
     this.studentFormGroup.controls['landLine'].patchValue(studentTO.landLine);
@@ -280,7 +285,7 @@ export class StudentComponent implements OnInit, StudentComponentInterface {
     this.studentFormGroup.controls['dateOfBirth'].patchValue(studentTO.dateOfBirth);
     this.studentFormGroup.controls['fatherName'].patchValue(studentTO.fatherName);
     this.studentFormGroup.controls['motherName'].patchValue(studentTO.motherName);
-    //this.studentFormGroup.controls['rollNo'].patchValue(studentTO.rollNo);
+    this.studentFormGroup.controls['rollNo'].patchValue(studentTO.rollNo);
     this.studentFormGroup.controls['classId'].patchValue(studentTO.classId);
     //this.dtTrigger.complete();
 
@@ -304,10 +309,17 @@ export class StudentComponent implements OnInit, StudentComponentInterface {
 
 
   }
-
+getClassId(classNames)
+{
+  console.log(classNames);
+  
+  this.className=classNames;
+  this.studentFormGroup.controls['classId'].patchValue(classNames);
+  
+}
 
   displayAllClassesCallBack(classProfileTO: FirebaseListObservable<ClassProfileTO>) {
-
+    this.classProfileTOList=classProfileTO;
     classProfileTO.forEach(classsProfileTO => {
       console.log('class Profile:', classsProfileTO);
     });
@@ -318,6 +330,7 @@ export class StudentComponent implements OnInit, StudentComponentInterface {
     this.sucessMessage = "";
     this.active = "0";
     if (this.popupstatus == "1") this.showStudentsList();
+    this.showClassSelection=false;
 
   }
 
@@ -387,6 +400,7 @@ export class StudentComponent implements OnInit, StudentComponentInterface {
 
   showClassPopup()
   {
+    this.getAllClassesProfile(localStorage.getItem('schoolid'))
     this.showClassSelection=true;
   }
 
@@ -502,7 +516,7 @@ export class StudentComponent implements OnInit, StudentComponentInterface {
   clearSiblings() {
     const control = <FormArray>this.studentFormGroup.controls['siblings'];
     for (var loop = 0; loop < control.length; loop++)
-      this.deletePhoneNumber(loop);
+      this.deleteSiblings(loop);
   }
 
 

@@ -268,8 +268,7 @@
             <td>{{schoolProfileTO.schoolName}}</td>
             <td>{{schoolProfileTO.city}}</td>
             <td>{{schoolProfileTO.contactNumber}}</td>
-            <td>
-                {{schoolProfileTO.active}}
+            <td> {{ (schoolProfileTO.active) ?  'Active' :'Inactive' }} 
 
                <!-- <div id="toggles">
                     <input type="checkbox" name="checkbox1" id="checkbox1" formControlName="active" class="ios-toggle" checked>

@@ -194,8 +194,8 @@ table tbody tr:nth-child(odd)
 }
 .dataTables_wrapper
 {
-  overflow: hidden;
-  overflow-x: scroll;
+  /* overflow: hidden;
+  overflow-x: scroll; */
 }
 .mat-checkbox-checked.mat-accent .mat-checkbox-background, .mat-checkbox-indeterminate.mat-accent .mat-checkbox-background
 {
@@ -908,7 +908,7 @@ display: block;
   background-color: #fff;
   box-shadow: 1px 1px 4px #4d4d4d;
   z-index: 100;
-  width: 500px;
+  width: 300px;
   text-align: center;
   border-radius: 15px;
   overflow: hidden;
@@ -945,4 +945,18 @@ display: block;
 {
   width: 100%;
   padding: 12px 28px;
+}
+
+.search_class_table_ui
+{
+  width: 256px !important;
+}
+.class_search .dataTables_length, .class_search .dataTables_info , .class_search .dataTables_paginate 
+{
+  display: none
+}
+.class_search .dataTables_filter
+{
+  float: none;
+  text-align: center;
 }

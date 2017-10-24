@@ -201,7 +201,7 @@ export class SchoolComponent implements OnInit, SchoolComponentInterface {
       this.active = "2";
     }
     else {
-     console.log(value.active);
+     console.log(" Toggle status "+value.active);
       this.schoolProfileTO = value;
       this.schoolConverter.addSchoolProfile(this.schoolProfileTO, this);
 

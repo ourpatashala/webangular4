@@ -10,20 +10,32 @@
 </div>
 
 <div class="class_search hideblock " [ngClass]="{'showblock': showClassSelection==true}">
-    <table datatable [dtOptions]="dtOptions"  [dtTrigger]="dtTrigger" class="my_table_width" >
+    <table datatable [dtOptions]="dtOptions"  [dtTrigger]="dtTrigger" class="my_table_width search_class_table_ui" >
         <thead>
             <tr><th>Class Name</th></tr>
         </thead>
         <tbody>
-            <tr><td>1st Class</td></tr>
-            <tr><td>2nd Class</td></tr>
-            <tr><td>3rd Class</td></tr>
-            <tr><td>4th Class</td></tr>
-            <tr><td>1st Class</td></tr>
-            <tr><td>1st Class</td></tr>
-            <tr><td>1st Class</td></tr>
+
+
+                
+
+                <tr *ngFor="let classProfileTO of classProfileTOList ; let i=index ">
+                        <td (click)="getClassId($event.target.innerText)"> {{classProfileTO}} </td>
+                  </tr>
+            <tr><td (click)="getClassId($event.target.innerText)">0001</td></tr>
+            <tr><td (click)="getClassId($event.target.innerText)">0002</td></tr> 
+            <tr><td (click)="getClassId($event.target.innerText)">0003</td></tr>
+            <tr><td (click)="getClassId($event.target.innerText)">0004</td></tr> 
+            <tr><td (click)="getClassId($event.target.innerText)">0005</td></tr>
+            <tr><td (click)="getClassId($event.target.innerText)">0006</td></tr> 
+            <tr><td (click)="getClassId($event.target.innerText)">0007</td></tr>
+            <tr><td (click)="getClassId($event.target.innerText)">0008</td></tr> 
+            <tr><td (click)="getClassId($event.target.innerText)">0009</td></tr>
+            <tr><td (click)="getClassId($event.target.innerText)">0010</td></tr> 
         </tbody>
     </table>
+    <div class="little_gap"></div>
+    <button class="update_btn popup_ok_btn" (click)="closePopup()">Ok</button>
 </div>
 
 
@@ -109,7 +121,7 @@
             <div class="col-md-8"><input type="text" placeholder="Enter Mother Name" formControlName="motherName" maxlength="100"></div><div class="clear"></div>
             <div class="col-md-4 text-right"><p>Class</p></div><div class="col-md-8 plus_btn_inline">
                     <i class="fa fa-search" (click)="showClassPopup()"></i> 
-                    <input formControlName="classId" value="" class="form-control">
+                    <input formControlName="classId" value="{{className}}" class="form-control">
             </div><div class="clear"></div>
 
             <div class="col-md-4 text-right">Mobile</div>
@@ -220,16 +232,10 @@
             <div class="col-md-8"><input type="text" value="SMiddlename2" formControlName="fatherName" maxlength="50"></div><div class="clear"></div>
             <div class="col-md-4 text-right"><p>Mother Name</p></div>
             <div class="col-md-8"><input type="text" value="SMiddlename2" formControlName="motherName" maxlength="100"></div><div class="clear"></div>
-            <div class="col-md-4 text-right"><p>Class</p></div><div class="col-md-8">
-                <select formControlName="classId">
-                    <option value="">Select Class</option>
-                    <option value="Class1">Class1</option>
-                    <option value="Class2">Class2</option>
-                    <option value="Class3">Class3</option>
-                    <option value="Class4">Class4</option>
-                    <option value="Class5">Class5</option>
-                </select>
-            </div><div class="clear"></div>
+            <div class="col-md-4 text-right"><p>Class</p></div><div class="col-md-8 plus_btn_inline">
+                <i class="fa fa-search" (click)="showClassPopup()"></i> 
+                <input formControlName="classId" value="{{className}}" class="form-control">
+        </div><div class="clear"></div>
             <!-- <div class="col-md-4"><p>Class</p></div><div class="col-md-8"><input auto-complete [(ngModel)]="myData" [source]="appComponent.classes" placeholder="Search Class"/></div><div class="clear"></div> -->
             <div class="col-md-4 text-right"><p>Registered Mobile </p></div>
 
@@ -332,6 +338,7 @@
                     <img src="./assets/images/profile/2.jpg" alt="">
                     <div class="text_beside_img">
                         <p>Student Full Name: <span>{{studentTO.firstName}}, {{studentTO.middleName}}, {{studentTO.lastName}}</span></p>
+                        <p>Roll No: <span> {{ (studentTO.rollNo != null && studentTO.rollNo.length != 0) ?  studentTO.rollNo:'-' }}</span></p>
                         <p>Gender: <span> {{ (studentTO.gender != null && studentTO.gender.length != 0) ?  studentTO.gender:'-' }}</span></p>
                         <p>Blood Group: <span> {{ (studentTO.bloodGroup != null && studentTO.bloodGroup.length != 0) ?  studentTO.bloodGroup:'-' }} </span></p>
                         <p>Date of Birth: <span>  {{ (studentTO.dateOfBirth != null && studentTO.dateOfBirth.length != 0) ?  studentTO.dateOfBirth:'-' }} </span></p>
@@ -400,10 +407,10 @@
                     <td>{{studentProfileTO.firstName}}</td>
                     <td>{{studentProfileTO.lastName}}</td>
                     <td>{{studentProfileTO.middleName}}</td>
-                    <td></td>
+                    <td>{{studentProfileTO.classId}}</td>
                     <td>
                             <span *ngFor="let mobileNumber of studentProfileTO.mobileNumbers ; let i=index ">
-                                {{mobileNumber.mobileNumber}} ,
+                                {{mobileNumber.mobileNumber}}  {{ (studentProfileTO.mobileNumbers.length-1 == i) ?  '':',' }}
                             </span>
                     </td>
                   </tr>
