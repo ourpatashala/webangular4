@@ -10,28 +10,15 @@
 </div>
 
 <div class="class_search hideblock " [ngClass]="{'showblock': showClassSelection==true}">
-    <table datatable [dtOptions]="dtOptions"  [dtTrigger]="dtTrigger" class="my_table_width search_class_table_ui" >
+    <table datatable [dtOptions]="dtOptionsclass"  [dtTrigger]="dtTriggerclass" class="my_table_width search_class_table_ui" >
         <thead>
             <tr><th>Class Name</th></tr>
         </thead>
         <tbody>
-
-
-                
-
                 <tr *ngFor="let classProfileTO of classProfileTOList ; let i=index ">
-                        <td (click)="getClassId($event.target.innerText)"> {{classProfileTO}} </td>
-                  </tr>
-            <tr><td (click)="getClassId($event.target.innerText)">0001</td></tr>
-            <tr><td (click)="getClassId($event.target.innerText)">0002</td></tr> 
-            <tr><td (click)="getClassId($event.target.innerText)">0003</td></tr>
-            <tr><td (click)="getClassId($event.target.innerText)">0004</td></tr> 
-            <tr><td (click)="getClassId($event.target.innerText)">0005</td></tr>
-            <tr><td (click)="getClassId($event.target.innerText)">0006</td></tr> 
-            <tr><td (click)="getClassId($event.target.innerText)">0007</td></tr>
-            <tr><td (click)="getClassId($event.target.innerText)">0008</td></tr> 
-            <tr><td (click)="getClassId($event.target.innerText)">0009</td></tr>
-            <tr><td (click)="getClassId($event.target.innerText)">0010</td></tr> 
+                    <td (click)="getClassId(classProfileTO.id)"> {{classProfileTO.name}} </td>
+                </tr>
+            <!-- <tr><td (click)="getClassId($event.target.innerText)">0010</td></tr>  -->
         </tbody>
     </table>
     <div class="little_gap"></div>
@@ -198,7 +185,7 @@
                     <div class="browse_img_manual">
                           <input type="file" >
                           <div class="img_overlay">
-                          <img src="./assets/images/profile/default.jpg" class="img100">
+                          <img src="{{photourl}}" class="img100">
                           <p>Upload Photo</p>
                           </div>
                           </div>
@@ -306,7 +293,7 @@
                    <div class="browse_img_manual">
                           <input type="file">
                           <div class="img_overlay">
-                          <img src="./assets/images/profile/default.jpg" class="img100">
+                          <img src="{{photourl}}" class="img100">
                           <p>Upload Photo</p>
                           </div>
                           </div>
@@ -335,7 +322,7 @@
         <div class="student_details">
             <div class="col-md-6">
                 <div class="profile_image_div">
-                    <img src="./assets/images/profile/2.jpg" alt="">
+                    <img src="{{photourl}}" alt="">
                     <div class="text_beside_img">
                         <p>Student Full Name: <span>{{studentTO.firstName}}, {{studentTO.middleName}}, {{studentTO.lastName}}</span></p>
                         <p>Roll No: <span> {{ (studentTO.rollNo != null && studentTO.rollNo.length != 0) ?  studentTO.rollNo:'-' }}</span></p>

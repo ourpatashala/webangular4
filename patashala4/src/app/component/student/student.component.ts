@@ -44,9 +44,10 @@ export class StudentComponent implements OnInit, StudentComponentInterface {
   studentFormGroup: FormGroup;
   @ViewChild(DataTableDirective) dtElement: DataTableDirective;
   dtOptions: DataTables.Settings = {};
+  dtOptionsclass: DataTables.Settings = {};
   //dtTrigger = new Subject();
   dtTrigger: Subject<any> = new Subject();
-  dtInstance: DataTables.Api;
+  dtTriggerclass: Subject<any> = new Subject();
   flag: boolean = false;
   showClassSelection:boolean = false;
   active: string = "0";// for error and success divs;;  0 for no content, 1 for success, 2 for error
@@ -55,7 +56,7 @@ export class StudentComponent implements OnInit, StudentComponentInterface {
   @Input() inputArray: ArrayType[];
   updateSubject: BehaviorSubject<string> = new BehaviorSubject<string>(""); // Holds the error message
   popupstatus: string = "0"; //0 for default close //1 for close and show listing
-
+  photourl:string;
   update$: Observable<string> = this.updateSubject.asObservable(); // observer for the above message
   constructor(@Inject("StudentConverter") private studentConverter: StudentConverter, fb: FormBuilder, private injector: Injector, private router: Router, private errorService: ErrorService) {
     this.fb = fb;
@@ -64,14 +65,12 @@ export class StudentComponent implements OnInit, StudentComponentInterface {
     });
 
     this.studentTO = new StudentTO();
-
     var username = localStorage.getItem('userlogin');
     console.log("user logged in " + username);
     if (username == "" || username == "Undefined" || username == null) {
       this.router.navigate(['/']);
     }
     var selectedSchoolId = localStorage.getItem('schoolid');
-
     console.log("Selected School " + selectedSchoolId);
     if (selectedSchoolId == "" || selectedSchoolId == "Undefined" || selectedSchoolId == null) {
       this.router.navigate(['/School']);
@@ -86,7 +85,10 @@ export class StudentComponent implements OnInit, StudentComponentInterface {
   }
 
   ngAfterViewInit(): void {
+   // this.dtTriggerclass.next();
     this.dtTrigger.next();
+ //   this.rerender();
+    
   }
 
 
@@ -140,11 +142,9 @@ export class StudentComponent implements OnInit, StudentComponentInterface {
 
 
   getStudentProfile(schoolId: string, studentId: string) {
-
-    this.studentConverter.getStudent(schoolId, studentId, this);
-
+    localStorage.setItem('studentId',studentId);
     this.getPhoto(schoolId, studentId);
-
+    this.studentConverter.getStudent(schoolId, studentId, this);
   }
 
   addStudentProfile({value, valid}: { value: StudentTO, valid: boolean }) {
@@ -173,6 +173,7 @@ export class StudentComponent implements OnInit, StudentComponentInterface {
       console.log("add school "+value.mobileNumbers.length);
       this.studentTO = value;
       console.log("adding school class id"+value.classId);
+      console.log("add rollNo"+value.rollNo);
       this.studentConverter.addStudentProfile(this.studentTO.schoolId, this.studentTO, this);
     }
 
@@ -212,6 +213,7 @@ export class StudentComponent implements OnInit, StudentComponentInterface {
       
       this.studentTO = value;
       console.log(value);
+      console.log("modified rollno"+value.rollNo);
       this.studentConverter.updateStudent(localStorage.getItem('schoolid'), this.studentTO, this);
     }
   }
@@ -300,22 +302,16 @@ export class StudentComponent implements OnInit, StudentComponentInterface {
     this.studentProfileTOList.forEach(schoolProfileTO => {
       console.log('Student Photo URL:', schoolProfileTO.profilePhotoUrl);
       console.log('Student Ojbect :', schoolProfileTO);
-
       this.getPhotoWithURL(schoolProfileTO.schoolId, schoolProfileTO.profilePhotoUrl);
-
     });
     console.log('Display all Students');
     this.rerender();
-
-
   }
 getClassId(classNames)
 {
   console.log(classNames);
-  
   this.className=classNames;
   this.studentFormGroup.controls['classId'].patchValue(classNames);
-  
 }
 
   displayAllClassesCallBack(classProfileTO: FirebaseListObservable<ClassProfileTO>) {
@@ -323,6 +319,7 @@ getClassId(classNames)
     classProfileTO.forEach(classsProfileTO => {
       console.log('class Profile:', classsProfileTO);
     });
+    //this.rerender();    
   }
 
 
@@ -331,14 +328,12 @@ getClassId(classNames)
     this.active = "0";
     if (this.popupstatus == "1") this.showStudentsList();
     this.showClassSelection=false;
-
   }
 
 
   successMessageCallBack(messageTO: MessageTO) {
     console.log("successMessageCallBack : " + messageTO.serviceMethodName);
     if (messageTO.serviceMethodName == "searchAndAddStudent()") this.studentFormGroup.reset();
-
     if (messageTO.serviceMethodName == "updateStudentProfile()") this.popupstatus = "1";
     this.sucessMessage = messageTO.messageInfo;
     if (messageTO.messageInfo.length != 0) {
@@ -392,9 +387,9 @@ getClassId(classNames)
    * @param schoolId
    */
   getStudent(schoolId: string, studentId: string) {
-    this.studentConverter.getStudent(schoolId, studentId, this);
 
     this.getPhoto(schoolId, studentId);
+    this.studentConverter.getStudent(schoolId, studentId, this);
 
   }
 
@@ -451,11 +446,21 @@ getClassId(classNames)
     if (!this.flag && this.dtElement != null) {
       this.flag = true;
       this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+        console.log("shiva 111");
         // Destroy the table first
         dtInstance.destroy();
         // Call the dtTrigger to rerender again
-        console.log("shiva");
-        this.dtTrigger.next();
+        console.log("shiva 222");
+        if(this.dtTrigger!=null)
+          this.dtTrigger.next();
+        else
+          console.log("error as null");
+
+        if(this.dtTriggerclass!=null)
+          this.dtTriggerclass.next();
+        else
+          console.log("error as null dtTriggerclass");
+
         this.flag = false;
       });
     }
@@ -531,8 +536,8 @@ getClassId(classNames)
   displayPhotoCallBack(url: string) {
 
     //TODO Shiva display the Image using the URL
-
-    console.log("displayPhotoCallBack : Image URL " + url)
+    this.photourl=url;
+    console.log("displayPhotoCallBack : Image URL " + url);
   }
 
   getPhotoWithURL(schoolId: string, photoURL: string) {
@@ -549,7 +554,7 @@ getClassId(classNames)
   displayPhotoWithURLCallBack(url: string) {
 
     //TODO Shiva display the Image using the URL
-
+    this.photourl=url;
     console.log("displayPhotoWithURLCallBack : Image URL " + url)
   }
 
