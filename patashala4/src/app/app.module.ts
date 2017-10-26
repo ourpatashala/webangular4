@@ -6,6 +6,7 @@ import { SchoolComponent } from './component/school/school.component';
 import { Routes, RouterModule } from "@angular/router";
 import { routing } from './app.routing';
 import { AngularFireModule } from 'angularfire2';
+//import { DatePickerModule } from 'angular-io-datepicker';
 
 // New imports to update based on AngularFire2 version 4
 import { AngularFireDatabaseModule } from 'angularfire2/database';
@@ -47,12 +48,13 @@ export const firebaseConfig = {     apiKey: 'AIzaSyB6WeGfORqOzz5jT_XL6GLMCl8ze
     TabServiceComponent,
     TabManageComponent,
     FormUploadComponent
-  ],
+   ],
   imports: [
     BrowserModule,
     FormsModule,
     DataTablesModule,
     ReactiveFormsModule,
+   // DatePickerModule,
     AngularFireModule.initializeApp(firebaseConfig),
     routing,
     AngularFireDatabaseModule,

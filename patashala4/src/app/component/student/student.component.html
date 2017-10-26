@@ -15,10 +15,10 @@
             <tr><th>Class Name</th></tr>
         </thead>
         <tbody>
-                <tr *ngFor="let classProfileTO of classProfileTOList ; let i=index ">
-                    <td (click)="getClassId(classProfileTO.id)"> {{classProfileTO.name}} </td>
-                </tr>
-            <!-- <tr><td (click)="getClassId($event.target.innerText)">0010</td></tr>  -->
+            <tr *ngFor="let classProfileTO of classProfileTOList ; let i=index ">
+                <td (click)="getClassId(classProfileTO.id)"> {{classProfileTO.name}} </td>
+            </tr>
+            <tr><td (click)="getClassId($event.target.innerText)">testclass</td></tr>
         </tbody>
     </table>
     <div class="little_gap"></div>
@@ -79,16 +79,16 @@
 
 <div class="add_fields addschool_div inactive_div"  [ngClass]="{'inactive_div': div_Element_Id !='1'}">
 
+    
 
 
 
 
 
 
-
-
-    <form [formGroup]="studentFormGroup" (ngSubmit)="addStudentProfile(studentFormGroup)" ngNativeValidate>
-    <div class="col-md-9 padding0">
+    <form  [formGroup]="studentFormGroup" (ngSubmit)="addStudentProfile(studentFormGroup)" ngNativeValidate>
+ 
+    <div class="col-md-12 padding0">
         <div class="col-md-6">
             <div class="col-md-4 text-right"><p>First Name</p></div>
             <div class="col-md-8"><input type="text" placeholder="Enter First Name" formControlName="firstName" maxlength="50"></div>
@@ -173,13 +173,15 @@
             <div class="col-md-4 text-right"><p>Blood Group</p></div>
             <div class="col-md-8"><input type="text" placeholder="Enter Blood Group" formControlName="bloodGroup" maxlength="10"></div><div class="clear"></div>
             <div class="col-md-4 text-right"><p>Date Of Birth</p></div>
-            <div class="col-md-8"><input type="text" class="datePicker" placeholder="dd-mmm-yyyy" formControlName="dateOfBirth"></div><div class="clear"></div>
+            <div class="col-md-8">    
+                <!-- <date-picker ngModel name="date" formControlName="dateOfBirth"></date-picker> -->
+              </div><div class="clear"></div>
         </div>
 
 
         <div class="little_gap"></div>
     </div>
-    <div class="col-md-3 text-center">
+    <!-- <div class="col-md-3 text-center">
         <div class="large_gap"></div>
               <p class="text-left">Photo</p>
                     <div class="browse_img_manual">
@@ -192,7 +194,7 @@
                 <div class="clear"></div>
                 <div class="little_gap"></div>
 
-    </div>
+    </div> -->
     <div class="clear"></div>
 
 <div class="little_gap"></div>
@@ -203,7 +205,8 @@
 
 
 <div class="modify_fields addschool_div inactive_div" [ngClass]="{'inactive_div': div_Element_Id !='2'}">
-    <form [formGroup]="studentFormGroup" (ngSubmit)="updateStudent(studentFormGroup)" ngNativeValidate>
+    <form  [formGroup]="studentFormGroup" (ngSubmit)="updateStudent(studentFormGroup)" ngNativeValidate>
+           
     <div class="col-md-9">
         <div class="col-md-6">
             <div class="col-md-4 text-right"><p>First Name</p></div>
@@ -282,7 +285,11 @@
             <div class="col-md-4 text-right"><p>Blood Group</p></div>
             <div class="col-md-8"><input type="text" value="A +" formControlName="bloodGroup" maxlength="10"></div><div class="clear"></div>
             <div class="col-md-4 text-right"><p>Date of Birth</p></div>
-            <div class="col-md-8"><input type="text" class="datePicker" value="dd-mmm-yyyy" formControlName="dateOfBirth"></div><div class="clear"></div>
+            <div class="col-md-8">
+                   <!-- <date-picker ngModel name="date" formControlName="dateOfBirth"></date-picker>  -->
+                 </div><div class="clear"></div>
+
+
         </div>
 
        <div class="clear"></div>
@@ -293,16 +300,23 @@
                    <div class="browse_img_manual">
                           <input type="file">
                           <div class="img_overlay">
-                          <img src="{{photourl}}" class="img100">
-                          <p>Upload Photo</p>
+                          <img src="{{uploadPhoto}}" class="img100">
+                          <p onclick="document.getElementById('input').click()">Upload Photo</p>
+                          
                           </div>
                           </div>
                 <div class="clear"></div>
                 <div class="little_gap"></div>
 
       <div>
-        <form-upload></form-upload>
-      </div>
+        <div *ngIf="currentFileUpload" class="progress" style="width:400px">
+            <div class="progress-bar progress-bar-info progress-bar-striped" role="progressbar" attr.aria-valuenow="{{progress.percentage}}" aria-valuemin="0" aria-valuemax="100" [ngStyle]="{width:progress.percentage+'%'}"> {{progress.percentage}}%</div>
+        </div>
+        
+        <label class="btn btn-default"> <input type="file" id="input" (change)="selectFile($event)"> </label>
+        <span class="btn btn-success"  (click)="upload('school01','studentTest01')">Upload</span>
+        
+      </div><!--[disabled]="!selectedFiles"-->
 
     </div>
 <div class="clear"></div>
@@ -322,7 +336,7 @@
         <div class="student_details">
             <div class="col-md-6">
                 <div class="profile_image_div">
-                    <img src="{{photourl}}" alt="">
+                    <img src="{{uploadPhoto}}" alt="">
                     <div class="text_beside_img">
                         <p>Student Full Name: <span>{{studentTO.firstName}}, {{studentTO.middleName}}, {{studentTO.lastName}}</span></p>
                         <p>Roll No: <span> {{ (studentTO.rollNo != null && studentTO.rollNo.length != 0) ?  studentTO.rollNo:'-' }}</span></p>
@@ -372,7 +386,8 @@
 
 
             <table datatable [dtOptions]="dtOptions"  [dtTrigger]="dtTrigger" class="my_table_width" >
-            <thead>
+           <!-- <table  class="my_table_width" > -->
+                <thead>
                 <tr>
                     <th>S.no</th>
                     <th></th>
@@ -390,7 +405,7 @@
                    <!-- <td><input type="checkbox" value="{{schoolProfileTO.schoolId}}"  (change)="updateCheckedOptions(schoolProfileTO.schoolId,$this.checkbox.state)"></td> -->
                    <td>{{i + 1}}</td>
                     <td><input type="checkbox" id="{{studentProfileTO.id}}" value="{{studentProfileTO.id}}" (change)="checkedStudents(studentProfileTO.id)" ></td>
-                    <td></td>
+                    <td> <img src="{{studentProfileTO.profilePhotoUrl}}" alt=""></td>
                     <td>{{studentProfileTO.firstName}}</td>
                     <td>{{studentProfileTO.lastName}}</td>
                     <td>{{studentProfileTO.middleName}}</td>

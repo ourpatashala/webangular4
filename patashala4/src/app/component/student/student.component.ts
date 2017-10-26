@@ -20,7 +20,8 @@ import {DataTableDirective} from 'angular-datatables';
 import {MessageTO} from "../../to/MessageTO";
 import {ClassProfileVO} from "../../vo/ClassProfileVO";
 import {ClassProfileTO} from "../../to/ClassProfileTO";
-
+import {UploadFileService} from '../../service/upload-file.service';
+import {FileUpload} from '../../service/fileupload';
 
 @Component({
   selector: 'app-student',
@@ -33,6 +34,12 @@ export class StudentComponent implements OnInit, StudentComponentInterface {
   className: any;
 
 
+  selectedFiles: FileList
+  currentFileUpload: FileUpload
+  progress: {percentage: number} = {percentage: 0}
+
+
+
   selectedStudentArray: Array<any> = [];
   errorMessage: string;
   sucessMessage: string;
@@ -42,7 +49,10 @@ export class StudentComponent implements OnInit, StudentComponentInterface {
   classProfileTOList: FirebaseListObservable<ClassProfileTO>;
   studentTO: StudentTO;
   studentFormGroup: FormGroup;
-  @ViewChild(DataTableDirective) dtElement: DataTableDirective;
+
+  dtElement: DataTableDirective;
+ // dtElementclass: DataTableDirective;
+  
   dtOptions: DataTables.Settings = {};
   dtOptionsclass: DataTables.Settings = {};
   //dtTrigger = new Subject();
@@ -56,9 +66,8 @@ export class StudentComponent implements OnInit, StudentComponentInterface {
   @Input() inputArray: ArrayType[];
   updateSubject: BehaviorSubject<string> = new BehaviorSubject<string>(""); // Holds the error message
   popupstatus: string = "0"; //0 for default close //1 for close and show listing
-  photourl:string;
   update$: Observable<string> = this.updateSubject.asObservable(); // observer for the above message
-  constructor(@Inject("StudentConverter") private studentConverter: StudentConverter, fb: FormBuilder, private injector: Injector, private router: Router, private errorService: ErrorService) {
+  constructor(@Inject("StudentConverter") private studentConverter: StudentConverter, fb: FormBuilder, private injector: Injector, private router: Router, private errorService: ErrorService, private uploadService: UploadFileService) {
     this.fb = fb;
     this.subscription = this.update$.subscribe(message => {
       this.message = message;
@@ -75,20 +84,12 @@ export class StudentComponent implements OnInit, StudentComponentInterface {
     if (selectedSchoolId == "" || selectedSchoolId == "Undefined" || selectedSchoolId == null) {
       this.router.navigate(['/School']);
     }
-
-
-    //this.getAllStudents("-KuCWQEmwl1MsTD0SPdb");
-    //this.getStudentProfile("school04", "-KuCWQEmwl1MsTD0SPdb");
-    //this.dtTrigger.complete();
-    //this.dtTrigger.next();
     this.getAllStudents(localStorage.getItem('schoolid'));
   }
 
   ngAfterViewInit(): void {
-   // this.dtTriggerclass.next();
+    this.dtTriggerclass.next();
     this.dtTrigger.next();
- //   this.rerender();
-
   }
 
 
@@ -173,8 +174,9 @@ export class StudentComponent implements OnInit, StudentComponentInterface {
       console.log("add school "+value.mobileNumbers.length);
       this.studentTO = value;
       console.log("adding school class id"+value.classId);
+      console.log("dATEoFbIRTH"+value.dateOfBirth);
       console.log("add rollNo"+value.rollNo);
-      this.studentConverter.addStudentProfile(this.studentTO.schoolId, this.studentTO, this);
+       this.studentConverter.addStudentProfile(this.studentTO.schoolId, this.studentTO, this);
     }
 
 
@@ -210,10 +212,11 @@ export class StudentComponent implements OnInit, StudentComponentInterface {
       this.active = "2";
     } else {
       console.log("modify school "+value.mobileNumbers.length);
-
+      this.upload();
       this.studentTO = value;
       console.log(value);
       console.log("modified rollno"+value.rollNo);
+      console.log("dATEoFbIRTH"+value.dateOfBirth);
       this.studentConverter.updateStudent(localStorage.getItem('schoolid'), this.studentTO, this);
     }
   }
@@ -230,6 +233,34 @@ export class StudentComponent implements OnInit, StudentComponentInterface {
     this.getAllStudents(localStorage.getItem('schoolid'));
 
   }
+
+
+
+
+
+
+
+
+  selectFile(event) {
+    this.selectedFiles = event.target.files;
+  }
+
+  //upload(schoolId:string, studentId:string)
+  upload() {
+    const file = this.selectedFiles.item(0)
+    this.currentFileUpload = new FileUpload(file);
+    console.log(localStorage.getItem('schoolid')+"    "+localStorage.getItem('studentId'));
+    this.uploadService.pushFileToStorage(localStorage.getItem('schoolid'),  localStorage.getItem('studentId'), this.currentFileUpload, this.progress)
+  }
+
+
+
+
+
+
+
+
+
 
 
   //
@@ -250,7 +281,7 @@ export class StudentComponent implements OnInit, StudentComponentInterface {
     this.studentFormGroup.controls['middleName'].patchValue(studentTO.middleName);
     this.clearPhoneNumbers();
     this.clearPhoneNumbers();
-    console.log("displayStudentCallBack "+studentTO.mobileNumbers.length);
+//    console.log("displayStudentCallBack "+studentTO.mobileNumbers.length);
     if (studentTO.mobileNumbers != null) {
       console.log(studentTO.mobileNumbers.length);
       for (var loopvar = 0; loopvar < studentTO.mobileNumbers.length; loopvar++) {
@@ -284,7 +315,9 @@ export class StudentComponent implements OnInit, StudentComponentInterface {
     this.studentFormGroup.controls['country'].patchValue(studentTO.country);
     this.studentFormGroup.controls['pincode'].patchValue(studentTO.pincode);
     this.studentFormGroup.controls['bloodGroup'].patchValue(studentTO.bloodGroup);
+    console.log("date of birth received is "+studentTO.dateOfBirth);
     this.studentFormGroup.controls['dateOfBirth'].patchValue(studentTO.dateOfBirth);
+    this.studentFormGroup.controls['uploadPhoto'].patchValue(studentTO.profilePhotoUrl);
     this.studentFormGroup.controls['fatherName'].patchValue(studentTO.fatherName);
     this.studentFormGroup.controls['motherName'].patchValue(studentTO.motherName);
     this.studentFormGroup.controls['rollNo'].patchValue(studentTO.rollNo);
@@ -298,11 +331,12 @@ export class StudentComponent implements OnInit, StudentComponentInterface {
    * @param schoolProfileTO
    */
   displayAllStudentCallBack(studentTO: FirebaseListObservable<StudentTO>) {
+   // this.dtTrigger.complete();
     this.studentProfileTOList = studentTO;
     this.studentProfileTOList.forEach(schoolProfileTO => {
-      console.log('Student Photo URL:', schoolProfileTO.profilePhotoUrl);
-      console.log('Student Ojbect :', schoolProfileTO);
-      this.getPhotoWithURL(schoolProfileTO.schoolId, schoolProfileTO.profilePhotoUrl);
+     // console.log('Student Photo URL:', schoolProfileTO.profilePhotoUrl);
+     // console.log('Student Ojbect :', schoolProfileTO);
+      //this.getPhotoWithURL(schoolProfileTO.schoolId, schoolProfileTO.profilePhotoUrl);
     });
     console.log('Display all Students');
     this.rerender();
@@ -319,7 +353,7 @@ getClassId(classNames)
     classProfileTO.forEach(classsProfileTO => {
       console.log('class Profile:', classsProfileTO);
     });
-    //this.rerender();
+    this.rerender();
   }
 
 
@@ -388,7 +422,7 @@ getClassId(classNames)
    */
   getStudent(schoolId: string, studentId: string) {
 
-    this.getPhoto(schoolId, studentId);
+   // this.getPhoto(schoolId, studentId);
     this.studentConverter.getStudent(schoolId, studentId, this);
 
   }
@@ -400,6 +434,7 @@ getClassId(classNames)
   }
 
   showStudentsList() {
+
     if (this.selectedStudentArray.length > 0) (<HTMLInputElement>document.getElementById(this.selectedStudentArray[0])).checked = false;
     this.selectedStudentArray = [];
     this.div_Element_Id = "0";
@@ -410,8 +445,32 @@ getClassId(classNames)
   }
 
   show_addStudentFields() {
+    this.studentTO = new StudentTO();
+    this.studentFormGroup.controls['id'].patchValue("");
+    this.studentFormGroup.controls['firstName'].patchValue("");
+    this.studentFormGroup.controls['lastName'].patchValue("");
+    this.studentFormGroup.controls['middleName'].patchValue("");
+    this.studentFormGroup.controls['gender'].patchValue("");
+    this.studentFormGroup.controls['landLine'].patchValue("");
+    this.studentFormGroup.controls['addressOne'].patchValue("");
+    this.studentFormGroup.controls['addressTwo'].patchValue("");
+    this.studentFormGroup.controls['city'].patchValue("");
+    this.studentFormGroup.controls['state'].patchValue("");
+    this.studentFormGroup.controls['country'].patchValue("");
+    this.studentFormGroup.controls['pincode'].patchValue("");
+    this.studentFormGroup.controls['bloodGroup'].patchValue("");
+    this.studentFormGroup.controls['dateOfBirth'].patchValue("");
+    this.studentFormGroup.controls['uploadPhoto'].patchValue("");
+    this.studentFormGroup.controls['fatherName'].patchValue("");
+    this.studentFormGroup.controls['motherName'].patchValue("");
+    this.studentFormGroup.controls['rollNo'].patchValue("");
+    this.studentFormGroup.controls['classId'].patchValue("");
+    this.clearPhoneNumbers();
+    this.addPhoneNumber();
+    this.clearSiblings();
+    this.addSiblings();
     this.div_Element_Id = "1";
-
+    
     // this.dtTrigger.complete();
   }
 
@@ -446,7 +505,7 @@ getClassId(classNames)
     if (!this.flag && this.dtElement != null) {
       this.flag = true;
       this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
-        console.log("shiva 111");
+        console.log("shiva 111" +dtInstance);
         // Destroy the table first
         dtInstance.destroy();
         // Call the dtTrigger to rerender again
@@ -455,15 +514,36 @@ getClassId(classNames)
           this.dtTrigger.next();
         else
           console.log("error as null");
-
-        if(this.dtTriggerclass!=null)
-          this.dtTriggerclass.next();
-        else
-          console.log("error as null dtTriggerclass");
-
         this.flag = false;
       });
     }
+    console.log("`sdfsdfsdfsd` shiva "+this.dtElement.dtInstance);
+    // console.log("sdfsdfsdfsd shiva "+this.dtElementclass.dtInstance);
+    // if (this.dtElementclass != null) {
+    //   this.flag = true;
+    //   this.dtElementclass.dtInstance.then((dtInstanceclass: DataTables.Api) => {
+    //     console.log("shiva 111");
+    //     // Destroy the table first
+    //     dtInstanceclass.destroy();
+    //     console.log("dtInstanceclass destroy");
+        
+    //     // Call the dtTrigger to rerender again
+    //     if(this.dtTriggerclass!=null)
+    //     {
+    //       console.log("dt Success");
+    //       this.dtTriggerclass.next();
+    //       console.log("dt Success");
+    //     }
+    //     else
+    //       console.log("error as null dtTriggerclass");
+
+    //     this.flag = false;
+    //   });
+    // }
+
+
+    
+
   }
 
 
@@ -536,7 +616,7 @@ getClassId(classNames)
   displayPhotoCallBack(url: string) {
 
     //TODO Shiva display the Image using the URL
-    this.photourl=url;
+    //this.photourl=url;
     console.log("displayPhotoCallBack : Image URL " + url);
   }
 
@@ -558,7 +638,7 @@ getClassId(classNames)
   displayPhotoWithURLCallBack(url: string) {
 
     //TODO Shiva display the Image using the URL
-    this.photourl=url;
+   // this.photourl=url;
     console.log("displayPhotoWithURLCallBack : Image URL " + url)
   }
 
