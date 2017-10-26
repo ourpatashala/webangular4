@@ -97,7 +97,7 @@ export class StudentConverterImpl extends CommonConverter implements StudentConv
 
     studentTO.landLine = studentVO.landLine;
     studentTO.bloodGroup = studentVO.bloodGroup;
-    //studentVO.profilePhotoUrl = studentTO.profilePhotoUrl;
+    studentTO.profilePhotoUrl = studentVO.profilePhotoUrl;
 
     studentTO.fatherName = studentVO.fatherName;
     studentTO.motherName = studentVO.motherName;

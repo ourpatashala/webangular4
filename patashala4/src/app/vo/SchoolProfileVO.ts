@@ -10,6 +10,7 @@ export  class SchoolProfileVO {
   contactNumber: string;
   addressOne: string;
   addressTwo: string;
+  profilePhotoUrl: string;
   city: string;
   state: string;
   pincode: string;

@@ -52,7 +52,7 @@ export class StudentComponent implements OnInit, StudentComponentInterface {
 
   dtElement: DataTableDirective;
  // dtElementclass: DataTableDirective;
-  
+
   dtOptions: DataTables.Settings = {};
   dtOptionsclass: DataTables.Settings = {};
   //dtTrigger = new Subject();
@@ -144,7 +144,7 @@ export class StudentComponent implements OnInit, StudentComponentInterface {
 
   getStudentProfile(schoolId: string, studentId: string) {
     localStorage.setItem('studentId',studentId);
-    this.getPhoto(schoolId, studentId);
+    //this.getPhoto(schoolId, studentId);
     this.studentConverter.getStudent(schoolId, studentId, this);
   }
 
@@ -318,6 +318,7 @@ export class StudentComponent implements OnInit, StudentComponentInterface {
     console.log("date of birth received is "+studentTO.dateOfBirth);
     this.studentFormGroup.controls['dateOfBirth'].patchValue(studentTO.dateOfBirth);
     this.studentFormGroup.controls['uploadPhoto'].patchValue(studentTO.profilePhotoUrl);
+    console.log("profilePhotoUrl ======> "+studentTO.profilePhotoUrl);
     this.studentFormGroup.controls['fatherName'].patchValue(studentTO.fatherName);
     this.studentFormGroup.controls['motherName'].patchValue(studentTO.motherName);
     this.studentFormGroup.controls['rollNo'].patchValue(studentTO.rollNo);
@@ -470,7 +471,7 @@ getClassId(classNames)
     this.clearSiblings();
     this.addSiblings();
     this.div_Element_Id = "1";
-    
+
     // this.dtTrigger.complete();
   }
 
@@ -517,7 +518,7 @@ getClassId(classNames)
         this.flag = false;
       });
     }
-    console.log("`sdfsdfsdfsd` shiva "+this.dtElement.dtInstance);
+    //console.log("`sdfsdfsdfsd` shiva "+this.dtElement.dtInstance);
     // console.log("sdfsdfsdfsd shiva "+this.dtElementclass.dtInstance);
     // if (this.dtElementclass != null) {
     //   this.flag = true;
@@ -526,7 +527,7 @@ getClassId(classNames)
     //     // Destroy the table first
     //     dtInstanceclass.destroy();
     //     console.log("dtInstanceclass destroy");
-        
+
     //     // Call the dtTrigger to rerender again
     //     if(this.dtTriggerclass!=null)
     //     {
@@ -542,7 +543,7 @@ getClassId(classNames)
     // }
 
 
-    
+
 
   }
 
