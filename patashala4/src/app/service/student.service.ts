@@ -316,7 +316,7 @@ export class StudentService {
     var studentVO = new StudentVO();
     photoPath.subscribe(snapshot => {
       studentVO =  snapshot;
-      console.log("profilePhotoUrl from StudentOjbect:" + studentVO.profilePhotoUrl);
+      //console.log("profilePhotoUrl from StudentOjbect:" + studentVO.profilePhotoUrl);
 
       storageRef.child(studentVO.profilePhotoUrl).getDownloadURL().then(function(url){
 

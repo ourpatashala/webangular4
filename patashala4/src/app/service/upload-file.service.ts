@@ -38,7 +38,7 @@ export class UploadFileService {
       },
       () => {
         // success
-        //fileUpload.url = uploadTask.snapshot.downloadURL
+        fileUpload.url = uploadTask.snapshot.downloadURL
         //fileUpload.name = fileUpload.file.name
         this.saveFileData(schoolid, studentId, fileUpload);
       }
@@ -48,7 +48,7 @@ export class UploadFileService {
   private saveFileData(schoolid:string, studentId: string, fileUpload: FileUpload) {
 
     var dbRef = this.angularFireDatabase .object("/schools/"+schoolid+"/studentProfile/"+studentId+"/profilePhotoUrl/").$ref;
-    dbRef.set(fileUpload.name);
+    dbRef.set(fileUpload.url);
     //this.db.list(`${this.dbbasePath}/`).push(fileUpload);
   }
 }

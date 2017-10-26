@@ -32,7 +32,7 @@ import {ClassProfileTO} from "../../to/ClassProfileTO";
 export class StudentComponent implements OnInit, StudentComponentInterface {
   className: any;
 
-  
+
   selectedStudentArray: Array<any> = [];
   errorMessage: string;
   sucessMessage: string;
@@ -88,7 +88,7 @@ export class StudentComponent implements OnInit, StudentComponentInterface {
    // this.dtTriggerclass.next();
     this.dtTrigger.next();
  //   this.rerender();
-    
+
   }
 
 
@@ -210,7 +210,7 @@ export class StudentComponent implements OnInit, StudentComponentInterface {
       this.active = "2";
     } else {
       console.log("modify school "+value.mobileNumbers.length);
-      
+
       this.studentTO = value;
       console.log(value);
       console.log("modified rollno"+value.rollNo);
@@ -249,7 +249,7 @@ export class StudentComponent implements OnInit, StudentComponentInterface {
     this.studentFormGroup.controls['lastName'].patchValue(studentTO.lastName);
     this.studentFormGroup.controls['middleName'].patchValue(studentTO.middleName);
     this.clearPhoneNumbers();
-    this.clearPhoneNumbers();    
+    this.clearPhoneNumbers();
     console.log("displayStudentCallBack "+studentTO.mobileNumbers.length);
     if (studentTO.mobileNumbers != null) {
       console.log(studentTO.mobileNumbers.length);
@@ -319,7 +319,7 @@ getClassId(classNames)
     classProfileTO.forEach(classsProfileTO => {
       console.log('class Profile:', classsProfileTO);
     });
-    //this.rerender();    
+    //this.rerender();
   }
 
 
@@ -527,9 +527,9 @@ getClassId(classNames)
 
   getPhoto(schoolId: string, studentId: string) {
 
-    console.log("Called getPhoto ");
+    //console.log("Called getPhoto ");
 
-    this.studentConverter.getPhoto(schoolId, studentId, this);
+    //this.studentConverter.getPhoto(schoolId, studentId, this);
 
   }
 
@@ -542,13 +542,17 @@ getClassId(classNames)
 
   getPhotoWithURL(schoolId: string, photoURL: string) {
 
-    console.log("Called getPhotoWithURL ");
+    console.log("Called getPhotoWithURL " + photoURL);
 
-    if (photoURL != null) {
+    /*if (photoURL != null) {
+
       this.studentConverter.getPhotoWithURL(schoolId, photoURL, this);
+
     } else {
+
       console.log("Called getPhotoWithURL UNDEFINED");
-    }
+
+    }*/
   }
 
   displayPhotoWithURLCallBack(url: string) {
