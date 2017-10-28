@@ -197,7 +197,7 @@ export class SchoolComponent implements OnInit, SchoolComponentInterface {
     //   field_name = field_name + " Contact Number, ";
     // }
     if (field_name.length != 0) {
-      this.errorMessage = "Please enter" + field_name;
+      this.errorMessage = "Please enter" + field_name.substr(0, field_name.length-2);
       this.active = "2";
     }
     else {
@@ -283,11 +283,11 @@ export class SchoolComponent implements OnInit, SchoolComponentInterface {
     }
 
     if (field_name.length != 0) {
-      this.errorMessage = "Please enter" + field_name;
+      this.errorMessage = "Please enter" + field_name.substr(0, field_name.length-2);
       this.active = "2";
     }
     else {
-      console.log("city:" +value.city);
+      console.log("status:" +value.active);
       this.schoolProfileTO = value;
       this.schoolConverter.updateSchoolProfile(this.schoolProfileTO, this);
       console.log("  this.schoolProfileTO.active ===>"+ this.schoolProfileTO.active);
