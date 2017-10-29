@@ -300,7 +300,7 @@
                    <div class="browse_img_manual">
                           <input type="file">
                           <div class="img_overlay">
-                          <img src="{{uploadPhoto}}" class="img100">
+                          <img src="{{ (studentTO.uploadPhoto != null && studentTO.uploadPhoto.length != 0) ?  studentTO.uploadPhoto:'./assets/images/profile/default.jpg' }}" class="img100" id="blah">
                           <p onclick="document.getElementById('input').click()">Upload Photo</p>
                           
                           </div>
@@ -313,7 +313,7 @@
             <div class="progress-bar progress-bar-info progress-bar-striped" role="progressbar" attr.aria-valuenow="{{progress.percentage}}" aria-valuemin="0" aria-valuemax="100" [ngStyle]="{width:progress.percentage+'%'}"> {{progress.percentage}}%</div>
         </div>
         
-        <label class="btn btn-default"> <input type="file" id="input" (change)="selectFile($event)"> </label>
+        <label class="btn btn-default"  style="display:none"> <input type="file" id="input" name="" (change)="selectFile($event)"> </label>
         <span class="btn btn-success"  (click)="upload('school01','studentTest01')">Upload</span>
         
       </div><!--[disabled]="!selectedFiles"-->
@@ -389,8 +389,8 @@
            <!-- <table  class="my_table_width" > -->
                 <thead>
                 <tr>
+                        <th></th>
                     <th>S.no</th>
-                    <th></th>
                     <th>Photo</th>
                     <th>First&nbsp;Name</th>
                     <th>Last&nbsp;Name</th>
@@ -403,8 +403,8 @@
 
                 <tr *ngFor="let studentProfileTO of studentProfileTOList ; let i=index ">
                    <!-- <td><input type="checkbox" value="{{schoolProfileTO.schoolId}}"  (change)="updateCheckedOptions(schoolProfileTO.schoolId,$this.checkbox.state)"></td> -->
-                   <td>{{i + 1}}</td>
                     <td><input type="checkbox" id="{{studentProfileTO.id}}" value="{{studentProfileTO.id}}" (change)="checkedStudents(studentProfileTO.id)" ></td>
+                    <td>{{i + 1}}</td>
                     <td> <img src="{{studentProfileTO.profilePhotoUrl}}" alt=""></td>
                     <td>{{studentProfileTO.firstName}}</td>
                     <td>{{studentProfileTO.lastName}}</td>

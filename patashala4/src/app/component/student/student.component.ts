@@ -169,7 +169,7 @@ export class StudentComponent implements OnInit, StudentComponentInterface {
     }
 
     if (field_name.length != 0) {
-      this.errorMessage = "Please enter " + field_name;
+      this.errorMessage = "Please enter " + field_name.substr(0, field_name.length-2);
       this.active = "2";
     } else {
       console.log("add school "+value.mobileNumbers.length);
@@ -209,7 +209,7 @@ export class StudentComponent implements OnInit, StudentComponentInterface {
     }
 
     if (field_name.length != 0) {
-      this.errorMessage = "Please enter " + field_name;
+      this.errorMessage = "Please enter " + field_name.substr(0, field_name.length-2);
       this.active = "2";
     } else {
       console.log("modify school "+value.mobileNumbers.length);
@@ -244,6 +244,7 @@ export class StudentComponent implements OnInit, StudentComponentInterface {
 
   selectFile(event) {
     this.selectedFiles = event.target.files;
+    
   }
 
   //upload(schoolId:string, studentId:string)
