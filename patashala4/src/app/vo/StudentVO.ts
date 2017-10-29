@@ -18,6 +18,7 @@ export  class StudentVO {
   lastName: string;
   middleName: string;
   classId: string;
+  className: string;
   dob: string;
   mobileNumbers: string[];
   siblings: string[];

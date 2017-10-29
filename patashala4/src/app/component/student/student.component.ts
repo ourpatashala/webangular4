@@ -114,6 +114,7 @@ export class StudentComponent implements OnInit, StudentComponentInterface {
       motherName: [''],
       rollNo: [''],
       classId: [''],
+      className: [''],
       schoolId: [localStorage.getItem('schoolid')],
       id: [''],
       siblings: this.fb.array([this.initSiblings()]) // here
@@ -204,7 +205,7 @@ export class StudentComponent implements OnInit, StudentComponentInterface {
     }
 
     if (value.dateOfBirth == null || value.dateOfBirth == "") {
-      field_name = field_name + "dateOfBirth, ";
+      field_name = field_name + "Date of Birth, ";
     }
 
     if (field_name.length != 0) {
@@ -323,6 +324,8 @@ export class StudentComponent implements OnInit, StudentComponentInterface {
     this.studentFormGroup.controls['motherName'].patchValue(studentTO.motherName);
     this.studentFormGroup.controls['rollNo'].patchValue(studentTO.rollNo);
     this.studentFormGroup.controls['classId'].patchValue(studentTO.classId);
+    this.studentFormGroup.controls['className'].patchValue(studentTO.className);
+
     //this.dtTrigger.complete();
 
   }
@@ -466,6 +469,8 @@ getClassId(classNames)
     this.studentFormGroup.controls['motherName'].patchValue("");
     this.studentFormGroup.controls['rollNo'].patchValue("");
     this.studentFormGroup.controls['classId'].patchValue("");
+    this.studentFormGroup.controls['className'].patchValue("");
+
     this.clearPhoneNumbers();
     this.addPhoneNumber();
     this.clearSiblings();

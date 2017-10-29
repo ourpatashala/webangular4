@@ -20,6 +20,7 @@ export class StudentTO {
   lastName?: string;
   middleName?: string;
   classId?: string;
+  className?: string;
   dateOfBirth?: string;
   mobileNumbers?: string[];
   siblings?: string[];
