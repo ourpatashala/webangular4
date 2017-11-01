@@ -304,6 +304,7 @@ export class SchoolComponent implements OnInit, SchoolComponentInterface {
 
       this.schoolConverter.deleteSchoolProfile(this.selectedSchoolArray[loopvar], this);
     }
+     this.selectedSchoolArray= [];
   }
 
   /**
@@ -312,6 +313,7 @@ export class SchoolComponent implements OnInit, SchoolComponentInterface {
    */
   displaySchoolProfileCallBack(schoolProfileTO: SchoolProfileTO) {
 
+    console.log('SchoolProfileTO:', schoolProfileTO);
     this.schoolProfileTO = schoolProfileTO;
     this.schoolFormGroup.controls['schoolId'].patchValue(schoolProfileTO.schoolId);
     this.schoolFormGroup.controls['schoolName'].patchValue(schoolProfileTO.schoolName);
@@ -325,7 +327,10 @@ export class SchoolComponent implements OnInit, SchoolComponentInterface {
     this.schoolFormGroup.controls['state'].patchValue(schoolProfileTO.state);
     this.schoolFormGroup.controls['pincode'].patchValue(schoolProfileTO.pincode);
     this.schoolFormGroup.controls['country'].patchValue(schoolProfileTO.country);
-    this.schoolFormGroup.controls['active'].patchValue(schoolProfileTO.active);
+    if(schoolProfileTO.active=="true")
+        this.schoolFormGroup.controls['active'].patchValue(true);
+    else
+        this.schoolFormGroup.controls['active'].patchValue(false);
     this.schoolFormGroup.controls['remarks'].patchValue(schoolProfileTO.remarks);
 
   }

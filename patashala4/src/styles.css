@@ -960,3 +960,7 @@ display: block;
   float: none;
   text-align: center;
 }
+.ngx-datepicker-container
+{
+	z-index: 2;
+}
