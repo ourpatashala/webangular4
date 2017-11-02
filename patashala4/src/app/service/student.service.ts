@@ -132,6 +132,7 @@ export class StudentService {
     messageTO.serviceClassName = "StudentService";
     messageTO.serviceMethodName = "updateStudentProfile()";
     console.log("updateStudentProfile xxx " + schoolId + " " + studentVO.id);
+    console.log("updateStudentProfile DOB " + studentVO.dob );
 
 
     var studentProfilePath = PathUtil.getStudentProfilePathNode(schoolId);

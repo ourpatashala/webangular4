@@ -53,7 +53,8 @@ export class SchoolConverterImpl extends CommonConverter implements SchoolConver
     schoolProfileVO.uniqueId = this.getUniqueKey(schoolProfileTO);
     schoolProfileVO.contactNumber = schoolProfileTO.contactNumber;
     schoolProfileVO.contactName = schoolProfileTO.contactName;
-    schoolProfileVO.active = ""+schoolProfileTO.active
+    schoolProfileVO.active = ""+schoolProfileTO.active;
+    schoolProfileVO.profilePhotoUrl = schoolProfileTO.profilePhotoUrl;
 
     console.log("schoolProfileVO.active.."+schoolProfileVO.active);
 

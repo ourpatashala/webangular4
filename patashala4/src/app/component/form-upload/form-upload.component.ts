@@ -30,5 +30,11 @@ export class FormUploadComponent implements OnInit {
     this.uploadService.pushFileToStorage(localStorage.getItem('schoolid'),  localStorage.getItem('studentId'), this.currentFileUpload, this.progress)
   }
 
+  uploadSchoolPic(schoolId:string) {
+    const file = this.selectedFiles.item(0)
+    this.currentFileUpload = new FileUpload(file);
+    console.log(localStorage.getItem('schoolid'));
+    this.uploadService.pushSchoolPicToStorage(localStorage.getItem('schoolid'), this.currentFileUpload, this.progress)
+  }
 
 }

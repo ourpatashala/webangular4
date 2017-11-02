@@ -9,6 +9,7 @@ export class SchoolProfileTO{
   contactNumber: string;
   addressOne: string;
   addressTwo: string;
+  profilePhotoUrl: string;
   city: string;
   state: string;
   pincode: string;
