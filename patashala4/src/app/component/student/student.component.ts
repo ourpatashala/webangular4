@@ -26,6 +26,7 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { DatepickerOptions } from 'ng2-datepicker';
+import { AppConstants } from "../../constants/AppConstants";
 
 
 
@@ -49,8 +50,6 @@ export class StudentComponent implements OnInit, StudentComponentInterface {
   selectedFiles: FileList
   currentFileUpload: FileUpload
   progress: {percentage: number} = {percentage: 0}
-
-
 
   selectedStudentArray: Array<any> = [];
   errorMessage: string;
@@ -90,12 +89,12 @@ export class StudentComponent implements OnInit, StudentComponentInterface {
     if (username == "" || username == "Undefined" || username == null) {
       this.router.navigate(['/']);
     }
-    var selectedSchoolId = localStorage.getItem('schoolid');
+    var selectedSchoolId = localStorage.getItem(AppConstants.SHAREDPREFERANCE_SCHOOLID);
     console.log("Selected School " + selectedSchoolId);
     if (selectedSchoolId == "" || selectedSchoolId == "Undefined" || selectedSchoolId == null) {
       this.router.navigate(['/School']);
     }
-    this.getAllStudents(localStorage.getItem('schoolid'));
+    this.getAllStudents(localStorage.getItem(AppConstants.SHAREDPREFERANCE_SCHOOLID));
   }
 
   ngAfterViewInit(): void {
@@ -126,7 +125,7 @@ export class StudentComponent implements OnInit, StudentComponentInterface {
       rollNo: [''],
       classId: [''],
       className: [''],
-      schoolId: [localStorage.getItem('schoolid')],
+      schoolId: [localStorage.getItem(AppConstants.SHAREDPREFERANCE_SCHOOLID)],
       id: [''],
       siblings: this.fb.array([this.initSiblings()]) // here
       //TODO : Shiva integrate code by removing hardcoding of values.
@@ -153,9 +152,12 @@ export class StudentComponent implements OnInit, StudentComponentInterface {
     this.studentConverter.getAllClassesProfile(schoolId, this);
   }
 
-
+  removeStudentProfilePic()
+  {
+    console.log(" Selected Student ID  "+localStorage.getItem(AppConstants.SHAREDPREFERANCE_STUDENTID))
+  }
   getStudentProfile(schoolId: string, studentId: string) {
-    localStorage.setItem('studentId',studentId);
+    localStorage.setItem(AppConstants.SHAREDPREFERANCE_STUDENTID,studentId);
     //this.getPhoto(schoolId, studentId);
     this.studentConverter.getStudent(schoolId, studentId, this);
   }
@@ -186,9 +188,9 @@ export class StudentComponent implements OnInit, StudentComponentInterface {
       console.log("add school "+value.mobileNumbers.length);
       this.studentTO = value;
       console.log("adding school class id"+value.classId);
-      console.log("dATEoFbIRTH"+value.dateOfBirth);
+      console.log("dateOfBirth "+value.dateOfBirth);
       console.log("add rollNo"+value.rollNo);
-       this.studentConverter.addStudentProfile(this.studentTO.schoolId, this.studentTO, this);
+      this.studentConverter.addStudentProfile(this.studentTO.schoolId, this.studentTO, this);
     }
 
 
@@ -228,8 +230,17 @@ export class StudentComponent implements OnInit, StudentComponentInterface {
       this.studentTO = value;
       console.log(value);
       console.log("modified rollno"+value.rollNo);
-      console.log("dATEoFbIRTH"+value.dateOfBirth);
-      this.studentConverter.updateStudent(localStorage.getItem('schoolid'), this.studentTO, this);
+      console.log("dateOfBirth"+value.dateOfBirth);
+ 
+      var d = new Date(value.dateOfBirth);
+      var curr_date = d.getDate();
+      var curr_month = d.getMonth() + 1; //Months are zero based
+      var curr_year = d.getFullYear();
+
+      value.dateOfBirth= (curr_date<10 ? '0'+curr_date : curr_date) + "-" + AppConstants.month_names_short[curr_month] + "-" + curr_year;
+      console.log( );
+
+     this.studentConverter.updateStudent(localStorage.getItem(AppConstants.SHAREDPREFERANCE_SCHOOLID), this.studentTO, this);
     }
   }
 
@@ -240,33 +251,47 @@ export class StudentComponent implements OnInit, StudentComponentInterface {
   deleteStudentProfile() {
     for (var loopvar = 0; loopvar < this.selectedStudentArray.length; loopvar++) {
       console.log(this.selectedStudentArray[loopvar]);
-      this.studentConverter.deleteStudentProfile(localStorage.getItem('schoolid'), this.selectedStudentArray[loopvar]);
+      this.studentConverter.deleteStudentProfile(localStorage.getItem(AppConstants.SHAREDPREFERANCE_SCHOOLID), this.selectedStudentArray[loopvar]);
     }
     this.selectedStudentArray= [];
-    this.getAllStudents(localStorage.getItem('schoolid'));
+    this.getAllStudents(localStorage.getItem(AppConstants.SHAREDPREFERANCE_SCHOOLID));
 
   }
 
   selectFile(event) {
-    this.selectedFiles = event.target.files;
-    this.showupload="1";
-    console.log("selected file"+this.selectedFiles);
-    var fileReader = new FileReader();
-    fileReader.onload = function () {
-      console.log("sdfsdfsdf"+ fileReader.result);
-      $("#blah").attr("src",fileReader.result);
-    }
-    fileReader.readAsDataURL(this.selectedFiles.item(0));
+    this.errorMessage = "";
+    this.active = "0";
 
+    var file_size=event.target.files.item(0).size;
+    if(file_size>=AppConstants.PhotoMaxSize){
+      this.errorMessage =AppConstants.IMAGE_ERROR_MESSAGE;
+      this.updateMessage(this.errorMessage);
+      this.active = "2";
+      
+    }
+    else
+    {
+      console.log(file_size+"  file_size ");
+      this.selectedFiles = event.target.files;
+      this.showupload="1";
+      console.log("selected file"+this.selectedFiles);
+      var fileReader = new FileReader();
+      fileReader.onload = function () {
+        console.log("sdfsdfsdf"+ fileReader.result);
+        $("#blah").attr("src",fileReader.result);
+      }
+      fileReader.readAsDataURL(this.selectedFiles.item(0));
+
+    }
   }
 
   //upload(schoolId:string, studentId:string)
   upload() {
     if(this.selectedFiles!=null){
-      const file = this.selectedFiles.item(0)
+      const file = this.selectedFiles.item(0);
       this.currentFileUpload = new FileUpload(file);
-      console.log(localStorage.getItem('schoolid')+"    "+localStorage.getItem('studentId')+"  "+this.currentFileUpload+"   "+file);
-      this.uploadService.pushFileToStorage(localStorage.getItem('schoolid'),  localStorage.getItem('studentId'), this.currentFileUpload, this.progress);
+      console.log(localStorage.getItem(AppConstants.SHAREDPREFERANCE_SCHOOLID)+"    "+localStorage.getItem(AppConstants.SHAREDPREFERANCE_STUDENTID)+"  "+this.currentFileUpload+"   "+file);
+      this.uploadService.pushFileToStorage(localStorage.getItem(AppConstants.SHAREDPREFERANCE_SCHOOLID),  localStorage.getItem(AppConstants.SHAREDPREFERANCE_STUDENTID), this.currentFileUpload, this.progress);
       this.updateProgressbarUI();
     }
   }
@@ -357,10 +382,10 @@ export class StudentComponent implements OnInit, StudentComponentInterface {
     {
       this.studentFormGroup.controls['dateOfBirth'].patchValue(studentTO.dateOfBirth);
     }
-    if(studentTO.dateOfBirth===undefined || studentTO.dateOfBirth== null)
+    if(studentTO.profilePhotoUrl===undefined || studentTO.profilePhotoUrl== null)
     {
-      this.studentFormGroup.controls['uploadPhoto'].patchValue('./assets/images/profile/default.jpg');
-      $("#blah").attr("src",'./assets/images/profile/default.jpg');
+      this.studentFormGroup.controls['uploadPhoto'].patchValue(AppConstants.DEFAULT_STUDENT_IMAGE);
+      $("#blah").attr("src",AppConstants.DEFAULT_STUDENT_IMAGE);
     }
     else
     {
@@ -373,7 +398,7 @@ export class StudentComponent implements OnInit, StudentComponentInterface {
     this.studentFormGroup.controls['rollNo'].patchValue(studentTO.rollNo);
     this.studentFormGroup.controls['classId'].patchValue(studentTO.classId);
     this.studentFormGroup.controls['className'].patchValue(studentTO.className);
-
+    console.log("Class ======> "+studentTO.classId +"   "+studentTO.className);
     //this.dtTrigger.complete();
 
   }
@@ -484,7 +509,7 @@ getClassId(classId,classNames)
 
   showClassPopup()
   {
-    this.getAllClassesProfile(localStorage.getItem('schoolid'))
+    this.getAllClassesProfile(localStorage.getItem(AppConstants.SHAREDPREFERANCE_SCHOOLID))
     this.showClassSelection=true;
     
   }
@@ -497,7 +522,7 @@ getClassId(classId,classNames)
     this.errorMessage = "";
     this.active = "0";
     this.showupload="0";
-    this.getAllStudents(localStorage.getItem('schoolid'));
+    this.getAllStudents(localStorage.getItem(AppConstants.SHAREDPREFERANCE_SCHOOLID));
 
   }
 
@@ -537,14 +562,14 @@ getClassId(classId,classNames)
     this.div_Element_Id = "2";
     //TODO : Shiva integrate code by removing hardcoding of values.
     //this.getStudentProfile("school04", "-KuCWQEmwl1MsTD0SPdb");
-    this.getStudentProfile(localStorage.getItem('schoolid'), this.selectedStudentArray[0]);
+    this.getStudentProfile(localStorage.getItem(AppConstants.SHAREDPREFERANCE_SCHOOLID), this.selectedStudentArray[0]);
     console.log(this.selectedStudentArray[0]);
   }
 
   viewSingleStudentProfile() {
     this.div_Element_Id = "3";
     // this.dtTrigger.complete();
-    this.getStudentProfile(localStorage.getItem('schoolid'), this.selectedStudentArray[0]);
+    this.getStudentProfile(localStorage.getItem(AppConstants.SHAREDPREFERANCE_SCHOOLID), this.selectedStudentArray[0]);
   }
 
 

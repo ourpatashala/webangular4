@@ -19,4 +19,15 @@ export interface SchoolComponentInterface extends  CommonInterface{
    * @param schoolProfileTO
    */
   displayAllSchoolProfileCallBack(schoolProfileTO:FirebaseListObservable<SchoolProfileTO>);
+
+
+
+
+
+//Added by shiva 
+    displayPhotoCallBack(url : string);
+  
+    displayPhotoWithURLCallBack(url : string);
+
+    
 }

@@ -18,6 +18,9 @@ import {BehaviorSubject, Observable, Subscription} from "rxjs";
 declare var $: any;
 import {Subject} from 'rxjs/Rx';
 import {MessageTO} from "../../to/MessageTO";
+import {FileUpload} from '../../service/fileupload';
+import {UploadFileService} from '../../service/upload-file.service';
+import { AppConstants } from "../../constants/AppConstants";
 
 
 @Component({
@@ -28,7 +31,12 @@ import {MessageTO} from "../../to/MessageTO";
 })
 
 export class SchoolComponent implements OnInit, SchoolComponentInterface {
-
+  
+  selectedFiles: FileList;
+  showupload: string = "0"; //0 for default close //1 for close and show listing
+  currentFileUpload: FileUpload;
+  progress: {percentage: number} = {percentage: 0}
+  
   selectedSchoolArray: Array<any> = [];
   schoolProfileTO: SchoolProfileTO;
   schoolFormGroup: FormGroup;
@@ -65,7 +73,7 @@ export class SchoolComponent implements OnInit, SchoolComponentInterface {
   fb: FormBuilder;
   @Input() inputArray: ArrayType[];
 
-  constructor(@Inject('SchoolConverter') private schoolConverter: SchoolConverter, fb: FormBuilder, private injector: Injector,private router: Router, private errorService: ErrorService, afAuth: AngularFireAuth) {
+  constructor(@Inject('SchoolConverter') private schoolConverter: SchoolConverter, fb: FormBuilder, private injector: Injector,private router: Router, private errorService: ErrorService, afAuth: AngularFireAuth, private uploadService: UploadFileService) {
     this.fb = fb;
     this.angularFireAuth = afAuth;
     var username=localStorage.getItem('userlogin');
@@ -118,6 +126,79 @@ export class SchoolComponent implements OnInit, SchoolComponentInterface {
   }
 
 
+  displayPhotoCallBack(url: string) {
+    
+        //TODO Shiva display the Image using the URL
+        //this.photourl=url;
+        console.log("displayPhotoCallBack : Image URL " + url);
+      }
+
+      
+  displayPhotoWithURLCallBack(url: string) {
+    
+        //TODO Shiva display the Image using the URL
+       // this.photourl=url;
+        console.log("displayPhotoWithURLCallBack : Image URL " + url)
+      }
+    
+    
+  selectFile(event) {
+
+    this.errorMessage = "";
+    this.active = "0";
+
+    var file_size=event.target.files.item(0).size;
+    if(file_size>=AppConstants.PhotoMaxSize){
+      this.errorMessage =AppConstants.IMAGE_ERROR_MESSAGE;
+      this.updateMessage(this.errorMessage);
+      this.active = "2";
+      
+    }
+    else
+    {
+
+      this.selectedFiles = event.target.files;
+      this.showupload="1";
+      console.log("selected file"+this.selectedFiles);
+      var fileReader = new FileReader();
+      fileReader.onload = function () {
+        console.log("sdfsdfsdf"+ fileReader.result);
+        $("#blah").attr("src",fileReader.result);
+      }
+      fileReader.readAsDataURL(this.selectedFiles.item(0));
+    }
+  }
+
+  //upload(schoolId:string, studentId:string)
+  upload() {
+    if(this.selectedFiles!=null){
+      const file = this.selectedFiles.item(0);
+      this.currentFileUpload = new FileUpload(file);
+      console.log(localStorage.getItem(AppConstants.SHAREDPREFERANCE_SCHOOLID)+"    "+this.currentFileUpload+"   "+file);
+      this.uploadService.pushSchoolPicToStorage(localStorage.getItem(AppConstants.SHAREDPREFERANCE_SCHOOLID), this.currentFileUpload, this.progress);
+      this.updateProgressbarUI();
+    }
+  }
+
+  updateProgressbarUI()
+  {
+    console.log(" updateProgressbarUI  "+this.progress.percentage);
+    if(this.progress.percentage==100)
+    {
+      this.currentFileUpload=null;
+      this.active="1";
+      this.sucessMessage="Image Uploaded Successfully";
+      this.popupstatus = "0";
+      this.showupload= "0";
+    }
+    else
+    {
+      setTimeout(() => {   this.updateProgressbarUI(); }, 500);
+    }
+  }
+
+
+
   updateCheckedOptions(option) {
     this.temp_schoolid = option;
     console.log(option);
@@ -145,6 +226,12 @@ export class SchoolComponent implements OnInit, SchoolComponentInterface {
     this.schoolFormGroup.controls['country'].patchValue('');
     this.schoolFormGroup.controls['active'].patchValue('true');
     this.schoolFormGroup.controls['remarks'].patchValue('');
+    this.schoolFormGroup.controls['schoolLogo'].patchValue('');
+   
+      this.sucessMessage = "";
+      this.active = "0";
+      this.errorMessage ="";
+   
   }
 
   showSchoolsList() {
@@ -230,14 +317,17 @@ export class SchoolComponent implements OnInit, SchoolComponentInterface {
     this.schoolConverter.getSchoolProfileRange(start, end, this);
 
   }
-
+  removeStudentProfilePic()
+  {
+    console.log(" Selected Student ID  "+localStorage.getItem(AppConstants.SHAREDPREFERANCE_SCHOOLID))
+  }
   redirecttoschooldashboard(schoolId: string, schoolName:string)
   {
     console.log("selected school id "+schoolId);
-    console.log("old "+ localStorage.getItem('schoolid'));
-    localStorage.setItem('schoolid',schoolId);
-    localStorage.setItem('schoolName',schoolName);
-    console.log("New "+ localStorage.getItem('schoolid'));
+    console.log("old "+ localStorage.getItem(AppConstants.SHAREDPREFERANCE_SCHOOLID));
+    localStorage.setItem(AppConstants.SHAREDPREFERANCE_SCHOOLID,schoolId);
+    localStorage.setItem(AppConstants.SHAREDPREFERANCE_SCHOOLNAME,schoolName);
+    console.log("New "+ localStorage.getItem(AppConstants.SHAREDPREFERANCE_SCHOOLID));
     this.getRouter().navigate(['/TabService']);
 
     //="/TabService"
@@ -332,7 +422,16 @@ export class SchoolComponent implements OnInit, SchoolComponentInterface {
     else
         this.schoolFormGroup.controls['active'].patchValue(false);
     this.schoolFormGroup.controls['remarks'].patchValue(schoolProfileTO.remarks);
-
+    if(schoolProfileTO.profilePhotoUrl===undefined || schoolProfileTO.profilePhotoUrl== null)
+    {
+      this.schoolFormGroup.controls['schoolLogo'].patchValue(AppConstants.DEFAULT_SCHOOL_LOGO);
+      $("#blah").attr("src",AppConstants.DEFAULT_SCHOOL_LOGO);
+    }
+    else
+    {
+      this.schoolFormGroup.controls['schoolLogo'].patchValue(schoolProfileTO.profilePhotoUrl);
+      $("#blah").attr("src",schoolProfileTO.profilePhotoUrl);
+    }
   }
 
   /**

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AppConstants } from "../../constants/AppConstants";
 declare var $:any;
 @Component({
   selector: 'app-header',
@@ -13,8 +14,8 @@ schoolName :string;
 
 
   constructor() {
-    console.log("Header "+ localStorage.getItem('schoolName'));
-    this.schoolName = localStorage.getItem('schoolName');    
+    console.log("Header "+ localStorage.getItem(AppConstants.SHAREDPREFERANCE_SCHOOLNAME));
+    this.schoolName = localStorage.getItem(AppConstants.SHAREDPREFERANCE_SCHOOLNAME);    
    }
 
   ngOnInit() {

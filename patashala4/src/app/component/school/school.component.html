@@ -113,6 +113,7 @@
 
       <div class="modify_fields addschool_div"  [ngClass]="{'inactive_div': div_Element_Id !='2'}">
       <form [formGroup]="schoolFormGroup" (ngSubmit)="updateSchoolProfile(schoolFormGroup)">
+          <div class="col-md-9">
         <div class="col-md-6">
          <!-- <div class="col-md-4 text-right"><p>School Id</p></div>
          <div class="col-md-8"><input type="text" formControlName="schoolId"  title="Please Enter schoolId" required></div>
@@ -155,6 +156,33 @@
         </div>
         <div class="clear"></div>
         <div class="text-center"><button class="update_btn">Modify School</button> <span class="cancel_btn_modify button_type_span" (click)="showSchoolsList()">Cancel</span></div>
+      </div>
+      <div class="col-md-3 text-center">
+          <div class="large_gap"></div>
+                <p class="text-left">School Logo </p>
+                     <div class="browse_img_manual">
+                            <input type="file">
+                            <div class="img_overlay">
+                            <img src="{{ (schoolProfileTO.profilePhotoUrl != null && schoolProfileTO.profilePhotoUrl.length != 0) ?  schoolProfileTO.profilePhotoUrl:'./assets/images/profile/default.jpg' }}" class="img100" id="blah">
+                            <p ><span onclick="document.getElementById('input').click()" >{{ (schoolProfileTO.profilePhotoUrl != null && schoolProfileTO.profilePhotoUrl.length != 0) ?  'Update Photo':'Add Photo' }} </span><br><hr style="margin-top: 6px;margin-bottom: 4px;">
+                              <span (click)="removeStudentProfilePic()" [ngClass]="{'inactive_div': schoolProfileTO.profilePhotoUrl == null}">{{ (schoolProfileTO.profilePhotoUrl != null && schoolProfileTO.profilePhotoUrl.length != 0) ?  'Remove':'' }} </span>
+  
+                            </div>
+                            </div>
+                  <div class="clear"></div>
+                  <div class="little_gap"></div>
+  
+        <div>
+          <div *ngIf="currentFileUpload" class="progress" style="width:400px">
+              <div class="progress-bar progress-bar-info progress-bar-striped" role="progressbar" attr.aria-valuenow="{{progress.percentage}}" aria-valuemin="0" aria-valuemax="100" [ngStyle]="{width:progress.percentage+'%'}"> {{progress.percentage}}%</div>
+          </div>
+          
+          <label class="btn btn-default"  style="display:none"> <input type="file" id="input" name="" (change)="selectFile($event)"> </label>
+          <span class="btn btn-success hideblock"  (click)="upload()" [ngClass]="{'showblock': showupload=='1'}">Upload</span>
+          
+        </div><!--[disabled]="!selectedFiles"-->
+  
+      </div>
       </form>
       </div>
 
@@ -186,7 +214,7 @@
                     </span> </p>
                   <p class="school_contact">Contact#: <span>{{ (schoolProfileTO.contactNumber != null && schoolProfileTO.contactNumber.length != 0) ? schoolProfileTO.contactNumber :'-'}}  </span> </p>
                   <!-- <p><i class="fa fa-map-marker"></i> {{schoolProfileTO.addressOne}}, {{schoolProfileTO.addressTwo}}, {{schoolProfileTO.city}}, {{schoolProfileTO.state}}, {{schoolProfileTO.pincode}}, {{schoolProfileTO.country}}</p> -->
-                  <p class="schoolAddress">Status: <span>  {{ (schoolProfileTO.active) ?  'Active' :'Inactive' }}  </span></p>
+                  <p class="schoolAddress">Status: <span>{{ (schoolProfileTO.active=="true") ?  'Active' :'Inactive' }} </span></p>
                 </div>
               </div>
               <!-- <img src="./assets/images/webicons/schoolname.png"> -->
@@ -246,6 +274,7 @@
           <tr>
             <th></th>
             <th>S.No</th>
+            <th>School Logo</th>
             <th>Name</th>
 
             <th>City</th>
@@ -271,6 +300,8 @@
             <td><input type="checkbox" id="{{schoolProfileTO.schoolId}}" value="{{schoolProfileTO.schoolId}}" (change)="checkedStudents(schoolProfileTO.schoolId)" ></td>
             <td>{{i + 1}}</td>
             <!-- <td><input type="checkbox" value="{{schoolProfileTO.schoolId}}"  (change)="updateCheckedOptions(schoolProfileTO.schoolId,$this.checkbox.state)"></td> -->
+            <td> <img src="{{ (schoolProfileTO.profilePhotoUrl != null && schoolProfileTO.profilePhotoUrl.length != 0) ?  schoolProfileTO.profilePhotoUrl:'./assets/images/profile/default.jpg' }}" alt=""></td>
+            
             <td>{{schoolProfileTO.schoolName}}</td>
             <td>{{schoolProfileTO.city}}</td>
             <td>{{schoolProfileTO.contactNumber}}</td>

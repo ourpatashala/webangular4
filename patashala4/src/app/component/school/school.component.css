@@ -112,3 +112,7 @@ font-size: 14px;
 {
     text-align: center
 }
+.manage_school_table table tbody tr td img
+{
+    width: 56px;
+}
