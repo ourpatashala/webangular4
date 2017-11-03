@@ -13,6 +13,7 @@ export interface StudentConverter {
 
   getStudent(schoolId:string, studentId:string,  studentComponentInterface:StudentComponentInterface);
 
+
   updateStudent(schoolId : string,studentTO: StudentTO, studentComponentInterface: StudentComponentInterface);
 
   deleteStudentProfile(schoolid: string, studentId:string);

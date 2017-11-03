@@ -31,12 +31,12 @@ import { AppConstants } from "../../constants/AppConstants";
 })
 
 export class SchoolComponent implements OnInit, SchoolComponentInterface {
-  
+
   selectedFiles: FileList;
   showupload: string = "0"; //0 for default close //1 for close and show listing
   currentFileUpload: FileUpload;
   progress: {percentage: number} = {percentage: 0}
-  
+
   selectedSchoolArray: Array<any> = [];
   schoolProfileTO: SchoolProfileTO;
   schoolFormGroup: FormGroup;
@@ -119,7 +119,8 @@ export class SchoolComponent implements OnInit, SchoolComponentInterface {
       country: [''],
       active: [''],
       schoolLogo: [''],
-      remarks: ['']
+      remarks: [''],
+      profilePhotoUrl:['']
 
     });
 
@@ -127,21 +128,21 @@ export class SchoolComponent implements OnInit, SchoolComponentInterface {
 
 
   displayPhotoCallBack(url: string) {
-    
+
         //TODO Shiva display the Image using the URL
         //this.photourl=url;
         console.log("displayPhotoCallBack : Image URL " + url);
       }
 
-      
+
   displayPhotoWithURLCallBack(url: string) {
-    
+
         //TODO Shiva display the Image using the URL
        // this.photourl=url;
         console.log("displayPhotoWithURLCallBack : Image URL " + url)
       }
-    
-    
+
+
   selectFile(event) {
 
     this.errorMessage = "";
@@ -152,7 +153,7 @@ export class SchoolComponent implements OnInit, SchoolComponentInterface {
       this.errorMessage =AppConstants.IMAGE_ERROR_MESSAGE;
       this.updateMessage(this.errorMessage);
       this.active = "2";
-      
+
     }
     else
     {
@@ -227,11 +228,11 @@ export class SchoolComponent implements OnInit, SchoolComponentInterface {
     this.schoolFormGroup.controls['active'].patchValue('true');
     this.schoolFormGroup.controls['remarks'].patchValue('');
     this.schoolFormGroup.controls['schoolLogo'].patchValue('');
-   
+
       this.sucessMessage = "";
       this.active = "0";
       this.errorMessage ="";
-   
+
   }
 
   showSchoolsList() {
@@ -320,6 +321,7 @@ export class SchoolComponent implements OnInit, SchoolComponentInterface {
   removeStudentProfilePic()
   {
     console.log(" Selected Student ID  "+localStorage.getItem(AppConstants.SHAREDPREFERANCE_SCHOOLID))
+    this.uploadService.removeSchoolPic (localStorage.getItem(AppConstants.SHAREDPREFERANCE_SCHOOLID));
   }
   redirecttoschooldashboard(schoolId: string, schoolName:string)
   {

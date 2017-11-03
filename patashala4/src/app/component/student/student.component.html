@@ -80,7 +80,7 @@
 <div class="add_fields addschool_div inactive_div"  [ngClass]="{'inactive_div': div_Element_Id !='1'}">
 
     <form  [formGroup]="studentFormGroup" (ngSubmit)="addStudentProfile(studentFormGroup)" ngNativeValidate>
- 
+
     <div class="col-md-12 padding0">
         <div class="col-md-6">
             <div class="col-md-4 text-right"><p>First Name</p></div>
@@ -100,7 +100,7 @@
             <div class="col-md-4 text-right"><p>Mother Name</p></div>
             <div class="col-md-8"><input type="text" placeholder="Enter Mother Name" formControlName="motherName" maxlength="100"></div><div class="clear"></div>
             <div class="col-md-4 text-right"><p>Class</p></div><div class="col-md-8 plus_btn_inline">
-                    <i class="fa fa-search" (click)="showClassPopup()"></i> 
+                    <i class="fa fa-search" (click)="showClassPopup()"></i>
                     <input formControlName="className" value="{{className}}" class="form-control">
             </div><div class="clear"></div>
 
@@ -164,7 +164,7 @@
             <div class="col-md-4 text-right"><p>Blood Group</p></div>
             <div class="col-md-8"><input type="text" placeholder="Enter Blood Group" formControlName="bloodGroup" maxlength="10"></div><div class="clear"></div>
             <div class="col-md-4 text-right"><p>Date Of Birth</p></div>
-            <div class="col-md-8">    
+            <div class="col-md-8">
                     <ng-datepicker [(ngModel)]="date" formControlName="dateOfBirth" [options]="dateOptions"></ng-datepicker>
                 <!-- <date-picker ngModel name="date" formControlName="dateOfBirth"></date-picker> -->
               </div><div class="clear"></div>
@@ -198,7 +198,7 @@
 
 <div class="modify_fields addschool_div inactive_div" [ngClass]="{'inactive_div': div_Element_Id !='2'}">
     <form  [formGroup]="studentFormGroup" (ngSubmit)="updateStudent(studentFormGroup)" ngNativeValidate>
-           
+
     <div class="col-md-9">
         <div class="col-md-6">
             <div class="col-md-4 text-right"><p>First Name</p></div>
@@ -220,7 +220,7 @@
             <div class="col-md-8"><input type="text" value="SMiddlename2" formControlName="motherName" maxlength="100"></div>
             <div class="clear"></div>
             <div class="col-md-4 text-right"><p>Class</p></div><div class="col-md-8 plus_btn_inline">
-                <i class="fa fa-search" (click)="showClassPopup()"></i> 
+                <i class="fa fa-search" (click)="showClassPopup()"></i>
                 <input formControlName="className" value="{{className}}" class="form-control">
         </div><div class="clear"></div>
             <!-- <div class="col-md-4"><p>Class</p></div><div class="col-md-8"><input auto-complete [(ngModel)]="myData" [source]="appComponent.classes" placeholder="Search Class"/></div><div class="clear"></div> -->
@@ -298,7 +298,8 @@
                    <div class="browse_img_manual">
                           <input type="file" accept="image/*;capture=camera">
                           <div class="img_overlay">
-                          <img src="{{ (studentTO.profilePhotoUrl != null && studentTO.profilePhotoUrl.length != 0) ?  studentTO.profilePhotoUrl:'./assets/images/profile/default.jpg' }}" class="img100" id="blah">
+
+                            <img src="{{ (studentTO.profilePhotoUrl != null && studentTO.profilePhotoUrl.length != 0) ? studentTO.profilePhotoUrl :  './assets/images/profile/default.jpg' }}" class="img100" id="blah">
                           <p ><span onclick="document.getElementById('input').click()" >{{ (studentTO.profilePhotoUrl != null && studentTO.profilePhotoUrl.length != 0) ?  'Update Photo':'Add Photo' }} </span><br><hr style="margin-top: 6px;margin-bottom: 4px;">
                             <span (click)="removeStudentProfilePic()" [ngClass]="{'inactive_div': studentTO.profilePhotoUrl == null}">{{ (studentTO.profilePhotoUrl != null && studentTO.profilePhotoUrl.length != 0) ?  'Remove':'' }} </span>
 
@@ -312,10 +313,10 @@
         <div *ngIf="currentFileUpload" class="progress" style="width:400px">
             <div class="progress-bar progress-bar-info progress-bar-striped" role="progressbar" attr.aria-valuenow="{{progress.percentage}}" aria-valuemin="0" aria-valuemax="100" [ngStyle]="{width:progress.percentage+'%'}"> {{progress.percentage}}%</div>
         </div>
-        
+
         <label class="btn btn-default"  style="display:none"> <input type="file" id="input" name="" (change)="selectFile($event)"> </label>
         <span class="btn btn-success hideblock"  (click)="upload()" [ngClass]="{'showblock': showupload=='1'}">Upload</span>
-        
+
       </div><!--[disabled]="!selectedFiles"-->
 
     </div>

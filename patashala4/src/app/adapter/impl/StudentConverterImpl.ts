@@ -153,7 +153,14 @@ export class StudentConverterImpl extends CommonConverter implements StudentConv
     });
   }
 
-
+  removeStudent(schoolId:string, studentId:string,  studentComponentInterface:StudentComponentInterface){
+    var studentVO=  new StudentVO();
+    var studentObject = this.studentService.getStudentProfile(schoolId, studentId);
+    studentObject.subscribe(snapshot => {
+      studentVO = snapshot;
+      studentComponentInterface.displayStudentCallBack(this.getTOFromVO(studentVO));
+    });
+  }
 
 
   updateStudent(schoolId : string,studentTO: StudentTO, studentComponentInterface:StudentComponentInterface){

@@ -27,7 +27,7 @@ export class StudentTO {
   gender?: string;
   landLine?: string;
   bloodGroup?: string;
-  profilePhotoUrl?: string;
+  profilePhotoUrl?: string = "";
   fatherName?: string;
   motherName?: string;
   addressOne: string;

@@ -46,7 +46,7 @@ export class StudentComponent implements OnInit, StudentComponentInterface {
     maxYear: 2030,
     firstCalendarDay: 0 //; // 0 - Sunday, 1 - Monday
   };
-  
+
   selectedFiles: FileList
   currentFileUpload: FileUpload
   progress: {percentage: number} = {percentage: 0}
@@ -75,7 +75,7 @@ export class StudentComponent implements OnInit, StudentComponentInterface {
   updateSubject: BehaviorSubject<string> = new BehaviorSubject<string>(""); // Holds the error message
   popupstatus: string = "0"; //0 for default close //1 for close and show listing
   showupload: string = "0"; //0 for default close //1 for close and show listing
- 
+
   update$: Observable<string> = this.updateSubject.asObservable(); // observer for the above message
   constructor(@Inject("StudentConverter") private studentConverter: StudentConverter, fb: FormBuilder, private injector: Injector, private router: Router, private errorService: ErrorService, private uploadService: UploadFileService) {
     this.fb = fb;
@@ -154,7 +154,10 @@ export class StudentComponent implements OnInit, StudentComponentInterface {
 
   removeStudentProfilePic()
   {
-    console.log(" Selected Student ID  "+localStorage.getItem(AppConstants.SHAREDPREFERANCE_STUDENTID))
+    console.log(" Selected Student ID  "+localStorage.getItem(AppConstants.SHAREDPREFERANCE_STUDENTID));
+    this.uploadService.removeStudentPic(localStorage.getItem(AppConstants.SHAREDPREFERANCE_SCHOOLID), localStorage.getItem(AppConstants.SHAREDPREFERANCE_STUDENTID))
+
+
   }
   getStudentProfile(schoolId: string, studentId: string) {
     localStorage.setItem(AppConstants.SHAREDPREFERANCE_STUDENTID,studentId);
@@ -231,7 +234,7 @@ export class StudentComponent implements OnInit, StudentComponentInterface {
       console.log(value);
       console.log("modified rollno"+value.rollNo);
       console.log("dateOfBirth"+value.dateOfBirth);
- 
+
       var d = new Date(value.dateOfBirth);
       var curr_date = d.getDate();
       var curr_month = d.getMonth() + 1; //Months are zero based
@@ -267,7 +270,7 @@ export class StudentComponent implements OnInit, StudentComponentInterface {
       this.errorMessage =AppConstants.IMAGE_ERROR_MESSAGE;
       this.updateMessage(this.errorMessage);
       this.active = "2";
-      
+
     }
     else
     {
@@ -424,7 +427,7 @@ getClassId(classId,classNames)
   this.className=classNames;
   this.studentFormGroup.controls['classId'].patchValue(classId);
   this.studentFormGroup.controls['className'].patchValue(classNames);
-  
+
 }
 
 
@@ -511,7 +514,7 @@ getClassId(classId,classNames)
   {
     this.getAllClassesProfile(localStorage.getItem(AppConstants.SHAREDPREFERANCE_SCHOOLID))
     this.showClassSelection=true;
-    
+
   }
 
   showStudentsList() {
@@ -604,7 +607,7 @@ getClassId(classId,classNames)
 
 
 
-    
+
   }
 
 
