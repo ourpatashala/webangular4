@@ -424,7 +424,7 @@ export class SchoolComponent implements OnInit, SchoolComponentInterface {
     else
         this.schoolFormGroup.controls['active'].patchValue(false);
     this.schoolFormGroup.controls['remarks'].patchValue(schoolProfileTO.remarks);
-    if(schoolProfileTO.profilePhotoUrl===undefined || schoolProfileTO.profilePhotoUrl== null)
+    if(schoolProfileTO.profilePhotoUrl===undefined || schoolProfileTO.profilePhotoUrl== null || schoolProfileTO.profilePhotoUrl.length== 0)
     {
       this.schoolFormGroup.controls['schoolLogo'].patchValue(AppConstants.DEFAULT_SCHOOL_LOGO);
       $("#blah").attr("src",AppConstants.DEFAULT_SCHOOL_LOGO);
@@ -434,6 +434,9 @@ export class SchoolComponent implements OnInit, SchoolComponentInterface {
       this.schoolFormGroup.controls['schoolLogo'].patchValue(schoolProfileTO.profilePhotoUrl);
       $("#blah").attr("src",schoolProfileTO.profilePhotoUrl);
     }
+
+    localStorage.setItem(AppConstants.SHAREDPREFERANCE_SCHOOLID,schoolProfileTO.schoolId);
+    
   }
 
   /**

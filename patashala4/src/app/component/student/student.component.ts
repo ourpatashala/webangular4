@@ -193,7 +193,22 @@ export class StudentComponent implements OnInit, StudentComponentInterface {
       console.log("adding school class id"+value.classId);
       console.log("dateOfBirth "+value.dateOfBirth);
       console.log("add rollNo"+value.rollNo);
-      this.studentConverter.addStudentProfile(this.studentTO.schoolId, this.studentTO, this);
+      var d = new Date(value.dateOfBirth);
+      var curr_date = d.getDate();
+      var curr_month = d.getMonth() + 1; //Months are zero based
+      var curr_year = d.getFullYear();
+
+      value.dateOfBirth= (curr_date<10 ? '0'+curr_date : curr_date) + "-" + AppConstants.month_names_short[curr_month] + "-" + curr_year;
+      console.log( (new Date().getFullYear()-2)+"   "+curr_year);
+      if(new Date().getFullYear()-2<curr_year)
+      {
+        this.errorMessage = "Please enter valid date";
+        this.active = "2";
+      }
+      else
+      {
+        this.studentConverter.addStudentProfile(this.studentTO.schoolId, this.studentTO, this);
+      }
     }
 
 
@@ -241,9 +256,16 @@ export class StudentComponent implements OnInit, StudentComponentInterface {
       var curr_year = d.getFullYear();
 
       value.dateOfBirth= (curr_date<10 ? '0'+curr_date : curr_date) + "-" + AppConstants.month_names_short[curr_month] + "-" + curr_year;
-      console.log( );
-
-     this.studentConverter.updateStudent(localStorage.getItem(AppConstants.SHAREDPREFERANCE_SCHOOLID), this.studentTO, this);
+      console.log( (new Date().getFullYear()-2)+"   "+curr_year);
+      if(new Date().getFullYear()-2<curr_year)
+      {
+        this.errorMessage = "Please enter valid date";
+        this.active = "2";
+      }
+      else
+      {
+        this.studentConverter.updateStudent(localStorage.getItem(AppConstants.SHAREDPREFERANCE_SCHOOLID), this.studentTO, this);
+      }
     }
   }
 
@@ -385,7 +407,7 @@ export class StudentComponent implements OnInit, StudentComponentInterface {
     {
       this.studentFormGroup.controls['dateOfBirth'].patchValue(studentTO.dateOfBirth);
     }
-    if(studentTO.profilePhotoUrl===undefined || studentTO.profilePhotoUrl== null)
+    if(studentTO.profilePhotoUrl===undefined || studentTO.profilePhotoUrl== null|| studentTO.profilePhotoUrl.length== 0)
     {
       this.studentFormGroup.controls['uploadPhoto'].patchValue(AppConstants.DEFAULT_STUDENT_IMAGE);
       $("#blah").attr("src",AppConstants.DEFAULT_STUDENT_IMAGE);
@@ -492,7 +514,6 @@ getClassId(classId,classNames)
 
   updateMessage(message: string) { // updates the error message
     this.updateSubject.next(message);
-
   }
 
   public getRouter(): Router {
@@ -544,7 +565,7 @@ getClassId(classId,classNames)
     this.studentFormGroup.controls['country'].patchValue("");
     this.studentFormGroup.controls['pincode'].patchValue("");
     this.studentFormGroup.controls['bloodGroup'].patchValue("");
-    this.studentFormGroup.controls['dateOfBirth'].patchValue( new Date());
+    this.studentFormGroup.controls['dateOfBirth'].patchValue(new Date());
     this.studentFormGroup.controls['uploadPhoto'].patchValue("");
     this.studentFormGroup.controls['fatherName'].patchValue("");
     this.studentFormGroup.controls['motherName'].patchValue("");

@@ -116,3 +116,7 @@ font-size: 14px;
 {
     width: 56px;
 }
+.img_overlay img{
+	width: 176px;
+    height: 176px
+}
