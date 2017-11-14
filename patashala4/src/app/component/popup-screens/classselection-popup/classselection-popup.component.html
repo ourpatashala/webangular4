@@ -1,0 +1,17 @@
+<table id="datatable1"  datatable  [dtOptions]="dtOptionsclass" [dtTrigger]="dtTriggerclass" class="my_table_width search_class_table_ui" DataTableDirective1 >
+  <thead>
+      <tr><th>Class Name</th></tr>
+  </thead>
+  <tbody>
+      <tr *ngFor="let classProfileTO of classProfileTOList ; let i=index ">
+          <td (click)="getClassId(classProfileTO.id,classProfileTO.name)">
+               {{ (classProfileTO.name == classNames) ?  '':classProfileTO.name  }}<b style="font-size: 17px;">{{ (classProfileTO.name == classNames) ?  classProfileTO.name:''  }}</b>
+        </td>
+      </tr>
+      <!-- <tr><td (click)="getClassId($event.target.innerText,$event.target.innerText)">testclass</td></tr> -->
+  </tbody>
+</table>
+<div class="little_gap"></div>
+<button class="update_btn popup_ok_btn" (click)="closePopup()">Ok</button>
+
+

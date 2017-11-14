@@ -9,22 +9,11 @@
   <button class="update_btn popup_ok_btn" (click)="closePopup()">Ok</button>
 </div>
 
-<div class="class_search hideblock " [ngClass]="{'showblock': showClassSelection==true}">
-    <table   class="my_table_width search_class_table_ui" >
-        <thead>
-            <tr><th>Class Name</th></tr>
-        </thead>
-        <tbody>
-            <tr *ngFor="let classProfileTO of classProfileTOList ; let i=index ">
-                <td (click)="getClassId(classProfileTO.id,classProfileTO.name)"> {{classProfileTO.name}} </td>
-            </tr>
-            <tr><td (click)="getClassId($event.target.innerText,$event.target.innerText)">testclass</td></tr>
-        </tbody>
-    </table>
-    <div class="little_gap"></div>
-    <button class="update_btn popup_ok_btn" (click)="closePopup()">Ok</button>
-</div>
+<div class="overlay hideblock" [ngClass]="{'showblock': showClassSelection==true}"></div>
 
+<div class="class_search hideblock " [ngClass]="{'showblock': showClassSelection==true}">
+    <app-classselection-popup (notify)='onNotify($event)'></app-classselection-popup>   
+</div>
 
 <div class="brow_img_popup text-center">
   <h3>Change Profile Picture</h3>
@@ -310,12 +299,12 @@
                 <div class="little_gap"></div>
 
       <div>
-        <div *ngIf="currentFileUpload" class="progress" style="width:400px">
+        <div *ngIf="currentFileUpload" class="progress" style="width:100%">
             <div class="progress-bar progress-bar-info progress-bar-striped" role="progressbar" attr.aria-valuenow="{{progress.percentage}}" aria-valuemin="0" aria-valuemax="100" [ngStyle]="{width:progress.percentage+'%'}"> {{progress.percentage}}%</div>
         </div>
 
         <label class="btn btn-default"  style="display:none"> <input type="file" id="input" name="" (change)="selectFile($event)"> </label>
-        <span class="btn btn-success hideblock"  (click)="upload()" [ngClass]="{'showblock': showupload=='1'}">Upload</span>
+        <span class="btn btn-success hideblock uploadbutton"  (click)="upload()" [ngClass]="{'showblock': showupload=='1'}">Upload</span>
 
       </div><!--[disabled]="!selectedFiles"-->
 
@@ -393,7 +382,7 @@
                 <tr>
                         <th></th>
                     <th>S.no</th>
-                    <th>Photo</th>
+                    <th style="width:100px">Photo</th>
                     <th>First&nbsp;Name</th>
                     <th>Last&nbsp;Name</th>
                     <th>Middle&nbsp;Name</th>
@@ -407,7 +396,7 @@
                    <!-- <td><input type="checkbox" value="{{schoolProfileTO.schoolId}}"  (change)="updateCheckedOptions(schoolProfileTO.schoolId,$this.checkbox.state)"></td> -->
                     <td><input type="checkbox" id="{{studentProfileTO.id}}" value="{{studentProfileTO.id}}" (change)="checkedStudents(studentProfileTO.id)" ></td>
                     <td>{{i + 1}}</td>
-                    <td> <img src="{{ (studentProfileTO.profilePhotoUrl != null && studentProfileTO.profilePhotoUrl.length != 0) ?  studentProfileTO.profilePhotoUrl:'./assets/images/profile/default.jpg' }}" alt=""></td>
+                    <td class="text-center"> <img src="{{ (studentProfileTO.profilePhotoUrl != null && studentProfileTO.profilePhotoUrl.length != 0) ?  studentProfileTO.profilePhotoUrl:'./assets/images/profile/default.jpg' }}" alt=""></td>
                     <td>{{studentProfileTO.firstName}}</td>
                     <td>{{studentProfileTO.lastName}}</td>
                     <td>{{studentProfileTO.middleName}}</td>
@@ -420,9 +409,9 @@
                   </tr>
             </tbody>
         </table>
-</div>
     </div>
-    </div>
+   </div>
+  </div>
 <div class="clear"></div>
 
 <!--<div id="extraDiv">

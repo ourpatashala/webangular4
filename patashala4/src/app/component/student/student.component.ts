@@ -1,4 +1,4 @@
-import {Component, OnInit, Input, Inject, PipeTransform, Pipe, Injector} from '@angular/core';
+import {Component, OnInit, Input, Output, Inject, PipeTransform, Pipe, Injector} from '@angular/core';
 import {ViewChild} from '@angular/core';
 import {StudentService} from "../../service/student.service";
 import {StudentConverter} from "../../adapter/interfaces/StudentConverter";
@@ -49,7 +49,7 @@ export class StudentComponent implements OnInit, StudentComponentInterface {
 
   selectedFiles: FileList
   currentFileUpload: FileUpload
-  progress: {percentage: number} = {percentage: 0}
+  progress: {percentage: number} = {percentage: 0};
 
   selectedStudentArray: Array<any> = [];
   errorMessage: string;
@@ -63,9 +63,7 @@ export class StudentComponent implements OnInit, StudentComponentInterface {
   @ViewChild(DataTableDirective)
   dtElement: DataTableDirective;
   dtOptions: DataTables.Settings = {};
-  dtOptionsclass: DataTables.Settings = {};
   dtTrigger: Subject<any> = new Subject();
-  dtTriggerclass: Subject<any> = new Subject();
   flag: boolean = false;
   showClassSelection:boolean = false;
   active: string = "0";// for error and success divs;;  0 for no content, 1 for success, 2 for error
@@ -98,7 +96,6 @@ export class StudentComponent implements OnInit, StudentComponentInterface {
   }
 
   ngAfterViewInit(): void {
-    this.dtTriggerclass.next();
     this.dtTrigger.next();
   }
 
@@ -443,22 +440,10 @@ export class StudentComponent implements OnInit, StudentComponentInterface {
     console.log('Display all Students');
     this.rerender();
   }
-getClassId(classId,classNames)
-{
-  console.log(classNames);
-  this.className=classNames;
-  this.studentFormGroup.controls['classId'].patchValue(classId);
-  this.studentFormGroup.controls['className'].patchValue(classNames);
-
-}
 
 
   displayAllClassesCallBack(classProfileTO: FirebaseListObservable<ClassProfileTO>) {
-    this.classProfileTOList=classProfileTO;
-    classProfileTO.forEach(classsProfileTO => {
-      console.log('class Profile:', classsProfileTO);
-    });
-    this.rerender();
+   
   }
 
 
@@ -480,19 +465,8 @@ getClassId(classId,classNames)
     } else {
       this.active = "0";
     }
-    // setTimeout(() => {    //<<<---    using ()=> syntax
-    //   this.sucessMessage = "";
-    //   this.active = "0";
-    // }, 2000);
   }
 
-  /**
-   * Handle all the error messages here . Basing on the error message decide where you want to display
-   * the Error Message, Also if required you can recirect to any page basing on the navigate method
-   * given below.
-   *
-   * @param message
-   */
   errorMessageCallBack(messageTO: MessageTO) {
     console.log("errorMessageCallBack ==>" + messageTO.messageInfo + "  " + messageTO.messageType + "  " + messageTO.serviceClassName + "  " + messageTO.serviceMethodName);
     //TODO Shiva - commented  to compile the code. Please fix it.
@@ -572,7 +546,6 @@ getClassId(classId,classNames)
     this.studentFormGroup.controls['rollNo'].patchValue("");
     this.studentFormGroup.controls['classId'].patchValue("");
     this.studentFormGroup.controls['className'].patchValue("");
-
     this.clearPhoneNumbers();
     this.addPhoneNumber();
     this.clearSiblings();
@@ -699,25 +672,11 @@ getClassId(classId,classNames)
   }
 
   displayPhotoCallBack(url: string) {
-
-    //TODO Shiva display the Image using the URL
-    //this.photourl=url;
     console.log("displayPhotoCallBack : Image URL " + url);
   }
 
   getPhotoWithURL(schoolId: string, photoURL: string) {
-
     console.log("Called getPhotoWithURL " + photoURL);
-
-    /*if (photoURL != null) {
-
-      this.studentConverter.getPhotoWithURL(schoolId, photoURL, this);
-
-    } else {
-
-      console.log("Called getPhotoWithURL UNDEFINED");
-
-    }*/
   }
 
   displayPhotoWithURLCallBack(url: string) {
@@ -727,5 +686,14 @@ getClassId(classId,classNames)
     console.log("displayPhotoWithURLCallBack : Image URL " + url)
   }
 
+  onNotify(status:string):void {
+    //alert(status);
+    this.showClassSelection=false;
+    if(status=="true")
+    {
+      this.studentFormGroup.controls['classId'].patchValue(localStorage.getItem(AppConstants.SHAREDPREFERANCE_STUDENTCLASSID));
+      this.studentFormGroup.controls['className'].patchValue(localStorage.getItem(AppConstants.SHAREDPREFERANCE_STUDENTCLASSNAME));      
+    }
 
+  }
 }

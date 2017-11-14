@@ -173,12 +173,12 @@
                   <div class="little_gap"></div>
   
         <div>
-          <div *ngIf="currentFileUpload" class="progress" style="width:100%">
+          <div *ngIf="currentFileUpload" class="progress" style="width:400px">
               <div class="progress-bar progress-bar-info progress-bar-striped" role="progressbar" attr.aria-valuenow="{{progress.percentage}}" aria-valuemin="0" aria-valuemax="100" [ngStyle]="{width:progress.percentage+'%'}"> {{progress.percentage}}%</div>
           </div>
           
           <label class="btn btn-default"  style="display:none"> <input type="file" id="input" name="" (change)="selectFile($event)"> </label>
-          <span class="btn btn-success hideblock uploadbutton"  (click)="upload()" [ngClass]="{'showblock': showupload=='1'}">Upload</span>
+          <span class="btn btn-success hideblock"  (click)="upload()" [ngClass]="{'showblock': showupload=='1'}">Upload</span>
           
         </div><!--[disabled]="!selectedFiles"-->
   
@@ -273,8 +273,8 @@
           <thead>
           <tr>
             <th></th>
-            <th style="width:30px">S.No</th>
-            <th style="width:100px">School Logo</th>
+            <th>S.No</th>
+            <th>School Logo</th>
             <th>Name</th>
 
             <th>City</th>
@@ -300,7 +300,7 @@
             <td><input type="checkbox" id="{{schoolProfileTO.schoolId}}" value="{{schoolProfileTO.schoolId}}" (change)="checkedStudents(schoolProfileTO.schoolId)" ></td>
             <td>{{i + 1}}</td>
             <!-- <td><input type="checkbox" value="{{schoolProfileTO.schoolId}}"  (change)="updateCheckedOptions(schoolProfileTO.schoolId,$this.checkbox.state)"></td> -->
-            <td class="text-center"> <img src="{{ (schoolProfileTO.profilePhotoUrl != null && schoolProfileTO.profilePhotoUrl.length != 0) ?  schoolProfileTO.profilePhotoUrl:'./assets/images/profile/default.jpg' }}" alt=""></td>
+            <td> <img src="{{ (schoolProfileTO.profilePhotoUrl != null && schoolProfileTO.profilePhotoUrl.length != 0) ?  schoolProfileTO.profilePhotoUrl:'./assets/images/profile/default.jpg' }}" alt=""></td>
             
             <td>{{schoolProfileTO.schoolName}}</td>
             <td>{{schoolProfileTO.city}}</td>

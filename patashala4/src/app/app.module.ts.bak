@@ -50,7 +50,7 @@ export const firebaseConfig = {     apiKey: 'AIzaSyB6WeGfORqOzz5jT_XL6GLMCl8ze
     TabServiceComponent,
     TabManageComponent,
     FormUploadComponent,
-	ClassselectionPopupComponent,
+	PopupScreensComponent,
    ],
   imports: [
     BrowserModule,
