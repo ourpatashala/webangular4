@@ -6,6 +6,7 @@
   <div class="sucess_msg_text"><span class="checkicon"> &#x2714;</span> <p [ngClass]="{'show_styles_sucess': active=='1'}"> {{sucessMessage}}!</p></div>
   <div class="little_gap"></div>
   <button class="update_btn popup_ok_btn" (click)="closePopup()">Ok</button>
+  <div class="large_padding"></div>    
 </div>
 
 
@@ -205,7 +206,7 @@
           <div class="school_details">
             <div class="col-md-7">
               <div class="profile_image_div">
-                <img src="./assets/images/default_school.jpg">
+                <img src="{{ (schoolProfileTO.profilePhotoUrl != null && schoolProfileTO.profilePhotoUrl.length != 0) ?  schoolProfileTO.profilePhotoUrl:'./assets/images/profile/default.jpg' }}" alt="">
                 <div class="text_beside_img">
                   <p class="School_name">School Name: <span>   {{ (schoolProfileTO.schoolName != null && schoolProfileTO.schoolName.length != 0) ?  schoolProfileTO.schoolName:'-' }} </span></p>
                   <p class="school_id">School Display Name: <span>   {{ (schoolProfileTO.schoolDisplayName != null && schoolProfileTO.schoolDisplayName.length != 0) ?  schoolProfileTO.schoolDisplayName:'-' }} </span></p>

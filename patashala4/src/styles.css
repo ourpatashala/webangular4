@@ -908,10 +908,11 @@ display: block;
   background-color: #fff;
   box-shadow: 1px 1px 4px #4d4d4d;
   z-index: 100;
-  width: 300px;
+  width: 750px;
   text-align: center;
   border-radius: 15px;
   overflow: hidden;
+  min-height: 490px;
 }
 .my_table_width thead tr th
 {
@@ -945,13 +946,16 @@ display: block;
 {
   width: 100%;
   padding: 12px 28px;
+  position: absolute;
+  bottom: 0;
+  left: 0;
 }
 
 .search_class_table_ui
 {
   width: 256px !important;
 }
-.class_search .dataTables_length, .class_search .dataTables_info , .class_search .dataTables_paginate 
+.class_search .dataTables_length, .class_search .dataTables_info 
 {
   display: none
 }
@@ -963,4 +967,13 @@ display: block;
 .ngx-datepicker-container
 {
 	z-index: 2;
+}
+.class_search .dataTables_paginate 
+{
+  float: none;
+  text-align: center
+}
+.large_padding
+{
+  padding-top: 56px;
 }
