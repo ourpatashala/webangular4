@@ -241,7 +241,7 @@ export class StudentComponent implements OnInit, StudentComponentInterface {
       this.active = "2";
     } else {
       console.log("modify school "+value.mobileNumbers.length);
-      this.upload();
+      //this.upload();
       this.studentTO = value;
       console.log(value);
       console.log("modified rollno"+value.rollNo);

@@ -904,15 +904,15 @@ display: block;
       -ms-transform: translate(-50%,-50%);
        -o-transform: translate(-50%,-50%);
           transform: translate(-50%,-50%);
-  padding: 50px 0 0;
+  padding: 0px 0 0;
   background-color: #fff;
   box-shadow: 1px 1px 4px #4d4d4d;
   z-index: 100;
-  width: 750px;
+  width: 600px;
   text-align: center;
   border-radius: 15px;
   overflow: hidden;
-  min-height: 490px;
+  min-height: 394px;
 }
 .my_table_width thead tr th
 {
@@ -944,11 +944,8 @@ display: block;
 }
 .popup_ok_btn
 {
-  width: 100%;
-  padding: 12px 28px;
-  position: absolute;
-  bottom: 0;
-  left: 0;
+  width: 126px;
+  padding: 9px 15px;
 }
 
 .search_class_table_ui
@@ -971,9 +968,39 @@ display: block;
 .class_search .dataTables_paginate 
 {
   float: none;
-  text-align: center
+  text-align: center;
+  margin-top: 12px;
 }
 .large_padding
 {
   padding-top: 56px;
+}
+.class_search .paginate_button
+{
+  padding: 3px 10px !important;
+}
+.popup_header
+{
+  background-color: #199f86;
+  padding: 15px;
+  color: #fff;
+  text-align: left;
+  font-size: 16px;
+  text-transform: capitalize;
+}
+.popup_text
+{
+  font-size: 14px;
+  margin: 17px 0px;
+}
+.class_search #datatable1_filter label
+{
+  font-weight: normal
+}
+.class_search #datatable1_filter label input
+{
+  height: 27px;
+  padding-left: 6px;
+  width: 199px;
+  border:1px solid #a8a8a8;
 }
