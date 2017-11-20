@@ -115,6 +115,7 @@ font-size: 14px;
 .manage_school_table table tbody tr td img
 {
     width: 56px;
+    height: 56px;
 }
 .img_overlay img{
 	width: 176px;

@@ -26,7 +26,11 @@ export class LoginComponent implements OnInit , LoginComponentInterface{
     this.userForm = formBuilder.group({
       username: [],
       password: []
-    })
+    });
+
+    localStorage.removeItem('userlogin');
+
+    
  }
     // constructor(private router: Router){
     // }

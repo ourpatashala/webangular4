@@ -11,6 +11,7 @@ color: #666;
 .manage_school_table table tbody tr td img
 {
     width: 56px;
+    height: 56px;
 }
 .manage_school_table table tbody tr td button
 {

@@ -162,7 +162,7 @@
           <div class="large_gap"></div>
                 <p class="text-left">School Logo </p>
                      <div class="browse_img_manual">
-                            <input type="file">
+                            <input type="file"  accept="image/*;capture=camera">
                             <div class="img_overlay">
                             <img src="{{ (schoolProfileTO.profilePhotoUrl != null && schoolProfileTO.profilePhotoUrl.length != 0) ?  schoolProfileTO.profilePhotoUrl:'./assets/images/profile/default.jpg' }}" class="img100" id="blah">
                             <p ><span onclick="document.getElementById('input').click()" >{{ (schoolProfileTO.profilePhotoUrl != null && schoolProfileTO.profilePhotoUrl.length != 0) ?  'Update Photo':'Add Photo' }} </span><br><hr style="margin-top: 6px;margin-bottom: 4px;">

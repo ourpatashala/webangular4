@@ -186,7 +186,7 @@ export class StudentComponent implements OnInit, StudentComponentInterface {
       this.active = "2";
     } else {
       console.log("add school "+value.mobileNumbers.length);
-      this.studentTO = value;
+     // this.studentTO = value;
       console.log("adding school class id"+value.classId);
       console.log("dateOfBirth "+value.dateOfBirth);
       console.log("add rollNo"+value.rollNo);
@@ -204,7 +204,7 @@ export class StudentComponent implements OnInit, StudentComponentInterface {
       }
       else
       {
-        this.studentConverter.addStudentProfile(this.studentTO.schoolId, this.studentTO, this);
+        this.studentConverter.addStudentProfile(this.studentTO.schoolId, value, this);
       }
     }
 
@@ -242,7 +242,6 @@ export class StudentComponent implements OnInit, StudentComponentInterface {
     } else {
       console.log("modify school "+value.mobileNumbers.length);
       //this.upload();
-      this.studentTO = value;
       console.log(value);
       console.log("modified rollno"+value.rollNo);
       console.log("dateOfBirth"+value.dateOfBirth);
@@ -251,7 +250,7 @@ export class StudentComponent implements OnInit, StudentComponentInterface {
       var curr_date = d.getDate();
       var curr_month = d.getMonth() + 1; //Months are zero based
       var curr_year = d.getFullYear();
-
+      console.log("profilepic "+value.profilePhotoUrl);
       value.dateOfBirth= (curr_date<10 ? '0'+curr_date : curr_date) + "-" + AppConstants.month_names_short[curr_month] + "-" + curr_year;
       console.log( (new Date().getFullYear()-2)+"   "+curr_year);
       if(new Date().getFullYear()-2<curr_year)
@@ -261,7 +260,7 @@ export class StudentComponent implements OnInit, StudentComponentInterface {
       }
       else
       {
-        this.studentConverter.updateStudent(localStorage.getItem(AppConstants.SHAREDPREFERANCE_SCHOOLID), this.studentTO, this);
+        this.studentConverter.updateStudent(localStorage.getItem(AppConstants.SHAREDPREFERANCE_SCHOOLID), value, this);
       }
     }
   }
@@ -415,6 +414,7 @@ export class StudentComponent implements OnInit, StudentComponentInterface {
       $("#blah").attr("src",studentTO.profilePhotoUrl);
     }
     console.log("profilePhotoUrl ======> "+studentTO.profilePhotoUrl);
+    
     this.studentFormGroup.controls['fatherName'].patchValue(studentTO.fatherName);
     this.studentFormGroup.controls['motherName'].patchValue(studentTO.motherName);
     this.studentFormGroup.controls['rollNo'].patchValue(studentTO.rollNo);
@@ -458,7 +458,11 @@ export class StudentComponent implements OnInit, StudentComponentInterface {
   successMessageCallBack(messageTO: MessageTO) {
     console.log("successMessageCallBack : " + messageTO.serviceMethodName);
     if (messageTO.serviceMethodName == "searchAndAddStudent()") this.studentFormGroup.reset();
-    if (messageTO.serviceMethodName == "updateStudentProfile()") this.popupstatus = "1";
+    if (messageTO.serviceMethodName == "updateStudentProfile()") 
+    {
+      this.popupstatus = "1";
+      this.getselectedStudentProfile();
+  }
     this.sucessMessage = messageTO.messageInfo;
     if (messageTO.messageInfo.length != 0) {
       this.active = "1";
@@ -696,4 +700,13 @@ export class StudentComponent implements OnInit, StudentComponentInterface {
     }
 
   }
+}
+window.onbeforeunload = close;
+function close(){
+
+    // do something...
+    alert("sdfsdf");
+    localStorage.clear();
+    sessionStorage.clear();
+   return null;
 }

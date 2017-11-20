@@ -380,9 +380,9 @@ export class SchoolComponent implements OnInit, SchoolComponentInterface {
     }
     else {
       console.log("status:" +value.active);
-      this.schoolProfileTO = value;
-      this.schoolConverter.updateSchoolProfile(this.schoolProfileTO, this);
-      console.log("  this.schoolProfileTO.active ===>"+ this.schoolProfileTO.active);
+ 
+      this.schoolConverter.updateSchoolProfile(value, this);
+      console.log("  this.schoolProfileTO.active ===>"+ value.active);
 
     }
   }
@@ -540,4 +540,13 @@ export class SchoolComponent implements OnInit, SchoolComponentInterface {
     }
   }
 
+  
+}
+window.onbeforeunload = close;
+function close(){
+
+    // do something...
+    localStorage.clear();
+    sessionStorage.clear();
+   return null;
 }
