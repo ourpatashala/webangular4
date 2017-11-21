@@ -7,7 +7,7 @@
   <div class="sucess_msg_text"><span class="checkicon"> &#x2714;</span> <p [ngClass]="{'show_styles_sucess': active=='1'}">{{sucessMessage}}!</p></div>
   <div class="little_gap"></div>
   <button class="update_btn popup_ok_btn" (click)="closePopup()">Ok</button>
-  <div class="little_gap"></div>    
+  <div class="little_gap"></div>
 </div>
 
 <div class="overlay hideblock" [ngClass]="{'showblock': showClassSelection==true}"></div>
@@ -202,6 +202,7 @@
 
     <div class="col-md-9">
         <div class="col-md-6">
+          <input type="hidden" formControlName="profilePhotoUrl">
             <div class="col-md-4 text-right"><p>First Name</p></div>
             <div class="col-md-8"><input type="text" value="SFirstname2" formControlName="firstName" maxlength="50"></div>
             <div class="clear"></div>
