@@ -12,9 +12,17 @@
 
 <div class="overlay hideblock" [ngClass]="{'showblock': showClassSelection==true}"></div>
 
-<div class="class_search hideblock " [ngClass]="{'showblock': showClassSelection==true}">
-        <i class="fa fa-close closeclassidpopup"  (click)="closePopup()" ></i>
+    <div class="class_search hideblock " [ngClass]="{'showblock': showClassSelection==true}">
+            <i class="fa fa-close closeclassidpopup"  (click)="closePopup()" ></i>
     <app-classselection-popup (notify)='onNotify($event)'></app-classselection-popup>   
+</div>
+
+
+<div class="overlay hideblock" [ngClass]="{'showblock': showCameraSelection==true}"></div>
+
+<div class="class_search hideblock " [ngClass]="{'showblock': showCameraSelection==true}">
+        <i class="fa fa-close closeclassidpopup"  (click)="closePopup()" ></i>
+        <app-webcampopup (notify)='onNotify($event)'></app-webcampopup>   
 </div>
 
 <div class="brow_img_popup text-center">
@@ -144,6 +152,8 @@
             <div class="col-md-8"><input type="text" placeholder="Enter Address1" formControlName="addressOne" maxlength="100"></div><div class="clear"></div>
             <div class="col-md-4 text-right"><p>Address2</p></div>
             <div class="col-md-8"><input type="text" placeholder="Enter Address2" formControlName="addressTwo" maxlength="100"></div><div class="clear"></div>
+            <div class="col-md-4 text-right hideblock"><p>Imagepath</p></div>
+            <div class="col-md-8 hideblock"><input type="hidden" placeholder="Image path" formControlName="uploadPhoto" maxlength="100"></div><div class="clear"></div>
             <div class="col-md-4 text-right"><p>city</p></div>
             <div class="col-md-8"><input type="text" placeholder="Enter city" formControlName="city" maxlength="50"></div><div class="clear"></div>
             <div class="col-md-4 text-right"><p>State</p></div>
@@ -262,6 +272,8 @@
             <div class="col-md-8"><input type="text" placeholder="Enter Address1" formControlName="addressOne" maxlength="100"></div><div class="clear"></div>
             <div class="col-md-4 text-right"><p>Address2</p></div>
             <div class="col-md-8"><input type="text" placeholder="Enter Address2" formControlName="addressTwo" maxlength="100"></div><div class="clear"></div>
+            <div class="col-md-4 text-right hideblock"><p>Imagepath</p></div>
+            <div class="col-md-8 hideblock"><input type="hidden" placeholder="Image path" formControlName="uploadPhoto" maxlength="100"></div><div class="clear"></div>
             <div class="col-md-4 text-right"><p>city</p></div>
             <div class="col-md-8"><input type="text" placeholder="Enter city" formControlName="city" maxlength="50"></div><div class="clear"></div>
             <div class="col-md-4 text-right"><p>State</p></div>
@@ -290,7 +302,7 @@
                           <input type="file" accept="image/*;capture=camera">
                          <div class="img_overlay">
                             <img src="{{ (studentTO.profilePhotoUrl != null && studentTO.profilePhotoUrl.length != 0) ? studentTO.profilePhotoUrl :  './assets/images/profile/default.jpg' }}" class="img100" id="blah">
-                          <p ><span onclick="document.getElementById('input').click()" >{{ (studentTO.profilePhotoUrl != null && studentTO.profilePhotoUrl.length != 0) ?  'Update Photo':'Add Photo' }} </span><br><hr style="margin-top: 6px;margin-bottom: 4px;">
+                          <p ><span onclick="document.getElementById('input').click()" >{{ (studentTO.profilePhotoUrl != null && studentTO.profilePhotoUrl.length != 0) ?  'Update Photo':'Add Photo' }} </span> <span (click)="showWebcamPopup()" >webcam</span> <br><hr style="margin-top: 6px;margin-bottom: 4px;">
                             <span (click)="removeStudentProfilePic()" [ngClass]="{'inactive_div': studentTO.profilePhotoUrl == null}">{{ (studentTO.profilePhotoUrl != null && studentTO.profilePhotoUrl.length != 0) ?  'Remove':'' }} </span>
 
                           </p>

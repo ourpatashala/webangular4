@@ -50,7 +50,7 @@ export class StudentComponent implements OnInit, StudentComponentInterface {
   selectedFiles: FileList
   currentFileUpload: FileUpload
   progress: {percentage: number} = {percentage: 0};
-
+  selectedimagepath: string;
   selectedStudentArray: Array<any> = [];
   errorMessage: string;
   sucessMessage: string;
@@ -66,6 +66,7 @@ export class StudentComponent implements OnInit, StudentComponentInterface {
   dtTrigger: Subject<any> = new Subject();
   flag: boolean = false;
   showClassSelection:boolean = false;
+  showCameraSelection:boolean = false;
   active: string = "0";// for error and success divs;;  0 for no content, 1 for success, 2 for error
   div_Element_Id: string = "0";//for multiple pages in school list page;;  0 to show list of school , 1 to show add school, 2 to show edit school, 3 to show single school view.
   fb: FormBuilder;
@@ -250,6 +251,8 @@ export class StudentComponent implements OnInit, StudentComponentInterface {
       var curr_date = d.getDate();
       var curr_month = d.getMonth() + 1; //Months are zero based
       var curr_year = d.getFullYear();
+      value.profilePhotoUrl=this.selectedimagepath;
+      console.log("profilepic "+value);
       console.log("profilepic "+value.profilePhotoUrl);
       value.dateOfBirth= (curr_date<10 ? '0'+curr_date : curr_date) + "-" + AppConstants.month_names_short[curr_month] + "-" + curr_year;
       console.log( (new Date().getFullYear()-2)+"   "+curr_year);
@@ -414,7 +417,7 @@ export class StudentComponent implements OnInit, StudentComponentInterface {
       $("#blah").attr("src",studentTO.profilePhotoUrl);
     }
     console.log("profilePhotoUrl ======> "+studentTO.profilePhotoUrl);
-    
+    this.selectedimagepath=studentTO.profilePhotoUrl;
     this.studentFormGroup.controls['fatherName'].patchValue(studentTO.fatherName);
     this.studentFormGroup.controls['motherName'].patchValue(studentTO.motherName);
     this.studentFormGroup.controls['rollNo'].patchValue(studentTO.rollNo);
@@ -452,6 +455,7 @@ export class StudentComponent implements OnInit, StudentComponentInterface {
     this.active = "0";
     if (this.popupstatus == "1") this.showStudentsList();
     this.showClassSelection=false;
+    this.showCameraSelection=false;
   }
 
 
@@ -515,7 +519,12 @@ export class StudentComponent implements OnInit, StudentComponentInterface {
     this.showClassSelection=true;
 
   }
+  
+  showWebcamPopup()
+  {
+    this.showCameraSelection=true;
 
+  }
   showStudentsList() {
 
     if (this.selectedStudentArray.length > 0) (<HTMLInputElement>document.getElementById(this.selectedStudentArray[0])).checked = false;

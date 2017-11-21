@@ -36,7 +36,8 @@ export class SchoolComponent implements OnInit, SchoolComponentInterface {
   showupload: string = "0"; //0 for default close //1 for close and show listing
   currentFileUpload: FileUpload;
   progress: {percentage: number} = {percentage: 0}
-
+  selectedimagepath: string;
+  
   selectedSchoolArray: Array<any> = [];
   schoolProfileTO: SchoolProfileTO;
   schoolFormGroup: FormGroup;
@@ -380,7 +381,9 @@ export class SchoolComponent implements OnInit, SchoolComponentInterface {
     }
     else {
       console.log("status:" +value.active);
- 
+      value.profilePhotoUrl=this.selectedimagepath;
+      console.log("profilepic "+value);
+      
       this.schoolConverter.updateSchoolProfile(value, this);
       console.log("  this.schoolProfileTO.active ===>"+ value.active);
 
@@ -434,7 +437,7 @@ export class SchoolComponent implements OnInit, SchoolComponentInterface {
       this.schoolFormGroup.controls['schoolLogo'].patchValue(schoolProfileTO.profilePhotoUrl);
       $("#blah").attr("src",schoolProfileTO.profilePhotoUrl);
     }
-
+    this.selectedimagepath=schoolProfileTO.profilePhotoUrl;
     localStorage.setItem(AppConstants.SHAREDPREFERANCE_SCHOOLID,schoolProfileTO.schoolId);
     
   }
