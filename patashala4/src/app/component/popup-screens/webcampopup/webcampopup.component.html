@@ -1,10 +1,30 @@
 <p class="text-center popup_header">Capture Image </p>
-
+<div class="col-md-12">
+<div class="col-md-6">
 <ack-webcam
 [(ref)]   = "webcam"
-[options] = "options"
+[options] = "{
+  audio: boolean,
+  video: boolean,
+  width: 240,
+  height: 240,
+  fallbackMode: 'callback',
+  fallbackQuality: 85,
+  cameraType: 'front' || 'back'
+}"
 (success) = "onCamSuccess($event)"
 (catch)   = "onCamError($event)"
-></ack-webcam><br/>
-<button (click)="genBase64()"> generate base64 </button>
-<button (click)="genPostData()"> generate post data </button>
+></ack-webcam>
+</div>
+<div class="col-md-6">
+<img src="{{selectedimagesrc}}"  width="240" height="240"/>
+</div>
+</div>
+<div class="col-md-12">
+<div class="col-md-6">
+<button (click)="genBase64()"> Capture </button>
+</div>
+<div class="col-md-6">
+<button (click)="genPostData()"> Upload </button>
+</div>
+</div>
