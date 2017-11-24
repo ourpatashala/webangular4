@@ -157,7 +157,7 @@ export class SchoolService {
         schoolProfileVO.schoolId = dbRef.key;
         dbRef.set(schoolProfileVO);
         messageTO.messageInfo = Messages.SCHOOL_ADDED;
-
+        messageTO.objId = schoolProfileVO.schoolId;
         schoolComponentInterface.successMessageCallBack(messageTO);
       }
     });

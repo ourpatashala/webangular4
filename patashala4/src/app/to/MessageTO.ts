@@ -5,6 +5,7 @@
 export class MessageTO{
   serviceClassName: string;
   serviceMethodName: string;
-  messageType:String;
+  messageType:string;
   messageInfo:string;
+  objId: string;
 }

@@ -115,6 +115,7 @@ export class StudentService {
         StudentService.updateRegistrationNode (studentVO.schoolId, studentVO, serviceObject);
         console.log("Added Record .."+ studentVO);
         messageTO.messageInfo = Messages.STUDENT_ADDED;
+        messageTO.objId = studentVO.id;
         studentComponentInterface.successMessageCallBack(messageTO);
       }
     });
