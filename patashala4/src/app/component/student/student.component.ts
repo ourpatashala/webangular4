@@ -182,6 +182,8 @@ export class StudentComponent implements OnInit, StudentComponentInterface {
       field_name = field_name + "Date , ";
     }
 
+    value.profilePhotoUrl = "";
+
     if (field_name.length != 0) {
       this.errorMessage = "Please enter " + field_name.substr(0, field_name.length-2);
       this.active = "2";
@@ -445,7 +447,7 @@ export class StudentComponent implements OnInit, StudentComponentInterface {
 
 
   displayAllClassesCallBack(classProfileTO: FirebaseListObservable<ClassProfileTO>) {
-   
+
   }
 
 
@@ -460,12 +462,12 @@ export class StudentComponent implements OnInit, StudentComponentInterface {
 
   successMessageCallBack(messageTO: MessageTO) {
     console.log("successMessageCallBack : " + messageTO.serviceMethodName);
-    if (messageTO.serviceMethodName == "searchAndAddStudent()") 
+    if (messageTO.serviceMethodName == "searchAndAddStudent()")
     {
       this.div_Element_Id = "2";
       this.getStudentProfile(localStorage.getItem(AppConstants.SHAREDPREFERANCE_SCHOOLID), messageTO.objId);
     }
-    if (messageTO.serviceMethodName == "updateStudentProfile()") 
+    if (messageTO.serviceMethodName == "updateStudentProfile()")
     {
       this.popupstatus = "1";
       this.getselectedStudentProfile();
@@ -522,7 +524,7 @@ export class StudentComponent implements OnInit, StudentComponentInterface {
     this.showClassSelection=true;
 
   }
-  
+
   showWebcamPopup()
   {
     this.showCameraSelection=true;
@@ -708,7 +710,7 @@ export class StudentComponent implements OnInit, StudentComponentInterface {
     if(status=="true")
     {
       this.studentFormGroup.controls['classId'].patchValue(localStorage.getItem(AppConstants.SHAREDPREFERANCE_STUDENTCLASSID));
-      this.studentFormGroup.controls['className'].patchValue(localStorage.getItem(AppConstants.SHAREDPREFERANCE_STUDENTCLASSNAME));      
+      this.studentFormGroup.controls['className'].patchValue(localStorage.getItem(AppConstants.SHAREDPREFERANCE_STUDENTCLASSNAME));
     }
 
   }
