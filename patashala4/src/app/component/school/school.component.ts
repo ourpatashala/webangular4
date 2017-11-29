@@ -470,7 +470,8 @@ export class SchoolComponent implements OnInit, SchoolComponentInterface {
     console.log("successMessageCallBack ==>" + messageTO.messageInfo+"  "+ messageTO.messageType+"  "+messageTO.serviceClassName+"  "+messageTO.serviceMethodName);
     //console.log("*** successMessageCallBack ==>" + messageTO.messageInfo);
     if(messageTO.serviceMethodName == "searchAndAddSchoolProfile()"){
-      this.schoolFormGroup.reset();
+      this.getSchoolProfile(messageTO.objId);
+      this.div_Element_Id = "2";
     }
     else if(messageTO.serviceMethodName == "updateSchoolProfile()")
     {

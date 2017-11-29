@@ -29,11 +29,11 @@ export class WebcampopupComponent implements OnInit {
 
   genBase64() {
     this.webcam.getBase64()
-      .then(base => {
-        this.base64 = base;
-        this.selectedimagesrc = base;
-      })
-      .catch(e => console.error(e))
+    .then(base => {
+      this.base64 = base;
+      this.selectedimagesrc = base;
+    })
+    .catch(e => console.error(e))
   }
 
   //get HTML5 FormData object and pretend to post to server

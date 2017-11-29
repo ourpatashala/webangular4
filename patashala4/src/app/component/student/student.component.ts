@@ -47,8 +47,8 @@ export class StudentComponent implements OnInit, StudentComponentInterface {
     firstCalendarDay: 0 //; // 0 - Sunday, 1 - Monday
   };
 
-  selectedFiles: FileList
-  currentFileUpload: FileUpload
+  selectedFiles: FileList;
+  currentFileUpload: FileUpload;
   progress: {percentage: number} = {percentage: 0};
   selectedimagepath: string;
   selectedStudentArray: Array<any> = [];
@@ -195,7 +195,6 @@ export class StudentComponent implements OnInit, StudentComponentInterface {
       var curr_date = d.getDate();
       var curr_month = d.getMonth() + 1; //Months are zero based
       var curr_year = d.getFullYear();
-
       value.dateOfBirth= (curr_date<10 ? '0'+curr_date : curr_date) + "-" + AppConstants.month_names_short[curr_month] + "-" + curr_year;
       console.log( (new Date().getFullYear()-2)+"   "+curr_year);
       if(new Date().getFullYear()-2<curr_year)
@@ -205,7 +204,7 @@ export class StudentComponent implements OnInit, StudentComponentInterface {
       }
       else
       {
-        this.studentConverter.addStudentProfile(this.studentTO.schoolId, value, this);
+        this.studentConverter.addStudentProfile(localStorage.getItem(AppConstants.SHAREDPREFERANCE_SCHOOLID), value, this);
       }
     }
 
@@ -461,7 +460,11 @@ export class StudentComponent implements OnInit, StudentComponentInterface {
 
   successMessageCallBack(messageTO: MessageTO) {
     console.log("successMessageCallBack : " + messageTO.serviceMethodName);
-    if (messageTO.serviceMethodName == "searchAndAddStudent()") this.studentFormGroup.reset();
+    if (messageTO.serviceMethodName == "searchAndAddStudent()") 
+    {
+      this.div_Element_Id = "2";
+      this.getStudentProfile(localStorage.getItem(AppConstants.SHAREDPREFERANCE_SCHOOLID), messageTO.objId);
+    }
     if (messageTO.serviceMethodName == "updateStudentProfile()") 
     {
       this.popupstatus = "1";
