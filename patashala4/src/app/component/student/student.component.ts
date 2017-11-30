@@ -117,7 +117,7 @@ export class StudentComponent implements OnInit, StudentComponentInterface {
       pincode: [''],
       bloodGroup: [''],
       dateOfBirth: new Date(),
-      uploadPhoto: [''],
+      profilePhotoUrl: [''],
       fatherName: [''],
       motherName: [''],
       rollNo: [''],
@@ -409,12 +409,12 @@ export class StudentComponent implements OnInit, StudentComponentInterface {
     }
     if(studentTO.profilePhotoUrl===undefined || studentTO.profilePhotoUrl== null|| studentTO.profilePhotoUrl.length== 0)
     {
-      this.studentFormGroup.controls['uploadPhoto'].patchValue(AppConstants.DEFAULT_STUDENT_IMAGE);
+      this.studentFormGroup.controls['profilePhotoUrl'].patchValue(AppConstants.DEFAULT_STUDENT_IMAGE);
       $("#blah").attr("src",AppConstants.DEFAULT_STUDENT_IMAGE);
     }
     else
     {
-      this.studentFormGroup.controls['uploadPhoto'].patchValue(studentTO.profilePhotoUrl);
+      this.studentFormGroup.controls['profilePhotoUrl'].patchValue(studentTO.profilePhotoUrl);
       $("#blah").attr("src",studentTO.profilePhotoUrl);
     }
     console.log("profilePhotoUrl ======> "+studentTO.profilePhotoUrl);
@@ -558,7 +558,7 @@ export class StudentComponent implements OnInit, StudentComponentInterface {
     this.studentFormGroup.controls['pincode'].patchValue("");
     this.studentFormGroup.controls['bloodGroup'].patchValue("");
     this.studentFormGroup.controls['dateOfBirth'].patchValue(new Date());
-    this.studentFormGroup.controls['uploadPhoto'].patchValue("");
+    this.studentFormGroup.controls['profilePhotoUrl'].patchValue("");
     this.studentFormGroup.controls['fatherName'].patchValue("");
     this.studentFormGroup.controls['motherName'].patchValue("");
     this.studentFormGroup.controls['rollNo'].patchValue("");

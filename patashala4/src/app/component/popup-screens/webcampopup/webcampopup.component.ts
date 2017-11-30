@@ -3,6 +3,8 @@ import {WebCamComponent} from 'ack-angular-webcam';
 import {FileUpload} from '../../../service/fileupload';
 import {AppConstants} from "../../../constants/AppConstants";
 import {UploadFileService} from '../../../service/upload-file.service';
+import { saveAs } from 'file-saver';
+
 
 @Component({
   selector: 'app-webcampopup', templateUrl: './webcampopup.component.html', styleUrls: ['./webcampopup.component.css']
@@ -33,7 +35,8 @@ export class WebcampopupComponent implements OnInit {
       this.base64 = base;
       this.selectedimagesrc = base;
     })
-    .catch(e => console.error(e))
+    .catch(e => console.error(e));
+    
   }
 
   //get HTML5 FormData object and pretend to post to server
@@ -45,6 +48,7 @@ export class WebcampopupComponent implements OnInit {
     var file = new File([blob], 'imageFileName.png');
     //file.name;
     console.log ("this.selectedimagesrc ==>"+ file.name);
+    saveAs(file, "test.png");
     this.currentFileUpload = new FileUpload(file);
     console.log(localStorage.getItem(AppConstants.SHAREDPREFERANCE_SCHOOLID) + "    " + localStorage.getItem(AppConstants.SHAREDPREFERANCE_STUDENTID) + "  " + this.currentFileUpload + "   " + file);
     this.uploadService.pushFileToStorage(localStorage.getItem(AppConstants.SHAREDPREFERANCE_SCHOOLID), localStorage.getItem(AppConstants.SHAREDPREFERANCE_STUDENTID), this.currentFileUpload, this.progress);

@@ -258,6 +258,7 @@ button
   padding: 8px 28px;
   transition: 0.3s;
   border: 1px solid transparent;
+  background-color: #f0f0f0;
 }
 button:hover
 {
