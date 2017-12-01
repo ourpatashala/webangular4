@@ -45,6 +45,38 @@ export class UploadFileService {
     );
   }
 
+  pushImageToStorage(schoolid:string, studentId: string, file: any, progress: {percentage: number}) {
+    const storageRef = firebase.storage().ref();
+
+    var extn = ".jpeg"
+    var filename = `${this.storagebasePath}/${schoolid}/students/${studentId}${extn}`;
+
+    var newBase64 = file.replace(/^data:image\/(png|jpeg);base64,/, ''); //Remove this to enable displaying image while retrieving from storage
+    //storageRef.child(<key>).putString($scope.newBase64, ‘base64’,{contentType:’image/jpg’});
+
+    const uploadTask = storageRef.child(filename).putString(newBase64,'base64');
+
+    uploadTask.on(firebase.storage.TaskEvent.STATE_CHANGED,
+      (snapshot) => {
+        // in progress
+        const snap = snapshot as firebase.storage.UploadTaskSnapshot
+        progress.percentage = Math.round((snap.bytesTransferred / snap.totalBytes) * 100)
+      },
+      (error) => {
+        // fail
+        console.log(error)
+      },
+      () => {
+        // success
+        var fileUpload = new FileUpload(file);
+        fileUpload.url = uploadTask.snapshot.downloadURL
+        //fileUpload.name = fileUpload.file.name
+        this.saveStudentPic(schoolid, studentId, fileUpload);
+      }
+    );
+
+  }
+
   pushSchoolPicToStorage(schoolid:string, fileUpload: FileUpload, progress: {percentage: number}) {
     const storageRef = firebase.storage().ref();
 
