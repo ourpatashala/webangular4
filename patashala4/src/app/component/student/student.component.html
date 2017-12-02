@@ -20,9 +20,9 @@
 
 <div class="overlay hideblock" [ngClass]="{'showblock': showCameraSelection==true}"></div>
 
-<div class="class_search hideblock " [ngClass]="{'showblock': showCameraSelection==true}">
-        <i class="fa fa-close closeclassidpopup"  (click)="closePopup()" ></i>
-        <app-webcampopup (notify)='onNotify($event)'></app-webcampopup>   
+<div *ngIf="showCameraSelection" class="class_search ">
+     <i class="fa fa-close closeclassidpopup"  (click)="closePopup()" ></i>
+        <app-webcampopup (notify)='onNotify($event)' ></app-webcampopup>   
 </div>
 
 <div class="brow_img_popup text-center">
