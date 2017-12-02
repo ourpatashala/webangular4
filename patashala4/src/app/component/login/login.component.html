@@ -14,7 +14,7 @@
     <div class="little_gap"></div>
     <form [formGroup]="userForm" (ngSubmit)="login(userForm)" ngNativeValidate>
     <div class="input_filed">
-      <input type="text" placeholder="UserName / Email" formControlName="username" [(ngModel)]='username' required pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$">
+      <input type="text" placeholder="UserName / Email" formControlName="username" [(ngModel)]='username'  required pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$">
       <i class="fa fa-user"></i>
       <div *ngIf="userForm.controls.username.touched">
         <p class="text-left validate_error alert alert-danger" *ngIf="userForm.controls.username.errors?.required || userForm.controls.username.errors?.pattern">Please enter valid email</p>

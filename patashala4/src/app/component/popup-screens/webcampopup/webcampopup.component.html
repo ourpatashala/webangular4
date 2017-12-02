@@ -1,6 +1,6 @@
 <p class="text-center popup_header">Capture Image </p>
 <div class="col-md-12">
-<div class="col-md-6">
+<div   [ngClass]="selectedimagesrc ? 'col-md-6' : 'col-md-12'" >
 <ack-webcam
 [(ref)]   = "webcam"
 [options] = "{
@@ -16,22 +16,27 @@
 (catch)   = "onCamError($event)"
 ></ack-webcam>
 </div>
-<div class="col-md-6">
+<div  [ngClass]="selectedimagesrc ? 'col-md-6' : 'hideblock'">
 <img src="{{selectedimagesrc}}"  width="240" height="240"/>
 </div>
 </div>
 <div class="col-md-12">
-<div class="col-md-6">
-<button (click)="genBase64()"> Capture </button>
+<div  [ngClass]="selectedimagesrc ? 'col-md-6' : 'col-md-12'">
+  <button (click)="genBase64()"> Capture </button>
 </div>
-<div class="col-md-6">
-<button (click)="genPostData()"> Upload </button>
+<div [ngClass]="selectedimagesrc ? 'col-md-6' : 'hideblock'">
+  <button (click)="genPostData()"> Upload </button>
 </div>
+<div class="clear">`</div>
 </div>
 <br/>
 <br/>
-<div *ngIf="selectedimagesrc" class="progress" style="width:100%">
-    <div class="progress-bar progress-bar-info progress-bar-striped" role="progressbar" attr.aria-valuenow="{{progress.percentage}}" aria-valuemin="0" aria-valuemax="100" [ngStyle]="{width:progress.percentage+'%'}"> {{progress.percentage}}%</div>
+<div class="clear"></div>
+<div class="little_gap"></div>
+<div class="progress_width">
+  <div *ngIf="showProgressBar" class="progress" style="width:100%">
+      <div class="progress-bar progress-bar-info progress-bar-striped" role="progressbar" attr.aria-valuenow="{{progress.percentage}}" aria-valuemin="0" aria-valuemax="100" [ngStyle]="{width:progress.percentage+'%'}"> {{progress.percentage}}%</div>
+  </div>
 </div>
 <br/>
 <div class="error_msg_text"><p [ngClass]="{'error_styles_sucess': active=='2'}">{{errorMessage}}</p></div>

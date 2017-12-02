@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit,Input} from '@angular/core';
 import {WebCamComponent} from 'ack-angular-webcam';
 import {FileUpload} from '../../../service/fileupload';
 import {AppConstants} from "../../../constants/AppConstants";
@@ -21,9 +21,11 @@ export class WebcampopupComponent implements OnInit {
   sucessMessage: string;
   popupstatus: string = "0";
   showupload: string = "0";
-
+  showProgressBar: boolean = false;
 
   constructor(private uploadService: UploadFileService) {
+    this.sucessMessage = "";
+    this.active = "0";
   }
 
   ngOnInit() {
@@ -34,6 +36,8 @@ export class WebcampopupComponent implements OnInit {
     .then(base => {
       this.base64 = base;
       this.selectedimagesrc = base;
+      this.showProgressBar= true;
+      this.progress.percentage = 0;
     })
     .catch(e => console.error(e));
 
@@ -61,6 +65,7 @@ export class WebcampopupComponent implements OnInit {
 
     this.uploadService.pushImageToStorage(localStorage.getItem(AppConstants.SHAREDPREFERANCE_SCHOOLID), localStorage.getItem(AppConstants.SHAREDPREFERANCE_STUDENTID), this.selectedimagesrc, this.progress);
     this.updateProgressbarUI();
+
   }
 
 //https://stackoverflow.com/questions/27159179/how-to-convert-blob-to-file-in-javascript
@@ -88,6 +93,8 @@ export class WebcampopupComponent implements OnInit {
       this.sucessMessage = "Image Uploaded Successfully";
       this.popupstatus = "0";
       this.showupload = "0";
+      //this.selectedimagesrc=null;
+      this.showProgressBar = false;
     } else {
       setTimeout(() => {
         this.updateProgressbarUI();
