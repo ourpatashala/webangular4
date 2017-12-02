@@ -3,13 +3,14 @@ import {AngularFireDatabase} from 'angularfire2/database';
 import * as firebase from 'firebase';
 
 import {FileUpload} from './fileupload';
+import {StudentService} from "./student.service";
 
 @Injectable()
 export class UploadFileService {
 
   angularFireDatabase: AngularFireDatabase;
 
-  constructor(private db: AngularFireDatabase) {
+  constructor(private db: AngularFireDatabase, private studentService : StudentService) {
 
     this.angularFireDatabase = db;
 
@@ -83,10 +84,6 @@ export class UploadFileService {
     var extn = fileUpload.file.name.substring(fileUpload.file.name.lastIndexOf("."));
     fileUpload.name = `${this.storagebasePath}/${schoolid}/profilepic/${schoolid}${extn}`;
 
-    console.log("File Name to be uploaded schoolid "+ schoolid);
-
-    console.log("File Name to be uploaded "+ fileUpload.name);
-
     const uploadTask = storageRef.child(fileUpload.name).put(fileUpload.file);
 
     uploadTask.on(firebase.storage.TaskEvent.STATE_CHANGED,
@@ -112,6 +109,8 @@ export class UploadFileService {
 
     var dbRef = this.angularFireDatabase .object("/schools/"+schoolid+"/studentProfile/"+studentId+"/profilePhotoUrl/").$ref;
     dbRef.set(fileUpload.url);
+
+    this.studentService.updateProfilePicURLInRegNodes(schoolid, studentId, fileUpload.url);
     //this.db.list(`${this.dbbasePath}/`).push(fileUpload);
   }
 

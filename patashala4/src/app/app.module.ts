@@ -27,6 +27,7 @@ import { TabServiceComponent } from './component/tab-service/tab-service.compone
 import { TabManageComponent } from './component/tab-manage/tab-manage.component';
 import {FormUploadComponent} from './component/form-upload/form-upload.component';
 import {UploadFileService} from './service/upload-file.service';
+import {StudentService} from './service/student.service';
 
 import { NgDatepickerModule } from 'ng2-datepicker';
 import { ClassselectionPopupComponent } from './component/popup-screens/classselection-popup/classselection-popup.component';
@@ -71,7 +72,7 @@ export const firebaseConfig = {     apiKey: 'AIzaSyB6WeGfORqOzz5jT_XL6GLMCl8ze
   ],
 
 
-  providers: [AppConstants,ErrorService,PathUtil,LoginService, UploadFileService],
+  providers: [AppConstants,ErrorService,PathUtil,LoginService, UploadFileService, StudentService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

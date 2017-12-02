@@ -24,11 +24,11 @@ export class StudentService {
   firebaseApp: any;
   firebaseObject:any;
   count:number;
-  angularFireDatabase: AngularFireDatabase;
-  angularFireAuth:AngularFireAuth;
+  //angularFireDatabase: AngularFireDatabase;
+  //angularFireAuth:AngularFireAuth;
 
-  constructor(angularFireDatabase: AngularFireDatabase,angularFireAuth:AngularFireAuth) {
-    this.angularFireDatabase = angularFireDatabase;
+  constructor(private angularFireDatabase: AngularFireDatabase,private angularFireAuth:AngularFireAuth) {
+    //this.angularFireDatabase = angularFireDatabase;
     this.angularFireAuth = angularFireAuth;
     this.count = 0;
 
@@ -76,6 +76,45 @@ export class StudentService {
   }
 
 
+  updateProfilePicURLInRegNodes(schoolId: string, studentId: string, profilePicURL: string): void {
+    var studentInfo = this.angularFireDatabase.object("/schools/" + schoolId + "/studentProfile/" + studentId);
+
+    console.log("Called updateProfilePicURLInRegNodes 1 ==profilePicURL==" + profilePicURL);
+
+    var studentVO = new StudentVO();
+
+    studentInfo.subscribe(snapshot => {
+      studentVO = snapshot;
+
+      Object.keys(studentVO.mobileNumbers).forEach(index=> {
+
+        var fieldNameValue = studentVO.mobileNumbers[index];
+        Object.keys(fieldNameValue).forEach(fieldName=> {
+
+          var phoneNumber = fieldNameValue[fieldName];
+          console.log('Mobile #s : '+phoneNumber);
+
+          console.log("Called updateProfilePicURLInRegNodes 2 ====");
+
+          if (phoneNumber != "" ) {
+
+            console.log("Called updateProfilePicURLInRegNodes 3 ====");
+            //schools/registeredUsers/7702855641/students/-L-MUNeW9wfZTEutssRP/-L-MUxfp6sK2lYQWI9J6/profilePic
+            var dbRef = this.angularFireDatabase .object("/schools/registeredUsers/"+phoneNumber+"/students/"+schoolId+"/"+studentId+"/profilePic/").$ref;
+            dbRef.set(profilePicURL);
+
+
+          }
+
+        });
+
+      });
+
+    });
+
+  }
+
+
   searchAndAddStudent(studentVO: StudentVO, studentComponentInterface: StudentComponentInterface) {
 
     var serviceObject = this;
@@ -91,6 +130,8 @@ export class StudentService {
       messageTO.messageInfo = Messages.SCHOOL_ID_EMPTY
       studentComponentInterface.errorMessageCallBack(messageTO);
     }
+
+    var studentService = this;
 
     console.log("updateStudentProfile studentProfilePath ==> "+ studentProfilePath);
     var ref = this.angularFireDatabase.object(NodeConstants.SCHOOLS).$ref.child(studentProfilePath).orderByChild(NodeConstants.UNIQUE_ID).equalTo(studentVO.uniqueId).once("value", function (snapshot) {
@@ -112,7 +153,7 @@ export class StudentService {
 
         console.log("Record not existed.."+ studentVO);
         dbRef.set(studentVO);
-        StudentService.updateRegistrationNode (studentVO.schoolId, studentVO, serviceObject);
+        studentService.updateRegistrationNode (studentVO.schoolId, studentVO, serviceObject);
         console.log("Added Record .."+ studentVO);
         messageTO.messageInfo = Messages.STUDENT_ADDED;
         messageTO.objId = studentVO.id;
@@ -125,7 +166,7 @@ export class StudentService {
 
 
 
-  updateStudentProfile(schoolId: string, studentVO: StudentVO, studentComponentInterface: StudentComponentInterface) {
+  public updateStudentProfile(schoolId: string, studentVO: StudentVO, studentComponentInterface: StudentComponentInterface) {
 
     var serviceObject = this;
     var firebaseObject = this.angularFireDatabase;
@@ -135,6 +176,7 @@ export class StudentService {
     console.log("updateStudentProfile xxx " + schoolId + " " + studentVO.id);
     console.log("updateStudentProfile DOB " + studentVO.dob );
 
+    var serviceObject = this;
 
     var studentProfilePath = PathUtil.getStudentProfilePathNode(schoolId);
     console.log("updateStudentProfile studentProfilePath ==> "+ studentProfilePath);
@@ -157,7 +199,7 @@ export class StudentService {
           if (schoolVOFromDB.id == studentVO.id) {
             var dbRef = firebaseObject.object(PathUtil.getStudentProfilePath(studentVO.schoolId, studentVO.id)).$ref;
             dbRef.set(studentVO);
-            StudentService.updateRegistrationNode (schoolId, studentVO, serviceObject);
+            serviceObject.updateRegistrationNode (schoolId, studentVO, serviceObject);
             messageTO.messageInfo = Messages.STUDENT_UPDATED;
 
             studentComponentInterface.successMessageCallBack(messageTO);
@@ -175,7 +217,7 @@ export class StudentService {
 
         var dbRef = firebaseObject.object(PathUtil.getStudentProfilePath(studentVO.schoolId, studentVO.id)).$ref;
         dbRef.set(studentVO);
-        StudentService.updateRegistrationNode (schoolId, studentVO, serviceObject);
+        serviceObject.updateRegistrationNode (schoolId, studentVO, serviceObject);
         messageTO.messageInfo = Messages.STUDENT_UPDATED;
        studentComponentInterface.successMessageCallBack(messageTO);
       }
@@ -185,9 +227,11 @@ export class StudentService {
 
 
 
-  public static updateRegistrationNode (schoolId: string, studentVO: StudentVO, studentService: StudentService){
+  public updateRegistrationNode (schoolId: string, studentVO: StudentVO, studentService: StudentService){
 
-    var firebaseObject = studentService.angularFireDatabase;
+    var firebaseObject  = this.angularFireDatabase;
+
+
 
     Object.keys(studentVO.mobileNumbers).forEach(index=> {
 
@@ -206,13 +250,15 @@ export class StudentService {
           registeredStudent.lastName = studentVO.lastName;
           registeredStudent.studentId = studentVO.id;
           registeredStudent.classId = studentVO.classId;
-          registeredStudent.className = studentVO.classId;//TODO need to change it to class name.
+          registeredStudent.className = studentVO.className;//TODO need to change it to class name.
 
-          registeredStudent.profilePic = "TBD";//TODO Implementation pending
+          registeredStudent.profilePic = studentVO.profilePhotoUrl;//TODO Implementation pending
           registeredStudent.schoolActive = "true";
 
 
           var users = firebaseObject.object("/").$ref.child(PathUtil.getRegisteredUsersNodePath());
+
+          var angulardb = this.angularFireDatabase;
 
           users.once('value', function(snapshot) {
 
@@ -238,13 +284,41 @@ export class StudentService {
             }
             else {
 
-              //Registration node does  exist, so just update the type and add student node
 
-              var regObj = firebaseObject.object(PathUtil.getRegisteredUsersNodePath() +"/"+ phoneNumber);
+
               console.log('Create Registration Node already exist, Just create Student : '+PathUtil.getRegisteredUsersPath(phoneNumber));
 
-              var regUser = new RegisteredUser();
-              regObj.subscribe(snapshot => {
+
+
+              angulardb.database.ref(PathUtil.getRegisteredUsersPath(phoneNumber)).once('value').then (function (snapshot) {
+
+                var regUser = new RegisteredUser();
+
+                regUser =  snapshot.val();
+                console.log("Registration Object " + regUser);
+
+                if (! regUser.userType.includes("parent",0)){
+                  //This is done to append "parent" string to type if teacher or management already exist.
+                  registeredUser.userType = "parent-"+regUser.userType;
+                  console.log('Parent does not exist in Type : '+regUser.userType);
+                }else{
+
+                  registeredUser.userType = regUser.userType
+                  console.log('Parent exist in Type : '+regUser.userType);
+                }
+
+                StudentService.addStudentInRegistration(schoolId,phoneNumber,registeredStudent,firebaseObject);
+              })
+
+
+
+
+
+
+
+
+
+              /*regObj.subscribe(snapshot => {
                 regUser =  snapshot;
                 console.log("Registration Object " + regUser.userType);
 
@@ -261,7 +335,7 @@ export class StudentService {
                 StudentService.addStudentInRegistration(schoolId,phoneNumber,registeredStudent,firebaseObject);
 
 
-              });
+              });*/
 
             }
           });

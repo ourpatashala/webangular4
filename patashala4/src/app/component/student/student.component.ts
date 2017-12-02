@@ -242,21 +242,16 @@ export class StudentComponent implements OnInit, StudentComponentInterface {
       this.errorMessage = "Please enter " + field_name.substr(0, field_name.length-2);
       this.active = "2";
     } else {
-      console.log("modify school "+value.mobileNumbers.length);
-      //this.upload();
-      console.log(value);
-      console.log("modified rollno"+value.rollNo);
-      console.log("dateOfBirth"+value.dateOfBirth);
+
 
       var d = new Date(value.dateOfBirth);
       var curr_date = d.getDate();
       var curr_month = d.getMonth() + 1; //Months are zero based
       var curr_year = d.getFullYear();
       value.profilePhotoUrl=this.selectedimagepath;
-      console.log("profilepic "+value);
-      console.log("profilepic "+value.profilePhotoUrl);
+
       value.dateOfBirth= (curr_date<10 ? '0'+curr_date : curr_date) + "-" + AppConstants.month_names_short[curr_month] + "-" + curr_year;
-      console.log( (new Date().getFullYear()-2)+"   "+curr_year);
+
       if(new Date().getFullYear()-2<curr_year)
       {
         this.errorMessage = "Please enter valid date";
