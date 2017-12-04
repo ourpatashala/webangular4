@@ -77,7 +77,7 @@ export class SchoolComponent implements OnInit, SchoolComponentInterface {
   constructor(@Inject('SchoolConverter') private schoolConverter: SchoolConverter, fb: FormBuilder, private injector: Injector,private router: Router, private errorService: ErrorService, afAuth: AngularFireAuth, private uploadService: UploadFileService) {
     this.fb = fb;
     this.angularFireAuth = afAuth;
-    var username=localStorage.getItem('userlogin');
+    var username=localStorage.getItem(AppConstants.SHAREDPREFERANCE_USERID);
     console.log("user logged in "+username);
     if(username=="" || username=="Undefined" || username==null)
     {

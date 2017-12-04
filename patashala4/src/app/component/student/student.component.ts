@@ -83,7 +83,7 @@ export class StudentComponent implements OnInit, StudentComponentInterface {
     });
 
     this.studentTO = new StudentTO();
-    var username = localStorage.getItem('userlogin');
+    var username = localStorage.getItem(AppConstants.SHAREDPREFERANCE_USERID);
     console.log("user logged in " + username);
     if (username == "" || username == "Undefined" || username == null) {
       this.router.navigate(['/']);

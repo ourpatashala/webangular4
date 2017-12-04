@@ -298,12 +298,12 @@
     </div>
     <div class="col-md-3 text-center">
         <div class="large_gap"></div>
-              <p class="text-left">Profile pic </p>
+              <p class="text-left"> </p>
                    <div class="browse_img_manual">
                           <input type="file" accept="image/*;capture=camera">
                          <div class="img_overlay">
                             <img src="{{ (studentTO.profilePhotoUrl != null && studentTO.profilePhotoUrl.length != 0) ? studentTO.profilePhotoUrl :  './assets/images/profile/default.jpg' }}" class="img100" id="blah">
-                          <p ><span onclick="document.getElementById('input').click()" >{{ (studentTO.profilePhotoUrl != null && studentTO.profilePhotoUrl.length != 0) ?  'Update Photo':'Add Photo' }} </span> <span (click)="showWebcamPopup()" >webcam</span> <br><hr style="margin-top: 6px;margin-bottom: 4px;">
+                          <p ><span onclick="document.getElementById('input').click()" ><i class='fa fa-upload'></i></span> <span (click)="showWebcamPopup()" ><i class="fa fa-camera"></i></span> <br><hr style="margin-top: 6px;margin-bottom: 4px;">
                             <span (click)="removeStudentProfilePic()" [ngClass]="{'inactive_div': studentTO.profilePhotoUrl == null}">{{ (studentTO.profilePhotoUrl != null && studentTO.profilePhotoUrl.length != 0) ?  'Remove':'' }} </span>
 
                           </p>

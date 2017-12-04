@@ -9,6 +9,7 @@ export class AppConstants{
   public static PhotoMaxSize =100000;
   public static IMAGE_ERROR_MESSAGE ='Cannot upload images more than 100KB';
 
+  public static SHAREDPREFERANCE_USERID ="Patashala_LoginId";
   public static SHAREDPREFERANCE_SCHOOLID ="SchoolID";
   public static SHAREDPREFERANCE_STUDENTID ="StudentID";
   public static SHAREDPREFERANCE_STUDENTCLASSID ="ClassID";

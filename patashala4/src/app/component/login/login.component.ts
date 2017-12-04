@@ -7,6 +7,7 @@ import {LoginTO} from "../../to/LoginTO";
 import {LoginConverter} from "../../adapter/interfaces/LoginConverter";
 import {LoginConverterImpl} from "../../adapter/impl/LoginConverterImpl";
 import {MessageTO} from "../../to/MessageTO";
+import { AppConstants } from "../../constants/AppConstants";
 
 @Component({
   selector: 'app-login',
@@ -28,7 +29,7 @@ export class LoginComponent implements OnInit , LoginComponentInterface{
       password: []
     });
 
-    localStorage.removeItem('userlogin');
+    localStorage.removeItem(AppConstants.SHAREDPREFERANCE_USERID);
 
     
  }
@@ -96,7 +97,7 @@ export class LoginComponent implements OnInit , LoginComponentInterface{
     console.log(" successMessageCallBack ==>" + messageTO.messageInfo+"  "+ messageTO.messageType+"  "+messageTO.serviceClassName+"  "+messageTO.serviceMethodName);
     if(messageTO.serviceMethodName=="login()")
     {
-      localStorage.setItem('userlogin',this.username);
+      localStorage.setItem(AppConstants.SHAREDPREFERANCE_USERID,this.username);
       this.setUserSuccessMessageonUI("Login Successful");
       setTimeout(()=>{
         this.router.navigate(['/School']);
