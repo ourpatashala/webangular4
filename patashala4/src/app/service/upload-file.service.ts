@@ -99,7 +99,8 @@ export class UploadFileService {
       () => {
         // success
         fileUpload.url = uploadTask.snapshot.downloadURL
-        //fileUpload.name = fileUpload.file.name
+        //fileUpload.name = fileUpload.file.namepwd
+
         this.saveSchoolPic(schoolid, fileUpload);
       }
     );
@@ -113,6 +114,8 @@ export class UploadFileService {
     this.studentService.updateProfilePicURLInRegNodes(schoolid, studentId, fileUpload.url);
     //this.db.list(`${this.dbbasePath}/`).push(fileUpload);
   }
+
+  //
 
   public removeStudentPic(schoolid:string, studentId: string) {
 

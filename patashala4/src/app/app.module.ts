@@ -33,6 +33,7 @@ import { NgDatepickerModule } from 'ng2-datepicker';
 import { ClassselectionPopupComponent } from './component/popup-screens/classselection-popup/classselection-popup.component';
 import { WebcampopupComponent } from './component/popup-screens/webcampopup/webcampopup.component';
 import { WebCamModule } from 'ack-angular-webcam';
+import { MastersubjectComponent } from './component/mastersubject/mastersubject.component';
 
 
 export const firebaseConfig = {     apiKey: 'AIzaSyB6WeGfORqOzz5jT_XL6GLMCl8zeQqORHU',     authDomain: 'devpatashala-4e257.firebaseapp.com',     databaseURL: 'https://devpatashala-4e257.firebaseio.com',     storageBucket: 'devpatashala-4e257.appspot.com',     messagingSenderId: '857631726201' };
@@ -55,6 +56,7 @@ export const firebaseConfig = {     apiKey: 'AIzaSyB6WeGfORqOzz5jT_XL6GLMCl8ze
     FormUploadComponent,
     ClassselectionPopupComponent,
     WebcampopupComponent,
+    MastersubjectComponent,
 
    ],
   imports: [
