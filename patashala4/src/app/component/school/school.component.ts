@@ -9,7 +9,7 @@ import {SchoolConverter} from "../../adapter/interfaces/SchoolConverter";
 import {SchoolComponentInterface} from "./SchoolComponentInterface";
 import {jsonpFactory} from "@angular/http/src/http_module";
 import {AngularFireDatabase, FirebaseListObservable} from 'angularfire2/database';
-import { DataTableDirective } from 'angular-datatables';
+import {DataTableDirective} from 'angular-datatables';
 import {AngularFireAuth} from "angularfire2/auth";
 import {Messages} from "../../constants/Messages";
 import {Router} from "@angular/router";
@@ -20,7 +20,8 @@ import {Subject} from 'rxjs/Rx';
 import {MessageTO} from "../../to/MessageTO";
 import {FileUpload} from '../../service/fileupload';
 import {UploadFileService} from '../../service/upload-file.service';
-import { AppConstants } from "../../constants/AppConstants";
+import {AppConstants} from "../../constants/AppConstants";
+import {ConfigItemsVO} from "../../vo/ConfigItemsVO";
 
 
 @Component({
@@ -32,12 +33,13 @@ import { AppConstants } from "../../constants/AppConstants";
 
 export class SchoolComponent implements OnInit, SchoolComponentInterface {
 
+
   selectedFiles: FileList;
   showupload: string = "0"; //0 for default close //1 for close and show listing
   currentFileUpload: FileUpload;
-  progress: {percentage: number} = {percentage: 0}
+  progress: { percentage: number } = {percentage: 0}
   selectedimagepath: string;
-  
+
   selectedSchoolArray: Array<any> = [];
   schoolProfileTO: SchoolProfileTO;
   schoolFormGroup: FormGroup;
@@ -51,8 +53,7 @@ export class SchoolComponent implements OnInit, SchoolComponentInterface {
   checkedschoolid: string = "";
   temp_schoolid: string = 'default';
   angularFireAuth: AngularFireAuth;
-  @ViewChild(DataTableDirective)
-  dtElement: DataTableDirective;
+  @ViewChild(DataTableDirective) dtElement: DataTableDirective;
   dtOptions: DataTables.Settings = {};
   //dtTrigger = new Subject();
   dtTrigger: Subject<any> = new Subject();
@@ -61,7 +62,7 @@ export class SchoolComponent implements OnInit, SchoolComponentInterface {
   active: string = "0";// for error and success divs;;  0 for no content, 1 for success, 2 for error
   div_Element_Id: string = "0";//for multiple pages in school list page;; 0 to show list of school , 1 to show add school, 2 to show edit school, 3 to show single school view.
   flag: boolean = false;
-  popupstatus:string="0"; //0 for default close //1 for close and show listing
+  popupstatus: string = "0"; //0 for default close //1 for close and show listing
 
   updateMessage(message: string) { // updates the error message
     this.updateSubject.next(message);
@@ -74,32 +75,31 @@ export class SchoolComponent implements OnInit, SchoolComponentInterface {
   fb: FormBuilder;
   @Input() inputArray: ArrayType[];
 
-  constructor(@Inject('SchoolConverter') private schoolConverter: SchoolConverter, fb: FormBuilder, private injector: Injector,private router: Router, private errorService: ErrorService, afAuth: AngularFireAuth, private uploadService: UploadFileService) {
+  constructor(@Inject('SchoolConverter') private schoolConverter: SchoolConverter, fb: FormBuilder, private injector: Injector, private router: Router, private errorService: ErrorService, afAuth: AngularFireAuth, private uploadService: UploadFileService) {
     this.fb = fb;
     this.angularFireAuth = afAuth;
-    var username=localStorage.getItem(AppConstants.SHAREDPREFERANCE_USERID);
-    console.log("user logged in "+username);
-    if(username=="" || username=="Undefined" || username==null)
-    {
+    var username = localStorage.getItem(AppConstants.SHAREDPREFERANCE_USERID);
+    console.log("user logged in " + username);
+    if (username == "" || username == "Undefined" || username == null) {
       this.router.navigate(['/']);
     }
-
-
 
 
     this.subscription = this.update$.subscribe(message => {
       this.message = message;
     });
-    this.schoolProfileTO=new SchoolProfileTO();
+    this.schoolProfileTO = new SchoolProfileTO();
     this.getAllSchoolProfiles();
 
 
-
-
   }
+
+
+
   ngAfterViewInit(): void {
     this.dtTrigger.next();
   }
+
   public getRouter(): Router {
     return this.injector.get(Router);
   }
@@ -121,27 +121,29 @@ export class SchoolComponent implements OnInit, SchoolComponentInterface {
       active: [''],
       schoolLogo: [''],
       remarks: [''],
-      profilePhotoUrl:['']
+      profilePhotoUrl: ['']
 
     });
+
+
 
   }
 
 
   displayPhotoCallBack(url: string) {
 
-        //TODO Shiva display the Image using the URL
-        //this.photourl=url;
-        console.log("displayPhotoCallBack : Image URL " + url);
-      }
+    //TODO Shiva display the Image using the URL
+    //this.photourl=url;
+    console.log("displayPhotoCallBack : Image URL " + url);
+  }
 
 
   displayPhotoWithURLCallBack(url: string) {
 
-        //TODO Shiva display the Image using the URL
-       // this.photourl=url;
-        console.log("displayPhotoWithURLCallBack : Image URL " + url)
-      }
+    //TODO Shiva display the Image using the URL
+    // this.photourl=url;
+    console.log("displayPhotoWithURLCallBack : Image URL " + url)
+  }
 
 
   selectFile(event) {
@@ -149,23 +151,21 @@ export class SchoolComponent implements OnInit, SchoolComponentInterface {
     this.errorMessage = "";
     this.active = "0";
 
-    var file_size=event.target.files.item(0).size;
-    if(file_size>=AppConstants.PhotoMaxSize){
-      this.errorMessage =AppConstants.IMAGE_ERROR_MESSAGE;
+    var file_size = event.target.files.item(0).size;
+    if (file_size >= AppConstants.PhotoMaxSize) {
+      this.errorMessage = AppConstants.IMAGE_ERROR_MESSAGE;
       this.updateMessage(this.errorMessage);
       this.active = "2";
 
-    }
-    else
-    {
+    } else {
 
       this.selectedFiles = event.target.files;
-      this.showupload="1";
-      console.log("selected file"+this.selectedFiles);
+      this.showupload = "1";
+      console.log("selected file" + this.selectedFiles);
       var fileReader = new FileReader();
       fileReader.onload = function () {
-        console.log("sdfsdfsdf"+ fileReader.result);
-        $("#blah").attr("src",fileReader.result);
+        console.log("sdfsdfsdf" + fileReader.result);
+        $("#blah").attr("src", fileReader.result);
       }
       fileReader.readAsDataURL(this.selectedFiles.item(0));
     }
@@ -173,32 +173,29 @@ export class SchoolComponent implements OnInit, SchoolComponentInterface {
 
   //upload(schoolId:string, studentId:string)
   upload() {
-    if(this.selectedFiles!=null){
+    if (this.selectedFiles != null) {
       const file = this.selectedFiles.item(0);
       this.currentFileUpload = new FileUpload(file);
-      console.log(localStorage.getItem(AppConstants.SHAREDPREFERANCE_SCHOOLID)+"    "+this.currentFileUpload+"   "+file);
+      console.log(localStorage.getItem(AppConstants.SHAREDPREFERANCE_SCHOOLID) + "    " + this.currentFileUpload + "   " + file);
       this.uploadService.pushSchoolPicToStorage(localStorage.getItem(AppConstants.SHAREDPREFERANCE_SCHOOLID), this.currentFileUpload, this.progress);
       this.updateProgressbarUI();
     }
   }
 
-  updateProgressbarUI()
-  {
-    console.log(" updateProgressbarUI  "+this.progress.percentage);
-    if(this.progress.percentage==100)
-    {
-      this.currentFileUpload=null;
-      this.active="1";
-      this.sucessMessage="Image Uploaded Successfully";
+  updateProgressbarUI() {
+    console.log(" updateProgressbarUI  " + this.progress.percentage);
+    if (this.progress.percentage == 100) {
+      this.currentFileUpload = null;
+      this.active = "1";
+      this.sucessMessage = "Image Uploaded Successfully";
       this.popupstatus = "0";
-      this.showupload= "0";
-    }
-    else
-    {
-      setTimeout(() => {   this.updateProgressbarUI(); }, 500);
+      this.showupload = "0";
+    } else {
+      setTimeout(() => {
+        this.updateProgressbarUI();
+      }, 500);
     }
   }
-
 
 
   updateCheckedOptions(option) {
@@ -230,9 +227,9 @@ export class SchoolComponent implements OnInit, SchoolComponentInterface {
     this.schoolFormGroup.controls['remarks'].patchValue('');
     this.schoolFormGroup.controls['schoolLogo'].patchValue('');
 
-      this.sucessMessage = "";
-      this.active = "0";
-      this.errorMessage ="";
+    this.sucessMessage = "";
+    this.active = "0";
+    this.errorMessage = "";
 
   }
 
@@ -286,11 +283,10 @@ export class SchoolComponent implements OnInit, SchoolComponentInterface {
     //   field_name = field_name + " Contact Number, ";
     // }
     if (field_name.length != 0) {
-      this.errorMessage = "Please enter" + field_name.substr(0, field_name.length-2);
+      this.errorMessage = "Please enter" + field_name.substr(0, field_name.length - 2);
       this.active = "2";
-    }
-    else {
-     console.log(" Toggle status "+value.active);
+    } else {
+      console.log(" Toggle status " + value.active);
       this.schoolProfileTO = value;
       this.schoolConverter.addSchoolProfile(this.schoolProfileTO, this);
 
@@ -319,18 +315,18 @@ export class SchoolComponent implements OnInit, SchoolComponentInterface {
     this.schoolConverter.getSchoolProfileRange(start, end, this);
 
   }
-  removeStudentProfilePic()
-  {
-    console.log(" Selected Student ID  "+localStorage.getItem(AppConstants.SHAREDPREFERANCE_SCHOOLID))
-    this.uploadService.removeSchoolPic (localStorage.getItem(AppConstants.SHAREDPREFERANCE_SCHOOLID));
+
+  removeStudentProfilePic() {
+    console.log(" Selected Student ID  " + localStorage.getItem(AppConstants.SHAREDPREFERANCE_SCHOOLID))
+    this.uploadService.removeSchoolPic(localStorage.getItem(AppConstants.SHAREDPREFERANCE_SCHOOLID));
   }
-  redirecttoschooldashboard(schoolId: string, schoolName:string)
-  {
-    console.log("selected school id "+schoolId);
-    console.log("old "+ localStorage.getItem(AppConstants.SHAREDPREFERANCE_SCHOOLID));
-    localStorage.setItem(AppConstants.SHAREDPREFERANCE_SCHOOLID,schoolId);
-    localStorage.setItem(AppConstants.SHAREDPREFERANCE_SCHOOLNAME,schoolName);
-    console.log("New "+ localStorage.getItem(AppConstants.SHAREDPREFERANCE_SCHOOLID));
+
+  redirecttoschooldashboard(schoolId: string, schoolName: string) {
+    console.log("selected school id " + schoolId);
+    console.log("old " + localStorage.getItem(AppConstants.SHAREDPREFERANCE_SCHOOLID));
+    localStorage.setItem(AppConstants.SHAREDPREFERANCE_SCHOOLID, schoolId);
+    localStorage.setItem(AppConstants.SHAREDPREFERANCE_SCHOOLNAME, schoolName);
+    console.log("New " + localStorage.getItem(AppConstants.SHAREDPREFERANCE_SCHOOLID));
     this.getRouter().navigate(['/TabService']);
 
     //="/TabService"
@@ -376,16 +372,15 @@ export class SchoolComponent implements OnInit, SchoolComponentInterface {
     }
 
     if (field_name.length != 0) {
-      this.errorMessage = "Please enter" + field_name.substr(0, field_name.length-2);
+      this.errorMessage = "Please enter" + field_name.substr(0, field_name.length - 2);
       this.active = "2";
-    }
-    else {
-      console.log("status:" +value.active);
-      value.profilePhotoUrl=this.selectedimagepath;
-      console.log("profilepic "+value);
-      
+    } else {
+      console.log("status:" + value.active);
+      value.profilePhotoUrl = this.selectedimagepath;
+      console.log("profilepic " + value);
+
       this.schoolConverter.updateSchoolProfile(value, this);
-      console.log("  this.schoolProfileTO.active ===>"+ value.active);
+      console.log("  this.schoolProfileTO.active ===>" + value.active);
 
     }
   }
@@ -399,7 +394,7 @@ export class SchoolComponent implements OnInit, SchoolComponentInterface {
 
       this.schoolConverter.deleteSchoolProfile(this.selectedSchoolArray[loopvar], this);
     }
-     this.selectedSchoolArray= [];
+    this.selectedSchoolArray = [];
   }
 
   /**
@@ -422,24 +417,19 @@ export class SchoolComponent implements OnInit, SchoolComponentInterface {
     this.schoolFormGroup.controls['state'].patchValue(schoolProfileTO.state);
     this.schoolFormGroup.controls['pincode'].patchValue(schoolProfileTO.pincode);
     this.schoolFormGroup.controls['country'].patchValue(schoolProfileTO.country);
-    if(schoolProfileTO.active=="true")
-        this.schoolFormGroup.controls['active'].patchValue(true);
-    else
-        this.schoolFormGroup.controls['active'].patchValue(false);
+    if (schoolProfileTO.active == "true") this.schoolFormGroup.controls['active'].patchValue(true); else
+      this.schoolFormGroup.controls['active'].patchValue(false);
     this.schoolFormGroup.controls['remarks'].patchValue(schoolProfileTO.remarks);
-    if(schoolProfileTO.profilePhotoUrl===undefined || schoolProfileTO.profilePhotoUrl== null || schoolProfileTO.profilePhotoUrl.length== 0)
-    {
+    if (schoolProfileTO.profilePhotoUrl === undefined || schoolProfileTO.profilePhotoUrl == null || schoolProfileTO.profilePhotoUrl.length == 0) {
       this.schoolFormGroup.controls['schoolLogo'].patchValue(AppConstants.DEFAULT_SCHOOL_LOGO);
-      $("#blah").attr("src",AppConstants.DEFAULT_SCHOOL_LOGO);
-    }
-    else
-    {
+      $("#blah").attr("src", AppConstants.DEFAULT_SCHOOL_LOGO);
+    } else {
       this.schoolFormGroup.controls['schoolLogo'].patchValue(schoolProfileTO.profilePhotoUrl);
-      $("#blah").attr("src",schoolProfileTO.profilePhotoUrl);
+      $("#blah").attr("src", schoolProfileTO.profilePhotoUrl);
     }
-    this.selectedimagepath=schoolProfileTO.profilePhotoUrl;
-    localStorage.setItem(AppConstants.SHAREDPREFERANCE_SCHOOLID,schoolProfileTO.schoolId);
-    
+    this.selectedimagepath = schoolProfileTO.profilePhotoUrl;
+    localStorage.setItem(AppConstants.SHAREDPREFERANCE_SCHOOLID, schoolProfileTO.schoolId);
+
   }
 
   /**
@@ -450,10 +440,10 @@ export class SchoolComponent implements OnInit, SchoolComponentInterface {
     this.schoolProfileTOList = schoolProfileTOList;
     this.schoolProfileTOList.forEach(schoolProfileTO => {
       console.log('SchoolProfileTO:', schoolProfileTO);
-     // this.schoolProfileTO = schoolProfileTO;
+      // this.schoolProfileTO = schoolProfileTO;
     });
 
-   this.rerender();
+    this.rerender();
 
   }
 
@@ -466,16 +456,14 @@ export class SchoolComponent implements OnInit, SchoolComponentInterface {
   }
 
 
-  successMessageCallBack(messageTO:MessageTO) {
-    console.log("successMessageCallBack ==>" + messageTO.messageInfo+"  "+ messageTO.messageType+"  "+messageTO.serviceClassName+"  "+messageTO.serviceMethodName);
+  successMessageCallBack(messageTO: MessageTO) {
+    console.log("successMessageCallBack ==>" + messageTO.messageInfo + "  " + messageTO.messageType + "  " + messageTO.serviceClassName + "  " + messageTO.serviceMethodName);
     //console.log("*** successMessageCallBack ==>" + messageTO.messageInfo);
-    if(messageTO.serviceMethodName == "searchAndAddSchoolProfile()"){
+    if (messageTO.serviceMethodName == "searchAndAddSchoolProfile()") {
       this.getSchoolProfile(messageTO.objId);
       this.div_Element_Id = "2";
-    }
-    else if(messageTO.serviceMethodName == "updateSchoolProfile()")
-    {
-      this.popupstatus="1";
+    } else if (messageTO.serviceMethodName == "updateSchoolProfile()") {
+      this.popupstatus = "1";
     }
 
 
@@ -489,7 +477,7 @@ export class SchoolComponent implements OnInit, SchoolComponentInterface {
    *
    * @param message
    */
-  errorMessageCallBack(messageTO:MessageTO) {
+  errorMessageCallBack(messageTO: MessageTO) {
     console.log("errorMessageCallBack ==>" + messageTO.messageInfo);
 
     this.errorMessage = messageTO.messageInfo;
@@ -499,12 +487,10 @@ export class SchoolComponent implements OnInit, SchoolComponentInterface {
 
   }
 
-  closePopup()
-  {
+  closePopup() {
     this.sucessMessage = "";
     this.active = "0";
-    if(this.popupstatus=="1")
-      this.showSchoolsList();
+    if (this.popupstatus == "1") this.showSchoolsList();
   }
 
   setUserSuccessMessageonUI(message: string) {
@@ -530,27 +516,27 @@ export class SchoolComponent implements OnInit, SchoolComponentInterface {
 
 
   rerender(): void {
-    console.log("render call "+this.flag);
-    if(!this.flag && this.dtElement!=null)  {
-      this.flag=true;
+    console.log("render call " + this.flag);
+    if (!this.flag && this.dtElement != null) {
+      this.flag = true;
       this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
         // Destroy the table first
         dtInstance.destroy();
         // Call the dtTrigger to rerender again
         console.log("shiva");
         this.dtTrigger.next();
-        this.flag=false;
+        this.flag = false;
       });
     }
   }
 
-  
+
 }
 window.onbeforeunload = close;
-function close(){
+function close() {
 
-    // do something...
-    localStorage.clear();
-    sessionStorage.clear();
-   return null;
+  // do something...
+  localStorage.clear();
+  sessionStorage.clear();
+  return null;
 }

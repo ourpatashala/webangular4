@@ -1,4 +1,5 @@
 import {MessageTO} from "../../to/MessageTO";
+import {ConfigItemsVO} from "../../vo/ConfigItemsVO";
 /**
  * Created by ravisha on 8/4/17.
  */
@@ -15,4 +16,6 @@ export interface CommonInterface {
    * @param message
    */
   errorMessageCallBack(messageTO:MessageTO);
+
+
 }

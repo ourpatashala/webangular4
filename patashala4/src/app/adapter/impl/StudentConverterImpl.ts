@@ -5,9 +5,10 @@ import {StudentService} from "../../service/student.service";
 import {CommonConverter} from "./CommonConverter";
 import {StudentVO} from "../../vo/StudentVO";
 import {StudentComponentInterface} from "../../component/student/StudentComponentInterface";
-import {FirebaseListObservable} from "angularfire2/database";
+import {FirebaseListObservable, FirebaseObjectObservable} from "angularfire2/database";
 import {ClassProfileVO} from "../../vo/ClassProfileVO";
 import {ClassProfileTO} from "../../to/ClassProfileTO";
+import {ConfigItemsVO} from "../../vo/ConfigItemsVO";
 
 /**
  * Created by ravisha on 4/21/17.
@@ -191,17 +192,38 @@ export class StudentConverterImpl extends CommonConverter implements StudentConv
   }
 
   getAllClassesProfile(schoolId : string, studentComponentInterface:StudentComponentInterface){
-    var objData:FirebaseListObservable<ClassProfileVO>;
-    var classesObject = this.studentService.getAllClassProfiles(schoolId);
 
-    classesObject.subscribe(snapshot => {
-      objData = snapshot;
-      //studentTO = this.getTOFromVO( objData);
 
-      studentComponentInterface.displayAllClassesCallBack(objData);
 
+    var config =  this.studentService.getConfig(schoolId);
+    var configData = new ConfigItemsVO();
+
+
+
+    config.subscribe(snapshot => {
+      configData = snapshot;
+
+      console.log("configData ==> "+ configData.academyYear)
+
+
+      var objData:FirebaseListObservable<ClassProfileVO>;
+      var classesObject = this.studentService.getAllClassProfiles(schoolId, configData.academyYear);
+
+      console.log("classesObject ==> "+ classesObject)
+
+        classesObject.subscribe(snapshot => {
+          objData = snapshot;
+          //studentTO = this.getTOFromVO( objData);
+
+
+
+          studentComponentInterface.displayAllClassesCallBack(objData);
+
+
+        });
 
     });
+
   }
 
   deleteStudentProfile(schoolid: string, studentId:string,){

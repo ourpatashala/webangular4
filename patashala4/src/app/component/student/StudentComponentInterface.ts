@@ -6,6 +6,7 @@ import * as firebase from 'firebase/app';
 import {CommonInterface} from "../common/CommonInterface";
 import {ClassProfileTO} from "../../to/ClassProfileTO";
 import {ClassProfileVO} from "../../vo/ClassProfileVO";
+import {ConfigItemsVO} from "../../vo/ConfigItemsVO";
 
 export interface StudentComponentInterface extends  CommonInterface{
   /**
@@ -25,6 +26,8 @@ export interface StudentComponentInterface extends  CommonInterface{
   displayPhotoCallBack(url : string);
 
   displayPhotoWithURLCallBack(url : string);
+
+
 
 
 

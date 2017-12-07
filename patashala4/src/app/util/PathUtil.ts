@@ -11,11 +11,28 @@ export class PathUtil {
    * @return
    */
   public static  getStudentPath(schoolId: string): string {
-    console.log('Entered student path schoolid ..' + schoolId)
+
     var studentPath = PathUtil.getSchoolPath(schoolId);
     studentPath = studentPath + (NodeConstants.STUDENT_PROFILE);
     studentPath = studentPath + (NodeConstants.SEPARATOR);
     return studentPath;
+  }
+
+  public static  getConfigPath(schoolId: string): string {
+
+    var path = NodeConstants.SCHOOLS
+    path = path + (NodeConstants.SEPARATOR);
+    path = path + (NodeConstants.CONFIGURATION);
+    path = path + (NodeConstants.SEPARATOR);
+
+    path = path + (schoolId);
+    path = path + (NodeConstants.SEPARATOR);
+
+    path = path + (NodeConstants.DASHBOARD);
+    path = path + (NodeConstants.SEPARATOR);
+
+
+    return path;
   }
 
   public static  getStudentProfilePath(schoolId: string, studentId: string): string {
