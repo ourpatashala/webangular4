@@ -31,7 +31,7 @@ export class MasterSubjectConverterImpl extends CommonConverter implements Maste
    * @returns {string}
    */
   getUniqueKey(masterSubjectTO: MasterSubjectTO):string {
-    return masterSubjectTO.subjectId;
+    return masterSubjectTO.subjectName.toLowerCase();
   }
 
   /**
@@ -42,8 +42,11 @@ export class MasterSubjectConverterImpl extends CommonConverter implements Maste
   getVOFromTO(masterSubjectTO: MasterSubjectTO): MasterSubjectVO {
     var masterSubjectVO = new MasterSubjectVO();
 
-    masterSubjectVO.subjectId = masterSubjectTO.subjectId;
+    masterSubjectVO.subjectId = masterSubjectTO.subjectName.toLowerCase();
     masterSubjectVO.subjectName = masterSubjectTO.subjectName;
+    masterSubjectVO.uniqueId = this.getUniqueKey(masterSubjectTO);
+
+    console.log("MasterSubjectTO ===>"+ masterSubjectVO.toString())
 
     return masterSubjectVO;
   }

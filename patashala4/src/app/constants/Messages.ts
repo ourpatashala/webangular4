@@ -21,5 +21,13 @@ export class Messages{
   public static SCHOOL_ID_EMPTY='Invalid School Id!!';
 
 
+  public static MASTERSUBJECT_EXISTS='A subject already exists with same name, cannot update it.';
+  public static MASTERSUBJECT_NOT_EXISTS='Subject  not  present.';
+  public static MASTERSUBJECT_ADDED='Subject Added Successfully!!';
+  public static MASTERSUBJECT_UPDATED='Subject Updated Successfully!!';
+  public static MASTERSUBJECT_DELETED='Subject Deleted Successfully!! ';
+  public static MASTERSUBJECTL_DELETED_DENIED='Subject Delete Denied!! There are child objects associated to this school.';
+
+
 
 }

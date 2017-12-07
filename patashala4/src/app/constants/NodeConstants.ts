@@ -15,7 +15,10 @@ export class NodeConstants {
 
 
    public static SCHOOLS = "schools";
-   public static STUDENTS = "students";
+   public static MASTERDATA = "masterdata";
+
+
+  public static STUDENTS = "students";
    public static STUDENT = "student";
    public static REGISTERED_USERS = "registeredUsers";
 

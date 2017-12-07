@@ -10,6 +10,7 @@ import {Routes,RouterModule} from '@angular/router';
 
 import { AppComponent } from './app.component';
 import { SchoolComponent } from './component/school/school.component';
+import { MastersubjectComponent } from './component/mastersubject/mastersubject.component';
 import { LoginComponent } from './component/login/login.component';
 import { ForgotpasswordComponent } from './component/login/forgotpassword.component';
 import { RegisterationComponent } from './component/login/registeration.component';
@@ -26,7 +27,8 @@ const appRoutes: Routes = [
   { path: 'Forgotpassword', component: ForgotpasswordComponent},
   { path: 'Students', component: StudentComponent},
   { path: 'TabService',component:TabServiceComponent},
-  { path: 'TabManage',component:TabManageComponent}
+  { path: 'TabManage',component:TabManageComponent},
+  { path: 'test',component:MastersubjectComponent}
 ];
 
 

@@ -63,7 +63,8 @@ export class StudentService {
   }
 
   getAllClassProfiles(schoolId: string) : FirebaseListObservable<any>{
-    //var studentProfilePath = PathUtil.getStudentPath(schoolId);
+
+    //TODO Remove hard coding
     var allClassProfiles=  this.angularFireDatabase.list("/schools/"+schoolId+"/2017/classProfile/");
     return allClassProfiles;
   }
@@ -71,13 +72,17 @@ export class StudentService {
 
 
   getStudentProfile(schoolId: string, studentId: string): FirebaseObjectObservable<any> {
-    var studentInfo = this.angularFireDatabase.object("/schools/" + schoolId + "/studentProfile/" + studentId);
+
+    var studentProfilePath = PathUtil.getStudentProfilePath(schoolId, studentId);
+
+    var studentInfo = this.angularFireDatabase.object(studentProfilePath);
     return studentInfo;
   }
 
 
   updateProfilePicURLInRegNodes(schoolId: string, studentId: string, profilePicURL: string): void {
-    var studentInfo = this.angularFireDatabase.object("/schools/" + schoolId + "/studentProfile/" + studentId);
+
+    var studentInfo = this.angularFireDatabase.object(PathUtil.getStudentProfilePath(schoolId, studentId));
 
     console.log("Called updateProfilePicURLInRegNodes 1 ==profilePicURL==" + profilePicURL);
 

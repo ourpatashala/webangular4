@@ -27,12 +27,46 @@ export class PathUtil {
     return studentPath;
   }
 
+  public static  getMasterSubjectPath(schoolId: string, subjectId: string): string {
+    var path = PathUtil.getSchoolPath(schoolId);
+    path = path + (NodeConstants.MASTERDATA);
+    path = path + (NodeConstants.SEPARATOR);
+    path = path + (NodeConstants.SUBJECTS);
+    path = path + (NodeConstants.SEPARATOR);
+    path = path + (subjectId);
+    path = path + (NodeConstants.SEPARATOR);
+    return path;
+  }
+
   public static  getStudentProfilePathNode(schoolId: string): string {
+
     var studentPath = PathUtil.getSchoolPathWithoutTopNode(schoolId);
     studentPath = studentPath + (NodeConstants.STUDENT_PROFILE);
     studentPath = studentPath + (NodeConstants.SEPARATOR);
 
     return studentPath;
+  }
+
+  public static  getMasterSubjectPathNode(schoolId: string, subjectId:string ): string {
+
+    var path = PathUtil.getSchoolPath(schoolId);
+    path = path + (NodeConstants.MASTERDATA);
+    path = path + (NodeConstants.SEPARATOR);
+    path = path + (NodeConstants.SUBJECTS);
+    path = path + (NodeConstants.SEPARATOR);
+    path = path + (subjectId);
+    path = path + (NodeConstants.SEPARATOR);
+    return path;
+  }
+
+  public static  getMasterSubjectNode(schoolId: string ): string {
+
+    var path = PathUtil.getSchoolPath(schoolId);
+    path = path + (NodeConstants.MASTERDATA);
+    path = path + (NodeConstants.SEPARATOR);
+    path = path + (NodeConstants.SUBJECTS);
+    path = path + (NodeConstants.SEPARATOR);
+    return path;
   }
 
   public static  getRegistrationPath(): string {
@@ -178,6 +212,18 @@ export class PathUtil {
     schoolProilePath = schoolProilePath + NodeConstants.SEPARATOR;
     return schoolProilePath;
   }
+
+  public static getMasterDataPath(schoolId: string) {
+    var path: string = "";
+    path = path + NodeConstants.SCHOOLS;
+    path = path + NodeConstants.SEPARATOR;
+    path = path + schoolId;
+    path = path + NodeConstants.SEPARATOR;
+    path = path + NodeConstants.MASTERDATA;
+    path = path + NodeConstants.SEPARATOR;
+    return path;
+  }
+
 
 
   public static getSchoolProfileNode() {
