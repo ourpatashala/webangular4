@@ -130,6 +130,64 @@ export class StudentService {
   }
 
 
+  removeStudentsFromRegNode(schoolId: string, studentId: string): void {
+
+    var studentInfo = this.angularFireDatabase.object("/").$ref.child(PathUtil.getStudentProfilePath(schoolId, studentId));
+
+    var studentVO = new StudentVO();
+
+    var db = this.angularFireDatabase;
+
+    studentInfo.once('value', function (snapshot) {
+
+      studentVO = snapshot.val();
+
+      var mobileNumbers = studentVO.mobileNumbers;
+      var count = mobileNumbers.length
+
+
+      Object.keys(mobileNumbers).forEach(index => {
+
+        var fieldNameValue = studentVO.mobileNumbers[index];
+        Object.keys(fieldNameValue).forEach(fieldName => {
+
+          var phoneNumber = fieldNameValue[fieldName];
+          console.log('Mobile #s : ' + phoneNumber);
+
+          console.log("Called removeStudentsFromRegNode 2 ====");
+
+          if (phoneNumber != "") {
+
+            console.log("Called removeStudentsFromRegNode 3 ====");
+            //schools/registeredUsers/7702855641/students/-L-MUNeW9wfZTEutssRP/-L-MUxfp6sK2lYQWI9J6/profilePic
+            var dbRef = db.object("/schools/registeredUsers/" + phoneNumber + "/students/" + schoolId + "/" + studentId ).$ref;
+            dbRef.remove();
+            console.log("Removed "+ studentId +" from "+ phoneNumber);
+
+
+          }
+
+          count = count - 1;
+          console.log("Count = " + count);
+          if (count == 0){
+            console.log("========Now delete ============");
+            db.object(PathUtil.getStudentProfilePath(schoolId, studentId)).$ref.remove();
+          }
+
+
+        });
+
+      });
+
+
+
+    });
+
+
+
+  }
+
+
   searchAndAddStudent(studentVO: StudentVO, studentComponentInterface: StudentComponentInterface) {
 
     var serviceObject = this;
@@ -362,7 +420,11 @@ export class StudentService {
   }
 
   deleteStudentProfile(schoolid: string, studentId: string) {
-    this.angularFireDatabase.object(PathUtil.getStudentProfilePath(schoolid, studentId)).$ref.remove();
+
+    this.removeStudentsFromRegNode(schoolid,studentId);
+    //The below method call is moved to above method removeStudentsFromRegNode
+    //this.angularFireDatabase.object(PathUtil.getStudentProfilePath(schoolid, studentId)).$ref.remove();
+
   }
 
 
