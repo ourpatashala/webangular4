@@ -76,6 +76,17 @@ export class PathUtil {
     return path;
   }
 
+  public static  getMasterSyllabusPathNode(schoolId: string, syllabusId:string ): string {
+
+    var path = PathUtil.getSchoolPath(schoolId);
+    path = path + (NodeConstants.MASTERDATA);
+    path = path + (NodeConstants.SEPARATOR);
+    path = path + (NodeConstants.SYLLABUS);
+    path = path + (NodeConstants.SEPARATOR);
+    path = path + (syllabusId);
+    path = path + (NodeConstants.SEPARATOR);
+    return path;
+  }
   public static  getMasterSubjectNode(schoolId: string ): string {
 
     var path = PathUtil.getSchoolPath(schoolId);

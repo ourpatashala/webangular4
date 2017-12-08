@@ -77,7 +77,7 @@ export class MasterSyllabusConverterImpl extends CommonConverter implements Mast
   getMasterSyllabus(schoolId: string, subjectId: string, masterSyllabusComponentInterface: MasterSyllabusComponentInterface) {
 
     var masterSyllabusTO = new MasterSyllabusTO();
-    var object = this.masterSubjectService.getMasterSubject(schoolId, subjectId);
+    var object = this.masterSyllabusService.getMasterSyllabus(schoolId, subjectId);
 
     object.subscribe(snapshot => {
       masterSyllabusTO = snapshot;
