@@ -11,11 +11,12 @@ declare var $:any;
 export class HeaderComponent implements OnInit {
 
 schoolName :string;
-
+schoolImage :string;
 
   constructor() {
     console.log("Header "+ localStorage.getItem(AppConstants.SHAREDPREFERANCE_SCHOOLNAME));
-    this.schoolName = localStorage.getItem(AppConstants.SHAREDPREFERANCE_SCHOOLNAME);    
+    this.schoolName = localStorage.getItem(AppConstants.SHAREDPREFERANCE_SCHOOLNAME);   
+    this.schoolImage=localStorage.getItem(AppConstants.SHAREDPREFERANCE_SCHOOLIMAGE) 
    }
 
   ngOnInit() {

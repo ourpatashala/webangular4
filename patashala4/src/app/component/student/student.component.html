@@ -375,7 +375,6 @@
                         </div>
                     </span>
                 </p>
-                <p class="school_contact">Contact#: <span>{{studentTO.mobileNumbers}}</span> </p>
             </div>
             <div class="clear"></div>
         </div>
@@ -400,6 +399,7 @@
                     <th>First&nbsp;Name</th>
                     <th>Last&nbsp;Name</th>
                     <th>Middle&nbsp;Name</th>
+                    <th>RollNo </th>
                     <th>Class</th>
                     <th>Registered&nbsp;Mobile</th>
                 </tr>
@@ -410,11 +410,12 @@
                    <!-- <td><input type="checkbox" value="{{schoolProfileTO.schoolId}}"  (change)="updateCheckedOptions(schoolProfileTO.schoolId,$this.checkbox.state)"></td> -->
                     <td><input type="checkbox" id="{{studentProfileTO.id}}" value="{{studentProfileTO.id}}" (change)="checkedStudents(studentProfileTO.id)" ></td>
                     <td>{{i + 1}}</td>
-                    <td class="text-center"> <img src="{{ (studentProfileTO.profilePhotoUrl != null && studentProfileTO.profilePhotoUrl.length != 0) ?  studentProfileTO.profilePhotoUrl:'./assets/images/profile/default.jpg' }}" alt=""></td>
+                    <td class="text-center"  style="width:100px"> <img src="{{ (studentProfileTO.profilePhotoUrl != null && studentProfileTO.profilePhotoUrl.length != 0) ?  studentProfileTO.profilePhotoUrl:'./assets/images/profile/default.jpg' }}" alt=""></td>
                     <td>{{studentProfileTO.firstName}}</td>
                     <td>{{studentProfileTO.lastName}}</td>
                     <td>{{studentProfileTO.middleName}}</td>
                     <td>{{studentProfileTO.className}}</td>
+                    <td>{{studentProfileTO.rollNo}}</td>
                     <td>
                             <span *ngFor="let mobileNumber of studentProfileTO.mobileNumbers ; let i=index ">
                                 {{mobileNumber.mobileNumber}}  {{ (studentProfileTO.mobileNumbers.length-1 == i) ?  '':',' }}
