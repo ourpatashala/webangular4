@@ -81,7 +81,7 @@ export class MasterSyllabusConverterImpl extends CommonConverter implements Mast
 
     object.subscribe(snapshot => {
       masterSyllabusTO = snapshot;
-      masterSyllabusComponentInterface.displayMasterSubjectCallBack(masterSyllabusTO);
+      masterSyllabusComponentInterface.displayMasterSyllabusCallBack(masterSyllabusTO);
     });
   }
 
@@ -93,10 +93,10 @@ export class MasterSyllabusConverterImpl extends CommonConverter implements Mast
   getAllMasterSyllabus(schoolId: string, masterSyllabusComponentInterface: MasterSyllabusComponentInterface) {
 
     var objData: FirebaseListObservable<MasterSyllabusTO>;
-    var object = this.masterSubjectService.getAllMasterSubject(schoolId);
+    var object = this.masterSyllabusService.getAllMasterSyllabus(schoolId);
     object.subscribe(snapshot => {
       objData = snapshot;
-      masterSyllabusComponentInterface.displayAllMasterSubjectCallBack(objData);
+      masterSyllabusComponentInterface.displayAllMasterSyllabusCallBack(objData);
 
     });
   }
@@ -112,13 +112,13 @@ export class MasterSyllabusConverterImpl extends CommonConverter implements Mast
   updateMasterSyllabus(schoolId: string, subjectId: string, masterSyllabusTO: MasterSyllabusTO, masterSyllabusComponentInterface: MasterSyllabusComponentInterface) {
 
     console.log("updateMasterSubject masterSyllabusTO " + masterSyllabusTO);
-    this.masterSubjectService.updateMasterSubject(schoolId, subjectId, this.getVOFromTO(masterSyllabusTO), masterSyllabusComponentInterface);
+    this.masterSyllabusService.updateMasterSubject(schoolId, subjectId, this.getVOFromTO(masterSyllabusTO), masterSyllabusComponentInterface);
 
   }
 
   deleteMasterSyllabus(schoolid: string, subjectId: string, masterSyllabusComponentInterface: MasterSyllabusComponentInterface) {
 
-    this.masterSubjectService.deleteMasterSubject(schoolid, subjectId, masterSyllabusComponentInterface);
+    this.masterSyllabusService.deleteMasterSubject(schoolid, subjectId, masterSyllabusComponentInterface);
 
   }
 

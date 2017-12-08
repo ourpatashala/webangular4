@@ -86,6 +86,16 @@ export class PathUtil {
     return path;
   }
 
+  public static  getMasterSyllabusNode(schoolId: string ): string {
+
+    var path = PathUtil.getSchoolPath(schoolId);
+    path = path + (NodeConstants.MASTERDATA);
+    path = path + (NodeConstants.SEPARATOR);
+    path = path + (NodeConstants.SYLLABUS);
+    path = path + (NodeConstants.SEPARATOR);
+    return path;
+  }
+
   public static  getRegistrationPath(): string {
     var registrationPath: string = "";
     registrationPath = registrationPath + (NodeConstants.SCHOOLS);

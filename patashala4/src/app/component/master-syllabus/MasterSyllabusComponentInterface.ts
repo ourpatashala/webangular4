@@ -8,9 +8,9 @@ import {CommonInterface} from "../common/CommonInterface";
 
 export interface MasterSyllabusComponentInterface extends  CommonInterface{
 
-  displayMasterSubjectCallBack(masterSubjectTO: MasterSubjectTO);
+  displayMasterSyllabusCallBack(masterSubjectTO: MasterSubjectTO);
 
-  displayAllMasterSubjectCallBack(masterSubjectTO:FirebaseListObservable<MasterSubjectTO>);
+  displayAllMasterSyllabusCallBack(masterSubjectTO:FirebaseListObservable<MasterSubjectTO>);
 
 }
 
