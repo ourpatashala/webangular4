@@ -316,7 +316,7 @@
             </td>
 
             <td>
-              <button md-raised-button class="table_blue_btn" (click)="redirecttoschooldashboard(schoolProfileTO.schoolId,schoolProfileTO.schoolName)">Manage</button>
+              <button md-raised-button class="table_blue_btn" (click)="redirecttoschooldashboard(schoolProfileTO.schoolId,schoolProfileTO.schoolName, (schoolProfileTO.profilePhotoUrl != null && schoolProfileTO.profilePhotoUrl.length != 0) ?  schoolProfileTO.profilePhotoUrl:'./assets/images/profile/default.jpg')">Manage</button>
             </td>
           </tr>
           </tbody>

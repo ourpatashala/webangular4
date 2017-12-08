@@ -321,11 +321,12 @@ export class SchoolComponent implements OnInit, SchoolComponentInterface {
     this.uploadService.removeSchoolPic(localStorage.getItem(AppConstants.SHAREDPREFERANCE_SCHOOLID));
   }
 
-  redirecttoschooldashboard(schoolId: string, schoolName: string) {
+  redirecttoschooldashboard(schoolId: string, schoolName: string, schoolImage: string) {
     console.log("selected school id " + schoolId);
     console.log("old " + localStorage.getItem(AppConstants.SHAREDPREFERANCE_SCHOOLID));
     localStorage.setItem(AppConstants.SHAREDPREFERANCE_SCHOOLID, schoolId);
     localStorage.setItem(AppConstants.SHAREDPREFERANCE_SCHOOLNAME, schoolName);
+    localStorage.setItem(AppConstants.SHAREDPREFERANCE_SCHOOLIMAGE, schoolImage);
     console.log("New " + localStorage.getItem(AppConstants.SHAREDPREFERANCE_SCHOOLID));
     this.getRouter().navigate(['/TabService']);
 

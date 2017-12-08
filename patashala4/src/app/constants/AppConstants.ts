@@ -15,6 +15,7 @@ export class AppConstants{
   public static SHAREDPREFERANCE_STUDENTCLASSID ="ClassID";
   public static SHAREDPREFERANCE_STUDENTCLASSNAME ="ClassName";
   public static SHAREDPREFERANCE_SCHOOLNAME ="schoolName";
+  public static SHAREDPREFERANCE_SCHOOLIMAGE ="schoolImage";
 
   public static DEFAULT_STUDENT_IMAGE ="./assets/images/profile/default.jpg";
   public static DEFAULT_SCHOOL_LOGO ="./assets/images/profile/default.jpg";
