@@ -28,6 +28,11 @@ export class Messages{
   public static MASTERSUBJECT_DELETED='Subject Deleted Successfully!! ';
   public static MASTERSUBJECTL_DELETED_DENIED='Subject Delete Denied!! There are child objects associated to this school.';
 
-
+  public static MASTERSYLLABUS_EXISTS='A syllabus already exists with same name, cannot update it.';
+  public static MASTERSYLLABUS_NOT_EXISTS='syllabus  not  present.';
+  public static MASTERSYLLABUS_ADDED='Syllabus Added Successfully!!';
+  public static MASTERSYLLABUS_UPDATED='Syllabus Updated Successfully!!';
+  public static MASTERSYLLABUS_DELETED='Syllabus Deleted Successfully!! ';
+  public static MASTERSYLLABUS_DELETED_DENIED='Syllabus Delete Denied!! There are child objects associated to this school.';
 
 }
