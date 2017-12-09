@@ -109,16 +109,24 @@ export class MasterSyllabusConverterImpl extends CommonConverter implements Mast
    * @param masterSyllabusTO
    * @param masterSyllabusComponentInterface
    */
-  updateMasterSyllabus(schoolId: string, subjectId: string, masterSyllabusTO: MasterSyllabusTO, masterSyllabusComponentInterface: MasterSyllabusComponentInterface) {
+  updateMasterSyllabus(schoolId: string, syllabusId: string, masterSyllabusTO: MasterSyllabusTO, chaptersList: ChapterVO[], masterSyllabusComponentInterface: MasterSyllabusComponentInterface) {
 
     console.log("updateMasterSubject masterSyllabusTO " + masterSyllabusTO);
-    this.masterSyllabusService.updateMasterSubject(schoolId, subjectId, this.getVOFromTO(masterSyllabusTO), masterSyllabusComponentInterface);
+    masterSyllabusTO.uniqueId = this.getUniqueKey(masterSyllabusTO)
+    this.masterSyllabusService.updateMasterSyllabus(schoolId, syllabusId, this.getVOFromTO(masterSyllabusTO), chaptersList, masterSyllabusComponentInterface);
 
   }
 
-  deleteMasterSyllabus(schoolid: string, subjectId: string, masterSyllabusComponentInterface: MasterSyllabusComponentInterface) {
 
-    this.masterSyllabusService.deleteMasterSubject(schoolid, subjectId, masterSyllabusComponentInterface);
+  /**
+   * Delete node
+   * @param schoolid
+   * @param syllabusId
+   * @param masterSyllabusComponentInterface
+   */
+  deleteMasterSyllabus(schoolid: string, syllabusId: string, masterSyllabusComponentInterface: MasterSyllabusComponentInterface) {
+
+    this.masterSyllabusService.deleteMasterSyllabus(schoolid, syllabusId, masterSyllabusComponentInterface);
 
   }
 
