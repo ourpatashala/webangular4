@@ -87,6 +87,19 @@ export class PathUtil {
     path = path + (NodeConstants.SEPARATOR);
     return path;
   }
+
+  public static  getMasterCoursePathNode(schoolId: string, courseId:string ): string {
+
+    var path = PathUtil.getSchoolPath(schoolId);
+    path = path + (NodeConstants.MASTERDATA);
+    path = path + (NodeConstants.SEPARATOR);
+    path = path + (NodeConstants.COURSE);
+    path = path + (NodeConstants.SEPARATOR);
+    path = path + (courseId);
+    path = path + (NodeConstants.SEPARATOR);
+    return path;
+  }
+
   public static  getMasterSubjectNode(schoolId: string ): string {
 
     var path = PathUtil.getSchoolPath(schoolId);
@@ -103,6 +116,16 @@ export class PathUtil {
     path = path + (NodeConstants.MASTERDATA);
     path = path + (NodeConstants.SEPARATOR);
     path = path + (NodeConstants.SYLLABUS);
+    path = path + (NodeConstants.SEPARATOR);
+    return path;
+  }
+
+  public static  getMasterCourseNode(schoolId: string ): string {
+
+    var path = PathUtil.getSchoolPath(schoolId);
+    path = path + (NodeConstants.MASTERDATA);
+    path = path + (NodeConstants.SEPARATOR);
+    path = path + (NodeConstants.COURSE);
     path = path + (NodeConstants.SEPARATOR);
     return path;
   }

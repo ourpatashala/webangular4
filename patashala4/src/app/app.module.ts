@@ -35,6 +35,7 @@ import { WebcampopupComponent } from './component/popup-screens/webcampopup/webc
 import { WebCamModule } from 'ack-angular-webcam';
 import { MastersubjectComponent } from './component/mastersubject/mastersubject.component';
 import { MasterSyllabusComponent } from './component/master-syllabus/master-syllabus.component';
+import { MasterCourseComponent } from './component/master-course/master-course.component';
 
 
 export const firebaseConfig = {     apiKey: 'AIzaSyB6WeGfORqOzz5jT_XL6GLMCl8zeQqORHU',     authDomain: 'devpatashala-4e257.firebaseapp.com',     databaseURL: 'https://devpatashala-4e257.firebaseio.com',     storageBucket: 'devpatashala-4e257.appspot.com',     messagingSenderId: '857631726201' };
@@ -59,6 +60,7 @@ export const firebaseConfig = {     apiKey: 'AIzaSyB6WeGfORqOzz5jT_XL6GLMCl8ze
     WebcampopupComponent,
     MastersubjectComponent,
     MasterSyllabusComponent,
+    MasterCourseComponent,
 
    ],
   imports: [
