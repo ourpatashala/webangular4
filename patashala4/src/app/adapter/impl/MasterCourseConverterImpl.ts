@@ -73,13 +73,14 @@ export class MasterCourseConverterImpl extends CommonConverter implements Master
   }
 
 
-  getMasterCourse(schoolId: string, subjectId: string, masterCourseComponentInterface: MasterCourseComponentInterface) {
+  getMasterCourse(schoolId: string, courseId: string, masterCourseComponentInterface: MasterCourseComponentInterface) {
 
     var masterCourseTO = new MasterCourseTO();
-    var object = this.masterCourseService.getMasterCourse(schoolId, subjectId);
+    var object = this.masterCourseService.getMasterCourse(schoolId, courseId);
 
     object.subscribe(snapshot => {
       masterCourseTO = snapshot;
+
       masterCourseComponentInterface.displayMasterCourseCallBack(masterCourseTO);
     });
   }
