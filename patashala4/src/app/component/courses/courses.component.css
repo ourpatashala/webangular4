@@ -1,0 +1,18 @@
+.inactive_div
+{
+	display:none;
+}
+.some_gap{
+	padding-bottom: 30px;
+}
+table,th,tr,td {
+border :1px solid #2cb0ca;
+}
+th{
+    background-color: #4cc4db;
+	color:#fff;
+}
+
+
+
+

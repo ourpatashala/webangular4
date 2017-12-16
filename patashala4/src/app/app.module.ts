@@ -36,6 +36,10 @@ import { WebCamModule } from 'ack-angular-webcam';
 import { MastersubjectComponent } from './component/mastersubject/mastersubject.component';
 import { MasterSyllabusComponent } from './component/master-syllabus/master-syllabus.component';
 import { MasterCourseComponent } from './component/master-course/master-course.component';
+import { SubjectComponent } from './component/subject/subject.component';
+import { SyllabusComponent } from './component/syllabus/syllabus.component';
+import { CoursesComponent } from './component/courses/courses.component';
+
 
 
 export const firebaseConfig = {     apiKey: 'AIzaSyB6WeGfORqOzz5jT_XL6GLMCl8zeQqORHU',     authDomain: 'devpatashala-4e257.firebaseapp.com',     databaseURL: 'https://devpatashala-4e257.firebaseio.com',     storageBucket: 'devpatashala-4e257.appspot.com',     messagingSenderId: '857631726201' };
@@ -61,6 +65,9 @@ export const firebaseConfig = {     apiKey: 'AIzaSyB6WeGfORqOzz5jT_XL6GLMCl8ze
     MastersubjectComponent,
     MasterSyllabusComponent,
     MasterCourseComponent,
+    SubjectComponent,
+    SyllabusComponent,
+    CoursesComponent
 
    ],
   imports: [
