@@ -6,10 +6,11 @@ import { SchoolComponent } from './component/school/school.component';
 import { Routes, RouterModule } from "@angular/router";
 import { routing } from './app.routing';
 import { AngularFireModule } from 'angularfire2';
+import { WebCamModule } from 'ack-angular-webcam';
 //import { DatePickerModule } from 'angular-io-datepicker';
 
 // New imports to update based on AngularFire2 version 4
-import { AngularFireDatabaseModule } from 'angularfire2/database';
+import { AngularFireDatabaseModule } from 'angularfire2/database-deprecated';
 import { AngularFireAuthModule } from 'angularfire2/auth';
 import {ReactiveFormsModule, FormsModule} from "@angular/forms";
 import {AppConstants} from "./constants/AppConstants";
@@ -32,7 +33,7 @@ import {StudentService} from './service/student.service';
 import { NgDatepickerModule } from 'ng2-datepicker';
 import { ClassselectionPopupComponent } from './component/popup-screens/classselection-popup/classselection-popup.component';
 import { WebcampopupComponent } from './component/popup-screens/webcampopup/webcampopup.component';
-import { WebCamModule } from 'ack-angular-webcam';
+
 import { MastersubjectComponent } from './component/mastersubject/mastersubject.component';
 import { MasterSyllabusComponent } from './component/master-syllabus/master-syllabus.component';
 import { MasterCourseComponent } from './component/master-course/master-course.component';
@@ -69,15 +70,15 @@ export const firebaseConfig = {     apiKey: 'AIzaSyB6WeGfORqOzz5jT_XL6GLMCl8ze
     SyllabusComponent,
     CoursesComponent
 
-   ],
+  ],
   imports: [
     BrowserModule,
     FormsModule,
     DataTablesModule,
     ReactiveFormsModule,
     WebCamModule,
-   // DatePickerModule,
-   NgDatepickerModule ,
+    // DatePickerModule,
+    NgDatepickerModule ,
     AngularFireModule.initializeApp(firebaseConfig),
     routing,
     AngularFireDatabaseModule,

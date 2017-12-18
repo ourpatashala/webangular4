@@ -7,7 +7,7 @@ import {SchoolConverter} from "../interfaces/SchoolConverter";
 import {SchoolProfileTO} from "../../to/SchoolProfileTO";
 import {SchoolService} from "../../service/school.service";
 import {SchoolProfileVO} from "../../vo/SchoolProfileVO";
-import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/database';
+import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/database-deprecated';
 import {SchoolComponentInterface} from "../../component/school/SchoolComponentInterface";
 /**
  * Created by ravisha on 4/21/17.
