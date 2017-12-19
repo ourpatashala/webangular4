@@ -7,7 +7,7 @@ import { Routes, RouterModule } from "@angular/router";
 import { routing } from './app.routing';
 import * as firebase from 'firebase';
 import { AngularFireModule } from 'angularfire2';
-import { WebCamModule } from 'ack-angular-webcam';
+
 //import { DatePickerModule } from 'angular-io-datepicker';
 
 // New imports to update based on AngularFire2 version 4
@@ -41,6 +41,7 @@ import { MasterCourseComponent } from './component/master-course/master-course.c
 import { SubjectComponent } from './component/subject/subject.component';
 import { SyllabusComponent } from './component/syllabus/syllabus.component';
 import { CoursesComponent } from './component/courses/courses.component';
+import { WebCamModule } from 'ack-angular-webcam';
 
 
 
