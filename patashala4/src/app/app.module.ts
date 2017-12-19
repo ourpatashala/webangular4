@@ -5,6 +5,7 @@ import { AppComponent } from './app.component';
 import { SchoolComponent } from './component/school/school.component';
 import { Routes, RouterModule } from "@angular/router";
 import { routing } from './app.routing';
+import * as firebase from 'firebase';
 import { AngularFireModule } from 'angularfire2';
 import { WebCamModule } from 'ack-angular-webcam';
 //import { DatePickerModule } from 'angular-io-datepicker';
