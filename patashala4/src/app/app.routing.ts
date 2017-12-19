@@ -36,6 +36,7 @@ const appRoutes: Routes = [
   { path: 'TabService',component:TabServiceComponent},
   { path: 'TabManage',component:TabManageComponent},
   { path: 'test',component:MasterCourseComponent},
+  { path: 'Mastersubject',component:MastersubjectComponent},
   { path: 'Courses',component:CoursesComponent},
   { path: 'subject',component:SubjectComponent},
   { path: 'syllabusnew',component:SyllabusComponent}

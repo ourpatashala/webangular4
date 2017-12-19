@@ -1,3 +1,213 @@
+<app-header-admin></app-header-admin>
+
+
+
+<div class="all_pages_content">
+    <div class="clear"></div>
+    <div class="page_content_here">
+     <div class="manage_school_table">
+
+    <div class="listing_tabs1">
+      <ul class="">
+         <a routerLink="/TabService"><li class="" id="">Services</li></a>
+         <a routerLink="/TabManage"><li class="active_tab" id="">Manage</li></a>
+      </ul>
+    </div>
+    <div class="large_gap"></div>    
+    <div class="large_gap"></div> 
+    <div class="col-md-6 padding30"><h3>Manage Courses </h3>
+        <p class="breadscrum_text"><a  routerLink="/">Home</a> &nbsp; <i class="fa fa-chevron-right"></i> &nbsp;<a  routerLink="/TabManage">Manage</a> &nbsp; <i class="fa fa-chevron-right"></i> &nbsp;<a  routerLink="/Courses">Course</a> &nbsp;<i class="fa fa-chevron-right"></i> &nbsp; Manage Courses</p>
+    </div>
+    <div class="large_gap"></div>
+
+       
+<div class="clear"></div>
+<div class="little_gap"></div>
+
+<div class="tabs_S_M">
+     <div class="listing_tabs1">
+        <ul class="">
+            <a routerLink="/Courses"><li class="" id="">Course</li></a>           
+            <a routerLink="/MasterSyllabus"><li class="" id="">Syllabus</li></a>
+            <a routerLink="/MasterSubject"><li class="active_tab" id="">Subjects</li></a> 
+        </ul>
+       
+      </div> 
+      <div class="little_gap"></div> 
+    <div class="gird_div">
+
+      <div class="tabs_div active_tab_div " id="service_tab_div">
+        <div class="text-right">
+            <div class="buttons_div" [ngClass]="{'inactive_div': div_Element_Id !='0'}">
+          
+		<button class="add_more_btn" (click)="show_addCourseFields()" [ngClass]="{'disable_btn': selectedSubjectArray.length!='0'}"><i class="fa fa-plus"></i> Add</button>
+        <button class="edit_field_btn" (click)="getselectedSubjectProfile()" [ngClass]="{'disable_btn': selectedSubjectArray.length!='1'}"><i class="fa fa-pencil"></i> Modify</button>
+        <button (click)="deleteCourse()" [ngClass]="{'disable_btn': selectedSubjectArray.length==0 || selectedSubjectArray.length>1}"><i class="fa fa-trash"></i> Delete</button>
+                
+            </div>
+        </div>
+        <div class="little_gap"></div>
+
+<div class="sucess_msg_text"><p [ngClass]="{'show_styles_sucess': active=='1'}">{{sucessMessage}}</p></div>
+<div class="error_msg_text"><p [ngClass]="{'error_styles_sucess': active=='2'}">{{errorMessage}}</p></div>
+
+
+
+
+
+
+   <div class="add_fields addschool_div" [ngClass]="{'inactive_div': div_Element_Id !='1'}">
+
+       <div class="col-md-3"></div>
+	  <form [formGroup]="subjectFormGroup" (ngSubmit)="addSubjectSubmit(subjectFormGroup)"> 
+        <div class="col-md-6 padding0">
+            <div class="col-md-4 text-right">Subject Name</div>
+            <div class="col-md-8">
+                <input type="text" formControlName="subjectName" >
+                <input type="hidden" formControlName="uniqueId" >
+                <input type="hidden" formControlName="subjectId" >
+            </div>
+            <div class="clear"></div>
+            <div class="clear"></div>
+            <div class="little_gap"></div>
+        </div>
+        <div class="col-md-3"></div>
+        <div class="clear"></div>
+        <div class="col-md-12 padding0">
+                <div class="col-md-3"></div> 
+                <div class="col-md-6">
+                <div class="col-md-4"></div>
+                    <div class="col-md-8">
+                    <button type="submit" class="update_btn">Add Subject</button>
+                    <button class="cancel_btn_add" (click)="showCourseList()">Cancel</button>
+                </div> 
+                </div> 
+        </div>
+	</form>
+      <div class="clear"></div>
+    </div> 
+
+
+  
+    <div class="modify_fields addschool_div" [ngClass]="{'inactive_div': div_Element_Id !='2'}">
+       <div class="col-md-3"></div>
+       <form [formGroup]="subjectFormGroup" (ngSubmit)="updateSubmit(subjectFormGroup)"> 
+      <div class="col-md-6 padding0">
+        <div class="col-md-4"><p>Subject Name</p></div>
+        <div class="col-md-8">
+            <input type="text" formControlName="subjectName" placeholder="Inter 1st (MPC)">
+        </div>
+            <div class="clear"></div>
+        <div class="little_gap"></div>
+      </div>
+      <div class="col-md-3"></div>
+      <div class="clear"></div>
+      <div class="col-md-12 padding0 text-center">
+        <button class="update_btn">Modify Course</button> <button class="cancel_btn_modify" (click)="showCourseList()">Cancel</button>
+    </div>
+</form>
+      <div class="clear"></div>
+    </div> 
+    <div class="clear"></div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	<div class="datatable_toggle active_tab_div" [ngClass]="{'inactive_div': div_Element_Id !='0'}">
+        <table id="manageTeachertable" style="width: 110%;">
+            <thead>
+                <tr>
+                    <th>check-box</th>
+                    <th>S.no</th>
+                    <!-- <th>SubjectId</th> -->
+                    <th>Subject Name</th>
+                    <!-- <th>Course Subjects</th> -->
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let masterSubject of masterSubjectTOList; let i=index;">
+                    <td><input type="checkbox" id="{{masterSubject.subjectId}}" value="{{masterSubject.subjectId}}" (change)="checkedmasterSubject(masterSubject.subjectId)"></td>
+				    <td>{{i + 1}}</td>
+                    <!-- <td>{{masterSubject.courseId}}</td> -->
+                    <td>{{masterSubject.subjectName}}</td>
+                    <!-- <td>
+                            <div *ngFor="let masterCourse1 of masterCourse.syllabusList ; let i=index ">
+                                    {{masterCourse1.syllabusName}},
+                            </div>
+
+                       </td> -->
+                </tr>                 
+            </tbody>
+        </table>
+	</div>      
+        <div class="clear"></div>
+    </div>
+          <div class="clear"></div>
+      </div>
+    </div>
+</div>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- <p>
+  master-course works!
+
+  <br />
+  <br />
+
+  <button (click)="testAdd()"> Add </button> <BR><BR>
+
+  <button (click)="testUpdate()"> Update </button> <BR><BR>
+
+  <button (click)="testGet()"> Get </button> <BR><BR>
+
+  <button (click)="testGetAll()"> Get All </button> <BR><BR>
+
+  <button (click)="testDelete()"> Delete </button> <BR><BR>
+
+</p> -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 <p>
   mastersubject works! <BR><BR>
 
