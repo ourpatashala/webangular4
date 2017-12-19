@@ -5,7 +5,7 @@ import {StudentService} from "../../service/student.service";
 import {CommonConverter} from "./CommonConverter";
 import {StudentVO} from "../../vo/StudentVO";
 import {StudentComponentInterface} from "../../component/student/StudentComponentInterface";
-import {FirebaseListObservable, FirebaseObjectObservable} from "angularfire2/database";
+import {FirebaseListObservable, FirebaseObjectObservable} from "angularfire2/database-deprecated";
 import {ClassProfileVO} from "../../vo/ClassProfileVO";
 import {ClassProfileTO} from "../../to/ClassProfileTO";
 import {ConfigItemsVO} from "../../vo/ConfigItemsVO";

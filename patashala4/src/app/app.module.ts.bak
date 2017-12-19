@@ -9,7 +9,7 @@ import { AngularFireModule } from 'angularfire2';
 //import { DatePickerModule } from 'angular-io-datepicker';
 
 // New imports to update based on AngularFire2 version 4
-import { AngularFireDatabaseModule } from 'angularfire2/database';
+import { AngularFireDatabaseModule } from 'angularfire2/database-deprecated';
 import { AngularFireAuthModule } from 'angularfire2/auth';
 import {ReactiveFormsModule, FormsModule} from "@angular/forms";
 import {AppConstants} from "./constants/AppConstants";

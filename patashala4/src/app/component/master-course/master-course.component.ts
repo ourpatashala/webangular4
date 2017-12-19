@@ -3,7 +3,7 @@ import { MasterCourseComponentInterface } from "./MasterCourseComponentInterface
 import { MasterCourseTO } from "./../../to/MasterCourseTO";
 import { MasterCourseVO } from "./../../vo/MasterCourseVO";
 import { MessageTO } from "./../../to/MessageTO";
-import {AngularFireDatabase, FirebaseListObservable} from 'angularfire2/database';
+import {AngularFireDatabase, FirebaseListObservable} from 'angularfire2/database-deprecated';
 
 import {MasterCourseConverter} from "../../adapter/interfaces/MasterCourseConverter";
 import {MasterCourseConverterImpl} from "../../adapter/impl/MasterCourseConverterImpl";

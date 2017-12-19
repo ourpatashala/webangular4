@@ -2,7 +2,7 @@
  * Created by ravisha on 7/3/17.
  */
 import {Injectable} from "@angular/core";
-import {AngularFireDatabase, FirebaseListObservable} from 'angularfire2/database';
+import {AngularFireDatabase, FirebaseListObservable} from 'angularfire2/database-deprecated';
 
 import {CommonConverter} from "./CommonConverter";
 import {MasterSyllabusTO} from "../../to/MasterSyllabusTO";

@@ -3,7 +3,7 @@ import { Component, OnInit,Inject } from '@angular/core';
 import { MasterCourseTO } from "./../../to/MasterCourseTO";
 import { MasterCourseVO } from "./../../vo/MasterCourseVO";
 import { MessageTO } from "./../../to/MessageTO";
-import {AngularFireDatabase, FirebaseListObservable} from 'angularfire2/database';
+import {AngularFireDatabase, FirebaseListObservable} from 'angularfire2/database-deprecated';
 declare var $:any;
 import {MasterCourseConverter} from "../../adapter/interfaces/MasterCourseConverter";
 import {MasterCourseConverterImpl} from "../../adapter/impl/MasterCourseConverterImpl";
@@ -23,7 +23,7 @@ import { AppConstants } from "../../constants/AppConstants";
   templateUrl: './courses.component.html',
   styleUrls: ['./courses.component.css'],
   providers: [ MasterCourseService,MasterSyllabusService,MasterSubjectService, {provide: 'MasterCourseConverter', useClass: MasterCourseConverterImpl}]
-  
+
 
 })
 export class CoursesComponent implements OnInit {
@@ -33,14 +33,14 @@ export class CoursesComponent implements OnInit {
   sucessMessage: string;
   masterCourseTOList: FirebaseListObservable<MasterCourseTO>;
   fb: FormBuilder;
-  
+
   constructor(@Inject('MasterCourseConverter') private masterCourseConverter: MasterCourseConverter,fb: FormBuilder) {
 	  	    this.masterCourseConverter.getAllMasterCourse (localStorage.getItem(AppConstants.SHAREDPREFERANCE_SCHOOLID), this);
           this.fb = fb;
 
   }
  div_Element_Id: string = '0';//for multiple pages in school list page;; 0 to show list of school , 1 to show add school, 2 to show edit school, 3 to show single school view.
-  selectedCourseArray: Array<any> = []; 
+  selectedCourseArray: Array<any> = [];
  ngOnInit() {
 
   this.courseFormGroup = this.fb.group({
@@ -154,16 +154,16 @@ this.masterCourseTOList=masterCourseTOList;
 
 
     var syllabus1 = new SyllabusIdNameTO();
-    
+
         syllabus1.syllabusName = "Science 2nd Year"
         syllabus1.syllabusId = syllabus1.syllabusName.toLowerCase()
-    
+
         syllabusList.push(syllabus1)
-    
+
         var syllabus2 = new SyllabusIdNameTO();
         syllabus2.syllabusName = "Maths 2nd Year"
         syllabus2.syllabusId = syllabus2.syllabusName.toLowerCase()
-    
+
         syllabusList.push(syllabus2)
 
     masterCourseTO.syllabusList = syllabusList
@@ -192,7 +192,7 @@ this.masterCourseTOList=masterCourseTOList;
   show_addCourseFields(){
 	  this.div_Element_Id = "1";
 	  console.log(this.div_Element_Id);
-	
+
   }
   addCourseSubmit({value, valid}: { value: MasterCourseTO, valid: boolean })
 
@@ -202,8 +202,8 @@ this.masterCourseTOList=masterCourseTOList;
         var syllabus1 = new SyllabusIdNameTO();
         masterCourseTO.courseName=value.courseName;
 
-        
-      
+
+
       if (value.syllabusList != null) {
         for (var loopvar = 0; loopvar < value.syllabusList.length; loopvar++) {
           var syllabus2 = new SyllabusIdNameTO();
@@ -214,15 +214,15 @@ this.masterCourseTOList=masterCourseTOList;
       }
       masterCourseTO.syllabusList = syllabusList
       this.masterCourseConverter.addMasterCourse(localStorage.getItem(AppConstants.SHAREDPREFERANCE_SCHOOLID),masterCourseTO,this);
-      
+
   }
 
       getselectedCourseProfile(){
         this.div_Element_Id = "2";
         console.log(this.div_Element_Id);
       }
-  
-  showCourseList(){   
+
+  showCourseList(){
     this.selectedCourseArray = [];
 	  this.div_Element_Id='0';
 	  this.masterCourseConverter.getAllMasterCourse(localStorage.getItem(AppConstants.SHAREDPREFERANCE_SCHOOLID), this);
@@ -241,7 +241,7 @@ this.masterCourseTOList=masterCourseTOList;
 
 
 
- 
+
       deleteSyllabusName(i: number) {
         // control refers to your formarray
         const control = <FormArray>this.courseFormGroup.controls['syllabusList'];
@@ -251,7 +251,7 @@ this.masterCourseTOList=masterCourseTOList;
 
 
   // showCourseList(){
-    
+
   //       // if (this.selectedStudentArray.length > 0) (<HTMLInputElement>document.getElementById(this.selectedStudentArray[0])).checked = false;
   //       // this.selectedStudentArray = [];
   //       // this.div_Element_Id = "0";
@@ -259,7 +259,7 @@ this.masterCourseTOList=masterCourseTOList;
   //       // this.active = "0";
   //       // this.showupload="0";
   //       // this.getAllStudents(localStorage.getItem(AppConstants.SHAREDPREFERANCE_SCHOOLID));
-    
+
   //     }
 
 
@@ -270,11 +270,11 @@ this.masterCourseTOList=masterCourseTOList;
   //   if (value.courseName == null || value.courseName == ""){
   //     field_name = field_name + " course Name, ";
   //   }
-	  
+
 	//   //alert(value);
   // }
-  
-  
+
+
 
   addSyllabusName() {
     // control refers to your formarray
@@ -289,7 +289,7 @@ this.masterCourseTOList=masterCourseTOList;
       console.log(this.selectedCourseArray[loopvar]);
       this.masterCourseConverter.deleteMasterCourse(localStorage.getItem(AppConstants.SHAREDPREFERANCE_SCHOOLID), this.selectedCourseArray[loopvar], this);
      // this.masterCourseConverter.deleteMasterCourse(localStorage.getItem(AppConstants.SHAREDPREFERANCE_SCHOOLID), "-L-r3O1-fM__L_tldUGE", this);
-      
+
     }
     this.selectedCourseArray= [];
     this. showCourseList();

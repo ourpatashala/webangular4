@@ -8,7 +8,7 @@ import {FormGroup, FormControl, Validators, FormBuilder, FormArray, AbstractCont
 import {ArrayType} from "@angular/compiler/src/output/output_ast";
 import {StudentComponentInterface} from "./StudentComponentInterface";
 import {jsonpFactory} from "@angular/http/src/http_module";
-import {AngularFireDatabase, FirebaseListObservable} from 'angularfire2/database';
+import {AngularFireDatabase, FirebaseListObservable} from 'angularfire2/database-deprecated';
 import {AngularFireAuth} from "angularfire2/auth";
 import {Messages} from "../../constants/Messages";
 import {Router} from "@angular/router";

@@ -3,7 +3,7 @@ import { Component, Input, Output, Inject, EventEmitter,OnInit } from '@angular/
 import {DataTableDirective} from 'angular-datatables';
 import {ViewChild} from '@angular/core';
 import {Subject} from 'rxjs/Rx';
-import {AngularFireDatabase, FirebaseListObservable} from 'angularfire2/database';
+import {AngularFireDatabase, FirebaseListObservable} from 'angularfire2/database-deprecated';
 import {ClassProfileTO} from "./../../../to/ClassProfileTO";
 import { AppConstants } from "../../../constants/AppConstants";
 import {StudentComponentInterface} from "./../../student/StudentComponentInterface";
@@ -27,10 +27,10 @@ export class ClassselectionPopupComponent implements OnInit, StudentComponentInt
   classNames: string;
   classProfileTOList: FirebaseListObservable<ClassProfileTO>;
   @Output() notify: EventEmitter<string> = new EventEmitter<string>();
-  
+
   constructor(@Inject("StudentConverter") private studentConverter: StudentConverter) {
     this.studentConverter.getAllClassesProfile(localStorage.getItem(AppConstants.SHAREDPREFERANCE_SCHOOLID), this);
-    
+
    }
   ngOnInit() {
 
@@ -51,10 +51,10 @@ export class ClassselectionPopupComponent implements OnInit, StudentComponentInt
     this.rerender();
   }
   displayPhotoCallBack(url: string) {
-  
+
   }
   displayPhotoWithURLCallBack(url: string) {
-    
+
         //TODO Shiva display the Image using the URL
        // this.photourl=url;
         console.log("displayPhotoWithURLCallBack : Image URL " + url)
@@ -105,6 +105,6 @@ export class ClassselectionPopupComponent implements OnInit, StudentComponentInt
           this.flag = false;
         });
       }
-  
+
     }
 }

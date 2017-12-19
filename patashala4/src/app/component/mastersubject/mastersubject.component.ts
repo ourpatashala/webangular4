@@ -5,7 +5,7 @@ import { MasterSubjectVO } from "./../../vo/MasterSubjectVO";
 import {BehaviorSubject, Observable, Subscription} from "rxjs";
 
 import { MessageTO } from "./../../to/MessageTO";
-import {AngularFireDatabase, FirebaseListObservable} from 'angularfire2/database';
+import {AngularFireDatabase, FirebaseListObservable} from 'angularfire2/database-deprecated';
 import {MasterSubjectConverter} from "../../adapter/interfaces/MasterSubjectConverter";
 import {MasterSubjectConverterImpl} from "../../adapter/impl/MasterSubjectConverterImpl";
 import {inject} from "@angular/core/testing";

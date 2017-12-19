@@ -3,7 +3,7 @@ import { MasterSyllabusComponentInterface } from "./MasterSyllabusComponentInter
 import { MasterSyllabusTO } from "./../../to/MasterSyllabusTO";
 import { MasterSyllabusVO } from "./../../vo/MasterSyllabusVO";
 import { MessageTO } from "./../../to/MessageTO";
-import {AngularFireDatabase, FirebaseListObservable} from 'angularfire2/database';
+import {AngularFireDatabase, FirebaseListObservable} from 'angularfire2/database-deprecated';
 
 import {MasterSyllabusConverter} from "../../adapter/interfaces/MasterSyllabusConverter";
 import {MasterSyllabusConverterImpl} from "../../adapter/impl/MasterSyllabusConverterImpl";
