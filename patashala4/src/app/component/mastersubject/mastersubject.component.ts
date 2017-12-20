@@ -1,14 +1,20 @@
 import { Component, OnInit, Inject } from '@angular/core';
+import {ViewChild} from '@angular/core';
 import { MasterSubjectComponentInterface } from "./MasterSubjectComponentInterface";
 import { MasterSubjectTO } from "./../../to/MasterSubjectTO";
 import { MasterSubjectVO } from "./../../vo/MasterSubjectVO";
 import {BehaviorSubject, Observable, Subscription} from "rxjs";
 
 import { MessageTO } from "./../../to/MessageTO";
+import {Router} from "@angular/router";
 import {AngularFireDatabase, FirebaseListObservable} from 'angularfire2/database-deprecated';
 import {MasterSubjectConverter} from "../../adapter/interfaces/MasterSubjectConverter";
 import {MasterSubjectConverterImpl} from "../../adapter/impl/MasterSubjectConverterImpl";
 import {inject} from "@angular/core/testing";
+// import {BehaviorSubject, Observable, Subscription} from "rxjs";
+declare var $: any;
+import {Subject} from 'rxjs/Rx';
+import {DataTableDirective} from 'angular-datatables';
 import {MasterSubjectService} from "../../service/master-subject.service";
 import {FormBuilder, FormControl, FormGroup,FormArray} from "@angular/forms";
 import { AppConstants } from "../../constants/AppConstants";
@@ -35,6 +41,16 @@ export class MastersubjectComponent implements OnInit, MasterSubjectComponentInt
   updateSubject: BehaviorSubject<string> = new BehaviorSubject<string>(""); // Holds the error message
   popupstatus: string = "0"; //0 for default close //1 for close and show listing
   showupload: string = "0"; //0 for default close //1 for close and show listing
+  @ViewChild(DataTableDirective)
+  dtElement: DataTableDirective;
+  dtOptions: DataTables.Settings = {};
+  dtTrigger: Subject<any> = new Subject();
+  flag: boolean = false;
+
+
+
+
+
 
   update$: Observable<string> = this.updateSubject.asObservable(); // observer for the above message
 
@@ -46,9 +62,15 @@ export class MastersubjectComponent implements OnInit, MasterSubjectComponentInt
 
 
 
-  constructor(@Inject('MasterSubjectConverter') private masterSubjectConverter: MasterSubjectConverter,fb: FormBuilder) {
+  constructor(@Inject('MasterSubjectConverter') private masterSubjectConverter: MasterSubjectConverter,fb: FormBuilder, private router: Router) {
      this.masterSubjectConverter.getAllMasterSubject(localStorage.getItem(AppConstants.SHAREDPREFERANCE_SCHOOLID), this);
-      this.fb = fb;  
+     if(localStorage.getItem(AppConstants.SHAREDPREFERANCE_SCHOOLID) == null){
+      this.router.navigate(['/']);
+     } 
+     
+     
+     
+     this.fb = fb;  
 }
 
 
@@ -71,6 +93,14 @@ export class MastersubjectComponent implements OnInit, MasterSubjectComponentInt
     this.subjectFormGroup.controls['uniqueId'].patchValue(masterSubjectTO.uniqueId);
 
   }
+  ngAfterViewInit(): void {
+    this.dtTrigger.next();
+  }
+
+
+
+
+
 
   displayAllMasterSubjectCallBack(masterSubjectTOList:FirebaseListObservable<MasterSubjectTO>){
     this.subjectindexcount=0;
@@ -80,14 +110,14 @@ export class MastersubjectComponent implements OnInit, MasterSubjectComponentInt
     //console.log(obj.syllabusName + ' ' + obj.subjectId + ' '+ obj.subjectName);
     this.subjectindexcount++;
   });
-  
+  this.rerender();
   }
 
   successMessageCallBack(messageTO:MessageTO) {
     console.log("successMessageCallBack ==>" + messageTO.messageInfo+"  "+ messageTO.messageType+"  "+messageTO.serviceClassName+"  "+messageTO.serviceMethodName);
     if(messageTO.serviceMethodName=="searchAndAddMasterSubject()"){
       this.sucessMessage = "subject added successfully";
-      this.showCourseList();
+      this.showSubjectList();
     }
     if (messageTO.serviceMethodName == "updateSubmit()")
     {
@@ -202,15 +232,16 @@ export class MastersubjectComponent implements OnInit, MasterSubjectComponentInt
      console.log(this.div_Element_Id);    
   }
 
-  showCourseList()  {
+  showSubjectList()  {
     if (this.selectedSubjectArray.length > 0) (<HTMLInputElement>document.getElementById(this.selectedSubjectArray[0])).checked = false;      
     this.selectedSubjectArray = [];
     this.div_Element_Id='0';
-    this.active='0';
+   // this.active='0';
     this.errorMessage = "";
     console.log("school id "+ localStorage.getItem(AppConstants.SHAREDPREFERANCE_SCHOOLID));
-    this.masterSubjectConverter.getAllMasterSubject(localStorage.getItem(AppConstants.SHAREDPREFERANCE_SCHOOLID), this);
-    }
+   // this.masterSubjectConverter.getAllMasterSubject(localStorage.getItem(AppConstants.SHAREDPREFERANCE_SCHOOLID), this);
+  console.log(localStorage.getItem(AppConstants.SHAREDPREFERANCE_SCHOOLID)); 
+  }
 
   checkedmasterSubject(value){
        if ((<HTMLInputElement>document.getElementById(value)).checked === true) {
@@ -228,7 +259,7 @@ export class MastersubjectComponent implements OnInit, MasterSubjectComponentInt
         this.masterSubjectConverter.deleteMasterSubject(localStorage.getItem(AppConstants.SHAREDPREFERANCE_SCHOOLID), this.selectedSubjectArray[loopvar], this);
       }
       this.selectedSubjectArray= [];
-      this.showCourseList();
+      this.showSubjectList();
   
     }
 
@@ -257,9 +288,25 @@ updateSubmit({value,valid}){
   
 
   }
+  rerender(): void {
+    console.log("render call " + this.flag+"   "+this.dtElement);
+    if (!this.flag && this.dtElement != null) {
+      this.flag = true;
+      this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+        console.log("shiva 111" +dtInstance);
+        // Destroy the table first
+        dtInstance.destroy();
+        // Call the dtTrigger to rerender again
+        console.log("shiva 222 "+this.dtTrigger);
+        if(this.dtTrigger!=null)
+          this.dtTrigger.next();
+        else
+          console.log("error as null");
+        this.flag = false;
+      });
+    }
 
-
-
+  }
 
 
 

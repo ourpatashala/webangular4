@@ -79,7 +79,7 @@
                 <div class="col-md-4"></div>
                     <div class="col-md-8">
                     <button type="submit" class="update_btn">Add Subject</button>
-                    <button class="cancel_btn_add" (click)="showCourseList()">Cancel</button>
+                    <button class="cancel_btn_add" (click)="showSubjectList()">Cancel</button>
                 </div> 
                 </div> 
         </div>
@@ -103,7 +103,7 @@
       <div class="col-md-3"></div>
       <div class="clear"></div>
       <div class="col-md-12 padding0 text-center">
-        <button class="update_btn">Modify Course</button> <button class="cancel_btn_modify" (click)="showCourseList()">Cancel</button>
+        <button class="update_btn">Modify Course</button> <button class="cancel_btn_modify" (click)="showSubjectList()">Cancel</button>
     </div>
 </form>
       <div class="clear"></div>
@@ -123,32 +123,36 @@
 
 
 
-	<div class="datatable_toggle active_tab_div" [ngClass]="{'inactive_div': div_Element_Id !='0'}">
-        <table id="manageTeachertable" style="width: 110%;">
-            <thead>
-                <tr>
-                    <th>check-box</th>
-                    <th>S.no</th>
-                    <!-- <th>SubjectId</th> -->
-                    <th>Subject Name</th>
-                    <!-- <th>Course Subjects</th> -->
-                </tr>
-            </thead>
-            <tbody>
-                <tr *ngFor="let masterSubject of masterSubjectTOList; let i=index;">
-                    <td><input type="checkbox" id="{{masterSubject.subjectId}}" value="{{masterSubject.subjectId}}" (change)="checkedmasterSubject(masterSubject.subjectId)"></td>
-				    <td>{{i + 1}}</td>
-                    <!-- <td>{{masterSubject.courseId}}</td> -->
-                    <td>{{masterSubject.subjectName}}</td>
-                    <!-- <td>
-                            <div *ngFor="let masterCourse1 of masterCourse.syllabusList ; let i=index ">
-                                    {{masterCourse1.syllabusName}},
-                            </div>
+	<div class="datatable_toggle active_tab_div mas_sub" [ngClass]="{'inactive_div': div_Element_Id !='0'}">
+         <div class="col-md-4"></div>          
+        <div class="col-md-4">
+             <table datatable [dtOptions]="dtOptions"  [dtTrigger]="dtTrigger" class="my_table_width">
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th >S.no</th>
+                        <!-- <th>SubjectId</th> -->
+                        <th>Subject Name</th>
+                        <!-- <th>Course Subjects</th> -->
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let masterSubject of masterSubjectTOList; let i=index;">
+                        <td><input type="checkbox" id="{{masterSubject.subjectId}}" value="{{masterSubject.subjectId}}" (change)="checkedmasterSubject(masterSubject.subjectId)"></td>
+                        <td class="text-center">{{i + 1}}</td>
+                        <!-- <td>{{masterSubject.courseId}}</td> -->
+                        <td class="text-center">{{masterSubject.subjectName}}</td>
+                        <!-- <td>
+                                <div *ngFor="let masterCourse1 of masterCourse.syllabusList ; let i=index ">
+                                        {{masterCourse1.syllabusName}},
+                                </div>
 
-                       </td> -->
-                </tr>                 
-            </tbody>
-        </table>
+                        </td> -->
+                    </tr>                 
+                </tbody>
+            </table>
+        </div>
+        <div class="col-md-4"></div>
 	</div>      
         <div class="clear"></div>
     </div>

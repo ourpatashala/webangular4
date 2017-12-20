@@ -59,7 +59,7 @@ export class MasterSubjectConverterImpl extends CommonConverter implements Maste
    */
   addMasterSubject(schoolId: string, masterSubjectTO: MasterSubjectTO, masterSubjectComponentInterface: MasterSubjectComponentInterface) {
     try {
-
+        
       this.masterSubjectService.addMasterSubject(schoolId, this.getVOFromTO(masterSubjectTO),masterSubjectComponentInterface);
 
     } catch (masterSubjectError) {
@@ -85,7 +85,7 @@ export class MasterSubjectConverterImpl extends CommonConverter implements Maste
    * @param masterSubjectComponentInterface
    */
   getAllMasterSubject(schoolId: string, masterSubjectComponentInterface: MasterSubjectComponentInterface) {
-
+    console.log("In service call "+schoolId);
     var objData: FirebaseListObservable<MasterSubjectTO>;
     var object = this.masterSubjectService.getAllMasterSubject(schoolId);
     object.subscribe(snapshot => {

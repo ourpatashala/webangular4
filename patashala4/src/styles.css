@@ -1005,3 +1005,6 @@ display: block;
   width: 199px;
   border:1px solid #a8a8a8;
 }
+.mas_sub label{
+  font-weight: normal;
+}
