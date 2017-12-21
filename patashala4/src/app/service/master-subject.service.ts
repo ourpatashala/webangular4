@@ -151,7 +151,7 @@ export class MasterSubjectService {
    */
 
   getAllMasterSubject(schoolId: string): FirebaseListObservable<any> {
-
+console.log(" sample data"+ schoolId);
     var path = PathUtil.getMasterSubjectNode(schoolId);
     var object = this.angularFireDatabase.list(path);
     return object;

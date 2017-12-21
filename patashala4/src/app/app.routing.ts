@@ -37,8 +37,8 @@ const appRoutes: Routes = [
   { path: 'TabManage',component:TabManageComponent},
   { path: 'test',component:MasterCourseComponent},
   { path: 'Mastersubject',component:MastersubjectComponent},
+  { path: 'Mastersyllabus',component:MasterSyllabusComponent},
   { path: 'Courses',component:CoursesComponent},
-  { path: 'subject',component:SubjectComponent},
   { path: 'syllabusnew',component:SyllabusComponent}
 ];
 

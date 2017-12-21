@@ -93,6 +93,7 @@ export class MastersubjectComponent implements OnInit, MasterSubjectComponentInt
     this.subjectFormGroup.controls['uniqueId'].patchValue(masterSubjectTO.uniqueId);
 
   }
+
   ngAfterViewInit(): void {
     this.dtTrigger.next();
   }
@@ -110,9 +111,13 @@ export class MastersubjectComponent implements OnInit, MasterSubjectComponentInt
     //console.log(obj.syllabusName + ' ' + obj.subjectId + ' '+ obj.subjectName);
     this.subjectindexcount++;
   });
-  this.rerender();
-  }
-
+  //  if(this.rerender() == null ){
+  //   this.router.navigate(['/']);
+  //  }
+  //  else{
+    this.rerender();
+  //  } 
+}
   successMessageCallBack(messageTO:MessageTO) {
     console.log("successMessageCallBack ==>" + messageTO.messageInfo+"  "+ messageTO.messageType+"  "+messageTO.serviceClassName+"  "+messageTO.serviceMethodName);
     if(messageTO.serviceMethodName=="searchAndAddMasterSubject()"){
@@ -178,17 +183,17 @@ export class MastersubjectComponent implements OnInit, MasterSubjectComponentInt
 
 
 
-    this.masterSubjectConverter.addMasterSubject("-KwebjvSellhXyBRZbjo",masterSubjectTO, this);
+    this.masterSubjectConverter.addMasterSubject(localStorage.getItem(AppConstants.SHAREDPREFERANCE_SCHOOLID),masterSubjectTO, this);
 
     masterSubjectTO.subjectName = "Physics";
 
 
-    this.masterSubjectConverter.addMasterSubject("-KwebjvSellhXyBRZbjo",masterSubjectTO, this);
+    this.masterSubjectConverter.addMasterSubject(localStorage.getItem(AppConstants.SHAREDPREFERANCE_SCHOOLID),masterSubjectTO, this);
 
     masterSubjectTO.subjectName = "Hindi";
 
 
-    this.masterSubjectConverter.addMasterSubject("-KwebjvSellhXyBRZbjo",masterSubjectTO, this);
+    this.masterSubjectConverter.addMasterSubject(localStorage.getItem(AppConstants.SHAREDPREFERANCE_SCHOOLID),masterSubjectTO, this);
 
   }
 
@@ -200,25 +205,25 @@ export class MastersubjectComponent implements OnInit, MasterSubjectComponentInt
     masterSubjectTO.subjectId = "science";
     masterSubjectTO.subjectName = "SCIENCE 2";
 
-    this.masterSubjectConverter.updateMasterSubject("-KwebjvSellhXyBRZbjo",masterSubjectTO.subjectId, masterSubjectTO, this);
+    this.masterSubjectConverter.updateMasterSubject(localStorage.getItem(AppConstants.SHAREDPREFERANCE_SCHOOLID),masterSubjectTO.subjectId, masterSubjectTO, this);
 
   }
 
   testGet(){
 
-    this.masterSubjectConverter.getMasterSubject("-KwebjvSellhXyBRZbjo","science", this);
+    this.masterSubjectConverter.getMasterSubject(localStorage.getItem(AppConstants.SHAREDPREFERANCE_SCHOOLID),"science", this);
 
   }
 
   testGetAll(){
 
-    this.masterSubjectConverter.getAllMasterSubject ("-KwebjvSellhXyBRZbjo", this);
+    this.masterSubjectConverter.getAllMasterSubject (localStorage.getItem(AppConstants.SHAREDPREFERANCE_SCHOOLID), this);
 
   }
 
   testDelete(){
 
-    this.masterSubjectConverter.deleteMasterSubject("-KwebjvSellhXyBRZbjo", "hindi", this);
+    this.masterSubjectConverter.deleteMasterSubject(localStorage.getItem(AppConstants.SHAREDPREFERANCE_SCHOOLID), "hindi", this);
 
   }
 
@@ -239,7 +244,7 @@ export class MastersubjectComponent implements OnInit, MasterSubjectComponentInt
    // this.active='0';
     this.errorMessage = "";
     console.log("school id "+ localStorage.getItem(AppConstants.SHAREDPREFERANCE_SCHOOLID));
-   // this.masterSubjectConverter.getAllMasterSubject(localStorage.getItem(AppConstants.SHAREDPREFERANCE_SCHOOLID), this);
+    this.masterSubjectConverter.getAllMasterSubject(localStorage.getItem(AppConstants.SHAREDPREFERANCE_SCHOOLID), this);
   console.log(localStorage.getItem(AppConstants.SHAREDPREFERANCE_SCHOOLID)); 
   }
 
@@ -290,7 +295,8 @@ updateSubmit({value,valid}){
   }
   rerender(): void {
     console.log("render call " + this.flag+"   "+this.dtElement);
-    if (!this.flag && this.dtElement != null) {
+   
+     if (!this.flag && this.dtElement != null) {
       this.flag = true;
       this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
         console.log("shiva 111" +dtInstance);

@@ -91,7 +91,7 @@ export class MasterSyllabusConverterImpl extends CommonConverter implements Mast
    * @param masterSyllabusComponentInterface
    */
   getAllMasterSyllabus(schoolId: string, masterSyllabusComponentInterface: MasterSyllabusComponentInterface) {
-
+    console.log(" service log "+ schoolId);
     var objData: FirebaseListObservable<MasterSyllabusTO>;
     var object = this.masterSyllabusService.getAllMasterSyllabus(schoolId);
     object.subscribe(snapshot => {
