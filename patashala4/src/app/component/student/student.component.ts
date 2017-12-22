@@ -24,7 +24,6 @@ import {UploadFileService} from '../../service/upload-file.service';
 import {FileUpload} from '../../service/fileupload';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
 import { DatepickerOptions } from 'ng2-datepicker';
 import { AppConstants } from "../../constants/AppConstants";
 

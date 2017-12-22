@@ -58,8 +58,9 @@ export class MasterSubjectConverterImpl extends CommonConverter implements Maste
    * @param masterSubjectComponentInterface
    */
   addMasterSubject(schoolId: string, masterSubjectTO: MasterSubjectTO, masterSubjectComponentInterface: MasterSubjectComponentInterface) {
+   console.log("add function value");
     try {
-        
+              
       this.masterSubjectService.addMasterSubject(schoolId, this.getVOFromTO(masterSubjectTO),masterSubjectComponentInterface);
 
     } catch (masterSubjectError) {

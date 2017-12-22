@@ -4,14 +4,12 @@ import { MasterSubjectComponentInterface } from "./MasterSubjectComponentInterfa
 import { MasterSubjectTO } from "./../../to/MasterSubjectTO";
 import { MasterSubjectVO } from "./../../vo/MasterSubjectVO";
 import {BehaviorSubject, Observable, Subscription} from "rxjs";
-
 import { MessageTO } from "./../../to/MessageTO";
 import {Router} from "@angular/router";
 import {AngularFireDatabase, FirebaseListObservable} from 'angularfire2/database-deprecated';
 import {MasterSubjectConverter} from "../../adapter/interfaces/MasterSubjectConverter";
 import {MasterSubjectConverterImpl} from "../../adapter/impl/MasterSubjectConverterImpl";
 import {inject} from "@angular/core/testing";
-// import {BehaviorSubject, Observable, Subscription} from "rxjs";
 declare var $: any;
 import {Subject} from 'rxjs/Rx';
 import {DataTableDirective} from 'angular-datatables';
@@ -48,38 +46,20 @@ export class MastersubjectComponent implements OnInit, MasterSubjectComponentInt
   flag: boolean = false;
 
 
-
-
-
-
   update$: Observable<string> = this.updateSubject.asObservable(); // observer for the above message
-
-
-
-
-
-
-
 
 
   constructor(@Inject('MasterSubjectConverter') private masterSubjectConverter: MasterSubjectConverter,fb: FormBuilder, private router: Router) {
      this.masterSubjectConverter.getAllMasterSubject(localStorage.getItem(AppConstants.SHAREDPREFERANCE_SCHOOLID), this);
-     if(localStorage.getItem(AppConstants.SHAREDPREFERANCE_SCHOOLID) == null){
-      this.router.navigate(['/']);
-     } 
-     
-     
-     
+    //  if(localStorage.getItem(AppConstants.SHAREDPREFERANCE_SCHOOLID) == null){
+    //   this.router.navigate(['/']);
+    //  }      
      this.fb = fb;  
 }
-
-
-
 
   ngOnInit() {
     this.subjectFormGroup = this.fb.group({
       subjectName: [''],
-    // syllabusList: this.fb.array([this.initsyllabusNames()]),
       subjectId: [''],
       uniqueId : ['']
     });
@@ -98,37 +78,27 @@ export class MastersubjectComponent implements OnInit, MasterSubjectComponentInt
     this.dtTrigger.next();
   }
 
-
-
-
-
-
   displayAllMasterSubjectCallBack(masterSubjectTOList:FirebaseListObservable<MasterSubjectTO>){
     this.subjectindexcount=0;
-    console.log("displayAllMasterSubjectCallBack ==> "+ masterSubjectTOList);
-   this.masterSubjectTOList=masterSubjectTOList;
-   masterSubjectTOList.forEach(obj => {
-    //console.log(obj.syllabusName + ' ' + obj.subjectId + ' '+ obj.subjectName);
-    this.subjectindexcount++;
-  });
-  //  if(this.rerender() == null ){
-  //   this.router.navigate(['/']);
-  //  }
-  //  else{
-    this.rerender();
-  //  } 
+        console.log("displayAllMasterSubjectCallBack ==> "+ masterSubjectTOList);
+         this.masterSubjectTOList=masterSubjectTOList;
+      masterSubjectTOList.forEach(obj => {
+        this.subjectindexcount++;
+      });
+      console.log('Display all Subjects');
+      this.rerender();
+      
 }
   successMessageCallBack(messageTO:MessageTO) {
     console.log("successMessageCallBack ==>" + messageTO.messageInfo+"  "+ messageTO.messageType+"  "+messageTO.serviceClassName+"  "+messageTO.serviceMethodName);
-    if(messageTO.serviceMethodName=="searchAndAddMasterSubject()"){
-      this.sucessMessage = "subject added successfully";
+    if(messageTO.serviceMethodName=="searchAndAddMasterSubject()"){     
       this.showSubjectList();
     }
-    if (messageTO.serviceMethodName == "updateSubmit()")
+    if (messageTO.serviceMethodName == "updateMasterSubject()")
     {
-     // this.popupstatus = "1";
-      this.getselectedSubjectProfile();
-  }
+     this.popupstatus = "1";
+     this.showSubjectList();
+   }
     this.sucessMessage = messageTO.messageInfo;
     if (messageTO.messageInfo.length != 0) {
       this.active = "1";
@@ -137,6 +107,13 @@ export class MastersubjectComponent implements OnInit, MasterSubjectComponentInt
       this.active = "0";
     }
   }
+
+  closePopup() {
+    this.sucessMessage = "";
+    this.active = "0";
+    if (this.popupstatus == "1") this.showSubjectList();  
+  }
+
 
   /**
    * Handle all the error messages here . Basing on the error message decide where you want to display
@@ -147,10 +124,8 @@ export class MastersubjectComponent implements OnInit, MasterSubjectComponentInt
    */
   errorMessageCallBack(messageTO:MessageTO) {
     console.log("errorMessageCallBack ==>" + messageTO.messageInfo);
-    this.errorMessage = messageTO.messageInfo;
-    //this.schoolFormGroup.reset();
-    this.updateMessage(this.errorMessage);
-    //  this.getRouter().navigate(['/School']);
+    this.errorMessage = messageTO.messageInfo;   
+    this.updateMessage(this.errorMessage);   
     if (messageTO.messageInfo.length != 0) {
       this.active = "2";
     } else {
@@ -162,17 +137,9 @@ export class MastersubjectComponent implements OnInit, MasterSubjectComponentInt
     }, 2000);
   
   }
-
-
   updateMessage(message: string) { // updates the error message
     this.updateSubject.next(message);
   }
-
-
-
-
-
-
 
   testAdd(){
 
@@ -228,24 +195,11 @@ export class MastersubjectComponent implements OnInit, MasterSubjectComponentInt
   }
 
   show_addCourseFields(){
-    this.div_Element_Id = "1";
-    console.log(this.subjectindexcount);
-
+    this.div_Element_Id = "1";  
     this.subjectFormGroup.controls['subjectName'].patchValue('');
     this.subjectFormGroup.controls['subjectId'].patchValue(this.subjectindexcount+1);
     this.subjectFormGroup.controls['uniqueId'].patchValue('');
      console.log(this.div_Element_Id);    
-  }
-
-  showSubjectList()  {
-    if (this.selectedSubjectArray.length > 0) (<HTMLInputElement>document.getElementById(this.selectedSubjectArray[0])).checked = false;      
-    this.selectedSubjectArray = [];
-    this.div_Element_Id='0';
-   // this.active='0';
-    this.errorMessage = "";
-    console.log("school id "+ localStorage.getItem(AppConstants.SHAREDPREFERANCE_SCHOOLID));
-    this.masterSubjectConverter.getAllMasterSubject(localStorage.getItem(AppConstants.SHAREDPREFERANCE_SCHOOLID), this);
-  console.log(localStorage.getItem(AppConstants.SHAREDPREFERANCE_SCHOOLID)); 
   }
 
   checkedmasterSubject(value){
@@ -254,8 +208,7 @@ export class MastersubjectComponent implements OnInit, MasterSubjectComponentInt
       } else if ((<HTMLInputElement>document.getElementById(value)).checked === false) {
         let indexx = this.selectedSubjectArray.indexOf(value);
         this.selectedSubjectArray.splice(indexx, 1)
-      }
-     // console.log(this.selectedSubjectArray)
+      }  
     }
 
     deleteCourse(){
@@ -264,35 +217,48 @@ export class MastersubjectComponent implements OnInit, MasterSubjectComponentInt
         this.masterSubjectConverter.deleteMasterSubject(localStorage.getItem(AppConstants.SHAREDPREFERANCE_SCHOOLID), this.selectedSubjectArray[loopvar], this);
       }
       this.selectedSubjectArray= [];
-      this.showSubjectList();
-  
+      this.showSubjectList();  
     }
 
-    addSubjectSubmit({value,valid})
-    {  
-        
-        //alert(x);
-         console.log(value+"   "+value.subjectName);
+    addSubjectSubmit({value,valid}){  
+      this.active = "0";
+      if(value.subjectName == null || value.subjectName ==""){
+        this.errorMessage= "Please enter  subject Name ";
+        this.active = "2";
+      }        
+       else{
         this.masterSubjectConverter.addMasterSubject(localStorage.getItem(AppConstants.SHAREDPREFERANCE_SCHOOLID),value,this);
-
-     // this. masterSubjectTO.subjectName ='';
+        this.div_Element_Id='0';  
+       }
     }
 
+    showSubjectList()  {
+      if (this.selectedSubjectArray.length > 0) (<HTMLInputElement>document.getElementById(this.selectedSubjectArray[0])).checked = false;      
+      this.selectedSubjectArray = [];
+      this.div_Element_Id='0';
+      this.active='0';
+      this.errorMessage = "";
+      this.masterSubjectConverter.getAllMasterSubject(localStorage.getItem(AppConstants.SHAREDPREFERANCE_SCHOOLID),this);
+    }
+  
     getselectedSubjectProfile(){
-      this.div_Element_Id = "2";
-      //TODO : Shiva integrate code by removing hardcoding of values.
-      //this.getStudentProfile("school04", "-KuCWQEmwl1MsTD0SPdb");
+      this.div_Element_Id = "2";    
       this.masterSubjectConverter.getMasterSubject(localStorage.getItem(AppConstants.SHAREDPREFERANCE_SCHOOLID), this.selectedSubjectArray[0],this);
       console.log(this.selectedSubjectArray[0]);
-
-
     }
-updateSubmit({value,valid}){
-
-  this.masterSubjectConverter.updateMasterSubject(localStorage.getItem(AppConstants.SHAREDPREFERANCE_SCHOOLID),this.selectedSubjectArray[0],value,this);
-  
-
+updateSubmit({value,valid}){ 
+  this.active = "0";
+    if(value.subjectName == null || value.subjectName ==""){
+      this.errorMessage= "Please enter  subject Name ";
+      this.active = "2";
+    }   
+    else{
+      this.masterSubjectConverter.updateMasterSubject(localStorage.getItem(AppConstants.SHAREDPREFERANCE_SCHOOLID),this.selectedSubjectArray[0],value,this);
+    }  
   }
+
+
+
   rerender(): void {
     console.log("render call " + this.flag+"   "+this.dtElement);
    

@@ -1,6 +1,14 @@
 <app-header-admin></app-header-admin>
 
 
+<div class="overlay hideblock" [ngClass]="{'showblock': active=='1'}"></div>
+
+<div class="popup_screen hideblock " [ngClass]="{'showblock': active=='1'}">
+  <div class="sucess_msg_text"><span class="checkicon"> &#x2714;</span> <p [ngClass]="{'show_styles_sucess': active=='1'}">{{sucessMessage}}!</p></div>
+  <div class="little_gap"></div>
+  <button class="update_btn popup_ok_btn" (click)="closePopup()">Ok</button>
+  <div class="little_gap"></div>
+</div>
 
 <div class="all_pages_content">
     <div class="clear"></div>
@@ -47,13 +55,8 @@
             </div>
         </div>
         <div class="little_gap"></div>
-
-<div class="sucess_msg_text"><p [ngClass]="{'show_styles_sucess': active=='1'}">{{sucessMessage}}</p></div>
-<div class="error_msg_text"><p [ngClass]="{'error_styles_sucess': active=='2'}">{{errorMessage}}</p></div>
-
-
-
-
+        <!-- <div class="sucess_msg_text"><p [ngClass]="{'show_styles_sucess': active=='1'}">{{sucessMessage}}</p></div> -->
+        <div class="error_msg_text"><p [ngClass]="{'error_styles_sucess': active=='2'}">{{errorMessage}}</p></div> 
 
 
    <div class="add_fields addschool_div" [ngClass]="{'inactive_div': div_Element_Id !='1'}">
@@ -72,17 +75,9 @@
             <div class="little_gap"></div>
         </div>
         <div class="col-md-3"></div>
-        <div class="clear"></div>
-        <div class="col-md-12 padding0">
-                <div class="col-md-3"></div> 
-                <div class="col-md-6">
-                <div class="col-md-4"></div>
-                    <div class="col-md-8">
-                    <button type="submit" class="update_btn">Add Subject</button>
-                    <button class="cancel_btn_add" (click)="showSubjectList()">Cancel</button>
-                </div> 
-                </div> 
-        </div>
+        <div class="clear"></div>       
+        <div class="little_gap"></div>
+        <div class="text-center"> <button class="update_btn">Add Subject</button> <span class="cancel_btn_add button_type_span" (click)="showSubjectList()">Cancel</span></div>       
 	</form>
       <div class="clear"></div>
     </div> 
@@ -102,52 +97,30 @@
       </div>
       <div class="col-md-3"></div>
       <div class="clear"></div>
-      <div class="col-md-12 padding0 text-center">
-        <button class="update_btn">Modify Course</button> <button class="cancel_btn_modify" (click)="showSubjectList()">Cancel</button>
-    </div>
+      <div class="little_gap"></div>
+      <div class="text-center"> <button class="update_btn">Update Subject</button> <span class="cancel_btn_add button_type_span" (click)="showSubjectList()">Cancel</span></div>      
+  
 </form>
       <div class="clear"></div>
     </div> 
     <div class="clear"></div>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-	<div class="datatable_toggle active_tab_div mas_sub" [ngClass]="{'inactive_div': div_Element_Id !='0'}">
+	<div class="datatable_toggle active_tab_div mas_sub " [ngClass]="{'inactive_div': div_Element_Id !='0'}">
          <div class="col-md-4"></div>          
         <div class="col-md-4">
              <table datatable [dtOptions]="dtOptions"  [dtTrigger]="dtTrigger" class="my_table_width">
                 <thead>
                     <tr>
                         <th></th>
-                        <th >S.no</th>
-                        <!-- <th>SubjectId</th> -->
-                        <th>Subject Name</th>
-                        <!-- <th>Course Subjects</th> -->
+                        <th >S.no</th>                       
+                        <th>Subject Name</th>                        
                     </tr>
                 </thead>
                 <tbody>
                     <tr *ngFor="let masterSubject of masterSubjectTOList; let i=index;">
                         <td><input type="checkbox" id="{{masterSubject.subjectId}}" value="{{masterSubject.subjectId}}" (change)="checkedmasterSubject(masterSubject.subjectId)"></td>
-                        <td class="text-center">{{i + 1}}</td>
-                        <!-- <td>{{masterSubject.courseId}}</td> -->
-                        <td class="text-center">{{masterSubject.subjectName}}</td>
-                        <!-- <td>
-                                <div *ngFor="let masterCourse1 of masterCourse.syllabusList ; let i=index ">
-                                        {{masterCourse1.syllabusName}},
-                                </div>
-
-                        </td> -->
+                        <td class="text-center">{{i + 1}}</td>                      
+                        <td class="text-center">{{masterSubject.subjectName}}</td>                       
                     </tr>                 
                 </tbody>
             </table>

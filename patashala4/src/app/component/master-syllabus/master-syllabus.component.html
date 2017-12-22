@@ -64,7 +64,61 @@
         <div class="col-md-4 text-right">Subject Name</div>
         <div class="col-md-8 plus_btn_inline">
                 <select>
-                        <option  [ngValue]="undefined"  disabled> select by class</option>
+                        <option [value]="0" selected disabled> select by class</option>
+                        <option *ngFor="let currentData of alldata"  [value]='currentData'>
+                        {{currentData}}
+                        </option>
+                </select>
+        </div>
+        <div class="large_gap"></div> 
+        <div class="col-md-12 ">Subject Name</div>
+        <div class="col-md-12 plus_btn_inline">                         
+            <i class="fa fa-plus" (click)="addSyllabusName()"></i>
+                <div formArrayName="chapterList">
+                    <div *ngFor="let itemrow of syllabusFormGroup.controls.chapterList.controls; let i=index"  [formGroupName]="i" class="dlt_btn_inline">
+                        <div class="form-group col-md-4">
+                            <input formControlName="chapterName" value="" placeholder='chapter name' class="form-control" maxlength="10">
+                        </div>
+                        <div class="form-group col-md-4">
+                            <input formControlName="serialNo" value="" placeholder='chapter name' class="form-control" maxlength="10">
+                        </div>
+                        <div class="form-group col-md-4">
+                            <input formControlName="completion" value="" placeholder='chapter name' class="form-control" maxlength="10">
+                        </div>
+                        <i *ngIf="syllabusFormGroup.controls.chapterList.controls.length > 1" (click)="deleteSyllabusName(i)" class="fa fa-trash"></i>
+                    
+                      </div>
+                </div> 
+               
+        </div>
+        <div class="clear"></div>
+               
+		<div class="clear"></div>
+        <div class="little_gap"></div>
+      </div>
+      <div class="col-md-3"></div>
+      <div class="clear"></div>    
+    <div class="little_gap"></div>
+    <div class="text-center"> <button class="update_btn">Add Syllabus</button> <span class="cancel_btn_add button_type_span" (click)="showSyllabusList()">Cancel</span></div>      
+
+	</form>
+      <div class="clear"></div>
+    </div> 
+
+
+   <div class="modify_fields addschool_div" [ngClass]="{'inactive_div': div_Element_Id !='2'}">
+       <div class="col-md-3"></div>
+       <form [formGroup]="syllabusFormGroup" (ngSubmit)="UpdateSyllabusSubmit(syllabusFormGroup)"> 
+       <div class="col-md-6 padding0">
+        <div class="col-md-4 text-right">Syllabus Name</div>
+		<div class="col-md-8">
+            <input type="text" formControlName="syllabusName" placeholder="Enter syllabus name" ></div>
+        <div class="clear"></div>
+        
+        <div class="col-md-4 text-right">Subject Name</div>
+        <div class="col-md-8 plus_btn_inline">
+                <select>
+                        <option [value]="0" selected disabled> select by class</option>
                         <option *ngFor="let currentData of alldata"  [value]='currentData'>
                         {{currentData}}
                         </option>
@@ -98,75 +152,21 @@
       </div>
       <div class="col-md-3"></div>
       <div class="clear"></div>
-      <div class="col-md-12 padding0">          
-            <div class="col-md-3"></div> 
-            <div class="col-md-6">
-              <div class="col-md-4"></div>
-                <div class="col-md-8">
-                <button class="update_btn" type="submit">Add Syllabus</button>
-                <button class="cancel_btn_add" (click)="showCourseList()">Cancel</button>
-               </div> 
-             </div> 
-    </div>
-	</form>
-      <div class="clear"></div>
-    </div> 
-
-
-   <div class="modify_fields addschool_div" [ngClass]="{'inactive_div': div_Element_Id !='2'}">
-       <div class="col-md-3"></div>
-      <div class="col-md-6 padding0">
-        <div class="col-md-4"><p>Syllabus Name</p></div><div class="col-md-8"><input type="text" value="Inter 1st (MPC)"></div><div class="clear"></div>
-
-        <div class="col-md-4"><p>Subject Name</p></div>
-        <div class="col-md-8">
-            <table>
-                <thead>
-                <tr>
-                    <th></th>
-                    <th>S.no</th>
-                    <th>Syllabus Name</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td><input type="checkbox"></td>
-                    <td>1</td>
-                    <td>Maths - Inter 1st Year</td>
-                </tr>
-                 <tr>
-                    <td><input type="checkbox"></td>
-                    <td>1</td>
-                    <td>Physics - Inter 1st Year</td>
-                </tr>
-                  <tr>
-                    <td><input type="checkbox"></td>
-                    <td>1</td>
-                    <td>Chemistry - Inter 1st Year</td>
-                </tr>
-                </tbody>
-            </table>
-
-        </div><div class="clear"></div>
-        <div class="little_gap"></div>
-      </div>
-      <div class="col-md-3"></div>
-      <div class="clear"></div>
-      <div class="col-md-12 padding0 text-center">
-        <button class="update_btn">Add Course</button>
-        <button class="cancel_btn_modify" (click)="showCourseList()">Cancel</button>
-    </div>
+      <div class="little_gap"></div>
+      <div class="text-center"> <button class="update_btn">Update Syllabus</button> <span class="cancel_btn_add button_type_span" (click)="showSyllabusList()">Cancel</span></div>      
+  
+       </form>
       <div class="clear"></div>
     </div> 
     <div class="clear"></div>
 
+
 	<div class="datatable_toggle active_tab_div" [ngClass]="{'inactive_div': div_Element_Id !='0'}">
-        <table id="manageTeachertable" style="width: 110%;">
+        <table  datatable [dtOptions]="dtOptions"  [dtTrigger]="dtTrigger" class="my_table_width">
             <thead>
                 <tr>
                     <th></th>
                     <th>S.no</th>
-                    <!-- <th>SyllabusId</th> -->
                     <th>Syllabus Name</th>
                     <th>Subject Name</th> 
                     <th>chapterList</th> 
@@ -174,14 +174,13 @@
             </thead>
             <tbody>
                 <tr *ngFor="let masterSyllabus of masterSyllabusTOList; let i=index;">
-                    <td><input type="checkbox" id="{{masterSyllabus.courseId}}" value="{{masterSyllabus.courseId}}" (change)="checkedmasterCourse(masterCourse.courseId)"></td>
-				            <td>{{i + 1}}</td>
-                    <!-- <td>{{masterCourse.courseId}}</td> -->
+                    <td><input type="checkbox" id="{{masterSyllabus.syllabusId}}" value="{{masterSyllabus.syllabusId}}" (change)="checkedmasterSyllabus(masterSyllabus.syllabusId)"></td>
+				    <td>{{i + 1}}</td>
                     <td>{{masterSyllabus.syllabusName}}</td>
                     <td>{{masterSyllabus.subjectName}}</td>
                     <td>
                         <div *ngFor="let masterSyllabus1 of masterSyllabus.chapterList ; let i=index ">
-                                {{masterSyllabus1.chapterName}},
+                                {{masterSyllabus1}},
                         </div>
 
                    </td> 
