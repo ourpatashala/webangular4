@@ -1,6 +1,13 @@
 <app-header-admin></app-header-admin>
 
+<div class="overlay hideblock" [ngClass]="{'showblock': active=='1'}"></div>
 
+<div class="popup_screen hideblock " [ngClass]="{'showblock': active=='1'}">
+  <div class="sucess_msg_text"><span class="checkicon"> &#x2714;</span> <p [ngClass]="{'show_styles_sucess': active=='1'}">{{sucessMessage}}!</p></div>
+  <div class="little_gap"></div>
+  <button class="update_btn popup_ok_btn" (click)="closePopup()">Ok</button>
+  <div class="little_gap"></div>
+</div>
 
 <div class="all_pages_content">
     <div class="clear"></div>

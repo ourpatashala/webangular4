@@ -52,8 +52,11 @@ export class MasterSyllabusComponent implements OnInit, MasterSyllabusComponentI
   dtElement: DataTableDirective;
   dtOptions: DataTables.Settings = {};
   dtTrigger: Subject<any> = new Subject();
-  flag: boolean = false;
-
+  flag: boolean = false; 
+  active: string = "0";// for error and success divs;;  0 for no content, 1 for success, 2 for error
+  subjectindexcount: number =0;
+  updateSubject: BehaviorSubject<string> = new BehaviorSubject<string>(""); // Holds the error message
+ 
 
 
   constructor(@Inject('MasterSyllabusConverter') private masterSyllabusConverter: MasterSyllabusConverter, @Inject('MasterSubjectConverter') private masterSubjectConverter: MasterSubjectConverter,fb: FormBuilder) {
@@ -121,8 +124,39 @@ export class MasterSyllabusComponent implements OnInit, MasterSyllabusComponentI
 
   successMessageCallBack(messageTO:MessageTO) {
     console.log("successMessageCallBack ==>" + messageTO.messageInfo+"  "+ messageTO.messageType+"  "+messageTO.serviceClassName+"  "+messageTO.serviceMethodName);
-
+    if(messageTO.serviceMethodName=="searchAndAddMasterSyllabus()"){     
+      this. showSyllabusList();
+        }
+    if (messageTO.serviceMethodName == "updateMasterSyllabus()")
+    {
+     this.popupstatus = "1";
+     this.showSyllabusList();
+   }
+    this.sucessMessage = messageTO.messageInfo;
+    if (messageTO.messageInfo.length != 0) {
+      this.active = "1";
+    }
+     else {
+      this.active = "0";
+    }
   }
+
+  closePopup() {
+    this.sucessMessage = "";
+    this.active = "0";
+    if (this.popupstatus == "1") this.showSyllabusList();  
+  }
+
+
+
+
+
+
+
+
+
+
+
 
   /**
    * Handle all the error messages here . Basing on the error message decide where you want to display
@@ -254,7 +288,7 @@ export class MasterSyllabusComponent implements OnInit, MasterSyllabusComponentI
     }
    
     //ChapterTO.chapterList = chapterList
-  //  this.masterSyllabusConverter.addMasterSyllabus(localStorage.getItem(AppConstants.SHAREDPREFERANCE_SCHOOLID),masterSyllabusTO,chapterList,this);
+    this.masterSyllabusConverter.addMasterSyllabus(localStorage.getItem(AppConstants.SHAREDPREFERANCE_SCHOOLID),masterSyllabusTO,chapterList,this);
     console.log(masterSyllabusTO,chapterList);
   }
 
@@ -306,18 +340,6 @@ deleteSyllabusName(i: number) {
       // remove the chosen row
       control.removeAt(i);
     }
-
-
-
-
-
-
-
-
-
-
-
-
 
     ngAfterViewInit(): void {
       this.dtTrigger.next();
