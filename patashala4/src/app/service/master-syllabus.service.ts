@@ -173,6 +173,8 @@ export class MasterSyllabusService {
   getMasterSyllabus(schoolId: string, syllabusId: string): FirebaseObjectObservable<any> {
 
     var path = PathUtil.getMasterSyllabusPathNode(schoolId, syllabusId);
+    console.log("getMasterSyllabus path ==>"+ path);
+
     var object = this.angularFireDatabase.object(path);
     return object;
   }
@@ -186,6 +188,18 @@ export class MasterSyllabusService {
   getAllMasterSyllabus(schoolId: string): FirebaseListObservable<any> {
 
     var path = PathUtil.getMasterSyllabusNode(schoolId);
+    var object = this.angularFireDatabase.list(path);
+    return object;
+  }
+
+  /**
+   *
+   * @param schoolId
+   * @returns {FirebaseListObservable<any[]>}
+   */
+  getChapters(schoolId: string, syllabusId: string): FirebaseListObservable<any> {
+
+    var path = PathUtil.getMasterSyllabusChaptersPath(schoolId,syllabusId);
     var object = this.angularFireDatabase.list(path);
     return object;
   }

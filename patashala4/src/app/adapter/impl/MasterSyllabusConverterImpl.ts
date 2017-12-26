@@ -23,7 +23,6 @@ export class MasterSyllabusConverterImpl extends CommonConverter implements Mast
   masterSyllabusVO: MasterSyllabusVO;
 
 
-
   constructor(private masterSyllabusService: MasterSyllabusService, private masterSubjectService: MasterSubjectService) {
     super()
   }
@@ -33,7 +32,7 @@ export class MasterSyllabusConverterImpl extends CommonConverter implements Mast
    * @param masterSyllabusTO
    * @returns {string}
    */
-  getUniqueKey(masterSyllabusTO: MasterSyllabusTO):string {
+  getUniqueKey(masterSyllabusTO: MasterSyllabusTO): string {
     return masterSyllabusTO.syllabusName.toLowerCase();
   }
 
@@ -52,7 +51,7 @@ export class MasterSyllabusConverterImpl extends CommonConverter implements Mast
     masterSyllabusVO.subjectName = masterSyllabusTO.subjectName;
     masterSyllabusVO.uniqueId = this.getUniqueKey(masterSyllabusTO);
 
-    console.log("MasterSyllabusTO ===>"+ masterSyllabusVO.toString())
+    console.log("MasterSyllabusTO ===>" + masterSyllabusVO.toString())
 
     return masterSyllabusVO;
   }
@@ -66,7 +65,7 @@ export class MasterSyllabusConverterImpl extends CommonConverter implements Mast
   addMasterSyllabus(schoolId: string, masterSyllabusTO: MasterSyllabusTO, chaptersList: ChapterVO[], masterSyllabusComponentInterface: MasterSyllabusComponentInterface) {
     try {
 
-      this.masterSyllabusService.addMasterSyllabus(schoolId, this.getVOFromTO(masterSyllabusTO),chaptersList, masterSyllabusComponentInterface);
+      this.masterSyllabusService.addMasterSyllabus(schoolId, this.getVOFromTO(masterSyllabusTO), chaptersList, masterSyllabusComponentInterface);
 
     } catch (masterSubjectError) {
       throw masterSubjectError;
@@ -74,14 +73,26 @@ export class MasterSyllabusConverterImpl extends CommonConverter implements Mast
   }
 
 
-  getMasterSyllabus(schoolId: string, subjectId: string, masterSyllabusComponentInterface: MasterSyllabusComponentInterface) {
+  getMasterSyllabus(schoolId: string, syllabusId: string, masterSyllabusComponentInterface: MasterSyllabusComponentInterface) {
 
     var masterSyllabusTO = new MasterSyllabusTO();
-    var object = this.masterSyllabusService.getMasterSyllabus(schoolId, subjectId);
+    var object = this.masterSyllabusService.getMasterSyllabus(schoolId, syllabusId);
 
     object.subscribe(snapshot => {
       masterSyllabusTO = snapshot;
       masterSyllabusComponentInterface.displayMasterSyllabusCallBack(masterSyllabusTO);
+    });
+  }
+
+  getChapters(schoolId: string, syllabusId: string, masterSyllabusComponentInterface: MasterSyllabusComponentInterface) {
+
+    console.log(" service log " + schoolId);
+    var objData: FirebaseListObservable<ChapterVO>;
+    var object = this.masterSyllabusService.getChapters(schoolId, syllabusId);
+    object.subscribe(snapshot => {
+      objData = snapshot;
+      masterSyllabusComponentInterface.displayAllChaptersCallBack(objData);
+
     });
   }
 
@@ -91,7 +102,7 @@ export class MasterSyllabusConverterImpl extends CommonConverter implements Mast
    * @param masterSyllabusComponentInterface
    */
   getAllMasterSyllabus(schoolId: string, masterSyllabusComponentInterface: MasterSyllabusComponentInterface) {
-    console.log(" service log "+ schoolId);
+    console.log(" service log " + schoolId);
     var objData: FirebaseListObservable<MasterSyllabusTO>;
     var object = this.masterSyllabusService.getAllMasterSyllabus(schoolId);
     object.subscribe(snapshot => {

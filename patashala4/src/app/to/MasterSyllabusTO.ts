@@ -13,6 +13,10 @@ export class MasterSyllabusTO{
   public toString():string {
     return this.syllabusId + " " + this.syllabusName+ " " +  this.subjectId + " " +  this.subjectName + " " + this.uniqueId;
   }
+
+  public getValueString():string {
+    return this.syllabusId + " " + this.syllabusName+ " " +  this.subjectId + " " +  this.subjectName + " " + this.uniqueId;
+  }
 }
 
 

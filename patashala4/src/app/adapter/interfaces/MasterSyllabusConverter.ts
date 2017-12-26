@@ -9,11 +9,14 @@ export interface MasterSyllabusConverter {
 
   addMasterSyllabus(schoolId:string, masterSyllabusTO: MasterSyllabusTO, chapterList: ChapterVO[], masterSyllabusComponentInterface: MasterSyllabusComponentInterface);
 
-  getMasterSyllabus(schoolId: string, subjectId: string, masterSyllabusComponentInterface: MasterSyllabusComponentInterface);
+  getMasterSyllabus(schoolId: string, syllabusId: string, masterSyllabusComponentInterface: MasterSyllabusComponentInterface);
 
-  updateMasterSyllabus(schoolId: string, subjectId: string, masterSyllabusTO: MasterSyllabusTO, chaptersList: ChapterVO[], masterSyllabusComponentInterface: MasterSyllabusComponentInterface);
+  getChapters(schoolId: string, syllabusId: string, masterSyllabusComponentInterface: MasterSyllabusComponentInterface);
 
-  deleteMasterSyllabus(schoolid: string, subjectId: string, masterSyllabusComponentInterface: MasterSyllabusComponentInterface);
+
+  updateMasterSyllabus(schoolId: string, syllabusId: string, masterSyllabusTO: MasterSyllabusTO, chaptersList: ChapterVO[], masterSyllabusComponentInterface: MasterSyllabusComponentInterface);
+
+  deleteMasterSyllabus(schoolid: string, syllabusId: string, masterSyllabusComponentInterface: MasterSyllabusComponentInterface);
 
   getAllMasterSyllabus(schoolId:string, masterSyllabusComponentInterface: MasterSyllabusComponentInterface);
 

@@ -24,6 +24,7 @@ export class MasterSubjectService {
    */
   addMasterSubject(schoolId: string, masterSubjectVO: MasterSubjectVO, masterSubjectComponentInterface: MasterSubjectComponentInterface) {
 
+    console.log("addMasterSubject======================")
     this.searchAndAddMasterSubject(schoolId, masterSubjectVO,masterSubjectComponentInterface);
 
   }
@@ -36,6 +37,8 @@ export class MasterSubjectService {
    * @param masterSubjectComponentInterface
    */
   private searchAndAddMasterSubject(schoolId: string, masterSubjectVO: MasterSubjectVO, masterSubjectComponentInterface: MasterSubjectComponentInterface) {
+
+    console.log("searchAndAddMasterSubject======================")
 
     var path = PathUtil.getMasterDataPath(schoolId);
 
