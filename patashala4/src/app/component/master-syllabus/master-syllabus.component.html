@@ -27,7 +27,8 @@
     </div>    
 
 
-
+  <!-- <div class="sucess_msg_text"><p [ngClass]="{'show_styles_sucess': active=='1'}">{{sucessMessage}}</p></div> -->
+  <div class="error_msg_text"><p [ngClass]="{'error_styles_sucess': active=='2'}">{{errorMessage}}</p></div> 
     
 
        
@@ -70,7 +71,7 @@
         
         <div class="col-md-4 text-right">Subject Name</div>
         <div class="col-md-8 plus_btn_inline">
-                <select>
+                <select (change)="onsubjectChange($event.target.value)">
                         <option [value]="0" selected disabled> select by class</option>
                         <option *ngFor="let currentData of alldata"  [value]='currentData'>
                         {{currentData}}
@@ -124,7 +125,7 @@
         
         <div class="col-md-4 text-right">Subject Name</div>
         <div class="col-md-8 plus_btn_inline">
-                <select>
+                <select (change)="onsubjectChange($event.target.value)">
                         <option [value]="0" selected disabled> select by class</option>
                         <option *ngFor="let currentData of alldata"  [value]='currentData'>
                         {{currentData}}
