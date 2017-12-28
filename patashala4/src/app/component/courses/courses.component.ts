@@ -39,6 +39,7 @@ export class CoursesComponent implements OnInit {
           this.fb = fb;
 
   }
+  
  div_Element_Id: string = '0';//for multiple pages in school list page;; 0 to show list of school , 1 to show add school, 2 to show edit school, 3 to show single school view.
   selectedCourseArray: Array<any> = [];
  ngOnInit() {

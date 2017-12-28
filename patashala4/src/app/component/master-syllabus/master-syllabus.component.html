@@ -38,7 +38,7 @@
 <div class="tabs_S_M">
      <div class="listing_tabs1">
         <ul class="">
-            <a routerLink="/Courses"><li class="" id="">Course</li></a>           
+            <a routerLink="/Mastercourse"><li class="" id="">Course</li></a>           
             <a routerLink="/Mastersyllabus"><li class="active_tab" id="">Syllabus</li></a>
             <a routerLink="/Mastersubject"><li class="" id="">Subjects</li></a> 
         </ul>       
@@ -51,10 +51,10 @@
         <div class="text-right">
             <div class="buttons_div" [ngClass]="{'inactive_div': div_Element_Id !='0'}">
           
-		    <button class="add_more_btn" (click)="show_addSyllabusFields()" [ngClass]="{'disable_btn': selectedSyllabusArray.length!='0'}"><i class="fa fa-plus"></i> Add</button>
+	    <button class="add_more_btn" (click)="show_addSyllabusFields()" [ngClass]="{'disable_btn': selectedSyllabusArray.length!='0'}"><i class="fa fa-plus"></i> Add</button>
         <button class="edit_field_btn" (click)="getselectedSyllabusProfile()" [ngClass]="{'disable_btn': selectedSyllabusArray.length!='1'}"><i class="fa fa-pencil"></i> Modify</button>
         <button (click)="deleteCourse()" [ngClass]="{'disable_btn': selectedSyllabusArray.length==0 || selectedSyllabusArray.length>1}"><i class="fa fa-trash"></i> Delete</button>
-                
+        <button (click)="viewSingleSyllabusProfile()" [ngClass]="{'disable_btn': selectedSyllabusArray.length!='1'}"><i class="fa fa-eye"></i> View</button>        
             </div>
         </div>
         <div class="little_gap"></div>
@@ -79,16 +79,16 @@
                 </select>
         </div>
         <div class="large_gap"></div> 
-        <div class="col-md-12 ">Subject Name</div>
+        <div class="col-md-12 ">ChapterlistName</div>
         <div class="col-md-12 plus_btn_inline">                         
-            <i class="fa fa-plus" (click)="addSyllabusName()"></i>
+            <i class="fa fa-plus" (click)="addchapterlist()"></i>
                 <div formArrayName="chapterList">
                     <div *ngFor="let itemrow of syllabusFormGroup.controls.chapterList.controls; let i=index"  [formGroupName]="i" class="dlt_btn_inline">
                         <div class="form-group col-md-4">
                             <input formControlName="chapterName" value="" placeholder='chapter name' class="form-control" maxlength="10">
                         </div>
                         <div class="form-group col-md-4">
-                            <input formControlName="serialNo" value="" placeholder='chapter name' class="form-control" maxlength="10">
+                            <input type="number" formControlName="serialNo" value="" placeholder='Serial No' class="form-control" maxlength="10">
                         </div>
                         <div class="form-group col-md-4">
                             <input formControlName="completion" value="" placeholder='chapter name' class="form-control" maxlength="10">
@@ -120,32 +120,28 @@
        <div class="col-md-6 padding0">
         <div class="col-md-4 text-right">Syllabus Name</div>
 		<div class="col-md-8">
-            <input type="text" formControlName="syllabusName" placeholder="Enter syllabus name" ></div>
+            <input type="text" formControlName="syllabusName" placeholder="Enter syllabus name" >
+        </div>
         <div class="clear"></div>
-        
+
         <div class="col-md-4 text-right">Subject Name</div>
         <div class="col-md-8 plus_btn_inline">
-                <select (change)="onsubjectChange($event.target.value)">
-                        <option [value]="0" selected disabled> select by class</option>
-                        <option *ngFor="let currentData of alldata"  [value]='currentData'>
-                        {{currentData}}
-                        </option>
-                </select>
+                <input type="hidden" formControlName="subjectName"> {{masterSyllabusTO.subjectName}}
         </div>
         <div class="large_gap"></div> 
-        <div class="col-md-12 ">Subject Name</div>
+        <div class="col-md-12 ">Chapterlist</div>
         <div class="col-md-12 plus_btn_inline">                         
-            <i class="fa fa-plus" (click)="addSyllabusName()"></i>
+            <i class="fa fa-plus" (click)="addchapterlist()"></i>
                 <div formArrayName="chapterList">
                     <div *ngFor="let itemrow of syllabusFormGroup.controls.chapterList.controls; let i=index"  [formGroupName]="i" class="dlt_btn_inline">
                         <div class="form-group col-md-4">
                             <input formControlName="chapterName" value="" placeholder='chapter name' class="form-control" maxlength="10">
                         </div>
                         <div class="form-group col-md-4">
-                            <input formControlName="chapterName" value="" placeholder='chapter name' class="form-control" maxlength="10">
+                            <input formControlName="serialNo" value="" placeholder='chapter name' class="form-control" maxlength="10">
                         </div>
                         <div class="form-group col-md-4">
-                            <input formControlName="chapterName" value="" placeholder='chapter name' class="form-control" maxlength="10">
+                            <input formControlName="completion" value="" placeholder='chapter name' class="form-control" maxlength="10">
                         </div>
                         <i *ngIf="syllabusFormGroup.controls.chapterList.controls.length > 1" (click)="deleteSyllabusName(i)" class="fa fa-trash"></i>
                     
@@ -169,6 +165,69 @@
     <div class="clear"></div>
 
 
+    <div class="singleStudentViewDiv addschool_div" [ngClass]="{'inactive_div': div_Element_Id !='3'}">
+            <div class="text-right">
+                    <span class="cancel_btn_modify button_type_span" (click)="showSyllabusList()">Close</span>
+                </div>    
+        <div class="col-md-3"></div>
+            <div class="col-md-6 padding0">
+                <h3>SyllabusName : {{masterSyllabusTO.syllabusName}} </h3>
+                <h3>SubjectName : {{masterSyllabusTO.subjectName}} </h3>
+                <table>
+                    <thead>
+                     <tr>
+                        <th class="text-center">S.No</th>                       
+                        <th class="text-center">SerialNo</th>
+                        <th class="text-center">ChapterName</th>
+                        <th class="text-center">Completion</th>
+                    </tr>
+                    </thead>
+                    <tbody class="text-center">
+                        <tr *ngFor="let x of chaptersList; let i=index;">
+                            <td>{{i+1}}</td>
+                            <td>{{x.serialNo}}</td>                           
+                            <td>{{x.chapterName}}</td>             
+                            <td>{{x.completion}}</td>        
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="col-md-3"></div>
+             <div class="clear"></div>                
+          
+           <div class="clear"></div>
+         </div> 
+         <div class="clear"></div>
+     
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 	<div class="datatable_toggle active_tab_div" [ngClass]="{'inactive_div': div_Element_Id !='0'}">
         <table  datatable [dtOptions]="dtOptions"  [dtTrigger]="dtTrigger" class="my_table_width">
             <thead>
@@ -177,21 +236,22 @@
                     <th>S.no</th>
                     <th>Syllabus Name</th>
                     <th>Subject Name</th> 
-                    <th>chapterList</th> 
+                    <!-- <th>chapterList</th>  -->
                 </tr>
             </thead>
             <tbody>
                 <tr *ngFor="let masterSyllabus of masterSyllabusTOList; let i=index;">
                     <td><input type="checkbox" id="{{masterSyllabus.syllabusId}}" value="{{masterSyllabus.syllabusId}}" (change)="checkedmasterSyllabus(masterSyllabus.syllabusId)"></td>
-				    <td>{{i + 1}}</td>
-                    <td>{{masterSyllabus.syllabusName}}</td>
-                    <td>{{masterSyllabus.subjectName}}</td>
-                    <td>
-                        <div *ngFor="let masterSyllabus1 of masterSyllabus.chapterList ; let i=index ">
-                                {{masterSyllabus1}},
-                        </div>
+				    <td class="text-center">{{i + 1}}</td>
+                    <td class="text-center">{{masterSyllabus.syllabusName}}</td>
+                    <td class="text-center">{{masterSyllabus.subjectName}}</td>
+                    <!-- <td>
+                        <div *ngFor="let master of chapterList">
+                                {{master.chapterName}}
+                                <!-- -{{masterSyllabus.serialNo}}-{{masterSyllabus.completion}} -->
+                        <!-- </div> -->
 
-                   </td> 
+                   <!-- </td>  --> 
                 </tr>                 
             </tbody>
         </table>

@@ -246,16 +246,16 @@ export class MastersubjectComponent implements OnInit, MasterSubjectComponentInt
       this.masterSubjectConverter.getMasterSubject(localStorage.getItem(AppConstants.SHAREDPREFERANCE_SCHOOLID), this.selectedSubjectArray[0],this);
       console.log(this.selectedSubjectArray[0]);
     }
-updateSubmit({value,valid}){ 
-  this.active = "0";
-    if(value.subjectName == null || value.subjectName ==""){
-      this.errorMessage= "Please enter  subject Name ";
-      this.active = "2";
-    }   
-    else{
-      this.masterSubjectConverter.updateMasterSubject(localStorage.getItem(AppConstants.SHAREDPREFERANCE_SCHOOLID),this.selectedSubjectArray[0],value,this);
-    }  
-  }
+  updateSubmit({value,valid}){ 
+    this.active = "0";
+      if(value.subjectName == null || value.subjectName ==""){
+        this.errorMessage= "Please enter  subject Name ";
+        this.active = "2";
+      }   
+      else{
+        this.masterSubjectConverter.updateMasterSubject(localStorage.getItem(AppConstants.SHAREDPREFERANCE_SCHOOLID),this.selectedSubjectArray[0],value,this);
+      }  
+    }
 
 
 

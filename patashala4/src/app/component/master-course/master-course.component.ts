@@ -1,19 +1,26 @@
 import { Component, OnInit,Inject } from '@angular/core';
+import {ViewChild} from '@angular/core';
 import { MasterCourseComponentInterface } from "./MasterCourseComponentInterface";
 import { MasterCourseTO } from "./../../to/MasterCourseTO";
 import { MasterCourseVO } from "./../../vo/MasterCourseVO";
+import {BehaviorSubject, Observable, Subscription} from "rxjs";
 import { MessageTO } from "./../../to/MessageTO";
+import {Router} from "@angular/router";
 import {AngularFireDatabase, FirebaseListObservable} from 'angularfire2/database-deprecated';
-
+declare var $:any;
 import {MasterCourseConverter} from "../../adapter/interfaces/MasterCourseConverter";
 import {MasterCourseConverterImpl} from "../../adapter/impl/MasterCourseConverterImpl";
 import {inject} from "@angular/core/testing";
+import {Subject} from 'rxjs/Rx';
+import {DataTableDirective} from 'angular-datatables';
 
 import {MasterCourseService} from "../../service/master-course.service";
 import {MasterSyllabusService} from "../../service/master-syllabus.service";
 import {MasterSubjectService} from "../../service/master-subject.service";
 
 import {SyllabusIdNameTO} from "../../to/SyllabusIdNameTO";
+import {FormBuilder, FormControl, FormGroup,FormArray} from "@angular/forms";
+import { AppConstants } from "../../constants/AppConstants";
 
 @Component({
   selector: 'app-master-course',
@@ -23,14 +30,70 @@ import {SyllabusIdNameTO} from "../../to/SyllabusIdNameTO";
 })
 export class MasterCourseComponent implements OnInit {
 
-  constructor(@Inject('MasterCourseConverter') private masterCourseConverter: MasterCourseConverter) { }
+  courseFormGroup:FormGroup;
+  errorMessage: string;
+  sucessMessage: string;
+  masterCourseTOList: FirebaseListObservable<MasterCourseTO>;
+  fb: FormBuilder;
+  SyllabusIdNameTO: FirebaseListObservable<MasterCourseTO>;
+
+  div_Element_Id: string = '0';//for multiple pages in school list page;; 0 to show list of school , 1 to show add school, 2 to show edit school, 3 to show single school view.
+  selectedCourseArray: Array<any> = [];
+  masterCourseTO : MasterCourseTO; 
+  active: string = "0";// for error and success divs;;  0 for no content, 1 for success, 2 for error
+  subjectindexcount: number =0;
+//  updateSubject: BehaviorSubject<string> = new BehaviorSubject<string>(""); // Holds the error message
+  popupstatus: string = "0"; //0 for default close //1 for close and show listing
+  showupload: string = "0"; //0 for default close //1 for close and show listing
+  @ViewChild(DataTableDirective)
+  dtElement: DataTableDirective;
+  dtOptions: DataTables.Settings = {};
+  dtTrigger: Subject<any> = new Subject();
+  flag: boolean = false;
+ // update$: Observable<string> = this.updateSubject.asObservable(); // observer for the above message
+  
+
+
+  constructor(@Inject('MasterCourseConverter') private masterCourseConverter: MasterCourseConverter,fb: FormBuilder, private router: Router) {
+    this.masterCourseConverter.getAllMasterCourse (localStorage.getItem(AppConstants.SHAREDPREFERANCE_SCHOOLID), this);
+     if(localStorage.getItem(AppConstants.SHAREDPREFERANCE_SCHOOLID) == null){
+      this.router.navigate(['/']);
+     }  
+    this.fb = fb;
+
+}
 
   ngOnInit() {
-  }
+ 
+  this.courseFormGroup = this.fb.group({
+    courseName: [''],
+    syllabusList: this.fb.array([this.initsyllabusNames()]),
+    courseId: ['']
+  });
+ 
+}
+initsyllabusNames() {
+  return this.fb.group({
+    // list all your form controls here, which belongs to your form array
+    syllabusName: ['']
+  });
+}
+ngAfterViewInit(): void {
+  this.dtTrigger.next();
+}
+
 
   displayMasterCourseCallBack(masterCourseTO: MasterCourseTO){
 
     console.log("displayMasterCourseCallBack ==> "+ masterCourseTO.courseName + " " + masterCourseTO.courseId);
+   this.masterCourseTO=masterCourseTO;
+
+    this.courseFormGroup.controls['courseName'].patchValue(masterCourseTO.courseName);
+    this.courseFormGroup.controls['courseId'].patchValue(masterCourseTO.courseId);
+    //this.courseFormGroup.controls['uniqueId'].patchValue(masterCourseTO.uniqueId);
+     this.courseFormGroup.controls['syllabusList'].patchValue(masterCourseTO.syllabusList);
+   
+   
     for (var iIndex=0; iIndex < masterCourseTO.syllabusList.length; iIndex++){
       console.log("syllabus ==> "+ masterCourseTO.syllabusList[iIndex].syllabusName );
     }
@@ -41,6 +104,7 @@ export class MasterCourseComponent implements OnInit {
   displayAllMasterCourseCallBack(masterCourseTOList:FirebaseListObservable<MasterCourseTO>){
 
     console.log("displayAllMasterCourseCallBack ==> "+ masterCourseTOList);
+    this.masterCourseTOList=masterCourseTOList;
 
     masterCourseTOList.forEach(obj => {
       console.log(obj.courseId + ' ' + obj.courseName );
@@ -49,12 +113,34 @@ export class MasterCourseComponent implements OnInit {
       }
 
     });
+    this.rerender();
+    
 
   }
 
   successMessageCallBack(messageTO:MessageTO) {
     console.log("successMessageCallBack ==>" + messageTO.messageInfo+"  "+ messageTO.messageType+"  "+messageTO.serviceClassName+"  "+messageTO.serviceMethodName);
+    if(messageTO.serviceMethodName=="searchAndAddMasterCourse()"){     
+      this.showCourseList();
+    }
+    if (messageTO.serviceMethodName == "updateMasterCourse()")
+    {
+     this.popupstatus = "1";
+     this.showCourseList();
+   }
+    this.sucessMessage = messageTO.messageInfo;
+    if (messageTO.messageInfo.length != 0) {
+      this.active = "1";
+    }
+     else {
+      this.active = "0";
+    }
+  }
 
+  closePopup() {
+    this.sucessMessage = "";
+    this.active = "0";
+    if (this.popupstatus == "1") this.showCourseList();  
   }
 
   /**
@@ -66,7 +152,21 @@ export class MasterCourseComponent implements OnInit {
    */
   errorMessageCallBack(messageTO:MessageTO) {
     console.log("errorMessageCallBack ==>" + messageTO.messageInfo);
-
+    this.errorMessage = messageTO.messageInfo;   
+    this.updateMessage(this.errorMessage);   
+    if (messageTO.messageInfo.length != 0) {
+      this.active = "2";
+    } else {
+      this.active = "0";
+    }
+    setTimeout(() => {    //<<<---    using ()=> syntax
+      this.errorMessage = "";
+      this.active = "0";
+    }, 2000);
+  
+  }
+  updateMessage(message: string) { // updates the error message
+   // this.updateCourse.next(message);
   }
 
   testAdd(){
@@ -144,5 +244,185 @@ export class MasterCourseComponent implements OnInit {
     this.masterCourseConverter.deleteMasterCourse("-KwebjvSellhXyBRZbjo", "-L-r3O1-fM__L_tldUGE", this);
 
   }
+  show_addCourseFields(){
+    this.div_Element_Id = "1";
+    this.courseFormGroup.controls['courseName'].patchValue('');
+    this.courseFormGroup.controls['courseId'].patchValue(this.subjectindexcount+1);
+    this.courseFormGroup.controls['uniqueId'].patchValue('');
+    this.clearSyllabusName();
+    this.addSyllabusName();
+	  console.log(this.div_Element_Id);
+
+  }
+  addCourseSubmit({value, valid}: { value: MasterCourseTO, valid: boolean })
+  
+    {
+        var syllabusList = new Array <SyllabusIdNameTO> ( );
+        var masterCourseTO = new MasterCourseTO();
+          var syllabus1 = new SyllabusIdNameTO();
+          masterCourseTO.courseName=value.courseName;
+  
+  
+  
+        if (value.syllabusList != null) {
+          for (var loopvar = 0; loopvar < value.syllabusList.length; loopvar++) {
+            var syllabus2 = new SyllabusIdNameTO();
+            syllabus2.syllabusName = value.syllabusList[loopvar].syllabusName;
+            syllabus2.syllabusId = syllabus2.syllabusName.toLowerCase();
+            syllabusList.push(syllabus2)
+          }
+        }
+        masterCourseTO.syllabusList = syllabusList
+        this.masterCourseConverter.addMasterCourse(localStorage.getItem(AppConstants.SHAREDPREFERANCE_SCHOOLID),masterCourseTO,this);
+  
+    }
+    
+    getselectedCourseProfile(){
+      this.div_Element_Id = "2";
+      this.addSyllabusName();
+      this.masterCourseConverter.getMasterCourse(localStorage.getItem(AppConstants.SHAREDPREFERANCE_SCHOOLID), this.selectedCourseArray[0],this);
+      
+      console.log(this.div_Element_Id);
+    }
+
+    showCourseList(){
+      if (this.selectedCourseArray.length > 0) (<HTMLInputElement>document.getElementById(this.selectedCourseArray[0])).checked = false;
+      this.errorMessage = "";
+      this.active = "0";     
+      this.selectedCourseArray = [];
+      this.div_Element_Id='0';
+      this.masterCourseConverter.getAllMasterCourse(localStorage.getItem(AppConstants.SHAREDPREFERANCE_SCHOOLID), this);
+    }
+
+    checkedmasterCourse(value){
+      if ((<HTMLInputElement>document.getElementById(value)).checked === true) {
+        this.selectedCourseArray.push(value);
+      } else if ((<HTMLInputElement>document.getElementById(value)).checked === false) {
+        let indexx = this.selectedCourseArray.indexOf(value);
+        this.selectedCourseArray.splice(indexx, 1)
+      }
+      console.log(this.selectedCourseArray)
+    }
+
+    // updateCourse({value, valid}: { value: MasterCourseTO, valid: boolean }){
+    //   //  var field_name = "";
+    //   //   this.errorMessage = field_name;
+    //   //  // this.active = "0";
+    //   //   if (value.courseName == null || value.courseName == ""){
+    //   //     field_name = field_name + " course Name, ";
+    //   //   }
+    
+    //   //   //alert(value);
+    //   // }
+
+
+      deleteSyllabusName(i: number) {
+        // control refers to your formarray
+        const control = <FormArray>this.courseFormGroup.controls['syllabusList'];
+        // remove the chosen row
+        control.removeAt(i);
+      }
+
+      addSyllabusName() {
+        // control refers to your formarray
+        const control = <FormArray>this.courseFormGroup.controls['syllabusList'];
+        // add new formgroup
+        control.push(this.initsyllabusNames());
+      }
+      
+      clearSyllabusName(){
+        const control = <FormArray>this.courseFormGroup.controls['syllabusList'];        
+        for (var loop = 0; loop < control.length; loop++)
+        this.deleteSyllabusName(loop);
+      }
+    
+    
+      deleteCourse() {
+        for (var loopvar = 0; loopvar < this.selectedCourseArray.length; loopvar++) {
+          console.log(this.selectedCourseArray[loopvar]);
+          this.masterCourseConverter.deleteMasterCourse(localStorage.getItem(AppConstants.SHAREDPREFERANCE_SCHOOLID), this.selectedCourseArray[loopvar], this);
+         // this.masterCourseConverter.deleteMasterCourse(localStorage.getItem(AppConstants.SHAREDPREFERANCE_SCHOOLID), "-L-r3O1-fM__L_tldUGE", this);
+    
+        }
+        this.selectedCourseArray= [];
+        this. showCourseList();
+    
+      }
+
+      rerender(): void {
+        console.log("render call " + this.flag+"   "+this.dtElement);
+       
+         if (!this.flag && this.dtElement != null) {
+          this.flag = true;
+          this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+            console.log("shiva 111" +dtInstance);
+            // Destroy the table first
+            dtInstance.destroy();
+            // Call the dtTrigger to rerender again
+            console.log("shiva 222 "+this.dtTrigger);
+            if(this.dtTrigger!=null)
+              this.dtTrigger.next();
+            else
+              console.log("error as null");
+            this.flag = false;
+          });
+        }
+
+      }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 }
