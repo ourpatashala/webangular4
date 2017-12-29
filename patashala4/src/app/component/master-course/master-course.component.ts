@@ -1,8 +1,11 @@
 import { Component, OnInit,Inject } from '@angular/core';
 import {ViewChild} from '@angular/core';
 import { MasterCourseComponentInterface } from "./MasterCourseComponentInterface";
+import {MasterSyllabusComponentInterface} from "./../master-syllabus/MasterSyllabusComponentInterface";
 import { MasterCourseTO } from "./../../to/MasterCourseTO";
 import { MasterCourseVO } from "./../../vo/MasterCourseVO";
+import {MasterSyllabusTO} from "./../../to/MasterSyllabusTO";
+import {MasterSyllabusVO} from "./../../vo/MasterSyllabusVO";
 import {BehaviorSubject, Observable, Subscription} from "rxjs";
 import { MessageTO } from "./../../to/MessageTO";
 import {Router} from "@angular/router";
@@ -10,14 +13,17 @@ import {AngularFireDatabase, FirebaseListObservable} from 'angularfire2/database
 declare var $:any;
 import {MasterCourseConverter} from "../../adapter/interfaces/MasterCourseConverter";
 import {MasterCourseConverterImpl} from "../../adapter/impl/MasterCourseConverterImpl";
+import {MasterSyllabusConverter} from "../../adapter/interfaces/MasterSyllabusConverter";
+import {MasterSyllabusConverterImpl} from "../../adapter/impl/MasterSyllabusConverterImpl";
 import {inject} from "@angular/core/testing";
 import {Subject} from 'rxjs/Rx';
+declare var $: any;
 import {DataTableDirective} from 'angular-datatables';
 
 import {MasterCourseService} from "../../service/master-course.service";
 import {MasterSyllabusService} from "../../service/master-syllabus.service";
 import {MasterSubjectService} from "../../service/master-subject.service";
-
+import {ChapterTO} from "../../to/ChapterTO";
 import {SyllabusIdNameTO} from "../../to/SyllabusIdNameTO";
 import {FormBuilder, FormControl, FormGroup,FormArray} from "@angular/forms";
 import { AppConstants } from "../../constants/AppConstants";
@@ -26,9 +32,12 @@ import { AppConstants } from "../../constants/AppConstants";
   selector: 'app-master-course',
   templateUrl: './master-course.component.html',
   styleUrls: ['./master-course.component.css'],
-  providers: [ MasterCourseService,MasterSyllabusService,MasterSubjectService, {provide: 'MasterCourseConverter', useClass: MasterCourseConverterImpl}]
+  providers: [ MasterCourseService,MasterSyllabusService,MasterSubjectService, {provide: 'MasterCourseConverter', useClass: MasterCourseConverterImpl},{
+    provide: 'MasterSyllabusConverter',
+    useClass: MasterSyllabusConverterImpl
+  }]
 })
-export class MasterCourseComponent implements OnInit {
+export class MasterCourseComponent implements OnInit, MasterCourseComponentInterface{
 
   courseFormGroup:FormGroup;
   errorMessage: string;
@@ -36,10 +45,12 @@ export class MasterCourseComponent implements OnInit {
   masterCourseTOList: FirebaseListObservable<MasterCourseTO>;
   fb: FormBuilder;
   SyllabusIdNameTO: FirebaseListObservable<MasterCourseTO>;
-
+  masterSyllabusTO:MasterSyllabusTO;
   div_Element_Id: string = '0';//for multiple pages in school list page;; 0 to show list of school , 1 to show add school, 2 to show edit school, 3 to show single school view.
   selectedCourseArray: Array<any> = [];
+  selectedSyllabusArray: Array<any> = [];
   masterCourseTO : MasterCourseTO; 
+  masterSyllabusTOList: FirebaseListObservable<MasterSyllabusTO>;
   active: string = "0";// for error and success divs;;  0 for no content, 1 for success, 2 for error
   subjectindexcount: number =0;
 //  updateSubject: BehaviorSubject<string> = new BehaviorSubject<string>(""); // Holds the error message
@@ -50,12 +61,14 @@ export class MasterCourseComponent implements OnInit {
   dtOptions: DataTables.Settings = {};
   dtTrigger: Subject<any> = new Subject();
   flag: boolean = false;
- // update$: Observable<string> = this.updateSubject.asObservable(); // observer for the above message
-  
+ //update$: Observable<string> = this.updateCourse.asObservable(); // observer for the above message
+ chaptersList:FirebaseListObservable<ChapterTO>;
+ 
 
-
-  constructor(@Inject('MasterCourseConverter') private masterCourseConverter: MasterCourseConverter,fb: FormBuilder, private router: Router) {
+  constructor(@Inject('MasterCourseConverter') private masterCourseConverter: MasterCourseConverter,@Inject('MasterSyllabusConverter') private masterSyllabusConverter: MasterSyllabusConverter,fb: FormBuilder, private router: Router) {
     this.masterCourseConverter.getAllMasterCourse (localStorage.getItem(AppConstants.SHAREDPREFERANCE_SCHOOLID), this);
+    this.masterSyllabusConverter.getAllMasterSyllabus(localStorage.getItem(AppConstants.SHAREDPREFERANCE_SCHOOLID), this);
+    
      if(localStorage.getItem(AppConstants.SHAREDPREFERANCE_SCHOOLID) == null){
       this.router.navigate(['/']);
      }  
@@ -117,6 +130,47 @@ ngAfterViewInit(): void {
     
 
   }
+  displayAllMasterSyllabusCallBack(masterSyllabusTOList: FirebaseListObservable<MasterSyllabusTO>) {
+    
+        console.log("displayAllMasterSyllabusCallBack ==> " + masterSyllabusTOList);
+    
+        this.masterSyllabusTOList = masterSyllabusTOList;
+    
+        masterSyllabusTOList.forEach(obj => {
+          console.log(obj.syllabusName + ' ' + obj.subjectId);
+          // this.masterSyllabusTO=obj;
+          
+        });
+        this.rerender();
+      }
+      displayMasterSyllabusCallBack(masterSyllabusTO: MasterSyllabusTO) {
+        
+            console.log("displayMasterSyllabusCallBack ###==> " + masterSyllabusTO.syllabusName + masterSyllabusTO.subjectName);
+        
+           this.masterSyllabusTO=masterSyllabusTO;
+        
+            // this.syllabusFormGroup.controls['syllabusName'].patchValue(masterSyllabusTO.syllabusName);
+            // this.syllabusFormGroup.controls['subjectName'].patchValue(masterSyllabusTO.subjectName);
+            // this.syllabusFormGroup.controls['subjectId'].patchValue(masterSyllabusTO.subjectId);
+           
+          }
+          displayAllChaptersCallBack(chapters: FirebaseListObservable<ChapterTO>) {
+            
+                console.log("displayAllChaptersCallBack ==> " + chapters);
+                this.chaptersList= chapters;
+            
+               // this.syllabusFormGroup.controls['chapterList'].patchValue(chapters);
+                 
+            
+                chapters.forEach(obj => {
+                  console.log(obj.chapterId + ' ' + obj.chapterName + ' ' + obj.serialNo +''+obj.completion);
+                  // this.chaptersList=obj;
+                });
+              }
+
+
+
+
 
   successMessageCallBack(messageTO:MessageTO) {
     console.log("successMessageCallBack ==>" + messageTO.messageInfo+"  "+ messageTO.messageType+"  "+messageTO.serviceClassName+"  "+messageTO.serviceMethodName);
@@ -166,7 +220,7 @@ ngAfterViewInit(): void {
   
   }
   updateMessage(message: string) { // updates the error message
-   // this.updateCourse.next(message);
+    //this.updateCourse.next(message);
   }
 
   testAdd(){
@@ -244,35 +298,47 @@ ngAfterViewInit(): void {
     this.masterCourseConverter.deleteMasterCourse("-KwebjvSellhXyBRZbjo", "-L-r3O1-fM__L_tldUGE", this);
 
   }
+
   show_addCourseFields(){
     this.div_Element_Id = "1";
     this.courseFormGroup.controls['courseName'].patchValue('');
+    // this.courseFormGroup.controls['syllabusList'].patchValue('');//this.initsyllabusNames());
     this.courseFormGroup.controls['courseId'].patchValue(this.subjectindexcount+1);
-    this.courseFormGroup.controls['uniqueId'].patchValue('');
-    this.clearSyllabusName();
-    this.addSyllabusName();
+    // this.courseFormGroup.controls['uniqueId'].patchValue('');
+   this.clearSyllabusList();
+   // this.clearSyllabusName();
+    // this.addSyllabusName();
 	  console.log(this.div_Element_Id);
 
   }
-  addCourseSubmit({value, valid}: { value: MasterCourseTO, valid: boolean })
+ 
+  public selectedsyllabus: string;
+  
+  oncourseChange(val){
+    this.selectedsyllabus= val;
+  }
+
+
+
+
+  addCourseSubmit({value, valid})
   
     {
         var syllabusList = new Array <SyllabusIdNameTO> ( );
         var masterCourseTO = new MasterCourseTO();
-          var syllabus1 = new SyllabusIdNameTO();
+         // var syllabus1 = new SyllabusIdNameTO();
           masterCourseTO.courseName=value.courseName;
+         // masterCourseTO.syllabusName= this.selectedsyllabus;
   
   
-  
-        if (value.syllabusList != null) {
-          for (var loopvar = 0; loopvar < value.syllabusList.length; loopvar++) {
-            var syllabus2 = new SyllabusIdNameTO();
-            syllabus2.syllabusName = value.syllabusList[loopvar].syllabusName;
-            syllabus2.syllabusId = syllabus2.syllabusName.toLowerCase();
-            syllabusList.push(syllabus2)
-          }
-        }
-        masterCourseTO.syllabusList = syllabusList
+         for( var loopvar=0;loopvar<this.selectedSyllabusArray.length;loopvar++)
+         {
+           
+          masterCourseTO.syllabusList=this.selectedSyllabusArray;
+         }
+       console.log(masterCourseTO.syllabusList);
+       // selectedSyllabusArray
+       // masterCourseTO.syllabusList = syllabusList
         this.masterCourseConverter.addMasterCourse(localStorage.getItem(AppConstants.SHAREDPREFERANCE_SCHOOLID),masterCourseTO,this);
   
     }
@@ -281,7 +347,6 @@ ngAfterViewInit(): void {
       this.div_Element_Id = "2";
       this.addSyllabusName();
       this.masterCourseConverter.getMasterCourse(localStorage.getItem(AppConstants.SHAREDPREFERANCE_SCHOOLID), this.selectedCourseArray[0],this);
-      
       console.log(this.div_Element_Id);
     }
 
@@ -304,6 +369,20 @@ ngAfterViewInit(): void {
       console.log(this.selectedCourseArray)
     }
 
+
+    
+  checkedMastersyllabus(value) {
+    console.log(value);
+    if ((<HTMLInputElement>document.getElementById(value)).checked === true) {
+      this.selectedSyllabusArray.push(value);
+    } else if ((<HTMLInputElement>document.getElementById(value)).checked === false) {
+      let indexx = this.selectedSyllabusArray.indexOf(value);
+      this.selectedSyllabusArray.splice(indexx, 1)
+    }
+    console.log(this.selectedSyllabusArray);
+  
+  }
+
     // updateCourse({value, valid}: { value: MasterCourseTO, valid: boolean }){
     //   //  var field_name = "";
     //   //   this.errorMessage = field_name;
@@ -316,7 +395,7 @@ ngAfterViewInit(): void {
     //   // }
 
 
-      deleteSyllabusName(i: number) {
+      deleteSyllabusList(i: number) {
         // control refers to your formarray
         const control = <FormArray>this.courseFormGroup.controls['syllabusList'];
         // remove the chosen row
@@ -330,10 +409,10 @@ ngAfterViewInit(): void {
         control.push(this.initsyllabusNames());
       }
       
-      clearSyllabusName(){
+      clearSyllabusList(){
         const control = <FormArray>this.courseFormGroup.controls['syllabusList'];        
         for (var loop = 0; loop < control.length; loop++)
-        this.deleteSyllabusName(loop);
+        control.removeAt(loop);
       }
     
     

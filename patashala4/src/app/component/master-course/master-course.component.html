@@ -59,11 +59,6 @@
           <!-- <div class="sucess_msg_text"><p [ngClass]="{'show_styles_sucess': active=='1'}">{{sucessMessage}}</p></div> -->
           <div class="error_msg_text"><p [ngClass]="{'error_styles_sucess': active=='2'}">{{errorMessage}}</p></div> 
 
-
-
-
-
-
    <div class="add_fields addschool_div" [ngClass]="{'inactive_div': div_Element_Id !='1'}">
        <div class="col-md-3"></div>
 	  <form [formGroup]="courseFormGroup" (ngSubmit)="addCourseSubmit(courseFormGroup)"> 
@@ -75,17 +70,8 @@
         <div class="clear"></div>
         
         <div class="col-md-4 text-right">Syllabus Name</div>
-        <div class="col-md-8 plus_btn_inline">
-                <i class="fa fa-plus" (click)="addSyllabusName()"></i>
-                <div formArrayName="syllabusList">
-                    <div *ngFor="let itemrow of courseFormGroup.controls.syllabusList.controls; let i=index"  [formGroupName]="i" class="dlt_btn_inline">
-                        <div class="form-group">
-                            <input formControlName="syllabusName" value="" class="form-control" maxlength="10">
-                        </div>
-                        <i *ngIf="courseFormGroup.controls.syllabusList.controls.length > 1" (click)="deleteSyllabusName(i)" class="fa fa-trash"></i>
-                    </div>
-                </div>
-                <!-- <table>
+        <div class="col-md-8 plus_btn_inline">      
+                <table>
                   <thead>
                   <tr>
                       <th></th>
@@ -94,23 +80,13 @@
                   </tr>
               </thead>
               <tbody>
-                  <tr>
-                      <td><input type="checkbox"></td>
-                      <td>1</td>
-                      <td>Maths - Inter 1st Year</td>
-                  </tr>
-                   <tr>
-                      <td><input type="checkbox"></td>
-                      <td>1</td>
-                      <td>Physics - Inter 1st Year</td>
-                  </tr>
-                    <tr>
-                      <td><input type="checkbox"></td>
-                      <td>1</td>
-                      <td>Chemistry - Inter 1st Year</td>
-                  </tr>
+                  <tr *ngFor="let current of masterSyllabusTOList; let i=index;">
+                      <td><input type="checkbox" id="{{current.syllabusId}}" value="{{current.syllabusId}}"  (change)="checkedMastersyllabus(current.syllabusId)"  ></td>
+                      <td>{{i+1}}</td>
+                      <td>{{current.syllabusName}}</td>
+                  </tr>                  
                   </tbody>
-              </table> -->
+              </table> 
         </div>
         <div class="clear"></div>
                
@@ -138,16 +114,13 @@
         <div class="clear"></div>
         <div class="col-md-4"><p>Syllabus Name</p></div>
         <div class="col-md-8">
-            <i class="fa fa-plus" (click)="addSyllabusName()"></i>
-            <div formArrayName="syllabusList">
-                <div *ngFor="let itemrow of courseFormGroup.controls.syllabusList.controls; let i=index"  [formGroupName]="i" class="dlt_btn_inline">
-                    <div class="form-group">
-                        <input formControlName="syllabusName" value="" class="form-control" maxlength="10">
-                    </div>
-                    <i *ngIf="courseFormGroup.controls.syllabusList.controls.length > 1" (click)="deleteSyllabusName(i)" class="fa fa-trash"></i>
-                </div>
-            </div>
-            <!-- <table>
+                <!-- <select (change)="oncourseChange($event.target.value)">
+                        <option [value]="0" selected disabled> select your syllabusname</option>
+                        <option *ngFor="let currentvalue of masterSyllabusTOList"  [value]='currentData.syllabusName'>
+                        {{currentvalue.syllabusName}}
+                        </option>
+                </select> -->           
+             <table>
                 <thead>
                 <tr>
                     <th></th>
@@ -161,18 +134,8 @@
                     <td>1</td>
                     <td>Maths - Inter 1st Year</td>
                 </tr>
-                 <tr>
-                    <td><input type="checkbox"></td>
-                    <td>1</td>
-                    <td>Physics - Inter 1st Year</td>
-                </tr>
-                  <tr>
-                    <td><input type="checkbox"></td>
-                    <td>1</td>
-                    <td>Chemistry - Inter 1st Year</td>
-                </tr>
-                </tbody>
-            </table> -->
+            </tbody>
+            </table> 
 
         </div><div class="clear"></div>
         <div class="little_gap"></div>
