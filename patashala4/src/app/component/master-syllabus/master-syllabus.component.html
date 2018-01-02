@@ -166,7 +166,14 @@
 
         <div class="col-md-4 text-right"><b>Subject Name</b></div>
         <div class="col-md-8 plus_btn_inline">
-                <input type="hidden" formControlName="subjectName"> {{masterSyllabusTO.subjectName}}
+            <input type="hidden" formControlName="subjectName"> 
+                <select (change)="onsubjectChange($event.target.value)">
+                    <!-- <option [value]="0" selected> 
+                         {{masterSyllabusTO.subjectName}}</option> -->
+                    <option *ngFor="let currentData of masterSubjectTOList"  [value]="currentData.subjectName"  [selected]="currentData.subjectName == masterSyllabusTO.subjectName">
+                    {{currentData.subjectName}}
+                    </option>
+            </select>
         </div> 
         <div class="col-md-12 "><span class="cancel_btn_add button_type_span pull-right" (click)="addchapterlist()"> <i class="fa fa-plus"></i> Add</span></div>     
         <div class="clear"></div>
