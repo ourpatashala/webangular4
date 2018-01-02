@@ -63,6 +63,8 @@ export class MasterCourseConverterImpl extends CommonConverter implements Master
    * @param masterCourseComponentInterface
    */
   addMasterCourse(schoolId: string, masterCourseTO: MasterCourseTO, masterCourseComponentInterface: MasterCourseComponentInterface) {
+    console.log("add to master service"  +   masterCourseTO.syllabusList);
+   
     try {
 
       this.masterCourseService.addMasterCourse(schoolId, this.getVOFromTO(masterCourseTO), masterCourseComponentInterface);

@@ -27,6 +27,7 @@ import {ChapterTO} from "../../to/ChapterTO";
 import {SyllabusIdNameTO} from "../../to/SyllabusIdNameTO";
 import {FormBuilder, FormControl, FormGroup,FormArray} from "@angular/forms";
 import { AppConstants } from "../../constants/AppConstants";
+// import { lookup } from 'dns';
 
 @Component({
   selector: 'app-master-course',
@@ -48,7 +49,7 @@ export class MasterCourseComponent implements OnInit, MasterCourseComponentInter
   masterSyllabusTO:MasterSyllabusTO;
   div_Element_Id: string = '0';//for multiple pages in school list page;; 0 to show list of school , 1 to show add school, 2 to show edit school, 3 to show single school view.
   selectedCourseArray: Array<any> = [];
-  selectedSyllabusArray: Array<any> = [];
+  selectedSyllabusArray: Array<any> = []; //FirebaseListObservable<MasterSyllabusTO>;
   masterCourseTO : MasterCourseTO; 
   masterSyllabusTOList: FirebaseListObservable<MasterSyllabusTO>;
   active: string = "0";// for error and success divs;;  0 for no content, 1 for success, 2 for error
@@ -88,7 +89,9 @@ export class MasterCourseComponent implements OnInit, MasterCourseComponentInter
 initsyllabusNames() {
   return this.fb.group({
     // list all your form controls here, which belongs to your form array
-    syllabusName: ['']
+    syllabusName: [''],
+    syllabusId: [''],
+    uniqueId: ['']
   });
 }
 ngAfterViewInit(): void {
@@ -100,7 +103,6 @@ ngAfterViewInit(): void {
 
     console.log("displayMasterCourseCallBack ==> "+ masterCourseTO.courseName + " " + masterCourseTO.courseId);
    this.masterCourseTO=masterCourseTO;
-
     this.courseFormGroup.controls['courseName'].patchValue(masterCourseTO.courseName);
     this.courseFormGroup.controls['courseId'].patchValue(masterCourseTO.courseId);
     //this.courseFormGroup.controls['uniqueId'].patchValue(masterCourseTO.uniqueId);
@@ -137,7 +139,7 @@ ngAfterViewInit(): void {
         this.masterSyllabusTOList = masterSyllabusTOList;
     
         masterSyllabusTOList.forEach(obj => {
-          console.log(obj.syllabusName + ' ' + obj.subjectId);
+          console.log(obj.syllabusName + ' ' + obj.syllabusId);
           // this.masterSyllabusTO=obj;
           
         });
@@ -148,6 +150,7 @@ ngAfterViewInit(): void {
             console.log("displayMasterSyllabusCallBack ###==> " + masterSyllabusTO.syllabusName + masterSyllabusTO.subjectName);
         
            this.masterSyllabusTO=masterSyllabusTO;
+          
         
             // this.syllabusFormGroup.controls['syllabusName'].patchValue(masterSyllabusTO.syllabusName);
             // this.syllabusFormGroup.controls['subjectName'].patchValue(masterSyllabusTO.subjectName);
@@ -157,11 +160,9 @@ ngAfterViewInit(): void {
           displayAllChaptersCallBack(chapters: FirebaseListObservable<ChapterTO>) {
             
                 console.log("displayAllChaptersCallBack ==> " + chapters);
-                this.chaptersList= chapters;
-            
+                this.chaptersList= chapters;            
                // this.syllabusFormGroup.controls['chapterList'].patchValue(chapters);
-                 
-            
+                             
                 chapters.forEach(obj => {
                   console.log(obj.chapterId + ' ' + obj.chapterName + ' ' + obj.serialNo +''+obj.completion);
                   // this.chaptersList=obj;
@@ -247,7 +248,7 @@ ngAfterViewInit(): void {
     masterCourseTO.syllabusList = syllabusList
 
 
-    this.masterCourseConverter.addMasterCourse("-KwebjvSellhXyBRZbjo",masterCourseTO,this);
+    this.masterCourseConverter.addMasterCourse(localStorage.getItem(AppConstants.SHAREDPREFERANCE_SCHOOLID),masterCourseTO,this);
 
   }
 
@@ -277,25 +278,25 @@ ngAfterViewInit(): void {
 
 
 
-    this.masterCourseConverter.updateMasterCourse("-KwebjvSellhXyBRZbjo","-L055eRXjeZ09DvqdyXe", masterCourseTO,this);
+    this.masterCourseConverter.updateMasterCourse(localStorage.getItem(AppConstants.SHAREDPREFERANCE_SCHOOLID),"-L055eRXjeZ09DvqdyXe", masterCourseTO,this);
 
   }
 
   testGet(){
 
-    this.masterCourseConverter.getMasterCourse("-KwebjvSellhXyBRZbjo","-L050YFABwj4eciWWkv2", this);
+    this.masterCourseConverter.getMasterCourse(localStorage.getItem(AppConstants.SHAREDPREFERANCE_SCHOOLID),"-L050YFABwj4eciWWkv2", this);
 
   }
 
   testGetAll(){
 
-    this.masterCourseConverter.getAllMasterCourse ("-KwebjvSellhXyBRZbjo", this);
+    this.masterCourseConverter.getAllMasterCourse (localStorage.getItem(AppConstants.SHAREDPREFERANCE_SCHOOLID), this);
 
   }
 
   testDelete(){
 
-    this.masterCourseConverter.deleteMasterCourse("-KwebjvSellhXyBRZbjo", "-L-r3O1-fM__L_tldUGE", this);
+    this.masterCourseConverter.deleteMasterCourse(localStorage.getItem(AppConstants.SHAREDPREFERANCE_SCHOOLID), "-L-r3O1-fM__L_tldUGE", this);
 
   }
 
@@ -311,78 +312,80 @@ ngAfterViewInit(): void {
 	  console.log(this.div_Element_Id);
 
   }
+
  
-  public selectedsyllabus: string;
+ 
+  // public selectedsyllabus: string;
   
-  oncourseChange(val){
-    this.selectedsyllabus= val;
-  }
+  // oncourseChange(val){
+  //   this.selectedsyllabus= val;
+  // }
 
 
 
 
-  addCourseSubmit({value, valid})
-  
-    {
+  addCourseSubmit({value, valid}){
         var syllabusList = new Array <SyllabusIdNameTO> ( );
-        var masterCourseTO = new MasterCourseTO();
-         // var syllabus1 = new SyllabusIdNameTO();
+        var masterCourseTO = new MasterCourseTO();  
+          masterCourseTO.courseId=value.courseId;
           masterCourseTO.courseName=value.courseName;
-         // masterCourseTO.syllabusName= this.selectedsyllabus;
+      //    for(var loopvar=0; loopvar<this.selectedSyllabusArray.length; loopvar++){
+         
+      //      masterCourseTO.syllabusList[loopvar]=this.selectedSyllabusArray[loopvar];
+          
+      //    } 
+        
+        masterCourseTO.syllabusList=this.selectedSyllabusArray;
   
-  
-         for( var loopvar=0;loopvar<this.selectedSyllabusArray.length;loopvar++)
-         {
-           
-          masterCourseTO.syllabusList=this.selectedSyllabusArray;
-         }
-       console.log(masterCourseTO.syllabusList);
-       // selectedSyllabusArray
-       // masterCourseTO.syllabusList = syllabusList
+         
+      //  console.log(masterCourseTO.syllabusList);
+        console.log("add course values" + this.selectedSyllabusArray.length);
+      //  // selectedSyllabusArray     
         this.masterCourseConverter.addMasterCourse(localStorage.getItem(AppConstants.SHAREDPREFERANCE_SCHOOLID),masterCourseTO,this);
   
     }
     
-    getselectedCourseProfile(){
-      this.div_Element_Id = "2";
-      this.addSyllabusName();
-      this.masterCourseConverter.getMasterCourse(localStorage.getItem(AppConstants.SHAREDPREFERANCE_SCHOOLID), this.selectedCourseArray[0],this);
-      console.log(this.div_Element_Id);
-    }
-
-    showCourseList(){
-      if (this.selectedCourseArray.length > 0) (<HTMLInputElement>document.getElementById(this.selectedCourseArray[0])).checked = false;
-      this.errorMessage = "";
-      this.active = "0";     
-      this.selectedCourseArray = [];
-      this.div_Element_Id='0';
-      this.masterCourseConverter.getAllMasterCourse(localStorage.getItem(AppConstants.SHAREDPREFERANCE_SCHOOLID), this);
-    }
-
-    checkedmasterCourse(value){
-      if ((<HTMLInputElement>document.getElementById(value)).checked === true) {
-        this.selectedCourseArray.push(value);
-      } else if ((<HTMLInputElement>document.getElementById(value)).checked === false) {
-        let indexx = this.selectedCourseArray.indexOf(value);
-        this.selectedCourseArray.splice(indexx, 1)
+      getselectedCourseProfile(){
+        this.div_Element_Id = "2";
+        this.addSyllabusName();
+        this.masterCourseConverter.getMasterCourse(localStorage.getItem(AppConstants.SHAREDPREFERANCE_SCHOOLID), this.selectedCourseArray[0],this);
+        console.log(this.div_Element_Id);
       }
-      console.log(this.selectedCourseArray)
-    }
 
+      showCourseList(){
+        if (this.selectedCourseArray.length > 0) (<HTMLInputElement>document.getElementById(this.selectedCourseArray[0])).checked = false;
+        this.errorMessage = "";
+        this.active = "0";     
+        this.selectedCourseArray = [];
+        this.div_Element_Id='0';
+        this.masterCourseConverter.getAllMasterCourse(localStorage.getItem(AppConstants.SHAREDPREFERANCE_SCHOOLID), this);
+      }
+
+      checkedmasterCourse(value){
+        if ((<HTMLInputElement>document.getElementById(value)).checked === true) {
+          this.selectedCourseArray.push(value);
+        } else if ((<HTMLInputElement>document.getElementById(value)).checked === false) {
+          let indexx = this.selectedCourseArray.indexOf(value);
+          this.selectedCourseArray.splice(indexx, 1)
+        }
+        console.log(this.selectedCourseArray)
+      }
+
+      checkedMastersyllabus(value) {
+        console.log(value);
+        if ((<HTMLInputElement>document.getElementById(value)).checked === true) {
+          this.selectedSyllabusArray.push(value);
+        } else if ((<HTMLInputElement>document.getElementById(value)).checked === false) {
+          let indexx = this.selectedSyllabusArray.indexOf(value);
+          this.selectedSyllabusArray.splice(indexx, 1)
+        }
+        console.log(this.selectedSyllabusArray);
+      
+      }
 
     
-  checkedMastersyllabus(value) {
-    console.log(value);
-    if ((<HTMLInputElement>document.getElementById(value)).checked === true) {
-      this.selectedSyllabusArray.push(value);
-    } else if ((<HTMLInputElement>document.getElementById(value)).checked === false) {
-      let indexx = this.selectedSyllabusArray.indexOf(value);
-      this.selectedSyllabusArray.splice(indexx, 1)
-    }
-    console.log(this.selectedSyllabusArray);
+ 
   
-  }
-
     // updateCourse({value, valid}: { value: MasterCourseTO, valid: boolean }){
     //   //  var field_name = "";
     //   //   this.errorMessage = field_name;
@@ -450,6 +453,10 @@ ngAfterViewInit(): void {
       }
 
 
+      viewSingleCourseProfile(){
+        this.div_Element_Id="3";
+        this.masterCourseConverter.getMasterCourse(localStorage.getItem(AppConstants.SHAREDPREFERANCE_SCHOOLID), this.selectedCourseArray[0],this);
+      }
 
 
 

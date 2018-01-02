@@ -51,7 +51,8 @@
 		    <button class="add_more_btn" (click)="show_addCourseFields()" [ngClass]="{'disable_btn': selectedCourseArray.length!='0'}"><i class="fa fa-plus"></i> Add</button>
         <button class="edit_field_btn" (click)="getselectedCourseProfile()" [ngClass]="{'disable_btn': selectedCourseArray.length!='1'}"><i class="fa fa-pencil"></i> Modify</button>
         <button (click)="deleteCourse()" [ngClass]="{'disable_btn': selectedCourseArray.length==0 || selectedCourseArray.length>1}"><i class="fa fa-trash"></i> Delete</button>
-                
+        <button (click)="viewSingleCourseProfile()" [ngClass]="{'disable_btn': selectedCourseArray.length!='1'}"><i class="fa fa-eye"></i> View</button>        
+        
             </div>
         </div>
         <div class="little_gap"></div>
@@ -81,7 +82,7 @@
               </thead>
               <tbody>
                   <tr *ngFor="let current of masterSyllabusTOList; let i=index;">
-                      <td><input type="checkbox" id="{{current.syllabusId}}" value="{{current.syllabusId}}"  (change)="checkedMastersyllabus(current.syllabusId)"  ></td>
+                      <td><input type="checkbox" id="{{current.syllabusId}}" value="{{current.syllabusId}}"  (change)="checkedMastersyllabus(current.syllabusId,current.syllabusName,current.uniqueId)"  ></td>
                       <td>{{i+1}}</td>
                       <td>{{current.syllabusName}}</td>
                   </tr>                  
@@ -114,12 +115,6 @@
         <div class="clear"></div>
         <div class="col-md-4"><p>Syllabus Name</p></div>
         <div class="col-md-8">
-                <!-- <select (change)="oncourseChange($event.target.value)">
-                        <option [value]="0" selected disabled> select your syllabusname</option>
-                        <option *ngFor="let currentvalue of masterSyllabusTOList"  [value]='currentData.syllabusName'>
-                        {{currentvalue.syllabusName}}
-                        </option>
-                </select> -->           
              <table>
                 <thead>
                 <tr>
@@ -149,6 +144,64 @@
       <div class="clear"></div>
     </div> 
     <div class="clear"></div>
+
+
+    <div class="singleStudentViewDiv addschool_div" [ngClass]="{'inactive_div': div_Element_Id !='3'}">
+        <div class="text-right">
+            <span class="cancel_btn_modify button_type_span" (click)="showCourseList()">Close</span>
+        </div>    
+    <div class="col-md-4"></div>
+        <div class="col-md-4 padding0">
+            <!-- <p><b>SyllabusName</b> : {{masterSyllabusTO.syllabusName}}</p>
+            <p><b>SubjectName</b> :  {{masterSyllabusTO.subjectName}}</p> -->
+           <!--  <table class="view_syllabus_table">
+                <thead>
+                 <tr>
+                    <th class="text-center">S.No</th>                       
+                    <th class="text-center">SerialNo</th>
+                    <th class="text-center">ChapterName</th>
+                    <th class="text-center">Completion</th>
+                </tr>
+                </thead>
+                <tbody class="text-center">
+                    <tr *ngFor="let x of chaptersList; let i=index;">
+                        <td>{{i+1}}</td>
+                        <td>{{x.serialNo}}</td>                           
+                        <td>{{x.chapterName}}</td>             
+                        <td>{{x.completion}}</td>        
+                    </tr>
+                </tbody>
+            </table> -->
+        </div>
+        <div class="col-md-4"></div>
+         <div class="clear"></div>                
+      
+       <div class="clear"></div>
+     </div> 
+     <div class="clear"></div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 	<div class="datatable_toggle active_tab_div mas_sub " [ngClass]="{'inactive_div': div_Element_Id !='0'}">
         <table datatable [dtOptions]="dtOptions"  [dtTrigger]="dtTrigger" class="my_table_width">
