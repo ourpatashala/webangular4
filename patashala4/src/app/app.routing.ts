@@ -13,9 +13,7 @@ import { SchoolComponent } from './component/school/school.component';
 import { MastersubjectComponent } from './component/mastersubject/mastersubject.component';
 import { MasterSyllabusComponent } from './component/master-syllabus/master-syllabus.component';
 import { MasterCourseComponent } from './component/master-course/master-course.component';
-import { SubjectComponent } from './component/subject/subject.component';
-import { SyllabusComponent } from './component/syllabus/syllabus.component';
-import { CoursesComponent } from './component/courses/courses.component';
+
 
 
 import { LoginComponent } from './component/login/login.component';
@@ -37,9 +35,7 @@ const appRoutes: Routes = [
   { path: 'TabManage',component:TabManageComponent},
   { path: 'Mastercourse',component:MasterCourseComponent},
   { path: 'Mastersubject',component:MastersubjectComponent},
-  { path: 'Mastersyllabus',component:MasterSyllabusComponent},
-  { path: 'Courses',component:CoursesComponent},
-  { path: 'syllabusnew',component:SyllabusComponent}
+  { path: 'Mastersyllabus',component:MasterSyllabusComponent}
 ];
 
 

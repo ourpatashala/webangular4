@@ -12,6 +12,7 @@ import {MasterCourseConverter} from "../interfaces/MasterCourseConverter";
 import {MasterSubjectService} from "../../service/master-subject.service";
 import {ChapterVO} from "../../vo/ChapterVO";
 import {MasterCourseService} from "../../service/master-course.service";
+import {SyllabusIdNameTO} from '../../to/SyllabusIdNameTO'
 
 
 /**
@@ -64,7 +65,7 @@ export class MasterCourseConverterImpl extends CommonConverter implements Master
    */
   addMasterCourse(schoolId: string, masterCourseTO: MasterCourseTO, masterCourseComponentInterface: MasterCourseComponentInterface) {
     console.log("add to master service"  +   masterCourseTO.syllabusList);
-   
+
     try {
 
       this.masterCourseService.addMasterCourse(schoolId, this.getVOFromTO(masterCourseTO), masterCourseComponentInterface);
@@ -87,6 +88,17 @@ export class MasterCourseConverterImpl extends CommonConverter implements Master
     });
   }
 
+
+  getMasterCourseSyllabus(schoolId: string, courseId: string, masterCourseComponentInterface: MasterCourseComponentInterface) {
+
+    var objData: FirebaseListObservable<SyllabusIdNameTO>;
+    var object = this.masterCourseService.getMasterCourseSyllabus(schoolId,courseId);
+    object.subscribe(snapshot => {
+      objData = snapshot;
+      masterCourseComponentInterface.displayAllSyllabusCallBack(objData);
+
+    });
+  }
 
   /**
    * Used for getting the list of all MasterCourse.

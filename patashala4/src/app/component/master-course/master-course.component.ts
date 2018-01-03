@@ -106,7 +106,7 @@ export class MasterCourseComponent implements OnInit, MasterCourseComponentInter
 
     console.log("displayMasterCourseCallBack ==> " + masterCourseTO.courseName + " " + masterCourseTO.courseId + " " + masterCourseTO.syllabusList);
     this.masterCourseTO = masterCourseTO;
-    
+
     this.courseFormGroup.controls['courseName'].patchValue(masterCourseTO.courseName);
     this.courseFormGroup.controls['courseId'].patchValue(masterCourseTO.courseId);
     //this.courseFormGroup.controls['uniqueId'].patchValue(masterCourseTO.uniqueId);
@@ -164,6 +164,17 @@ export class MasterCourseComponent implements OnInit, MasterCourseComponentInter
     // this.syllabusFormGroup.controls['syllabusName'].patchValue(masterSyllabusTO.syllabusName);
     // this.syllabusFormGroup.controls['subjectName'].patchValue(masterSyllabusTO.subjectName);
     // this.syllabusFormGroup.controls['subjectId'].patchValue(masterSyllabusTO.subjectId);
+
+  }
+
+
+  displayAllSyllabusCallBack(syllabusIdNameTOList:FirebaseListObservable<SyllabusIdNameTO>){
+
+    syllabusIdNameTOList.forEach(obj => {
+      console.log(obj.syllabusName + ' ' + obj.syllabusId);
+      // this.masterSyllabusTO=obj;
+
+    });
 
   }
 
@@ -289,7 +300,9 @@ export class MasterCourseComponent implements OnInit, MasterCourseComponentInter
 
   testGet() {
 
-    this.masterCourseConverter.getMasterCourse(localStorage.getItem(AppConstants.SHAREDPREFERANCE_SCHOOLID), "-L1q_0MTSFNkDRIpmo5h", this);
+    this.masterCourseConverter.getMasterCourse(localStorage.getItem(AppConstants.SHAREDPREFERANCE_SCHOOLID), "-L1wMce1WaPeaHCGBVK3", this);
+    this.masterCourseConverter.getMasterCourseSyllabus(localStorage.getItem(AppConstants.SHAREDPREFERANCE_SCHOOLID), "-L1wMce1WaPeaHCGBVK3", this);
+
 
   }
 
@@ -327,12 +340,12 @@ export class MasterCourseComponent implements OnInit, MasterCourseComponentInter
 
 
   addCourseSubmit({value, valid}) {
-   
+
     var masterCourseTO = new MasterCourseTO();
     masterCourseTO.courseId = value.courseId;
-    masterCourseTO.courseName = value.courseName;     
+    masterCourseTO.courseName = value.courseName;
       var syllabusList = new Array<SyllabusIdNameTO>();
-     
+
 
       for(var loopvar=0; loopvar<this.selectedSyllabusnameArray.length; loopvar++){
         var syllabus2 = new SyllabusIdNameTO();
@@ -343,8 +356,8 @@ export class MasterCourseComponent implements OnInit, MasterCourseComponentInter
       masterCourseTO.syllabusList = syllabusList;
 
     console.log("add course values" + masterCourseTO);
-    
-  
+
+
     this.masterCourseConverter.addMasterCourse(localStorage.getItem(AppConstants.SHAREDPREFERANCE_SCHOOLID), masterCourseTO, this);
 
   }

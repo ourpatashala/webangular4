@@ -4,6 +4,7 @@ import { AngularFireAuth } from 'angularfire2/auth';
 import { Observable } from 'rxjs/Observable';
 import * as firebase from 'firebase/app';
 import {CommonInterface} from "../common/CommonInterface";
+import {SyllabusIdNameTO} from '../../to/SyllabusIdNameTO'
 
 
 export interface MasterCourseComponentInterface extends  CommonInterface{
@@ -11,6 +12,10 @@ export interface MasterCourseComponentInterface extends  CommonInterface{
   displayMasterCourseCallBack(masterCourseTO: MasterCourseTO);
 
   displayAllMasterCourseCallBack(masterCourseTO:FirebaseListObservable<MasterCourseTO>);
+
+  displayAllSyllabusCallBack(masterCourseTO:FirebaseListObservable<SyllabusIdNameTO>);
+
+
 
 }
 

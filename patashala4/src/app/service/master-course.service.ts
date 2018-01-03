@@ -155,6 +155,20 @@ export class MasterCourseService {
     return object;
   }
 
+  /**
+   * Get single node
+   * @param schoolId
+   * @param courseId
+   * @returns {FirebaseObjectObservable<any>}
+   */
+  getMasterCourseSyllabus(schoolId: string, courseId: string): FirebaseObjectObservable<any> {
+
+    var path = PathUtil.getMasterCourseSyllabusPathNode(schoolId, courseId);
+    console.log("getMasterCourseSyllabus path ==>"+ path);
+    var object = this.angularFireDatabase.object(path);
+    return object;
+  }
+
 
   /**
    * Get complete list

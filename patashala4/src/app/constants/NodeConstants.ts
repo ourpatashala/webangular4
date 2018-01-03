@@ -32,6 +32,7 @@ export class NodeConstants {
   public static SCHEDULE = "schedule";
   public static SUBJECTS = "subjects";
   public static SYLLABUS = "syllabus";
+  public static SYLLABUSLIST = "syllabusList";
   public static CHAPTERINFO = "chapterInfo";
 
   public static COURSE = "course";

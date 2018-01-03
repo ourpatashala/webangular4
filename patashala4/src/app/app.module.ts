@@ -38,9 +38,7 @@ import { WebcampopupComponent } from './component/popup-screens/webcampopup/webc
 import { MastersubjectComponent } from './component/mastersubject/mastersubject.component';
 import { MasterSyllabusComponent } from './component/master-syllabus/master-syllabus.component';
 import { MasterCourseComponent } from './component/master-course/master-course.component';
-import { SubjectComponent } from './component/subject/subject.component';
-import { SyllabusComponent } from './component/syllabus/syllabus.component';
-import { CoursesComponent } from './component/courses/courses.component';
+
 import { WebCamModule } from 'ack-angular-webcam';
 
 
@@ -67,10 +65,7 @@ export const firebaseConfig = {     apiKey: 'AIzaSyB6WeGfORqOzz5jT_XL6GLMCl8ze
     WebcampopupComponent,
     MastersubjectComponent,
     MasterSyllabusComponent,
-    MasterCourseComponent,
-    SubjectComponent,
-    SyllabusComponent,
-    CoursesComponent
+    MasterCourseComponent
 
   ],
   imports: [
