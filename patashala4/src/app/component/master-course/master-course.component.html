@@ -82,7 +82,7 @@
               </thead>
               <tbody>
                   <tr *ngFor="let current of masterSyllabusTOList; let i=index;">
-                      <td><input type="checkbox" id="{{current.syllabusId}}" value="{{current.syllabusId}}"  (change)="checkedMastersyllabus(current.syllabusId,current.syllabusName,current.uniqueId)"  ></td>
+                      <td><input type="checkbox" id="{{current.syllabusId}}" value="{{current.syllabusId}}"  (change)="checkedMastersyllabus(current.syllabusId,current.syllabusName)"></td>
                       <td>{{i+1}}</td>
                       <td>{{current.syllabusName}}</td>
                   </tr>                  
@@ -110,11 +110,13 @@
       <div class="col-md-6 padding0">
         <div class="col-md-4"><p>Course Name</p></div>
         <div class="col-md-8">
-            <input type="text" formControlName="courseName" placeholder="Enter your course name" >
+            <input type="text" formControlName="courseName" placeholder="Enter your course name">
           </div>
         <div class="clear"></div>
-        <div class="col-md-4"><p>Syllabus Name</p></div>
-        <div class="col-md-8">
+        <div class="col-md-4"><p>Syllabus Name</p>
+        <!-- {{masterCourseTO.syllabusList}} -->
+        </div>
+        <div class="col-md-8">            
              <table>
                 <thead>
                 <tr>
@@ -124,11 +126,11 @@
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td><input type="checkbox"></td>
-                    <td>1</td>
-                    <td>Maths - Inter 1st Year</td>
-                </tr>
+                <!-- <tr *ngFor="let syname of masterCourseTO.syllabusList; let i=index;">
+                    <td><input type="checkbox"  id="{{syname.syllabusId}}" value="{{syname.syllabusId}}"  (change)="checkedMastersyllabus(syname.syllabusId,syname.syllabusName)"></td>
+                    <td>{{i+1}}</td>
+                    <td>{{syname.syllabusList}}</td>
+                </tr> -->
             </tbody>
             </table> 
 

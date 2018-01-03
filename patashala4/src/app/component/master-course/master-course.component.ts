@@ -52,6 +52,8 @@ export class MasterCourseComponent implements OnInit, MasterCourseComponentInter
   div_Element_Id: string = '0';//for multiple pages in school list page;; 0 to show list of school , 1 to show add school, 2 to show edit school, 3 to show single school view.
   selectedCourseArray: Array<any> = [];
   selectedSyllabusArray: Array<any> = []; //FirebaseListObservable<MasterSyllabusTO>;
+  selectedSyllabusnameArray: Array<any> = []; //FirebaseListObservable<MasterSyllabusTO>;
+  selectedSyllabusfullArray: Array<any> = []; //FirebaseListObservable<MasterSyllabusTO>;
   masterCourseTO: MasterCourseTO;
   masterSyllabusTOList: FirebaseListObservable<MasterSyllabusTO>;
   active: string = "0";// for error and success divs;;  0 for no content, 1 for success, 2 for error
@@ -89,7 +91,9 @@ export class MasterCourseComponent implements OnInit, MasterCourseComponentInter
   initsyllabusNames() {
     return this.fb.group({
       // list all your form controls here, which belongs to your form array
-      syllabusName: [''], syllabusId: [''], uniqueId: ['']
+      syllabusName: [''],
+        syllabusId: [''],
+      //   uniqueId: ['']
     });
   }
 
@@ -100,12 +104,15 @@ export class MasterCourseComponent implements OnInit, MasterCourseComponentInter
 
   displayMasterCourseCallBack(masterCourseTO: MasterCourseTO) {
 
-    console.log("displayMasterCourseCallBack ==> " + masterCourseTO.courseName + " " + masterCourseTO.courseId);
+    console.log("displayMasterCourseCallBack ==> " + masterCourseTO.courseName + " " + masterCourseTO.courseId + " " + masterCourseTO.syllabusList);
     this.masterCourseTO = masterCourseTO;
+    
     this.courseFormGroup.controls['courseName'].patchValue(masterCourseTO.courseName);
     this.courseFormGroup.controls['courseId'].patchValue(masterCourseTO.courseId);
     //this.courseFormGroup.controls['uniqueId'].patchValue(masterCourseTO.uniqueId);
     this.courseFormGroup.controls['syllabusList'].patchValue(masterCourseTO.syllabusList);
+    // this.courseFormGroup.controls['syllabusName'].patchValue(masterCourseTO.syllabusList);
+    // this.courseFormGroup.controls['syllabusId'].patchValue(masterCourseTO.syllabusList);
 
 
     for (var iIndex = 0; iIndex < masterCourseTO.syllabusList.length; iIndex++) {
@@ -320,22 +327,24 @@ export class MasterCourseComponent implements OnInit, MasterCourseComponentInter
 
 
   addCourseSubmit({value, valid}) {
-    var syllabusList = new Array<SyllabusIdNameTO>();
+   
     var masterCourseTO = new MasterCourseTO();
     masterCourseTO.courseId = value.courseId;
-    masterCourseTO.courseName = value.courseName;
-    //    for(var loopvar=0; loopvar<this.selectedSyllabusArray.length; loopvar++){
+    masterCourseTO.courseName = value.courseName;     
+      var syllabusList = new Array<SyllabusIdNameTO>();
+     
 
-    //      masterCourseTO.syllabusList[loopvar]=this.selectedSyllabusArray[loopvar];
+      for(var loopvar=0; loopvar<this.selectedSyllabusnameArray.length; loopvar++){
+        var syllabus2 = new SyllabusIdNameTO();
+        syllabus2.syllabusName = this.selectedSyllabusnameArray[loopvar];
+        syllabus2.syllabusId = this.selectedSyllabusArray[loopvar];
+        syllabusList.push(syllabus2);
+      }
+      masterCourseTO.syllabusList = syllabusList;
 
-    //    }
-
-    masterCourseTO.syllabusList = this.selectedSyllabusArray;
-
-
-    //  console.log(masterCourseTO.syllabusList);
-    console.log("add course values" + this.selectedSyllabusArray.length);
-    //  // selectedSyllabusArray
+    console.log("add course values" + masterCourseTO);
+    
+  
     this.masterCourseConverter.addMasterCourse(localStorage.getItem(AppConstants.SHAREDPREFERANCE_SCHOOLID), masterCourseTO, this);
 
   }
@@ -344,7 +353,7 @@ export class MasterCourseComponent implements OnInit, MasterCourseComponentInter
     this.div_Element_Id = "2";
     this.addSyllabusName();
     this.masterCourseConverter.getMasterCourse(localStorage.getItem(AppConstants.SHAREDPREFERANCE_SCHOOLID), this.selectedCourseArray[0], this);
-    console.log(this.div_Element_Id);
+    console.log(    this.masterCourseConverter.getMasterCourse(localStorage.getItem(AppConstants.SHAREDPREFERANCE_SCHOOLID), this.selectedCourseArray[0], this));
   }
 
   showCourseList() {
@@ -366,15 +375,18 @@ export class MasterCourseComponent implements OnInit, MasterCourseComponentInter
     console.log(this.selectedCourseArray)
   }
 
-  checkedMastersyllabus(value) {
+  checkedMastersyllabus(value,val) {
     console.log(value);
     if ((<HTMLInputElement>document.getElementById(value)).checked === true) {
       this.selectedSyllabusArray.push(value);
+      this.selectedSyllabusnameArray.push(val);
     } else if ((<HTMLInputElement>document.getElementById(value)).checked === false) {
       let indexx = this.selectedSyllabusArray.indexOf(value);
       this.selectedSyllabusArray.splice(indexx, 1)
+      this.selectedSyllabusnameArray.splice(indexx, 1)
     }
     console.log(this.selectedSyllabusArray);
+    console.log(this.selectedSyllabusnameArray);
 
   }
 
