@@ -104,7 +104,7 @@ export class MasterCourseComponent implements OnInit, MasterCourseComponentInter
 
   displayMasterCourseCallBack(masterCourseTO: MasterCourseTO) {
 
-    console.log("displayMasterCourseCallBack ==> " + masterCourseTO.courseName + " " + masterCourseTO.courseId + " " + masterCourseTO.syllabusList);
+    console.log("displayMasterCourseCallBack ==> " + masterCourseTO.courseName + " " + masterCourseTO.courseId );
     this.masterCourseTO = masterCourseTO;
 
     this.courseFormGroup.controls['courseName'].patchValue(masterCourseTO.courseName);
@@ -113,12 +113,17 @@ export class MasterCourseComponent implements OnInit, MasterCourseComponentInter
     this.courseFormGroup.controls['syllabusList'].patchValue(masterCourseTO.syllabusList);
     // this.courseFormGroup.controls['syllabusName'].patchValue(masterCourseTO.syllabusList);
     // this.courseFormGroup.controls['syllabusId'].patchValue(masterCourseTO.syllabusList);
-
-
+if(masterCourseTO.syllabusList != null){
+  console.log("displayMasterCourseCallBack ==> " + masterCourseTO.courseName + " " + masterCourseTO.courseId + " " + masterCourseTO.syllabusList);
+  
     for (var iIndex = 0; iIndex < masterCourseTO.syllabusList.length; iIndex++) {
       console.log("syllabus ==> " + masterCourseTO.syllabusList[iIndex].syllabusName);
-    }
+      console.log("syllabus  syllabus id ==> " + masterCourseTO.syllabusList[iIndex].syllabusId);
 
+      this.selectedSyllabusArray.push(masterCourseTO.syllabusList[iIndex].syllabusId);
+      this.selectedSyllabusnameArray.push(masterCourseTO.syllabusList[iIndex].syllabusName);
+    }
+    }
 
   }
 
@@ -321,40 +326,38 @@ export class MasterCourseComponent implements OnInit, MasterCourseComponentInter
   show_addCourseFields() {
     this.div_Element_Id = "1";
     this.courseFormGroup.controls['courseName'].patchValue('');
-    // this.courseFormGroup.controls['syllabusList'].patchValue('');//this.initsyllabusNames());
     this.courseFormGroup.controls['courseId'].patchValue(this.subjectindexcount + 1);
-    // this.courseFormGroup.controls['uniqueId'].patchValue('');
-    this.clearSyllabusList();
-    // this.clearSyllabusName();
-    // this.addSyllabusName();
+    this.selectedSyllabusArray = [];
+    this.selectedSyllabusnameArray= [];
+    this.clearSyllabusList();    
     console.log(this.div_Element_Id);
 
-  }
-
-
-  // public selectedsyllabus: string;
-
-  // oncourseChange(val){
-  //   this.selectedsyllabus= val;
-  // }
+  } 
 
 
   addCourseSubmit({value, valid}) {
-
+    this.active = "0";
     var masterCourseTO = new MasterCourseTO();
+    var syllabusList = new Array<SyllabusIdNameTO>();
+    for(var loopvar=0; loopvar<this.selectedSyllabusnameArray.length; loopvar++){
+      var syllabus2 = new SyllabusIdNameTO();
+      syllabus2.syllabusName = this.selectedSyllabusnameArray[loopvar];
+      syllabus2.syllabusId = this.selectedSyllabusArray[loopvar];
+      syllabusList.push(syllabus2);
+    }
+    if(value.courseName == null || value.courseName == ''){
+      this.errorMessage ="please enter course Name";
+      this.active = "2";
+    }
+    else if(syllabusList == null || syllabusList.length == 0){
+      this.errorMessage="please select syllabus name";
+      this.active="2";
+    }
+    else{
     masterCourseTO.courseId = value.courseId;
-    masterCourseTO.courseName = value.courseName;
-      var syllabusList = new Array<SyllabusIdNameTO>();
-
-
-      for(var loopvar=0; loopvar<this.selectedSyllabusnameArray.length; loopvar++){
-        var syllabus2 = new SyllabusIdNameTO();
-        syllabus2.syllabusName = this.selectedSyllabusnameArray[loopvar];
-        syllabus2.syllabusId = this.selectedSyllabusArray[loopvar];
-        syllabusList.push(syllabus2);
-      }
-      masterCourseTO.syllabusList = syllabusList;
-
+    masterCourseTO.courseName = value.courseName;     
+    masterCourseTO.syllabusList = syllabusList;
+    }
     console.log("add course values" + masterCourseTO);
 
 
@@ -366,14 +369,18 @@ export class MasterCourseComponent implements OnInit, MasterCourseComponentInter
     this.div_Element_Id = "2";
     this.addSyllabusName();
     this.masterCourseConverter.getMasterCourse(localStorage.getItem(AppConstants.SHAREDPREFERANCE_SCHOOLID), this.selectedCourseArray[0], this);
-    console.log(    this.masterCourseConverter.getMasterCourse(localStorage.getItem(AppConstants.SHAREDPREFERANCE_SCHOOLID), this.selectedCourseArray[0], this));
-  }
+    this.masterCourseConverter.getMasterCourseSyllabus(localStorage.getItem(AppConstants.SHAREDPREFERANCE_SCHOOLID), this.selectedSyllabusArray[0], this);   
+    // this.masterCourseConverter.getMasterCourse(localStorage.getItem(AppConstants.SHAREDPREFERANCE_SCHOOLID), this.selectedCourseArray[0], this);
+    console.log(this.selectedSyllabusArray);
+   }
 
   showCourseList() {
     if (this.selectedCourseArray.length > 0) (<HTMLInputElement>document.getElementById(this.selectedCourseArray[0])).checked = false;
     this.errorMessage = "";
     this.active = "0";
     this.selectedCourseArray = [];
+    this.selectedSyllabusArray = [];
+    this.selectedSyllabusnameArray= [];
     this.div_Element_Id = '0';
     this.masterCourseConverter.getAllMasterCourse(localStorage.getItem(AppConstants.SHAREDPREFERANCE_SCHOOLID), this);
   }
@@ -404,16 +411,32 @@ export class MasterCourseComponent implements OnInit, MasterCourseComponentInter
   }
 
 
-  // updateCourse({value, valid}: { value: MasterCourseTO, valid: boolean }){
-  //   //  var field_name = "";
-  //   //   this.errorMessage = field_name;
-  //   //  // this.active = "0";
-  //   //   if (value.courseName == null || value.courseName == ""){
-  //   //     field_name = field_name + " course Name, ";
-  //   //   }
-
-  //   //   //alert(value);
-  //   // }
+  UpdateCourseSubmit({value, valid}){
+    this.active = "0";
+    var masterCourseTO = new MasterCourseTO();    
+      var syllabusList = new Array<SyllabusIdNameTO>();
+      for(var loopvar=0; loopvar<this.selectedSyllabusnameArray.length; loopvar++){
+        var syllabus2 = new SyllabusIdNameTO();
+        syllabus2.syllabusName = this.selectedSyllabusnameArray[loopvar];
+        syllabus2.syllabusId = this.selectedSyllabusArray[loopvar];
+        syllabusList.push(syllabus2);
+      }
+      if(value.courseName == null || value.courseName == ''){
+        this.errorMessage ="please enter course Name";
+        this.active = "2";
+      }
+      else if(syllabusList == null || syllabusList.length == 0){
+        this.errorMessage="please select syllabus name";
+        this.active="2";
+      }
+      else{
+        masterCourseTO.courseId = value.courseId;
+        masterCourseTO.courseName = value.courseName;
+        masterCourseTO.syllabusList = syllabusList;
+      }
+      this.masterCourseConverter.updateMasterCourse(localStorage.getItem(AppConstants.SHAREDPREFERANCE_SCHOOLID),this.selectedCourseArray[0], masterCourseTO, this);
+      
+    }
 
 
   deleteSyllabusList(i: number) {
@@ -471,7 +494,10 @@ export class MasterCourseComponent implements OnInit, MasterCourseComponentInter
 
   viewSingleCourseProfile() {
     this.div_Element_Id = "3";
+    this.selectedSyllabusArray = [];
+    this.selectedSyllabusnameArray= [];
     this.masterCourseConverter.getMasterCourse(localStorage.getItem(AppConstants.SHAREDPREFERANCE_SCHOOLID), this.selectedCourseArray[0], this);
+    
   }
 
 

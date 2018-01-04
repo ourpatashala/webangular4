@@ -72,7 +72,7 @@
         
         <div class="col-md-4 text-right">Syllabus Name</div>
         <div class="col-md-8 plus_btn_inline">      
-                <table>
+                <table class="view_syllabus_table">
                   <thead>
                   <tr>
                       <th></th>
@@ -82,7 +82,7 @@
               </thead>
               <tbody>
                   <tr *ngFor="let current of masterSyllabusTOList; let i=index;">
-                      <td><input type="checkbox" id="{{current.syllabusId}}" value="{{current.syllabusId}}"  (change)="checkedMastersyllabus(current.syllabusId,current.syllabusName)"></td>
+                      <td><input type="checkbox" [checked]="selectedSyllabusArray.indexOf(current.syllabusId) >= 0" id="{{current.syllabusId}}"  value="{{current.syllabusId}}"  (change)="checkedMastersyllabus(current.syllabusId,current.syllabusName)"></td>
                       <td>{{i+1}}</td>
                       <td>{{current.syllabusName}}</td>
                   </tr>                  
@@ -114,10 +114,9 @@
           </div>
         <div class="clear"></div>
         <div class="col-md-4"><p>Syllabus Name</p>
-        <!-- {{masterCourseTO.syllabusList}} -->
         </div>
         <div class="col-md-8">            
-             <table>
+             <table *ngIf="masterCourseTO"  class="view_syllabus_table">
                 <thead>
                 <tr>
                     <th></th>
@@ -125,22 +124,21 @@
                     <th>Syllabus Name</th>
                 </tr>
             </thead>
-            <tbody>
-                <!-- <tr *ngFor="let syname of masterCourseTO.syllabusList; let i=index;">
-                    <td><input type="checkbox"  id="{{syname.syllabusId}}" value="{{syname.syllabusId}}"  (change)="checkedMastersyllabus(syname.syllabusId,syname.syllabusName)"></td>
+            <tbody >                
+                <tr *ngFor="let syname of masterSyllabusTOList; let i=index;">
+                    <td><input type="checkbox" [checked]="selectedSyllabusArray.indexOf(syname.syllabusId) >= 0" id="{{syname.syllabusId}}" value="{{syname.syllabusId}}"  (change)="checkedMastersyllabus(syname.syllabusId,syname.syllabusName)"></td>
                     <td>{{i+1}}</td>
-                    <td>{{syname.syllabusList}}</td>
-                </tr> -->
+                    <td>{{syname.syllabusName}}  </td>
+                </tr> 
             </tbody>
             </table> 
-
         </div><div class="clear"></div>
         <div class="little_gap"></div>
       </div>
       <div class="col-md-3"></div>
       <div class="clear"></div>
       <div class="col-md-12 padding0 text-center">
-          <button class="update_btn">Add Subject</button> <span class="cancel_btn_add button_type_span" (click)="showCourseList()">Cancel</span>     
+          <button class="update_btn">Update Subject</button> <span class="cancel_btn_add button_type_span" (click)="showCourseList()">Cancel</span>     
         </div>
        </form>
       <div class="clear"></div>
@@ -153,27 +151,26 @@
             <span class="cancel_btn_modify button_type_span" (click)="showCourseList()">Close</span>
         </div>    
     <div class="col-md-4"></div>
-        <div class="col-md-4 padding0">
-            <!-- <p><b>SyllabusName</b> : {{masterSyllabusTO.syllabusName}}</p>
-            <p><b>SubjectName</b> :  {{masterSyllabusTO.subjectName}}</p> -->
-           <!--  <table class="view_syllabus_table">
-                <thead>
-                 <tr>
-                    <th class="text-center">S.No</th>                       
-                    <th class="text-center">SerialNo</th>
-                    <th class="text-center">ChapterName</th>
-                    <th class="text-center">Completion</th>
-                </tr>
-                </thead>
-                <tbody class="text-center">
-                    <tr *ngFor="let x of chaptersList; let i=index;">
-                        <td>{{i+1}}</td>
-                        <td>{{x.serialNo}}</td>                           
-                        <td>{{x.chapterName}}</td>             
-                        <td>{{x.completion}}</td>        
+        <div class="col-md-4 padding0" *ngIf="masterCourseTO">
+            <p><b>courseName</b>  {{masterCourseTO.courseName}}</p>
+                   
+           
+            <table class="view_syllabus_table" *ngIf="masterCourseTO">
+                    <thead>
+                    <tr>
+                        <!-- <th></th> -->
+                        <th>S.no</th>
+                        <th>Syllabus Name</th>
                     </tr>
+                </thead>
+                <tbody >                
+                    <tr *ngFor="let viewname of selectedSyllabusnameArray; let i=index;">
+                        <!-- <td><input type="checkbox"></td> -->
+                        <td>{{i+1}}</td>
+                        <td>{{viewname}}  </td>
+                    </tr> 
                 </tbody>
-            </table> -->
+                </table>
         </div>
         <div class="col-md-4"></div>
          <div class="clear"></div>                

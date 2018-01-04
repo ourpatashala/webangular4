@@ -4,3 +4,7 @@
 .mas_sub label{
     font-weight: normal;
 }
+.view_syllabus_table thead{
+	background-color: #4cc4db;
+	color:#fff;
+}
