@@ -26,13 +26,10 @@
     <div class="col-md-6 padding30"><h3>Manage Courses </h3>
         <p class="breadscrum_text"><a  routerLink="/">Home</a> &nbsp; <i class="fa fa-chevron-right"></i> &nbsp;<a  routerLink="/TabManage">Manage</a> &nbsp; <i class="fa fa-chevron-right"></i> &nbsp;<a  routerLink="/Courses">Course</a> &nbsp;<i class="fa fa-chevron-right"></i> &nbsp; Manage Courses</p>
     </div>
-    <!-- <div calss="some_gap"></div> -->
-    
-        
+            
        
 <div class="clear"></div>
 <div class="little_gap"></div> 
-<!-- <div class="large_gap"></div>  -->
 <div class="tabs_S_M">
      <div class="listing_tabs1">
         <ul class="">
@@ -56,32 +53,33 @@
             </div>
         </div>
         <div class="little_gap"></div>
+        <div class="large_gap"></div>
 
           <!-- <div class="sucess_msg_text"><p [ngClass]="{'show_styles_sucess': active=='1'}">{{sucessMessage}}</p></div> -->
           <div class="error_msg_text"><p [ngClass]="{'error_styles_sucess': active=='2'}">{{errorMessage}}</p></div> 
-
+<div *ngIf ="addcourse_condition">
    <div class="add_fields addschool_div" [ngClass]="{'inactive_div': div_Element_Id !='1'}">
        <div class="col-md-3"></div>
 	  <form [formGroup]="courseFormGroup" (ngSubmit)="addCourseSubmit(courseFormGroup)"> 
       <div class="col-md-6 padding0">
-        <div class="col-md-4 text-right"><p>Course Name</p></div>
+        <div class="col-md-4 text-right"><p><b>Course Name</b></p></div>
 		<div class="col-md-8">
             <input type="text" formControlName="courseName" placeholder="Enter your course name" >
         </div>
         <div class="clear"></div>
         
-        <div class="col-md-4 text-right">Syllabus Name</div>
+        <div class="col-md-4 text-right"><b>Syllabus Name</b></div>
         <div class="col-md-8 plus_btn_inline">      
                 <table class="view_syllabus_table">
                   <thead>
                   <tr>
-                      <th></th>
-                      <th>S.no</th>
-                      <th>Syllabus Name</th>
+                      <th class="text-center"></th>
+                      <th class="text-center">S.no</th>
+                      <th class="text-center">Syllabus Name</th>
                   </tr>
               </thead>
               <tbody>
-                  <tr *ngFor="let current of masterSyllabusTOList; let i=index;">
+                  <tr class="text-center" *ngFor="let current of masterSyllabusTOList; let i=index;">
                       <td><input type="checkbox" [checked]="selectedSyllabusArray.indexOf(current.syllabusId) >= 0" id="{{current.syllabusId}}"  value="{{current.syllabusId}}"  (change)="checkedMastersyllabus(current.syllabusId,current.syllabusName)"></td>
                       <td>{{i+1}}</td>
                       <td>{{current.syllabusName}}</td>
@@ -102,37 +100,38 @@
         </form>
       <div class="clear"></div>
     </div> 
+</div>
 
 
-   <div class="modify_fields addschool_div" [ngClass]="{'inactive_div': div_Element_Id !='2'}">
-       <div class="col-md-3"></div>
-       <form [formGroup]="courseFormGroup" (ngSubmit)="UpdateCourseSubmit(courseFormGroup)"> 
+<div class="modify_fields addschool_div" [ngClass]="{'inactive_div': div_Element_Id !='2'}">
+    <div class="col-md-3"></div>
+    <form [formGroup]="courseFormGroup" (ngSubmit)="UpdateCourseSubmit(courseFormGroup)"> 
       <div class="col-md-6 padding0">
-        <div class="col-md-4"><p>Course Name</p></div>
+        <div class="col-md-4 text-right"><p><b>Course Name</b></p></div>
         <div class="col-md-8">
             <input type="text" formControlName="courseName" placeholder="Enter your course name">
-          </div>
-        <div class="clear"></div>
-        <div class="col-md-4"><p>Syllabus Name</p>
         </div>
+        <div class="clear"></div>
+        <div class="col-md-4 text-right"><p><b>Syllabus Name</b></p></div>
         <div class="col-md-8">            
-             <table *ngIf="masterCourseTO"  class="view_syllabus_table">
+            <table *ngIf="masterCourseTO"  class="view_syllabus_table">
                 <thead>
-                <tr>
-                    <th></th>
-                    <th>S.no</th>
-                    <th>Syllabus Name</th>
-                </tr>
-            </thead>
-            <tbody >                
-                <tr *ngFor="let syname of masterSyllabusTOList; let i=index;">
-                    <td><input type="checkbox" [checked]="selectedSyllabusArray.indexOf(syname.syllabusId) >= 0" id="{{syname.syllabusId}}" value="{{syname.syllabusId}}"  (change)="checkedMastersyllabus(syname.syllabusId,syname.syllabusName)"></td>
-                    <td>{{i+1}}</td>
-                    <td>{{syname.syllabusName}}  </td>
-                </tr> 
-            </tbody>
+                    <tr>
+                        <th></th>
+                        <th>S.no</th>
+                        <th>Syllabus Name</th>
+                    </tr>
+                </thead>
+                <tbody>                
+                    <tr *ngFor="let syname of masterSyllabusTOList; let i=index;">
+                        <td><input type="checkbox" [checked]="selectedSyllabusArray.indexOf(syname.syllabusId) >= 0" id="{{syname.syllabusId}}" value="{{syname.syllabusId}}" (change)="checkedMastersyllabus(syname.syllabusId,syname.syllabusName)"></td>
+                        <td>{{i+1}}</td>
+                        <td>{{syname.syllabusName}}  </td>
+                    </tr> 
+                </tbody>
             </table> 
-        </div><div class="clear"></div>
+        </div>
+        <div class="clear"></div>
         <div class="little_gap"></div>
       </div>
       <div class="col-md-3"></div>
@@ -142,30 +141,28 @@
         </div>
        </form>
       <div class="clear"></div>
-    </div> 
+</div> 
     <div class="clear"></div>
 
 
-    <div class="singleStudentViewDiv addschool_div" [ngClass]="{'inactive_div': div_Element_Id !='3'}">
+<div class="singleStudentViewDiv addschool_div" [ngClass]="{'inactive_div': div_Element_Id !='3'}">
         <div class="text-right">
             <span class="cancel_btn_modify button_type_span" (click)="showCourseList()">Close</span>
         </div>    
     <div class="col-md-4"></div>
         <div class="col-md-4 padding0" *ngIf="masterCourseTO">
-            <p><b>courseName</b>  {{masterCourseTO.courseName}}</p>
-                   
-           
-            <table class="view_syllabus_table" *ngIf="masterCourseTO">
+            <p><b>CourseName</b> :    {{masterCourseTO.courseName}}</p> 
+            <div class="little_gap"></div>          
+            <div class="little_gap"></div>          
+            <table class="view_syllabus_table">
                     <thead>
                     <tr>
-                        <!-- <th></th> -->
-                        <th>S.no</th>
-                        <th>Syllabus Name</th>
+                        <th class="text-center">S.no</th>
+                        <th class="text-center">Syllabus Name</th>
                     </tr>
                 </thead>
                 <tbody >                
-                    <tr *ngFor="let viewname of selectedSyllabusnameArray; let i=index;">
-                        <!-- <td><input type="checkbox"></td> -->
+                    <tr  class="text-center" *ngFor="let viewname of selectedSyllabusnameArray; let i=index;">
                         <td>{{i+1}}</td>
                         <td>{{viewname}}  </td>
                     </tr> 
@@ -173,33 +170,9 @@
                 </table>
         </div>
         <div class="col-md-4"></div>
-         <div class="clear"></div>                
-      
-       <div class="clear"></div>
+         <div class="clear"></div>              
      </div> 
      <div class="clear"></div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 	<div class="datatable_toggle active_tab_div mas_sub " [ngClass]="{'inactive_div': div_Element_Id !='0'}">
@@ -208,23 +181,14 @@
                 <tr>
                     <th></th>
                     <th>S.no</th>
-                    <!-- <th>courseId</th> -->
                     <th>Course Name</th>
-                    <!-- <th>Course Subjects</th> -->
                 </tr>
             </thead>
             <tbody>
                 <tr *ngFor="let masterCourse of masterCourseTOList; let i=index;">
                     <td><input type="checkbox" id="{{masterCourse.courseId}}" value="{{masterCourse.courseId}}" (change)="checkedmasterCourse(masterCourse.courseId)"></td>
-				    <td>{{i + 1}}</td>
-                    <!-- <td>{{masterCourse.courseId}}</td> -->
-                    <td>{{masterCourse.courseName}}</td>
-                    <!-- <td>
-                            <div *ngFor="let masterCourse1 of masterCourse.syllabusList ; let i=index ">
-                                    {{masterCourse1.syllabusName}},
-                            </div>
-
-                       </td> -->
+				    <td class="text-center">{{i + 1}}</td>
+                    <td class="text-center">{{masterCourse.courseName}}</td>                   
                 </tr>                 
             </tbody>
         </table>
