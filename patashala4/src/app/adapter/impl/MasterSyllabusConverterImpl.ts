@@ -64,7 +64,7 @@ export class MasterSyllabusConverterImpl extends CommonConverter implements Mast
    */
   addMasterSyllabus(schoolId: string, masterSyllabusTO: MasterSyllabusTO, chaptersList: ChapterVO[], masterSyllabusComponentInterface: MasterSyllabusComponentInterface) {
     try {
-
+      console.log("add impl ressult" + chaptersList.length);
       this.masterSyllabusService.addMasterSyllabus(schoolId, this.getVOFromTO(masterSyllabusTO), chaptersList, masterSyllabusComponentInterface);
 
     } catch (masterSubjectError) {

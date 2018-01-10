@@ -51,9 +51,9 @@ export class MastersubjectComponent implements OnInit, MasterSubjectComponentInt
 
   constructor(@Inject('MasterSubjectConverter') private masterSubjectConverter: MasterSubjectConverter,fb: FormBuilder, private router: Router) {
      this.masterSubjectConverter.getAllMasterSubject(localStorage.getItem(AppConstants.SHAREDPREFERANCE_SCHOOLID), this);
-    //  if(localStorage.getItem(AppConstants.SHAREDPREFERANCE_SCHOOLID) == null){
-    //   this.router.navigate(['/']);
-    //  }      
+     if(localStorage.getItem(AppConstants.SHAREDPREFERANCE_SCHOOLID) == null){
+      this.router.navigate(['/']);
+     }      
      this.fb = fb;  
 }
 

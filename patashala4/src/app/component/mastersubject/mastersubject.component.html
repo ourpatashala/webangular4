@@ -60,13 +60,12 @@
 
 
    <div class="add_fields addschool_div" [ngClass]="{'inactive_div': div_Element_Id !='1'}">
-
        <div class="col-md-3"></div>
 	  <form [formGroup]="subjectFormGroup" (ngSubmit)="addSubjectSubmit(subjectFormGroup)"> 
         <div class="col-md-6 padding0">
-            <div class="col-md-4 text-right">Subject Name</div>
+            <div class="col-md-4 text-right"><b>Subject Name</b></div>
             <div class="col-md-8">
-                <input type="text" formControlName="subjectName" >
+                <input type="text" formControlName="subjectName" placeholder="enter your course name">
                 <input type="hidden" formControlName="uniqueId" >
                 <input type="hidden" formControlName="subjectId" >
             </div>
@@ -88,9 +87,9 @@
        <div class="col-md-3"></div>
        <form [formGroup]="subjectFormGroup" (ngSubmit)="updateSubmit(subjectFormGroup)"> 
       <div class="col-md-6 padding0">
-        <div class="col-md-4"><p>Subject Name</p></div>
+        <div class="col-md-4 text-right"><b>Subject Name</b></div>
         <div class="col-md-8">
-            <input type="text" formControlName="subjectName" placeholder="Inter 1st (MPC)">
+            <input type="text" formControlName="subjectName"  placeholder="enter your course name">
         </div>
             <div class="clear"></div>
         <div class="little_gap"></div>

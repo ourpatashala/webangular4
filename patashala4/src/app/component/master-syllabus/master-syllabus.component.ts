@@ -60,7 +60,7 @@ export class MasterSyllabusComponent implements OnInit, MasterSyllabusComponentI
   active: string = "0";// for error and success divs;;  0 for no content, 1 for success, 2 for error
   subjectindexcount: number = 0;
   updateSyllabus: BehaviorSubject<string> = new BehaviorSubject<string>(""); // Holds the error message
-    update$: Observable<string> = this.updateSyllabus.asObservable(); // observer for the above message
+  update$: Observable<string> = this.updateSyllabus.asObservable(); // observer for the above message
 
   chaptersList:FirebaseListObservable<ChapterTO>;
 
@@ -91,6 +91,14 @@ export class MasterSyllabusComponent implements OnInit, MasterSyllabusComponentI
        chapterId: [''], // chapterName :[''],
       serialNo: [''],
        completion: [''], uniqueId: ['']
+    });
+  }
+  addsyllabusNames(chaptername,chapterid,serialno,completion,uniqueid) {
+    return this.fb.group({
+      chapterName: [chaptername],
+       chapterId: [chapterid], // chapterName :[''],
+      serialNo: [serialno],
+       completion: [completion], uniqueId: [uniqueid]
     });
   }
 
@@ -136,16 +144,21 @@ export class MasterSyllabusComponent implements OnInit, MasterSyllabusComponentI
   }
 
   displayAllChaptersCallBack(chapters: FirebaseListObservable<ChapterTO>) {
-
+    //this.clearchapterlist();
     console.log("displayAllChaptersCallBack ==> " + chapters);
-    this.chaptersList= chapters;
-
+  
     this.syllabusFormGroup.controls['chapterList'].patchValue(chapters);
    
     chapters.forEach(obj => {
       console.log(obj.chapterId + ' ' + obj.chapterName + ' ' + obj.serialNo +''+obj.completion);
       // this.chaptersList=obj;
+	//   this.addchapterlist();  
+	//  this.addchapterlist();
+	 // this.addsyllabusNames(obj.chapterName,obj.chapterId,obj.serialNo,obj.completion,obj.uniqueId) 
     });
+	
+  this.chaptersList= chapters;
+  console.log(this.chaptersList);
   }
   
 
@@ -332,7 +345,9 @@ export class MasterSyllabusComponent implements OnInit, MasterSyllabusComponentI
       chapter2.chapterId =  chapter2.chapterName.toLowerCase();//loopvar+ ""//
       // chapter2.uniqueId = chapter2.uniqueId.toLowerCase();//loopvar+""//
       chapterList.push(chapter2)
+    
     }
+  }
     if(value.syllabusName == null || value.syllabusName == ''){
       this.errorMessage = "please enter syllabus name";
       this.active= "2";
@@ -350,19 +365,14 @@ export class MasterSyllabusComponent implements OnInit, MasterSyllabusComponentI
       masterSyllabusTO.syllabusId = value.syllabusId;
       masterSyllabusTO.syllabusName = value.syllabusName;
       masterSyllabusTO.subjectName = this.selectedsubject;
-     
-    }
-     
       this.masterSyllabusConverter.addMasterSyllabus(localStorage.getItem(AppConstants.SHAREDPREFERANCE_SCHOOLID), masterSyllabusTO, chapterList, this);
-      }
-
-      //ChapterTO.chapterList = chapterList
-     // 
+    }
+    console.log(chapterList);
       console.log(masterSyllabusTO);
       console.log(chapterList.length);
      
-    
   }
+  
 
 
 
@@ -371,11 +381,12 @@ export class MasterSyllabusComponent implements OnInit, MasterSyllabusComponentI
   getselectedSyllabusProfile() {
     // this.syllabusFormGroup.controls['subjectName'].patchValue('');
     this.div_Element_Id = "2";
-    this.masterSyllabusConverter.getMasterSyllabus(localStorage.getItem(AppConstants.SHAREDPREFERANCE_SCHOOLID), this.selectedSyllabusArray[0], this);
+	  this.masterSyllabusConverter.getMasterSyllabus(localStorage.getItem(AppConstants.SHAREDPREFERANCE_SCHOOLID), this.selectedSyllabusArray[0], this);
     this.masterSyllabusConverter.getChapters(localStorage.getItem(AppConstants.SHAREDPREFERANCE_SCHOOLID), this.selectedSyllabusArray[0], this);
    
-    
+    //this.addchapterlist();
      console.log( this.selectedSyllabusArray[0]);
+     console.log( this.chaptersList);
      //this.selectedsubject = "";
   }
 
@@ -408,7 +419,8 @@ export class MasterSyllabusComponent implements OnInit, MasterSyllabusComponentI
     this.active='0';
     this.errorMessage = "";
     this.masterSyllabusConverter.getAllMasterSyllabus(localStorage.getItem(AppConstants.SHAREDPREFERANCE_SCHOOLID), this);
-
+    //this.clearchapterlist();
+   // this.addchapterlist();
   }
 
 
@@ -430,6 +442,7 @@ export class MasterSyllabusComponent implements OnInit, MasterSyllabusComponentI
     this.active="0";
     var masterSyllabusTO = new MasterSyllabusTO();
     var chapterList = new Array<ChapterTO>();
+
     for (var loopvar = 0; loopvar < value.chapterList.length; loopvar++) {
       if(value.chapterList[loopvar].chapterName!= '' && value.chapterList[loopvar].completion !='')
       {
@@ -440,7 +453,9 @@ export class MasterSyllabusComponent implements OnInit, MasterSyllabusComponentI
       chapter2.chapterId = loopvar + ""; //chapter2.chapterId.toLowerCase();
       chapter2.uniqueId = loopvar + "";//chapter2.uniqueId.toLowerCase();
       chapterList.push(chapter2)
+      console.log(chapterList);
     }
+  }
      if(value.syllabusName == null || value.syllabusName == ''){
         this.errorMessage = "please enter syllabus name";
         this.active= "2";
@@ -462,7 +477,7 @@ else{
     
     
     }
-  }
+  
  
   }
  

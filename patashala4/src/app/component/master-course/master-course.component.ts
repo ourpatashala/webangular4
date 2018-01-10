@@ -59,7 +59,7 @@ export class MasterCourseComponent implements OnInit, MasterCourseComponentInter
   masterSyllabusTOList: FirebaseListObservable<MasterSyllabusTO>;
   active: string = "0";// for error and success divs;;  0 for no content, 1 for success, 2 for error
   subjectindexcount: number = 0;
-//  updateSubject: BehaviorSubject<string> = new BehaviorSubject<string>(""); // Holds the error message
+ updateCourse: BehaviorSubject<string> = new BehaviorSubject<string>(""); // Holds the error message
   popupstatus: string = "0"; //0 for default close //1 for close and show listing
   showupload: string = "0"; //0 for default close //1 for close and show listing
   @ViewChild(DataTableDirective) dtElement: DataTableDirective;
@@ -67,7 +67,7 @@ export class MasterCourseComponent implements OnInit, MasterCourseComponentInter
   dtTrigger: Subject<any> = new Subject();
   flag: boolean = false;
   addcourse_condition: boolean = false;
-  //update$: Observable<string> = this.updateCourse.asObservable(); // observer for the above message
+  update$: Observable<string> = this.updateCourse.asObservable(); // observer for the above message
   chaptersList: FirebaseListObservable<ChapterTO>;
 
 
@@ -222,7 +222,7 @@ if(masterCourseTO.syllabusList != null){
   }
 
   updateMessage(message: string) { // updates the error message
-    //this.updateCourse.next(message);
+    this.updateCourse.next(message);
   }
 
   testAdd() {
