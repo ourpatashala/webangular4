@@ -91,6 +91,7 @@
         <div class="mini_gap"></div>     
         <div class="clear"></div>             
         <!-- <div class="col-md-12"> -->
+               
         <table class="view_syllabus_table">
             <thead>
                 <tr>
@@ -103,6 +104,7 @@
             </thead>
             <tbody formArrayName="chapterList">
                 <tr *ngFor="let itemrow of syllabusFormGroup.controls.chapterList.controls; let i=index"  [formGroupName]="i" class="dlt_btn_inline">
+               
                     <td>
                         <input type="hidden" formControlName="serialNo"> {{i+1}}
                     </td>
@@ -148,8 +150,6 @@
         <div class="col-md-8 plus_btn_inline">
             <input type="hidden" formControlName="subjectName"> 
                 <select (change)="onsubjectChange($event.target.value)">
-                    <!-- <option [value]="0" selected> 
-                         {{masterSyllabusTO.subjectName}}</option> -->
                     <option *ngFor="let currentData of masterSubjectTOList"  [value]="currentData.subjectName"  [selected]="currentData.subjectName == masterSyllabusTO.subjectName">
                     {{currentData.subjectName}}
                     </option>
@@ -158,10 +158,10 @@
         <div class="col-md-12 "><span class="cancel_btn_add button_type_span pull-right" (click)="addchapterlist()"> <i class="fa fa-plus"></i> Add</span></div>     
         <div class="clear"></div>
         <div class="little_gap"></div> 
-        <div class="col-md-12 "><b>Chapter list</b></div>
+        <div class="col-md-12 "><b>Chapter list</b> {{syllabusFormGroup.controls.chapterList.controls.length}}</div>
         <div class="clear"></div>
         <div class="mini_gap"></div>
-            
+            <!-- {{syllabusFormGroup.controls.chapterList.length}} -->
         <div class="col-md-12">
         <table class="view_syllabus_table">
             <thead>
@@ -267,30 +267,6 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 	<div class="datatable_toggle active_tab_div" [ngClass]="{'inactive_div': div_Element_Id !='0'}">
         <table  datatable [dtOptions]="dtOptions"  [dtTrigger]="dtTrigger" class="my_table_width">
             <thead>
@@ -308,13 +284,7 @@
 				    <td class="text-center">{{i + 1}}</td>
                     <td class="text-center">{{masterSyllabus.syllabusName}}</td>
                     <td class="text-center">{{masterSyllabus.subjectName}}</td>
-                    <!-- <td>
-                        <div *ngFor="let master of chapterList">
-                                {{master.chapterName}}
-                                <!-- -{{masterSyllabus.serialNo}}-{{masterSyllabus.completion}} -->
-                        <!-- </div> -->
-
-                   <!-- </td>  --> 
+                   
                 </tr>                 
             </tbody>
         </table>

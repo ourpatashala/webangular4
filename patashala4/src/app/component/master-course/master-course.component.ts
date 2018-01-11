@@ -334,19 +334,15 @@ if(masterCourseTO.syllabusList != null){
     masterCourseTO.courseId = value.courseId;
     masterCourseTO.courseName = value.courseName;     
     masterCourseTO.syllabusList = syllabusList;
+    this.masterCourseConverter.addMasterCourse(localStorage.getItem(AppConstants.SHAREDPREFERANCE_SCHOOLID), masterCourseTO, this);
     }
     console.log("add course values" + masterCourseTO);
-
-
-    this.masterCourseConverter.addMasterCourse(localStorage.getItem(AppConstants.SHAREDPREFERANCE_SCHOOLID), masterCourseTO, this);
-
   }
 
   getselectedCourseProfile() {
     this.addcourse_condition = false;
     this.div_Element_Id = "2";   
     this.masterCourseConverter.getMasterCourse(localStorage.getItem(AppConstants.SHAREDPREFERANCE_SCHOOLID), this.selectedCourseArray[0], this);
-  
     console.log(this.selectedSyllabusArray);
    }
 
@@ -410,35 +406,22 @@ if(masterCourseTO.syllabusList != null){
         this.errorMessage="please select syllabus name";
         this.active="2";
       }
-      else{
+      else
+      {
         masterCourseTO.courseId = value.courseId;
         masterCourseTO.courseName = value.courseName;
-        masterCourseTO.syllabusList = syllabusList;
+        masterCourseTO.syllabusList = syllabusList; 
+        this.masterCourseConverter.updateMasterCourse(localStorage.getItem(AppConstants.SHAREDPREFERANCE_SCHOOLID),this.selectedCourseArray[0], masterCourseTO, this);
       }
-      this.masterCourseConverter.updateMasterCourse(localStorage.getItem(AppConstants.SHAREDPREFERANCE_SCHOOLID),this.selectedCourseArray[0], masterCourseTO, this);
-      
     }
 
-
-  // deleteSyllabusList(i: number) {
-  //   // control refers to your formarray
-  //   const control = <FormArray>this.courseFormGroup.controls['syllabusList'];
-  //   // remove the chosen row
-  //   control.removeAt(i);
-  // }
-
-  // addSyllabusName() {
-  //   // control refers to your formarray
-  //   const control = <FormArray>this.courseFormGroup.controls['syllabusList'];
-  //   // add new formgroup
-  //   control.push(this.initsyllabusNames());
-  // }
-
-  // clearSyllabusList() {
-  //   const control = <FormArray>this.courseFormGroup.controls['syllabusList'];
-  //   for (var loop = 0; loop < control.length; loop++)
-  //     control.removeAt(loop);
-  // }
+    viewSingleCourseProfile() {
+      this.div_Element_Id = "3";
+      this.selectedSyllabusArray = [];
+      this.selectedSyllabusnameArray= [];
+      this.masterCourseConverter.getMasterCourse(localStorage.getItem(AppConstants.SHAREDPREFERANCE_SCHOOLID), this.selectedCourseArray[0], this);
+      
+    }
 
 
   deleteCourse() {
@@ -472,13 +455,7 @@ if(masterCourseTO.syllabusList != null){
   }
 
 
-  viewSingleCourseProfile() {
-    this.div_Element_Id = "3";
-    this.selectedSyllabusArray = [];
-    this.selectedSyllabusnameArray= [];
-    this.masterCourseConverter.getMasterCourse(localStorage.getItem(AppConstants.SHAREDPREFERANCE_SCHOOLID), this.selectedCourseArray[0], this);
-    
-  }
+ 
 
 
 }
