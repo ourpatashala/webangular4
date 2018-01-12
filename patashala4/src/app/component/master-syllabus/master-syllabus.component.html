@@ -112,7 +112,7 @@
                         <input type="text" formControlName="chapterName" value="" placeholder='chapter name' class="form-control" maxlength="18">                         
                     </td>
                     <td>
-                        <input type="number" formControlName="completion" value="" placeholder='completion' min="1"  max="100"  class="form-control" maxlength="18">                        
+                        <input type="number" formControlName="completion" value="" placeholder='completion' min="1"  max="100"  class="form-control" maxlength="2">                        
                     </td>
                     <td>
                      <button  *ngIf="syllabusFormGroup.controls.chapterList.controls.length > 1" (click)="deleteSyllabusName(i)"> <i class="fa fa-trash"></i> Delete</button>
@@ -158,7 +158,7 @@
         <div class="col-md-12 "><span class="cancel_btn_add button_type_span pull-right" (click)="addchapterlist()"> <i class="fa fa-plus"></i> Add</span></div>     
         <div class="clear"></div>
         <div class="little_gap"></div> 
-        <div class="col-md-12 "><b>Chapter list</b> {{syllabusFormGroup.controls.chapterList.controls.length}}</div>
+        <div class="col-md-12 "><b>Chapter list</b></div>
         <div class="clear"></div>
         <div class="mini_gap"></div>
             <!-- {{syllabusFormGroup.controls.chapterList.length}} -->
@@ -182,7 +182,7 @@
                         <input type="text" formControlName="chapterName" value="" placeholder='chapter name' class="form-control" maxlength="18">                         
                     </td>
                     <td>
-                        <input type="number" formControlName="completion" value="" placeholder='completion' min="1" max="100" class="form-control" maxlength="18">                        
+                        <input type="number" formControlName="completion" value="" placeholder='completion' min="1" max="100" class="form-control" maxlength="2">                        
                     </td>
                     <td>
                     <button  *ngIf="syllabusFormGroup.controls.chapterList.controls.length > 1" (click)="deleteSyllabusName(i)"> <i class="fa fa-trash"></i> Delete</button>

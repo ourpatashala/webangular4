@@ -60,7 +60,7 @@ export class MasterSyllabusComponent implements OnInit, MasterSyllabusComponentI
   active: string = "0";// for error and success divs;;  0 for no content, 1 for success, 2 for error
   subjectindexcount: number = 0;
   updateSyllabus: BehaviorSubject<string> = new BehaviorSubject<string>(""); // Holds the error message
-    update$: Observable<string> = this.updateSyllabus.asObservable(); // observer for the above message
+  update$: Observable<string> = this.updateSyllabus.asObservable(); // observer for the above message
 
   chaptersList:FirebaseListObservable<ChapterTO>;
 
@@ -144,21 +144,15 @@ export class MasterSyllabusComponent implements OnInit, MasterSyllabusComponentI
   }
 
   displayAllChaptersCallBack(chapters: FirebaseListObservable<ChapterTO>) {
-   // this.clearchapterlist();
+    this.clearchapterlist();
     console.log("displayAllChaptersCallBack ==> " + chapters);
     this.chaptersList= chapters;
-    
-    this.syllabusFormGroup.controls['chapterList'].patchValue(chapters);
-    
-   
     chapters.forEach(obj => {
       console.log(obj.chapterId + ' ' + obj.chapterName + ' ' + obj.serialNo +''+obj.completion);
-      // this.chaptersList=obj;
-	 // this.addchapterlist();  
-   // this.addchapterlist();
-	 // this.addsyllabusNames(obj.chapterName,obj.chapterId,obj.serialNo,obj.completion,obj.uniqueId) 
+      this.addchapterlist();  
     });
-  
+   this.syllabusFormGroup.controls['chapterList'].patchValue(this.chaptersList);
+   
    console.log(this.chaptersList);
   }
   
