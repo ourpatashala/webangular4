@@ -21,47 +21,47 @@
          <a routerLink="/TabManage"><li class="active_tab" id="">Manage</li></a>
       </ul>
     </div>
-    <div class="large_gap"></div>    
-    <div class="large_gap"></div> 
+    <div class="mini_gap"></div>
+
     <div class="col-md-6 padding30"><h3>Manage Courses </h3>
         <p class="breadscrum_text"><a  routerLink="/">Home</a> &nbsp; <i class="fa fa-chevron-right"></i> &nbsp;<a  routerLink="/TabManage">Manage</a> &nbsp; <i class="fa fa-chevron-right"></i> &nbsp;<a  routerLink="/Courses">Course</a> &nbsp;<i class="fa fa-chevron-right"></i> &nbsp; Manage Courses</p>
     </div>
     <div class="large_gap"></div>
 
-       
+
 <div class="clear"></div>
 <div class="little_gap"></div>
 
 <div class="tabs_S_M">
      <div class="listing_tabs1">
         <ul class="">
-            <a routerLink="/Mastercourse"><li class="" id="">Course</li></a>           
+            <a routerLink="/Mastercourse"><li class="" id="">Course</li></a>
             <a routerLink="/Mastersyllabus"><li class="" id="">Syllabus</li></a>
-            <a routerLink="/MasterSubject"><li class="active_tab" id="">Subjects</li></a> 
+            <a routerLink="/MasterSubject"><li class="active_tab" id="">Subjects</li></a>
         </ul>
-       
-      </div> 
-      <div class="little_gap"></div> 
+
+      </div>
+      <div class="little_gap"></div>
     <div class="gird_div">
 
       <div class="tabs_div active_tab_div " id="service_tab_div">
         <div class="text-right">
             <div class="buttons_div" [ngClass]="{'inactive_div': div_Element_Id !='0'}">
-          
+
 		<button class="add_more_btn" (click)="show_addCourseFields()" [ngClass]="{'disable_btn': selectedSubjectArray.length!='0'}"><i class="fa fa-plus"></i> Add</button>
         <button class="edit_field_btn" (click)="getselectedSubjectProfile()" [ngClass]="{'disable_btn': selectedSubjectArray.length!='1'}"><i class="fa fa-pencil"></i> Modify</button>
         <button (click)="deleteCourse()" [ngClass]="{'disable_btn': selectedSubjectArray.length==0 || selectedSubjectArray.length>1}"><i class="fa fa-trash"></i> Delete</button>
-                
+
             </div>
         </div>
         <div class="little_gap"></div>
         <!-- <div class="sucess_msg_text"><p [ngClass]="{'show_styles_sucess': active=='1'}">{{sucessMessage}}</p></div> -->
-        <div class="error_msg_text"><p [ngClass]="{'error_styles_sucess': active=='2'}">{{errorMessage}}</p></div> 
+        <div class="error_msg_text"><p [ngClass]="{'error_styles_sucess': active=='2'}">{{errorMessage}}</p></div>
 
 
    <div class="add_fields addschool_div" [ngClass]="{'inactive_div': div_Element_Id !='1'}">
        <div class="col-md-3"></div>
-	  <form [formGroup]="subjectFormGroup" (ngSubmit)="addSubjectSubmit(subjectFormGroup)"> 
+	  <form [formGroup]="subjectFormGroup" (ngSubmit)="addSubjectSubmit(subjectFormGroup)">
         <div class="col-md-6 padding0">
             <div class="col-md-4 text-right"><b>Subject Name</b></div>
             <div class="col-md-8">
@@ -74,18 +74,18 @@
             <div class="little_gap"></div>
         </div>
         <div class="col-md-3"></div>
-        <div class="clear"></div>       
+        <div class="clear"></div>
         <div class="little_gap"></div>
-        <div class="text-center"> <button class="update_btn">Add Subject</button> <span class="cancel_btn_add button_type_span" (click)="showSubjectList()">Cancel</span></div>       
+        <div class="text-center"> <button class="update_btn">Add Subject</button> <span class="cancel_btn_add button_type_span" (click)="showSubjectList()">Cancel</span></div>
 	</form>
       <div class="clear"></div>
-    </div> 
+    </div>
 
 
-  
+
     <div class="modify_fields addschool_div" [ngClass]="{'inactive_div': div_Element_Id !='2'}">
        <div class="col-md-3"></div>
-       <form [formGroup]="subjectFormGroup" (ngSubmit)="updateSubmit(subjectFormGroup)"> 
+       <form [formGroup]="subjectFormGroup" (ngSubmit)="updateSubmit(subjectFormGroup)">
       <div class="col-md-6 padding0">
         <div class="col-md-4 text-right"><b>Subject Name</b></div>
         <div class="col-md-8">
@@ -97,35 +97,35 @@
       <div class="col-md-3"></div>
       <div class="clear"></div>
       <div class="little_gap"></div>
-      <div class="text-center"> <button class="update_btn">Update Subject</button> <span class="cancel_btn_add button_type_span" (click)="showSubjectList()">Cancel</span></div>      
-  
+      <div class="text-center"> <button class="update_btn">Update Subject</button> <span class="cancel_btn_add button_type_span" (click)="showSubjectList()">Cancel</span></div>
+
 </form>
       <div class="clear"></div>
-    </div> 
+    </div>
     <div class="clear"></div>
 
 	<div class="datatable_toggle active_tab_div mas_sub " [ngClass]="{'inactive_div': div_Element_Id !='0'}">
-         <div class="col-md-4"></div>          
+         <div class="col-md-4"></div>
         <div class="col-md-4">
              <table datatable [dtOptions]="dtOptions"  [dtTrigger]="dtTrigger" class="my_table_width">
                 <thead>
                     <tr>
                         <th></th>
-                        <th >S.no</th>                       
-                        <th>Subject Name</th>                        
+                        <th >S.no</th>
+                        <th>Subject Name</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr *ngFor="let masterSubject of masterSubjectTOList; let i=index;">
                         <td><input type="checkbox" id="{{masterSubject.subjectId}}" value="{{masterSubject.subjectId}}" (change)="checkedmasterSubject(masterSubject.subjectId)"></td>
-                        <td class="text-center">{{i + 1}}</td>                      
-                        <td class="text-center">{{masterSubject.subjectName}}</td>                       
-                    </tr>                 
+                        <td class="text-center">{{i + 1}}</td>
+                        <td class="text-center">{{masterSubject.subjectName}}</td>
+                    </tr>
                 </tbody>
             </table>
         </div>
         <div class="col-md-4"></div>
-	</div>      
+	</div>
         <div class="clear"></div>
     </div>
           <div class="clear"></div>
