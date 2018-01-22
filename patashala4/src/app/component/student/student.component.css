@@ -8,11 +8,13 @@ margin-top: 6px;
 margin-bottom: 22px;
 color: #666;
 }
-.manage_school_table table tbody tr td img
-{
-    width: 56px;
-    height: 56px;
+.respnse_img img{
+    width: 72px;
+    height: 72px;
+    display: inline-block;
+    border-collapse: collapse!important;
 }
+
 .manage_school_table table tbody tr td button
 {
     min-width: 0;

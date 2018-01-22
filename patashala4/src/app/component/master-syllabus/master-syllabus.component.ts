@@ -83,14 +83,15 @@ export class MasterSyllabusComponent implements OnInit, MasterSyllabusComponentI
       uniqueId: [''],
       chapterList: this.fb.array([this.initsyllabusNames()]),
     });
+    // this.onsubjectChange();
   }
 
   initsyllabusNames() {
     return this.fb.group({
       chapterName: [''],
-       chapterId: [''], // chapterName :[''],
+      chapterId: [''], // chapterName :[''],
       serialNo: [''],
-       completion: [''], uniqueId: ['']
+      completion: [''], uniqueId: ['']
     });
   }
   addsyllabusNames(chaptername,chapterid,serialno,completion,uniqueid) {
@@ -118,7 +119,7 @@ export class MasterSyllabusComponent implements OnInit, MasterSyllabusComponentI
     this.syllabusFormGroup.controls['syllabusName'].patchValue(masterSyllabusTO.syllabusName);
     this.syllabusFormGroup.controls['subjectName'].patchValue(masterSyllabusTO.subjectName);
     this.syllabusFormGroup.controls['subjectId'].patchValue(masterSyllabusTO.subjectId);
-   
+    this.selectedsubject = masterSyllabusTO.subjectName;
   }
 
   displayMasterSubjectCallBack(masterSubjectTO: MasterSubjectTO) {
@@ -313,12 +314,15 @@ export class MasterSyllabusComponent implements OnInit, MasterSyllabusComponentI
     this.syllabusFormGroup.controls['subjectId'].patchValue('');
     this.syllabusFormGroup.controls['uniqueId'].patchValue('');
     this.clearchapterlist();
-    this.addchapterlist();   
+     this.addchapterlist(); 
+    console.log(this.chaptersList);
+      
   }
 
   public selectedsubject: string;
 
-  onsubjectChange(val) {   
+  onsubjectChange(val) {  
+    console.log("  call onsubjectChange "+val) 
     this.selectedsubject = val;
   }
 
@@ -328,11 +332,11 @@ export class MasterSyllabusComponent implements OnInit, MasterSyllabusComponentI
     var chapterList = new Array<ChapterTO>();
     var masterSyllabusTO = new MasterSyllabusTO();
     for (var loopvar = 0; loopvar < value.chapterList.length; loopvar++) {
-      if(value.chapterList[loopvar].chapterName!= '' && value.chapterList[loopvar].completion !='')
+      if(value.chapterList[loopvar].chapterName!= '')
       {
       var chapter2 = new ChapterTO();
       chapter2.chapterName = value.chapterList[loopvar].chapterName;
-      chapter2.completion = value.chapterList[loopvar].completion;
+      // chapter2.completion = value.chapterList[loopvar].completion;
       chapter2.serialNo = (loopvar+1)+'';
       chapter2.chapterId =  chapter2.chapterName.toLowerCase();//loopvar+ ""//
       // chapter2.uniqueId = chapter2.uniqueId.toLowerCase();//loopvar+""//
@@ -360,6 +364,7 @@ export class MasterSyllabusComponent implements OnInit, MasterSyllabusComponentI
     }
       console.log(masterSyllabusTO);
       console.log(chapterList.length);
+  
   }
 
 
@@ -368,7 +373,7 @@ export class MasterSyllabusComponent implements OnInit, MasterSyllabusComponentI
     this.div_Element_Id = "2";
   	this.masterSyllabusConverter.getMasterSyllabus(localStorage.getItem(AppConstants.SHAREDPREFERANCE_SCHOOLID), this.selectedSyllabusArray[0], this);
     this.masterSyllabusConverter.getChapters(localStorage.getItem(AppConstants.SHAREDPREFERANCE_SCHOOLID), this.selectedSyllabusArray[0], this);
-    
+
      console.log( this.selectedSyllabusArray[0]);
      //this.selectedsubject = "";
   }
@@ -400,6 +405,8 @@ export class MasterSyllabusComponent implements OnInit, MasterSyllabusComponentI
     this.div_Element_Id='0';
     this.active='0';
     this.errorMessage = "";
+    this.clearchapterlist();
+    //this.addchapterlist();
     this.masterSyllabusConverter.getAllMasterSyllabus(localStorage.getItem(AppConstants.SHAREDPREFERANCE_SCHOOLID), this);
   }
 
@@ -433,11 +440,11 @@ export class MasterSyllabusComponent implements OnInit, MasterSyllabusComponentI
     var masterSyllabusTO = new MasterSyllabusTO();
     var chapterList = new Array<ChapterTO>();
     for (var loopvar = 0; loopvar < value.chapterList.length; loopvar++) {
-      if(value.chapterList[loopvar].chapterName!= '' && value.chapterList[loopvar].completion !='')
+      if(value.chapterList[loopvar].chapterName!= '')
       {
       var chapter2 = new ChapterTO();
       chapter2.chapterName = value.chapterList[loopvar].chapterName;
-      chapter2.completion = value.chapterList[loopvar].completion;
+      // chapter2.completion = value.chapterList[loopvar].completion;
       chapter2.serialNo =  (loopvar+1)+""  //value.chapterList[loopvar].serialNo;
       chapter2.chapterId = loopvar + ""; //chapter2.chapterId.toLowerCase();
       chapter2.uniqueId = loopvar + "";//chapter2.uniqueId.toLowerCase();
@@ -463,6 +470,7 @@ else{
     // masterSyllabusTO.subjectId = "subjectId";
     this.masterSyllabusConverter.updateMasterSyllabus(localStorage.getItem(AppConstants.SHAREDPREFERANCE_SCHOOLID),this.selectedSyllabusArray[0], masterSyllabusTO, chapterList, this);
     }
+    console.log("modify latest" +  masterSyllabusTO.subjectName );
   }
  
   viewSingleSyllabusProfile(){

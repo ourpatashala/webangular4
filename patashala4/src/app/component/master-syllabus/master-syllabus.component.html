@@ -61,7 +61,7 @@
         <div class="error_msg_text"><p [ngClass]="{'error_styles_sucess': active=='2'}">{{errorMessage}}</p></div>
 
 
-   <div class="add_fields addschool_div" *ngIf ="div_Element_Id =='1'" [ngClass]="{'inactive_div': div_Element_Id !='1'}">
+   <div class="add_fields addschool_div"  *ngIf ="div_Element_Id =='1'" [ngClass]="{'inactive_div': div_Element_Id !='1'}">
        <div class="col-md-3"></div>
 	  <form [formGroup]="syllabusFormGroup" (ngSubmit)="addSyllabusSubmit(syllabusFormGroup)">
       <div class="col-md-6 padding0">
@@ -70,7 +70,7 @@
             <input type="text" formControlName="syllabusName" placeholder="Enter syllabus name" ></div>
         <div class="clear"></div>
 
-        <div class="col-md-4 text-right"><b>Subject List</b></div>
+        <div class="col-md-4 text-right"><b>Subjects</b></div>
         <div class="col-md-8 plus_btn_inline">
                 <select (change)="onsubjectChange($event.target.value)">
                         <option [value]="" selected disabled> select your subject</option>
@@ -79,13 +79,19 @@
                         </option>
                 </select>
         </div>
-        <div class="col-md-12">
-        <span class="cancel_btn_add button_type_span pull-right" (click)="addchapterlist()">
-            <i class="fa fa-plus"></i> Add</span></div>
+        
             <div class="clear"></div>
         <div class="little_gap"></div>
 
-        <div class="col-md-12 pl0"><b>Chapter list</b>
+        <div class="col-md-12">
+            <div class="col-md-6">
+                <b>Chapters</b>
+            </div>         
+            <div class="col-md-6 pr0">
+                <span class="cancel_btn_add button_type_span pull-right" (click)="addchapterlist()">
+                    <i class="fa fa-plus"></i> Add</span>
+            </div>
+        
         </div>
         <div class="clear"></div>
         <div class="mini_gap"></div>
@@ -97,8 +103,8 @@
                 <tr>
                     <!-- <th></th> -->
                     <th>S.No</th>
-                    <th>ChapterName</th>
-                    <th>Completion</th>
+                    <th>Chapter Name</th>
+                    <!-- <th>Completion</th> -->
                     <th></th>
                 </tr>
             </thead>
@@ -111,9 +117,9 @@
                     <td>
                         <input type="text" formControlName="chapterName" value="" placeholder='chapter name' class="form-control" maxlength="18">
                     </td>
-                    <td>
+                    <!-- <td>
                         <input type="number" formControlName="completion" value="" placeholder='completion' min="1"  max="100"  class="form-control" maxlength="2">
-                    </td>
+                    </td> -->
                     <td>
                      <button  *ngIf="syllabusFormGroup.controls.chapterList.controls.length > 1" (click)="deleteSyllabusName(i)"> <i class="fa fa-trash"></i> Delete</button>
                     </td>
@@ -136,7 +142,7 @@
     </div>
 
 
-   <div class="modify_fields addschool_div" [ngClass]="{'inactive_div': div_Element_Id !='2'}">
+   <div class="modify_fields addschool_div" *ngIf ="div_Element_Id =='2'" [ngClass]="{'inactive_div': div_Element_Id !='2'}">
        <div class="col-md-3"></div>
        <form [formGroup]="syllabusFormGroup" (ngSubmit)="UpdateSyllabusSubmit(syllabusFormGroup)">
        <div class="col-md-6 padding0">
@@ -146,19 +152,22 @@
         </div>
         <div class="clear"></div>
 
-        <div class="col-md-4 text-right"><b>Subject Name</b></div>
+        <div class="col-md-4 text-right"><b>Subjects</b></div>
         <div class="col-md-8 plus_btn_inline">
             <input type="hidden" formControlName="subjectName">
                 <select (change)="onsubjectChange($event.target.value)">
-                    <option *ngFor="let currentData of masterSubjectTOList"  [value]="currentData.subjectName"  [selected]="currentData.subjectName == masterSyllabusTO.subjectName">
+                    <option *ngFor="let currentData of masterSubjectTOList"  [selected]="currentData.subjectName == masterSyllabusTO.subjectName"  [value]="currentData.subjectName">
                     {{currentData.subjectName}}
                     </option>
             </select>
+           
         </div>
-        <div class="col-md-12 "><span class="cancel_btn_add button_type_span pull-right" (click)="addchapterlist()"> <i class="fa fa-plus"></i> Add</span></div>
         <div class="clear"></div>
         <div class="little_gap"></div>
-        <div class="col-md-12 "><b>Chapter list</b></div>
+        <div class="col-md-12 "><p><b>Chapters</b>
+            <span class="cancel_btn_add button_type_span pull-right" (click)="addchapterlist()"> <i class="fa fa-plus"></i> Add</span></p>
+
+        </div>
         <div class="clear"></div>
         <div class="mini_gap"></div>
             <!-- {{syllabusFormGroup.controls.chapterList.length}} -->
@@ -168,8 +177,8 @@
                 <tr>
                     <!-- <th></th> -->
                     <th>S.No</th>
-                    <th>ChapterName</th>
-                    <th>Completion</th>
+                    <th>Chapter Name</th>
+                    <!-- <th>Completion</th> -->
                     <th></th>
                 </tr>
             </thead>
@@ -181,9 +190,9 @@
                     <td>
                         <input type="text" formControlName="chapterName" value="" placeholder='chapter name' class="form-control" maxlength="18">
                     </td>
-                    <td>
+                    <!-- <td>
                         <input type="number" formControlName="completion" value="" placeholder='completion' min="1" max="100" class="form-control" maxlength="2">
-                    </td>
+                    </td> -->
                     <td>
                     <button  *ngIf="syllabusFormGroup.controls.chapterList.controls.length > 1" (click)="deleteSyllabusName(i)"> <i class="fa fa-trash"></i> Delete</button>
                      </td>
@@ -240,9 +249,9 @@
                     <thead>
                      <tr>
                         <!-- <th class="text-center">S.No</th>                        -->
-                        <th class="text-center">SerialNo</th>
-                        <th class="text-center">ChapterName</th>
-                        <th class="text-center">Completion</th>
+                        <th class="text-center">Serial No</th>
+                        <th class="text-center">Chapter Name</th>
+                        <!-- <th class="text-center">Completion</th> -->
                     </tr>
                     </thead>
                     <tbody class="text-center">
@@ -250,7 +259,7 @@
                             <!-- <td>{{i+1}}</td> -->
                             <td>{{x.serialNo}}</td>
                             <td>{{x.chapterName}}</td>
-                            <td>{{x.completion}}</td>
+                            <!-- <td>{{x.completion}}</td> -->
                         </tr>
                     </tbody>
                 </table>
@@ -301,7 +310,7 @@
 
 
 
-
+<!-- 
 <p>
   master-syllabus works!
 
@@ -318,4 +327,4 @@
 
   <button (click)="testDelete()"> Delete </button> <BR><BR>
 
-</p>
+</p> -->

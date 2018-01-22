@@ -301,7 +301,7 @@
             <td><input type="checkbox" id="{{schoolProfileTO.schoolId}}" value="{{schoolProfileTO.schoolId}}" (change)="checkedStudents(schoolProfileTO.schoolId)" ></td>
             <td>{{i + 1}}</td>
             <!-- <td><input type="checkbox" value="{{schoolProfileTO.schoolId}}"  (change)="updateCheckedOptions(schoolProfileTO.schoolId,$this.checkbox.state)"></td> -->
-            <td class="text-center"> <img src="{{ (schoolProfileTO.profilePhotoUrl != null && schoolProfileTO.profilePhotoUrl.length != 0) ?  schoolProfileTO.profilePhotoUrl:'./assets/images/profile/default.jpg' }}" alt=""></td>
+            <td class="respnse_img text-center"> <img src="{{ (schoolProfileTO.profilePhotoUrl != null && schoolProfileTO.profilePhotoUrl.length != 0) ?  schoolProfileTO.profilePhotoUrl:'./assets/images/profile/default.jpg' }}" alt=""></td>
             
             <td>{{schoolProfileTO.schoolName}}</td>
             <td>{{schoolProfileTO.city}}</td>
