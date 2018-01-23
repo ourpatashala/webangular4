@@ -40,6 +40,7 @@ import { MasterSyllabusComponent } from './component/master-syllabus/master-syll
 import { MasterCourseComponent } from './component/master-course/master-course.component';
 
 import { WebCamModule } from 'ack-angular-webcam';
+import { SyllbusPopupComponent } from './component/popup-screens/syllbus-popup/syllbus-popup.component';
 
 
 
@@ -65,7 +66,8 @@ export const firebaseConfig = {     apiKey: 'AIzaSyB6WeGfORqOzz5jT_XL6GLMCl8ze
     WebcampopupComponent,
     MastersubjectComponent,
     MasterSyllabusComponent,
-    MasterCourseComponent
+    MasterCourseComponent,
+    SyllbusPopupComponent
 
   ],
   imports: [

@@ -9,6 +9,30 @@
   <div class="little_gap"></div>
 </div>
 
+<div class="overlay hideblock" [ngClass]="{'showblock': showClassSelection==true}"></div>
+
+    <div class="class_search hideblock " [ngClass]="{'showblock': showClassSelection==true}">
+            <i class="fa fa-close closeclassidpopup"  (click)="closePopup()" ></i>
+    <app-syllbus-popup (notify)='onNotify($event)'></app-syllbus-popup>   
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 <div class="all_pages_content">
     <div class="clear"></div>
     <div class="page_content_here">
@@ -57,8 +81,8 @@
 
           <!-- <div class="sucess_msg_text"><p [ngClass]="{'show_styles_sucess': active=='1'}">{{sucessMessage}}</p></div> -->
           <div class="error_msg_text"><p [ngClass]="{'error_styles_sucess': active=='2'}">{{errorMessage}}</p></div>
-<div *ngIf ="addcourse_condition">
-   <div class="add_fields addschool_div" [ngClass]="{'inactive_div': div_Element_Id !='1'}">
+ <!-- <div *ngIf ="addcourse_condition"> -->
+   <div class="add_fields addschool_div" *ngIf="div_Element_Id =='1'"  [ngClass]="{'inactive_div': div_Element_Id !='1'}">
        <div class="col-md-3"></div>
 	  <form [formGroup]="courseFormGroup" (ngSubmit)="addCourseSubmit(courseFormGroup)">
       <div class="col-md-6 padding0">
@@ -68,9 +92,9 @@
         </div>
         <div class="clear"></div>
 
-        <div class="col-md-4 text-right"><b>Syllabus</b></div>
-        <div class="col-md-8 plus_btn_inline">
-                <table class="view_syllabus_table">
+        <div class="col-md-4 text-right"><b>Syllabus</b><span class="cancel_btn_add button_type_span" (click)="showsyllabusPopup()">click</span></div>
+        <div class="plus_btn_inline col-md-8 ">
+                <!-- <table  class="my_table_width">
                   <thead>
                   <tr>
                       <th class="text-center"></th>
@@ -85,7 +109,7 @@
                       <td>{{current.syllabusName}}</td>
                   </tr>
                   </tbody>
-              </table>
+              </table> -->
         </div>
         <div class="clear"></div>
 
@@ -100,10 +124,10 @@
         </form>
       <div class="clear"></div>
     </div>
-</div>
+<!-- </div> -->
 
 
-<div class="modify_fields addschool_div" [ngClass]="{'inactive_div': div_Element_Id !='2'}">
+<div class="modify_fields addschool_div" *ngIf="div_Element_Id =='2'" [ngClass]="{'inactive_div': div_Element_Id !='2'}">
     <div class="col-md-3"></div>
     <form [formGroup]="courseFormGroup" (ngSubmit)="UpdateCourseSubmit(courseFormGroup)">
       <div class="col-md-6 padding0">
@@ -147,7 +171,7 @@
 
 <div class="singleStudentViewDiv addschool_div" [ngClass]="{'inactive_div': div_Element_Id !='3'}">
         <div class="text-right">
-            <span class="cancel_btn_modify button_type_span" (click)="showCourseList()">Close</span>
+            <span class="cancel_btn_modify button_type_span" (click)="showCourseback()">Close</span>
         </div>
     <div class="col-md-4"></div>
         <div class="col-md-4 padding0" *ngIf="masterCourseTO">

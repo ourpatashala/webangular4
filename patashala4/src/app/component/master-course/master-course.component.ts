@@ -66,6 +66,7 @@ export class MasterCourseComponent implements OnInit, MasterCourseComponentInter
   dtOptions: DataTables.Settings = {};
   dtTrigger: Subject<any> = new Subject();
   flag: boolean = false;
+  showClassSelection:boolean = false;
   addcourse_condition: boolean = false;
   update$: Observable<string> = this.updateCourse.asObservable(); // observer for the above message
   chaptersList: FirebaseListObservable<ChapterTO>;
@@ -196,7 +197,35 @@ if(masterCourseTO.syllabusList != null){
   closePopup() {
     this.sucessMessage = "";
     this.active = "0";
+    this.showClassSelection=false;
     if (this.popupstatus == "1") this.showCourseList();
+  }
+  
+  showsyllabusPopup()
+  {
+    // this.getAllClassesProfile(localStorage.getItem(AppConstants.SHAREDPREFERANCE_SCHOOLID))
+    this.showClassSelection=true;
+
+  }
+  onNotify(status:string):void {
+    console.log(status);
+    var resulttotal=status.split("*&*");
+
+    var result=resulttotal[0].split("&*&");
+    var result1=resulttotal[1].split("&*&");
+   // var resultid=idvalue.split("&*&");
+    for(var loopvar=0; loopvar<result.length;loopvar++){
+         
+      this.selectedSyllabusnameArray.push(result[loopvar]);
+      console.log(this.selectedSyllabusnameArray ); 
+    }
+    for(var loopvar=0; loopvar<result1.length;loopvar++){
+      console.log(result1[loopvar]);
+      this.selectedSyllabusArray.push(result1[loopvar] );
+    }
+  //  alert(status);
+    this.showClassSelection=false;
+   
   }
 
   /**
@@ -347,8 +376,8 @@ if(masterCourseTO.syllabusList != null){
    }
 
   showCourseList() {
-    if (this.selectedCourseArray.length > 0) (<HTMLInputElement>document.getElementById(this.selectedCourseArray[0])).checked = false;
-    if (this.selectedSyllabusArray.length > 0) (<HTMLInputElement>document.getElementById(this.selectedSyllabusArray[0])).checked = false;    
+    // if (this.selectedCourseArray.length > 0) (<HTMLInputElement>document.getElementById(this.selectedCourseArray[0])).checked = false;
+    // if (this.selectedSyllabusArray.length > 0) (<HTMLInputElement>document.getElementById(this.selectedSyllabusArray[0])).checked = false;    
     this.errorMessage = "";
     this.active = "0";
     this.selectedCourseArray = [];
@@ -358,6 +387,19 @@ if(masterCourseTO.syllabusList != null){
     this.masterCourseConverter.getAllMasterCourse(localStorage.getItem(AppConstants.SHAREDPREFERANCE_SCHOOLID), this);
     console.log("cleared array" + this.selectedSyllabusArray);
     console.log("cleared namearray" + this.selectedSyllabusnameArray);
+  }
+  showCourseback() {
+    // if (this.selectedCourseArray.length > 0) (<HTMLInputElement>document.getElementById(this.selectedCourseArray[0])).checked = false;
+    // if (this.selectedSyllabusArray.length > 0) (<HTMLInputElement>document.getElementById(this.selectedSyllabusArray[0])).checked = false;    
+    this.errorMessage = "";
+    this.active = "0";
+    this.selectedCourseArray = [];
+    this.selectedSyllabusArray = [];
+    this.selectedSyllabusnameArray= [];
+    this.div_Element_Id = '0';
+    this.masterCourseConverter.getAllMasterCourse(localStorage.getItem(AppConstants.SHAREDPREFERANCE_SCHOOLID), this);
+    // console.log("cleared array" + this.selectedSyllabusArray);
+    // console.log("cleared namearray" + this.selectedSyllabusnameArray);
   }
 
   checkedmasterCourse(value) {
@@ -370,20 +412,20 @@ if(masterCourseTO.syllabusList != null){
     console.log(this.selectedCourseArray)
   }
 
-  checkedMastersyllabus(value,val) {
-    console.log(value, val);
-    if ((<HTMLInputElement>document.getElementById(value)).checked === true) {
-      this.selectedSyllabusArray.push(value);
-      this.selectedSyllabusnameArray.push(val);
-    } else if ((<HTMLInputElement>document.getElementById(value)).checked === false) {
-      let indexx = this.selectedSyllabusArray.indexOf(value);
-      this.selectedSyllabusArray.splice(indexx, 1)
-      this.selectedSyllabusnameArray.splice(indexx, 1)
-    }
-    console.log(this.selectedSyllabusArray);
-    console.log(this.selectedSyllabusnameArray);
-    console.log((<HTMLInputElement>document.getElementById(value)).checked);
-  }
+  // checkedMastersyllabus(value,val) {
+  //   console.log(value, val);
+  //   if ((<HTMLInputElement>document.getElementById(value)).checked === true) {
+  //     this.selectedSyllabusArray.push(value);
+  //     this.selectedSyllabusnameArray.push(val);
+  //   } else if ((<HTMLInputElement>document.getElementById(value)).checked === false) {
+  //     let indexx = this.selectedSyllabusArray.indexOf(value);
+  //     this.selectedSyllabusArray.splice(indexx, 1)
+  //     this.selectedSyllabusnameArray.splice(indexx, 1)
+  //   }
+  //   console.log(this.selectedSyllabusArray);
+  //   console.log(this.selectedSyllabusnameArray);
+  //   console.log((<HTMLInputElement>document.getElementById(value)).checked);
+  // }
 
   
 

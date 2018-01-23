@@ -194,6 +194,7 @@ export class MasterSyllabusComponent implements OnInit, MasterSyllabusComponentI
     if (this.popupstatus == "1") this.showSyllabusList();
   }
 
+  
 
   /**
    * Handle all the error messages here . Basing on the error message decide where you want to display
@@ -336,8 +337,8 @@ export class MasterSyllabusComponent implements OnInit, MasterSyllabusComponentI
       {
       var chapter2 = new ChapterTO();
       chapter2.chapterName = value.chapterList[loopvar].chapterName;
-      // chapter2.completion = value.chapterList[loopvar].completion;
-      chapter2.serialNo = (loopvar+1)+'';
+      chapter2.completion = value.chapterList[loopvar].completion;
+      chapter2.serialNo = (loopvar+1)+"" ;
       chapter2.chapterId =  chapter2.chapterName.toLowerCase();//loopvar+ ""//
       // chapter2.uniqueId = chapter2.uniqueId.toLowerCase();//loopvar+""//
       chapterList.push(chapter2)
@@ -444,8 +445,8 @@ export class MasterSyllabusComponent implements OnInit, MasterSyllabusComponentI
       {
       var chapter2 = new ChapterTO();
       chapter2.chapterName = value.chapterList[loopvar].chapterName;
-      // chapter2.completion = value.chapterList[loopvar].completion;
-      chapter2.serialNo =  (loopvar+1)+""  //value.chapterList[loopvar].serialNo;
+       chapter2.completion = value.chapterList[loopvar].completion;
+      chapter2.serialNo =  (loopvar+1)+"" ; //value.chapterList[loopvar].serialNo;//
       chapter2.chapterId = loopvar + ""; //chapter2.chapterId.toLowerCase();
       chapter2.uniqueId = loopvar + "";//chapter2.uniqueId.toLowerCase();
       chapterList.push(chapter2)
@@ -474,7 +475,7 @@ else{
   }
  
   viewSingleSyllabusProfile(){
-    this.div_Element_Id="3";
+    this.div_Element_Id="3";    
     this.masterSyllabusConverter.getMasterSyllabus(localStorage.getItem(AppConstants.SHAREDPREFERANCE_SCHOOLID), this.selectedSyllabusArray[0], this);
     this.masterSyllabusConverter.getChapters(localStorage.getItem(AppConstants.SHAREDPREFERANCE_SCHOOLID), this.selectedSyllabusArray[0], this);
   }
