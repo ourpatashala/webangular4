@@ -219,6 +219,9 @@ closePopup()
   }
   
   this.notify.emit(returnstring+"*&*"+returnstring1);
+  this.selectedSyllabusArray= ['']
+  this.selectedSyllabusnameArray= ['']
+
 }
 
   showsyllabusPopup()

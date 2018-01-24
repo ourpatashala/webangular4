@@ -22,4 +22,16 @@
         color: #fff;
     }
 
+
+    .dlt_btn i
+	{
+	  
+	  top: 9px ;
+	  right: -17px !important;
+	  color: red !important;
+	  cursor: pointer !important;
+	}
+	
+
+
     

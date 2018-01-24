@@ -109,7 +109,7 @@
                 </tr>
             </thead>
             <tbody formArrayName="chapterList">
-                <tr *ngFor="let itemrow of syllabusFormGroup.controls.chapterList.controls; let i=index"  [formGroupName]="i" class="dlt_btn_inline">
+                <tr *ngFor="let itemrow of syllabusFormGroup.controls.chapterList.controls; let i=index"  [formGroupName]="i" class="dlt_btn">
 
                     <td>
                         <input type="hidden" formControlName="serialNo">{{i+1}} 
@@ -121,7 +121,7 @@
                         <input type="number" formControlName="completion" value="" placeholder='order No'   class="form-control" onKeyPress="if(this.value.length==4) return false;">
                     </td> 
                     <td>
-                     <button  *ngIf="syllabusFormGroup.controls.chapterList.controls.length > 1" (click)="deleteSyllabusName(i)"> <i class="fa fa-trash"></i> Delete</button>
+                     <i  *ngIf="syllabusFormGroup.controls.chapterList.controls.length > 1" (click)="deleteSyllabusName(i)" class="fa fa-trash"></i>
                     </td>
                 </tr>
             </tbody>
@@ -170,7 +170,6 @@
         </div>
         <div class="clear"></div>
         <div class="mini_gap"></div>
-            <!-- {{syllabusFormGroup.controls.chapterList.length}} -->
         <div class="col-md-12">
         <table class="view_syllabus_table">
             <thead>
@@ -183,7 +182,7 @@
                 </tr>
             </thead>
             <tbody formArrayName="chapterList">
-                <tr *ngFor="let itemrow of syllabusFormGroup.controls.chapterList.controls; let i=index"  [formGroupName]="i" class="dlt_btn_inline">
+                <tr *ngFor="let itemrow of syllabusFormGroup.controls.chapterList.controls; let i=index"  [formGroupName]="i" class="dlt_btn">
                     <td>
                         <input type="hidden" formControlName="serialNo"> {{i+1}} 
                     </td>
@@ -194,7 +193,7 @@
                         <input type="number" formControlName="completion" value="" placeholder='order No'  class="form-control" onKeyPress="if(this.value.length==4) return false;">
                     </td>
                     <td>
-                    <button  *ngIf="syllabusFormGroup.controls.chapterList.controls.length > 1" (click)="deleteSyllabusName(i)"> <i class="fa fa-trash"></i> Delete</button>
+                    <i  *ngIf="syllabusFormGroup.controls.chapterList.controls.length > 1" (click)="deleteSyllabusName(i)" class="fa fa-trash"></i> 
                      </td>
                 </tr>
             </tbody>
