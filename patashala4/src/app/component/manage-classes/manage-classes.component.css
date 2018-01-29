@@ -1,0 +1,29 @@
+.inactive_div {
+    display: none;
+}
+.sugg_dropdown{
+    position: absolute;
+    z-index: 1;
+    width:90%;
+    height: 150px;background: #cfcece;
+    overflow-y: auto;
+}
+
+.sugg_dropdown ul{
+    margin-bottom: 0px;
+}
+
+
+
+
+.class_select a{
+    padding: 8px 10px;
+    display: block;
+}
+.class_select a:hover{
+    background-color: cadetblue;color: black;
+}
+
+
+
+

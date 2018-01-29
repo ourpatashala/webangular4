@@ -32,6 +32,10 @@ import {UploadFileService} from './service/upload-file.service';
 import {StudentService} from './service/student.service';
 
 import { NgDatepickerModule } from 'ng2-datepicker';
+import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+
+
 import { ClassselectionPopupComponent } from './component/popup-screens/classselection-popup/classselection-popup.component';
 import { WebcampopupComponent } from './component/popup-screens/webcampopup/webcampopup.component';
 
@@ -41,6 +45,8 @@ import { MasterCourseComponent } from './component/master-course/master-course.c
 
 import { WebCamModule } from 'ack-angular-webcam';
 import { SyllbusPopupComponent } from './component/popup-screens/syllbus-popup/syllbus-popup.component';
+import { ManageTimetableComponent } from './component/manage-timetable/manage-timetable.component';
+import { ManageClassesComponent } from './component/manage-classes/manage-classes.component';
 
 
 
@@ -67,21 +73,25 @@ export const firebaseConfig = {     apiKey: 'AIzaSyB6WeGfORqOzz5jT_XL6GLMCl8ze
     MastersubjectComponent,
     MasterSyllabusComponent,
     MasterCourseComponent,
-    SyllbusPopupComponent
+    SyllbusPopupComponent,
+    ManageTimetableComponent,
+    ManageClassesComponent
 
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
+    OwlDateTimeModule, 
+    OwlNativeDateTimeModule,
     FormsModule,
     DataTablesModule,
     ReactiveFormsModule,
     WebCamModule,
-    // DatePickerModule,
     NgDatepickerModule ,
     AngularFireModule.initializeApp(firebaseConfig),
     routing,
     AngularFireDatabaseModule,
-    AngularFireAuthModule
+    AngularFireAuthModule,
   ],
 
 

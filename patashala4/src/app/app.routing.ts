@@ -22,6 +22,8 @@ import { RegisterationComponent } from './component/login/registeration.componen
 import { StudentComponent } from './component/student/student.component';
 import { TabServiceComponent } from './component/tab-service/tab-service.component';
 import { TabManageComponent } from './component/tab-manage/tab-manage.component';
+import { ManageTimetableComponent } from './component/manage-timetable/manage-timetable.component';
+import { ManageClassesComponent } from './component/manage-classes/manage-classes.component';
 
 
 
@@ -35,7 +37,9 @@ const appRoutes: Routes = [
   { path: 'TabManage',component:TabManageComponent},
   { path: 'Mastercourse',component:MasterCourseComponent},
   { path: 'Mastersubject',component:MastersubjectComponent},
-  { path: 'Mastersyllabus',component:MasterSyllabusComponent}
+  { path: 'Mastersyllabus',component:MasterSyllabusComponent},
+  { path: 'ManageTimeTable',component:ManageTimetableComponent},
+  { path: 'Manageclasses',component:ManageClassesComponent}
 ];
 
 
