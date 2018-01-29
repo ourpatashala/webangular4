@@ -1,5 +1,6 @@
 export class Manageclass {
 
+    classId?:number;
     className?:string;
     CourseName?:string;
     BatchNo?:string;

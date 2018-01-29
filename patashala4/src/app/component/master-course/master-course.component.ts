@@ -459,7 +459,6 @@ if(masterCourseTO.syllabusList != null){
     for (var loopvar = 0; loopvar < this.selectedCourseArray.length; loopvar++) {
       console.log(this.selectedCourseArray[loopvar]);
       this.masterCourseConverter.deleteMasterCourse(localStorage.getItem(AppConstants.SHAREDPREFERANCE_SCHOOLID), this.selectedCourseArray[loopvar], this);
-      
     }
     this.selectedCourseArray = [];
     this.showCourseList();

@@ -69,7 +69,7 @@ export class ManageTimetableComponent implements OnInit {
     this.rForm.controls['time'].patchValue( this.tablearray[i][j].time);
    this.selectedrow = i;
    this.selectedcolumn = j;
-    console.log("get values"+ this.tablearray[i][j] );
+    console.log("get values"+ this.tablearray[i][j]);
     console.log("new date values"+ new Date());
   }
   
