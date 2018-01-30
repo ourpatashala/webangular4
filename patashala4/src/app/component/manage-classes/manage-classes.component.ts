@@ -247,11 +247,10 @@ addClassSubmit(value){
 
  viewSingleClassProfile(){
    this.div_Element_Id ="3";
-   this.rajuarray1=[];
    var rajuarray = new Manageclass();
    rajuarray = this.classarray[this.checkedval];
+   this.rajuarray1=[];
    this.rajuarray1.push(rajuarray);
-   
  }
 
  

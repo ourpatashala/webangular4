@@ -23,7 +23,7 @@
     </div>
     <div class="large_gap"></div>
        
-         <div class="col-md-12">
+         <div class="">
         <div class="col-md-6 padding0"><h3 class="MyriadProB font28">Manage Class</h3>
         <p class="breadscrum_text"><a  routerLink="/">Home </a> &nbsp; <i class="fa fa-chevron-right"></i> &nbsp; Manage Class</p>
         </div>
@@ -154,7 +154,7 @@
 </div>
 
 
-<div class="singleStudentViewDiv addschool_div" [ngClass]="{'inactive_div': div_Element_Id !='3'}">
+<div class="singleStudentViewDiv addschool_div"  [ngClass]="{'inactive_div': div_Element_Id !='3'}">
         <div class="text-right">
             <span class="cancel_btn_modify button_type_span" (click)="showClassList()">Close</span>
         </div>
@@ -176,7 +176,7 @@
                            
                         </tr>
                     </thead>
-                    <tbody >
+                    <tbody *ngIf="div_Element_Id == '3'">
                         <tr  class="text-center" *ngFor="let viewname of rajuarray1; let i=index;">
                             <td>{{i+1}}</td>
                             <td>{{viewname.className}}</td>
@@ -199,7 +199,7 @@
 
 
 
-<div >
+
 <div class="datatable_toggle"    [ngClass]="{'inactive_div': div_Element_Id !='0'}">
         <!-- {{classarray[0].className}} -->
         <table id="manageclassestable" datatable [dtOptions]="dtOptions"  [dtTrigger]="dtTrigger" class="my_table_width">
@@ -215,7 +215,7 @@
                     <th>Number of periods</th>
                 </tr>
             </thead>
-            <tbody >
+            <tbody *ngIf="div_Element_Id =='0'">
                
                 <tr *ngFor="let classto of classarray; let i=index;">
                     <td><input type="checkbox" id="a{{classto.classId}}" value="{{classto.classId}}" (change)="checkedmasterClass(classto.classId)"></td><!--id="{{masterCourse.classId}}" value="{{masterCourse.classId}}"-->
@@ -230,7 +230,7 @@
             </tbody>        
         </table>
 </div>
-</div>
+
     </div>
     </div>   
 <div class="clear"></div>
