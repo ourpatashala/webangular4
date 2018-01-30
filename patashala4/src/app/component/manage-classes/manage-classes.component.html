@@ -1,6 +1,12 @@
 <app-header-admin></app-header-admin>
 
-
+<div class="overlay hideblock" [ngClass]="{'showblock': active=='1'}"></div>
+    <div class="popup_screen hideblock " [ngClass]="{'showblock': active=='1'}">
+        <div class="sucess_msg_text"><span class="checkicon"> &#x2714;</span> <p [ngClass]="{'show_styles_sucess': active=='1'}">{{sucessMessage}}!</p></div>
+        <div class="little_gap"></div>
+        <button class="update_btn popup_ok_btn" (click)="closePopup()">Ok</button>
+        <div class="little_gap"></div>
+    </div>
 
 
 <div class="all_pages_content">
@@ -16,8 +22,8 @@
       </ul>
     </div>
     <div class="large_gap"></div>
-
-         <div class="">
+       
+         <div class="col-md-12">
         <div class="col-md-6 padding0"><h3 class="MyriadProB font28">Manage Class</h3>
         <p class="breadscrum_text"><a  routerLink="/">Home </a> &nbsp; <i class="fa fa-chevron-right"></i> &nbsp; Manage Class</p>
         </div>
@@ -34,9 +40,9 @@
          <div class="little_gap"></div>
 
 
+         <div class="error_msg_text"><p [ngClass]="{'error_styles_sucess': active=='2'}">{{errorMessage}}</p></div>
 
-
-<div class="add_fields addschool_div" [ngClass]="{'inactive_div': div_Element_Id !='1'}">
+<div class="add_fields addschool_div" *ngIf ="div_Element_Id =='1'" [ngClass]="{'inactive_div': div_Element_Id !='1'}">
     <div class="col-md-12">
         <form [formGroup]="classFormGroup" (ngSubmit)="addClassSubmit(classFormGroup.value)">
             <div class="col-md-6">
@@ -154,7 +160,7 @@
         </div>
         <div class="col-md-2"></div>
             <div class="col-md-8 padding0">
-                <p><b>class Name</b> :    {{rajuarray1.className}}</p>
+                <!-- <p><b>class Name</b> :    {{rajuarray1.className}}</p> -->
                 <div class="large_gap"></div>            
                 <table class="view_syllabus_table">
                     <thead>
@@ -193,26 +199,8 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div class="datatable_toggle" [ngClass]="{'inactive_div': div_Element_Id !='0'}">
+<div >
+<div class="datatable_toggle"    [ngClass]="{'inactive_div': div_Element_Id !='0'}">
         <!-- {{classarray[0].className}} -->
         <table id="manageclassestable" datatable [dtOptions]="dtOptions"  [dtTrigger]="dtTrigger" class="my_table_width">
             <thead>
@@ -227,10 +215,10 @@
                     <th>Number of periods</th>
                 </tr>
             </thead>
-            <tbody>
+            <tbody >
                
                 <tr *ngFor="let classto of classarray; let i=index;">
-                    <td><input type="checkbox" id="a{{classto.classId}}" value="{{classto.classId}}" (change)="checkedmasterClass(i+1)"></td><!--id="{{masterCourse.classId}}" value="{{masterCourse.classId}}"-->
+                    <td><input type="checkbox" id="a{{classto.classId}}" value="{{classto.classId}}" (change)="checkedmasterClass(classto.classId)"></td><!--id="{{masterCourse.classId}}" value="{{masterCourse.classId}}"-->
                     <td>{{i+1}}</td>
                     <td>{{classto.className }}</td>
                     <td>{{classto.CourseName}}</td>
@@ -241,6 +229,7 @@
                 </tr>
             </tbody>        
         </table>
+</div>
 </div>
     </div>
     </div>   

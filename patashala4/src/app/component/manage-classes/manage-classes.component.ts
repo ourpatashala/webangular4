@@ -25,9 +25,9 @@ export class ManageClassesComponent implements OnInit {
 
   classFormGroup:FormGroup;
   checkedval:number;
-
- 
- 
+  // classtable:boolean=false;
+  errorMessage: string;
+  active: string = "0";// for error and success divs;;  0 for no content, 1 for success, 2 for error
   @ViewChild(DataTableDirective) dtElement: DataTableDirective;
   dtOptions: DataTables.Settings = {};
   dtTrigger: Subject<any> = new Subject();
@@ -42,6 +42,7 @@ export class ManageClassesComponent implements OnInit {
   classarray:Manageclass[] = [];
   rajuarray1:Manageclass[] = [];
   // manageclass:Manageclass;
+  
   
   dateOptions: DatepickerOptions = {
     displayFormat: 'DD-MMM-YYYY',
@@ -59,7 +60,13 @@ export class ManageClassesComponent implements OnInit {
   };
 
   
-
+  closePopup() {
+    // this.sucessMessage = "";
+    this.active = "0";
+    // this.showClassSelection=false;
+    // if (this.popupstatus == "1")
+     this.showClassList();
+  }
 
 
   constructor(myElement: ElementRef, private fb:FormBuilder ) {
@@ -91,16 +98,6 @@ export class ManageClassesComponent implements OnInit {
     // this.selectedClassesArray=[''];
   }
 
-  showClassList(){
-    this.div_Element_Id ="0";
-    this.selectedClassesArray=[];
-    this.classFormGroup.controls['className'].patchValue('');
-    this.classFormGroup.controls['CourseName'].patchValue('');
-    this.classFormGroup.controls['BatchNo'].patchValue('');
-    this.classFormGroup.controls['Startdate'].patchValue(new Date());
-    this.classFormGroup.controls['Enddate'].patchValue(new Date());
-    this.classFormGroup.controls['No_ofperiods'].patchValue('');
-  }
 
  filter() {
     if (this.query !== ""){
@@ -134,8 +131,33 @@ handleClick(event){
 
 addClassSubmit(value){
 
-console.log(value);
+// console.log(value);
 // this.classarray= new Array<Manageclass>();
+ if(value.className =="" ||value.className == null){
+   this.errorMessage = "please enter className";
+   this.active ="2";
+ }
+ else if(value.CourseName =="" ||value.CourseName == null){
+   this.errorMessage = "please enter CourseName";
+   this.active ="2";
+ }
+ else if(value.BatchNo =="" ||value.BatchNo == null){
+   this.errorMessage = "please enter BatchNo";
+   this.active ="2";
+ }
+ else if(value.Startdate =="" ||value.Startdate == null){
+   this.errorMessage = "please enter Startdate";
+   this.active ="2";
+ }
+ else if(value.Enddate =="" ||value.Enddate == null){
+   this.errorMessage = "please enter Enddate";
+   this.active ="2";
+ }
+ else if(value.No_ofperiods =="" ||value.No_ofperiods == null){
+   this.errorMessage = "please enter No_ofperiods";
+   this.active ="2";
+ }
+ else{
     var manageclass = new Manageclass();
     manageclass.className = value.className;
      manageclass.classId = this.classarray.length + 1;
@@ -150,11 +172,91 @@ console.log(value);
   console.log('Course Name' + value.CourseName);
   console.log('classId Name' + manageclass.classId);
   console.log("class array val" + this.classarray.length);
-  this.showClassList();
+  // this.showClassList();
+  // this.div_Element_Id="0";
+  this.active ="1";
+  
+ }
 }
 
 
 
+
+ getselectedClassProfile(){
+  this.div_Element_Id ="2";
+      this.classFormGroup.controls['className'].patchValue(this.classarray[this.checkedval].className);
+      this.classFormGroup.controls['CourseName'].patchValue( this.classarray[this.checkedval].CourseName);
+      this.classFormGroup.controls['BatchNo'].patchValue( this.classarray[this.checkedval].BatchNo);
+      this.classFormGroup.controls['Startdate'].patchValue( this.classarray[this.checkedval].Startdate);
+      this.classFormGroup.controls['Enddate'].patchValue( this.classarray[this.checkedval].Enddate);
+      this.classFormGroup.controls['No_ofperiods'].patchValue( this.classarray[this.checkedval].No_ofperiods);
+  console.log('classname of patch'+this.classarray[this.checkedval].className);
+ }
+
+
+
+ updateClassSubmit(value){
+
+  if(value.className =="" ||value.className == null){
+    this.errorMessage = "please enter className";
+    this.active ="2";
+  }
+  else if(value.CourseName =="" ||value.CourseName == null){
+    this.errorMessage = "please enter CourseName";
+    this.active ="2";
+  }
+  else if(value.BatchNo =="" ||value.BatchNo == null){
+    this.errorMessage = "please enter BatchNo";
+    this.active ="2";
+  }
+  else if(value.Startdate =="" ||value.Startdate == null){
+    this.errorMessage = "please enter Startdate";
+    this.active ="2";
+  }
+  else if(value.Enddate =="" ||value.Enddate == null){
+    this.errorMessage = "please enter Enddate";
+    this.active ="2";
+  }
+  else if(value.No_ofperiods =="" ||value.No_ofperiods == null){
+    this.errorMessage = "please enter No_ofperiods";
+    this.active ="2";
+  }
+  else{
+      var manageclass = new Manageclass();
+        manageclass.className = value.className;
+        manageclass.classId =   this.checkedval+1;
+        manageclass.CourseName = value.CourseName;
+        manageclass.BatchNo = value.BatchNo;
+        manageclass.Startdate = value.Startdate;
+        manageclass.Enddate = value.Enddate;
+        manageclass.No_ofperiods = value.No_ofperiods;
+        this.classarray[this.checkedval]=manageclass;
+      this.selectedClassesArray=[];
+      this.showClassList();
+  }
+  
+ }
+
+ deleteClass(){
+   this.classarray.splice(this.checkedval,1);
+  this.selectedClassesArray=[];
+  //  this.showClassList();
+  
+ }
+
+
+ viewSingleClassProfile(){
+   this.div_Element_Id ="3";
+   this.rajuarray1=[];
+   var rajuarray = new Manageclass();
+   rajuarray = this.classarray[this.checkedval];
+   this.rajuarray1.push(rajuarray);
+   
+ }
+
+ 
+
+ 
 checkedmasterClass(value){
   console.log("checked value"+ value);
   if ((<HTMLInputElement>document.getElementById("a"+value)).checked === true) {
@@ -168,53 +270,39 @@ checkedmasterClass(value){
  }
 
 
- getselectedClassProfile(){
-  this.div_Element_Id ="2";
-      this.classFormGroup.controls['className'].patchValue(this.classarray[this.checkedval].className);
-      this.classFormGroup.controls['CourseName'].patchValue( this.classarray[this.checkedval].CourseName);
-      this.classFormGroup.controls['BatchNo'].patchValue( this.classarray[this.checkedval].BatchNo);
-      this.classFormGroup.controls['Startdate'].patchValue( this.classarray[this.checkedval].Startdate);
-      this.classFormGroup.controls['Enddate'].patchValue( this.classarray[this.checkedval].Enddate);
-      this.classFormGroup.controls['No_ofperiods'].patchValue( this.classarray[this.checkedval].No_ofperiods);
-  console.log('classname of patch'+this.classarray[this.selectedClassesArray[0]].className);
- }
 
-
-
- updateClassSubmit(value){
-
-      var manageclass = new Manageclass();
-        manageclass.className = value.className;
-        manageclass.classId = this.classarray.length + 1;
-        manageclass.CourseName = value.CourseName;
-        manageclass.BatchNo = value.BatchNo;
-        manageclass.Startdate = value.Startdate;
-        manageclass.Enddate = value.Enddate;
-        manageclass.No_ofperiods = value.No_ofperiods;
-        this.classarray[this.checkedval]=value;
-      //this.classarray.push(manageclass);
-
-  this.showClassList();
- }
-
- deleteClass(){
-   this.classarray.splice(this.checkedval,1);
-  this.selectedClassesArray=[];
-  //  this.showClassList();
+ showClassList(){
   
- }
-
- viewSingleClassProfile(){
-
-   this.div_Element_Id ="3";
-   var rajuarray = new Manageclass();
-   rajuarray = this.classarray[this.checkedval];
-   this.rajuarray1.push(rajuarray);
- }
-
-
+   this.selectedClassesArray=[];
+   this.div_Element_Id ="0";
+  this.classFormGroup.controls['className'].patchValue('');
+  this.classFormGroup.controls['CourseName'].patchValue('');
+  this.classFormGroup.controls['BatchNo'].patchValue('');
+  this.classFormGroup.controls['Startdate'].patchValue(new Date());
+  this.classFormGroup.controls['Enddate'].patchValue(new Date());
+  this.classFormGroup.controls['No_ofperiods'].patchValue('');
+}
 
 
+
+ rerender(): void {
+  console.log("render call " + this.flag + "   " + this.dtElement);
+
+  if (!this.flag && this.dtElement != null) {
+    this.flag = true;
+    this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+      console.log("shiva 111" + dtInstance);
+      // Destroy the table first
+      dtInstance.destroy();
+      // Call the dtTrigger to rerender again
+      console.log("shiva 222 " + this.dtTrigger);
+      if (this.dtTrigger != null) this.dtTrigger.next(); else
+        console.log("error as null");
+      this.flag = false;
+    });
+  }
+
+}
 
 
 
