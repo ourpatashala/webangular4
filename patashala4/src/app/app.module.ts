@@ -47,6 +47,9 @@ import { WebCamModule } from 'ack-angular-webcam';
 import { SyllbusPopupComponent } from './component/popup-screens/syllbus-popup/syllbus-popup.component';
 import { ManageTimetableComponent } from './component/manage-timetable/manage-timetable.component';
 import { ManageClassesComponent } from './component/manage-classes/manage-classes.component';
+import { ManageCalendarComponent } from './component/manage-calendar/manage-calendar.component';
+import { ManageContactsComponent } from './component/manage-contacts/manage-contacts.component';
+import { ManageFeesComponent } from './component/manage-fees/manage-fees.component';
 
 
 
@@ -75,7 +78,10 @@ export const firebaseConfig = {     apiKey: 'AIzaSyB6WeGfORqOzz5jT_XL6GLMCl8ze
     MasterCourseComponent,
     SyllbusPopupComponent,
     ManageTimetableComponent,
-    ManageClassesComponent
+    ManageClassesComponent,
+    ManageCalendarComponent,
+    ManageContactsComponent,
+    ManageFeesComponent
 
   ],
   imports: [

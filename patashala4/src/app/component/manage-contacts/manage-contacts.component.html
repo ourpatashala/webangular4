@@ -1,0 +1,222 @@
+<app-header-admin></app-header-admin>
+
+
+
+<div class="overlay hideblock" [ngClass]="{'showblock': active=='1'}"></div>
+    <div class="popup_screen hideblock " [ngClass]="{'showblock': active=='1'}">
+        <div class="sucess_msg_text"><span class="checkicon"> &#x2714;</span> <p [ngClass]="{'show_styles_sucess': active=='1'}">{{sucessMessage}}!</p></div>
+        <div class="little_gap"></div>
+        <button class="update_btn popup_ok_btn" (click)="closePopup()">Ok</button>
+        <div class="little_gap"></div>
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+<div class="all_pages_content">
+    <div class="clear"></div>
+    <div class="page_content_here">
+     <div class="manage_school_table">
+
+         <div class="listing_tabs">
+      <ul class="">
+         <a routerLink="/TabService"><li class="active_tab" id="service_tab">Services</li></a>
+         <a routerLink="/TabManage"><li class="" id="manage_tab">Manage</li></a>
+      </ul>
+    </div>
+    <div class="large_gap"></div>
+
+    
+       <div class="col-md-6 padding0"><h3>Manage Contact</h3>
+       <p class="breadscrum_text"><a  routerLink="/">Home </a> &nbsp; <i class="fa fa-chevron-right"></i> &nbsp; Manage Contact</p>
+       </div>
+        <div class="col-md-6 padding0 text-right">
+          <div class="buttons_div" [ngClass]="{'inactive_div': div_Element_Id !='0'}">
+            <button class="add_more_btn"  (click)="show_addContactFields()" [ngClass]="{'disable_btn': selectedContactArray.length!='0'}"><i class="fa fa-plus"></i> Add</button> 
+            <button class="edit_field_btn" (click)="getselectedContactProfile()" [ngClass]="{'disable_btn': selectedContactArray.length!='1'}"><i class="fa fa-pencil"></i> Modify</button>
+            <button (click)="deleteContact()" [ngClass]="{'disable_btn': selectedContactArray.length==0 || selectedContactArray.length>1}"><i class="fa fa-trash"></i> Delete</button>
+            <button (click)="viewSingleContactProfile()" [ngClass]="{'disable_btn': selectedContactArray.length!='1'}"><i class="fa fa-eye"></i> View</button> 
+            </div>
+        </div>
+          <div class="clear"></div>
+
+
+          <div class="error_msg_text"><p [ngClass]="{'error_styles_sucess': active=='2'}">{{errorMessage}}</p></div>
+
+          <!-- <div class="col-md-3"></div>
+          <div class="col-md-6"> -->
+         
+   <div class="add_fields addschool_div"  *ngIf ="div_Element_Id =='1'"  [ngClass]="{'inactive_div': div_Element_Id !='1'}">
+      <div class="little_gap"></div>
+      <form [formGroup]="contactFormGroup" (ngSubmit)="addcontact(contactFormGroup.value)">
+          <div class="col-md-3"></div>
+            <div class="col-md-6">
+                <div class="col-md-4"><p>S.No</p></div>
+                <div class="col-md-8">
+                    <input type="number"  formControlName="serialNo" placeholder="serial No">
+                </div>
+                <div class="clear"></div>
+                <div class="col-md-4"><p>Name</p></div>
+                <div class="col-md-8">
+                  <input type="text"  formControlName="Name"  placeholder="Enter Name">
+                </div>
+                <div class="clear"></div>
+                <div class="col-md-4"><p>Designation</p></div>
+                <div class="col-md-8">
+                  <input type="text" formControlName="Designation"  placeholder="Enter Designation">
+                </div>
+                <div class="clear"></div>
+                <div class="col-md-4"><p>Phone Number</p></div>
+                <div class="col-md-8">
+                  <input type="number" formControlName="Phonenumber"  placeholder="Enter Phone Number">
+                </div>
+                <div class="clear"></div>
+                <div class="col-md-4"><p>Email</p></div>
+                <div class="col-md-8">
+                  <input type="email" formControlName="primaryEmail"  placeholder="Enter Email"><br/>
+                </div>
+                <div class="clear"></div>
+                <div class="col-md-4"><p>Dept/Group</p></div>
+                <div class="col-md-8">
+                    <input type="text" formControlName="Dept_group"  placeholder="Enter dept/Group">
+                </div>
+                <div class="clear"></div>
+            </div>
+            <div class="col-md-3"></div>
+          <div class="col-md-12  padding0 text-center">
+            <button class="update_btn">Add Contact</button><span class="cancel_btn_add button_type_span" (click)="showContactList()">Cancel</span>
+          </div>          
+          <div class="clear"></div>
+      </form>
+    </div> 
+
+
+
+
+   <div class="modify_fields addschool_div" [ngClass]="{'inactive_div': div_Element_Id !='2'}">
+    <div class="little_gap"></div>
+    <form [formGroup]="contactFormGroup" (ngSubmit)="UpdateContact(contactFormGroup.value)">
+        <div class="col-md-3"></div>
+          <div class="col-md-6">
+              <div class="col-md-4"><p>S.No</p></div>
+              <div class="col-md-8">
+                  <input type="number"  formControlName="serialNo" placeholder="serial No">
+              </div>
+              <div class="clear"></div>
+              <div class="col-md-4"><p>Name</p></div>
+              <div class="col-md-8">
+                <input type="text"  formControlName="Name"  placeholder="Enter Name">
+              </div>
+              <div class="clear"></div>
+              <div class="col-md-4"><p>Designation</p></div>
+              <div class="col-md-8">
+                <input type="text" formControlName="Designation"  placeholder="Enter Designation">
+              </div>
+              <div class="clear"></div>
+              <div class="col-md-4"><p>Phone Number</p></div>
+              <div class="col-md-8">
+                <input type="text" formControlName="Phonenumber"  placeholder="Enter Phone Number">
+              </div>
+              <div class="clear"></div>
+              <div class="col-md-4"><p>Email</p></div>
+              <div class="col-md-8">
+                <input type="email" formControlName="primaryEmail"  placeholder="Enter Email">
+              </div>
+              <div class="clear"></div>
+              <div class="col-md-4"><p>Dept/Group</p></div>
+              <div class="col-md-8">
+                  <input type="text" formControlName="Dept_group"  placeholder="Enter dept/Group">
+              </div>
+              <div class="clear"></div>
+          </div>
+          <div class="col-md-3"></div>
+        <div class="col-md-12  padding0 text-center">
+          <button class="update_btn">Modify Contact</button><span class="cancel_btn_add button_type_span" (click)="showContactList()">Cancel</span>
+        </div>          
+        <div class="clear"></div>
+    </form>
+    </div> 
+    <div class="clear"></div>
+    <div class="little_gap"></div>
+
+    
+    
+
+    <div class="singleStudentViewDiv addschool_div"  [ngClass]="{'inactive_div': div_Element_Id !='3'}">
+        <div class="col-md-12 text-right">
+            <span class="cancel_btn_modify button_type_span" (click)="showContactList()">Close</span>
+        </div>
+        <div class="col-md-3"></div>
+            <div class="col-md-6 padding0">
+                <div class="large_gap"></div>            
+                <table class="view_syllabus_table">
+                    <thead>
+                        <tr>
+                            <th  class="text-center">S.no</th>
+                            <th  class="text-center">Name</th>
+                            <th  class="text-center">Designation</th>
+                            <th  class="text-center">Contact</th>
+                            <th  class="text-center">Email</th>
+                            <th  class="text-center">Dept/Group</th>
+                            
+                        </tr>
+                    </thead>
+                    <tbody *ngIf="div_Element_Id == '3'">
+                        <tr  class="text-center" *ngFor="let viewname of contactArray1; let i=index;">
+                            <td>{{viewname.serialNo}}</td>
+                            <td>{{viewname.Name}}</td>
+                            <td>{{viewname.Designation}}</td>
+                            <td>{{viewname.Phonenumber}}</td>
+                            <td>{{viewname.primaryEmail}}</td>
+                            <td>{{viewname.Dept_group}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="col-md-3"></div>
+            <div class="clear"></div>
+    </div>
+    <div class="clear"></div>
+
+
+
+
+          <div class="datatable_toggle" [ngClass]="{'inactive_div': div_Element_Id !='0'}">
+          <table id="manageclassestable" datatable [dtOptions]="dtOptions"  [dtTrigger]="dtTrigger" class="my_table_width">
+                    <thead>
+                      <tr>
+                          <th></th>
+                          <th>S.No</th>
+                          <th>Name</th>
+                          <th>Designation</th>
+                          <th>Contact</th>
+                          <th>Email</th>
+                          <th>Dept/Group</th>
+                      </tr>
+                    </thead>
+                    <tbody *ngIf="div_Element_Id =='0'">
+                        <tr *ngFor="let events of contactArray; let i=index;">
+                            <td><input type="checkbox"id="a{{events.contactId}}" value="{{events.contactId}}" (change)="checkedmasterContact(events.contactId)"></td>
+                            <td>{{events.serialNo}}</td>
+                            <td>{{events.Name}}</td>
+                            <td>{{events.Designation}}</td>
+                            <td>{{events.Phonenumber}}</td>
+                            <td>{{events.primaryEmail}}</td>
+                            <td>{{events.Dept_group}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+          </div>
+                <!-- </div> -->
+          <!-- <div class="col-md-3"></div> -->
+          <div class="clear"></div>
+            </div>
+            </div>
+        </div>

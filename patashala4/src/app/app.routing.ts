@@ -24,8 +24,9 @@ import { TabServiceComponent } from './component/tab-service/tab-service.compone
 import { TabManageComponent } from './component/tab-manage/tab-manage.component';
 import { ManageTimetableComponent } from './component/manage-timetable/manage-timetable.component';
 import { ManageClassesComponent } from './component/manage-classes/manage-classes.component';
-
-
+import { ManageCalendarComponent } from './component/manage-calendar/manage-calendar.component';
+import { ManageContactsComponent } from './component/manage-contacts/manage-contacts.component';
+import { ManageFeesComponent } from './component/manage-fees/manage-fees.component';
 
 const appRoutes: Routes = [
   { path:'', component:LoginComponent },
@@ -39,7 +40,10 @@ const appRoutes: Routes = [
   { path: 'Mastersubject',component:MastersubjectComponent},
   { path: 'Mastersyllabus',component:MasterSyllabusComponent},
   { path: 'ManageTimeTable',component:ManageTimetableComponent},
-  { path: 'Manageclasses',component:ManageClassesComponent}
+  { path: 'Manageclasses',component:ManageClassesComponent},
+  { path: 'ManageCalendar',component:ManageCalendarComponent},
+  { path: 'ManageContact',component:ManageContactsComponent},
+  { path: 'ManageFees',component:ManageFeesComponent}
 ];
 
 
