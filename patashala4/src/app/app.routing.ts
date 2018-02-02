@@ -27,6 +27,8 @@ import { ManageClassesComponent } from './component/manage-classes/manage-classe
 import { ManageCalendarComponent } from './component/manage-calendar/manage-calendar.component';
 import { ManageContactsComponent } from './component/manage-contacts/manage-contacts.component';
 import { ManageFeesComponent } from './component/manage-fees/manage-fees.component';
+import { ManageBannerComponent } from './component/manage-banner/manage-banner.component';
+
 
 const appRoutes: Routes = [
   { path:'', component:LoginComponent },
@@ -43,7 +45,8 @@ const appRoutes: Routes = [
   { path: 'Manageclasses',component:ManageClassesComponent},
   { path: 'ManageCalendar',component:ManageCalendarComponent},
   { path: 'ManageContact',component:ManageContactsComponent},
-  { path: 'ManageFees',component:ManageFeesComponent}
+  { path: 'ManageFees',component:ManageFeesComponent},
+  { path: 'ManageBanner',component:ManageBannerComponent},
 ];
 
 

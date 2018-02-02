@@ -1,0 +1,196 @@
+<app-header-admin></app-header-admin>
+
+
+
+<div class="overlay hideblock" [ngClass]="{'showblock': active=='1'}"></div>
+    <div class="popup_screen hideblock " [ngClass]="{'showblock': active=='1'}">
+        <div class="sucess_msg_text"><span class="checkicon"> &#x2714;</span> <p [ngClass]="{'show_styles_sucess': active=='1'}">{{sucessMessage}}!</p></div>
+        <div class="little_gap"></div>
+        <button class="update_btn popup_ok_btn" (click)="closePopup()">Ok</button>
+        <div class="little_gap"></div>
+    </div>
+
+
+
+
+<div class="all_pages_content">
+    <div class="clear"></div>
+    <div class="page_content_here">
+     <div class="manage_school_table">
+
+         <div class="listing_tabs">
+      <ul class="">
+         <a routerLink="/TabService"><li class="active_tab" id="service_tab">Services</li></a>
+         <a routerLink="/TabManage"><li class="" id="manage_tab">Manage</li></a>
+      </ul>
+    </div>
+    <div class="large_gap"></div>
+
+    
+       <div class="col-md-6 padding0"><h3>Manage Banner</h3>
+       <p class="breadscrum_text"><a  routerLink="/">Home </a> &nbsp; <i class="fa fa-chevron-right"></i> &nbsp; Manage Banner</p>
+       </div>
+        <div class="col-md-6 padding0 text-right">
+          <div class="buttons_div" [ngClass]="{'inactive_div': div_Element_Id !='0'}">
+            <button class="add_more_btn"  (click)="show_addBannerFields()" [ngClass]="{'disable_btn': selectedBannerArray.length!='0'}"><i class="fa fa-plus"></i> Add</button> 
+            <button class="edit_field_btn" (click)="getselectedBannerProfile()" [ngClass]="{'disable_btn': selectedBannerArray.length!='1'}"><i class="fa fa-pencil"></i> Modify</button>
+            <button (click)="deleteBanner()" [ngClass]="{'disable_btn': selectedBannerArray.length==0 || selectedBannerArray.length>1}"><i class="fa fa-trash"></i> Delete</button>
+            <button (click)="viewSingleBannerProfile()" [ngClass]="{'disable_btn': selectedBannerArray.length!='1'}"><i class="fa fa-eye"></i> View</button> 
+            </div>
+        </div>
+          <div class="clear"></div>
+
+
+    <div class="error_msg_text"><p [ngClass]="{'error_styles_sucess': active=='2'}">{{errorMessage}}</p></div>
+
+  <div class="col-md-3"></div>
+   <div class="col-md-6">         
+   <div class="add_fields addschool_div"  *ngIf ="div_Element_Id =='1'"  [ngClass]="{'inactive_div': div_Element_Id !='1'}">
+      <div class="little_gap"></div>
+      <form [formGroup]="bannerFormGroup" (ngSubmit)="addEvent(bannerFormGroup.value)">
+          <div class="col-md-12 padding0">
+              <div class="col-md-4"><p>S.No</p></div>
+              <div class="col-md-8">
+                <input type="number"  formControlName="serialNo" placeholder="serial No">
+              </div>
+              <div class="clear"></div>
+              <div class="col-md-4"><p>Class/School</p></div>
+              <div class="col-md-8">
+                <input type="text" formControlName="School" placeholder="Enter Class/School">
+              </div>
+              <div class="clear"></div>
+              <div class="col-md-4"><p>Message</p></div>
+              <div class="col-md-8">
+                <textarea  formControlName="Message" placeholder="Enter Message"></textarea>
+              </div>
+              <div class="clear"></div>
+              <div class="col-md-4"><p>Start Date</p></div>
+              <div class="col-md-8">
+                  <ng-datepicker  formControlName="StartDate" [options]="dateOptions"  placeholder="Start Date"></ng-datepicker>
+                </div>             
+              <div class="clear"></div>
+              <div class="col-md-4"><p>End Date</p></div>
+              <div class="col-md-8">
+                  <ng-datepicker  formControlName="EndDate" [options]="dateOptions1"  placeholder="End Date"></ng-datepicker>
+                </div>
+              <div class="clear"></div>
+              <div class="little_gap"></div>
+          </div>
+          <div class="col-md-12  padding0 text-center">
+            <button class="update_btn">Add Banner</button><span class="cancel_btn_add button_type_span" (click)="showBannerList()">Cancel</span>
+          </div>          
+          <div class="clear"></div>
+      </form>
+    </div> 
+
+
+
+
+   <div class="modify_fields addschool_div" [ngClass]="{'inactive_div': div_Element_Id !='2'}">
+      <div class="little_gap"></div>
+      <form [formGroup]="bannerFormGroup" (ngSubmit)="updateEvent(bannerFormGroup.value)"> 
+          <div class="col-md-12 padding0">
+              <div class="col-md-4"><p>S.No</p></div>
+              <div class="col-md-8">
+                <input type="number"  formControlName="serialNo" placeholder="serial No">
+              </div>
+              <div class="clear"></div>
+              <div class="col-md-4"><p>Class/School</p></div>
+              <div class="col-md-8">
+                <input type="text" formControlName="School" placeholder="Enter Class/School">
+              </div>
+              <div class="clear"></div>
+              <div class="col-md-4"><p>Message</p></div>
+              <div class="col-md-8">
+                <textarea  formControlName="Message" placeholder="Enter Message"></textarea>
+              </div>
+              <div class="clear"></div>
+              <div class="col-md-4"><p>Start Date</p></div>
+              <div class="col-md-8">
+                  <ng-datepicker  formControlName="StartDate" [options]="dateOptions"  placeholder="Start Date"></ng-datepicker>
+                </div>             
+              <div class="clear"></div>
+              <div class="col-md-4"><p>End Date</p></div>
+              <div class="col-md-8">
+                  <ng-datepicker  formControlName="EndDate" [options]="dateOptions1"  placeholder="End Date"></ng-datepicker>
+                </div>
+              <div class="clear"></div>
+              <div class="little_gap"></div>
+          </div>
+          <div class="col-md-12  padding0 text-center">
+            <button class="update_btn">Modify Banner</button><span class="cancel_btn_add button_type_span" (click)="showBannerList()">Cancel</span>
+          </div> 
+          <div class="clear"></div>
+      </form>
+    </div> 
+    <div class="clear"></div>
+    <div class="little_gap"></div>
+
+    
+    
+
+<div class="singleStudentViewDiv addschool_div"  [ngClass]="{'inactive_div': div_Element_Id !='3'}">
+        <div class="col-md-12 text-right">
+            <span class="cancel_btn_modify button_type_span" (click)="showBannerList()">Close</span>
+        </div>
+        <div class="col-md-1"></div>
+            <div class="col-md-10 padding0">
+                <div class="large_gap"></div>            
+                <table class="view_syllabus_table">
+                    <thead>
+                        <tr  class="text-center">
+                            <th>S.no</th>
+                            <th>School/Class</th>
+                            <th>Message</th>
+                            <th>Start Date</th>
+                            <th>End Date</th>
+                        </tr>
+                    </thead>
+                    <tbody *ngIf="div_Element_Id == '3'">
+                        <tr  class="text-center" *ngFor="let viewname of banviewarray; let i=index;">
+                            <td>{{viewname.serialNo}}</td>
+                            <td>{{viewname.School}}</td>
+                            <td>{{viewname.Message}}</td>
+                            <td>{{viewname.StartDate |date}}</td>
+                            <td>{{viewname.EndDate | date}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="col-md-1"></div>
+            <div class="clear"></div>
+    </div>
+    <div class="clear"></div>
+
+
+   <div class="datatable_toggle" [ngClass]="{'inactive_div': div_Element_Id !='0'}">
+        <table id="manageclassestable" datatable [dtOptions]="dtOptions"  [dtTrigger]="dtTrigger" class="my_table_width">
+                    <thead>
+                      <tr class="text-center">
+                            <th></th>
+                            <th>S.no</th>
+                            <th>School/Class</th>
+                            <th>Message</th>
+                            <th>Start Date</th>
+                            <th>End Date</th>
+                      </tr>
+                    </thead>
+                    <tbody *ngIf="div_Element_Id =='0'">
+                        <tr class="text-center" *ngFor="let events of bannerarray; let i=index;">
+                            <td><input type="checkbox"id="a{{events.BannerId}}" value="{{events.BannerId}}" (change)="checkedmasterBanner(events.BannerId)"></td>
+                            <td>{{events.serialNo}}</td>
+                            <td>{{events.School}}</td>
+                            <td>{{events.Message}}</td>
+                            <td>{{events.StartDate |date}}</td>
+                            <td>{{events.EndDate | date}}</td>
+                        </tr>
+                    </tbody>
+        </table>
+
+          </div>
+          </div>
+          <div class="col-md-3"></div>
+          <div class="clear"></div>
+            </div>
+            </div>
+        </div>

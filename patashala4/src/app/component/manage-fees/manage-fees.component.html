@@ -12,14 +12,6 @@
 
 
 
-
-
-
-
-
-
-
-
 <div class="all_pages_content">
     <div class="clear"></div>
     <div class="page_content_here">
@@ -34,25 +26,22 @@
     <div class="large_gap"></div>
 
     
-       <div class="col-md-6 padding0"><h3>Manage Contact</h3>
-       <p class="breadscrum_text"><a  routerLink="/">Home </a> &nbsp; <i class="fa fa-chevron-right"></i> &nbsp; Manage Contact</p>
+       <div class="col-md-6 padding0"><h3>Manage Fee</h3>
+       <p class="breadscrum_text"><a  routerLink="/">Home </a> &nbsp; <i class="fa fa-chevron-right"></i> &nbsp; Manage Fee</p>
        </div>
         <div class="col-md-6 padding0 text-right">
           <div class="buttons_div" [ngClass]="{'inactive_div': div_Element_Id !='0'}">
-            <button class="add_more_btn"  (click)="show_addContactFields()" [ngClass]="{'disable_btn': selectedFeesArray.length!='0'}"><i class="fa fa-plus"></i> Add</button> 
-            <button class="edit_field_btn" (click)="getselectedContactProfile()" [ngClass]="{'disable_btn': selectedFeesArray.length!='1'}"><i class="fa fa-pencil"></i> Modify</button>
-            <button (click)="deleteContact()" [ngClass]="{'disable_btn': selectedFeesArray.length==0 || selectedFeesArray.length>1}"><i class="fa fa-trash"></i> Delete</button>
-            <button (click)="viewSingleContactProfile()" [ngClass]="{'disable_btn': selectedFeesArray.length!='1'}"><i class="fa fa-eye"></i> View</button> 
-            <button (click)="copySingleContactProfile()" [ngClass]="{'disable_btn': selectedFeesArray.length!='1'}"><i class="fa fa-files-o"></i> Copy</button> 
+            <button class="add_more_btn"  (click)="show_addFeeFields()" [ngClass]="{'disable_btn': selectedFeesArray.length!='0'}"><i class="fa fa-plus"></i> Add</button> 
+            <button class="edit_field_btn" (click)="getselectedFeeProfile()" [ngClass]="{'disable_btn': selectedFeesArray.length!='1'}"><i class="fa fa-pencil"></i> Modify</button>
+            <button (click)="deleteFee()" [ngClass]="{'disable_btn': selectedFeesArray.length==0 || selectedFeesArray.length>1}"><i class="fa fa-trash"></i> Delete</button>
+            <button (click)="viewSingleFeeProfile()" [ngClass]="{'disable_btn': selectedFeesArray.length!='1'}"><i class="fa fa-eye"></i> View</button> 
+            <button (click)="copySingleFeeProfile()" [ngClass]="{'disable_btn': selectedFeesArray.length!='1'}"><i class="fa fa-files-o"></i> Copy</button> 
             </div>
         </div>
           <div class="clear"></div>
 
 
-          <div class="error_msg_text"><p [ngClass]="{'error_styles_sucess': active=='2'}">{{errorMessage}}</p></div>
-
-          <!-- <div class="col-md-3"></div>
-          <div class="col-md-6"> -->
+    <div class="error_msg_text"><p [ngClass]="{'error_styles_sucess': active=='2'}">{{errorMessage}}</p></div>
          
    <div class="add_fields addschool_div"  *ngIf ="div_Element_Id =='1'"  [ngClass]="{'inactive_div': div_Element_Id !='1'}">
       <div class="little_gap"></div>
@@ -61,19 +50,18 @@
           <div class="col-md-6">
               <div class="col-md-4"><p>S.No</p></div>
               <div class="col-md-8">
-                <input type="number" formControlName="serialNo" placeholder="Enter Serial">
+                <input type="number" formControlName="serialNo" placeholder="Enter Serial No">
               </div>
               <div class="clear"></div>
               <div class="col-md-4"><p>Class</p></div>
               <div class="col-md-8">
                   <div  class="input-field col s12">
-                      <input id="country" type="text" name="className" formControlName="className" class="validate filter-input" placeholder=" sea rch ClassName" [(ngModel)]=query (keyup)=filter()>
-                    
+                    <input id="country" type="text" name="className" formControlName="className" class="validate filter-input" placeholder="Search ClassName" [(ngModel)]=Feequery (keyup)=filter1()>
                   </div>
-                  <div class="suggestions sugg_dropdown" *ngIf="filteredList.length > 0">
-                      <ul class="class_margin" *ngFor="let item of filteredList" >
+                  <div class="suggestions sugg_dropdown" *ngIf="filteredListarray.length > 0">
+                      <ul class="class_margin" *ngFor="let item of filteredListarray" >
                           <li class="class_select text-left">
-                              <a (click)="select(item)">{{item}}</a>
+                              <a (click)="select1(item)">{{item}}</a>
                           </li>
                       </ul>
                   </div>
@@ -112,7 +100,7 @@
 
 
 
-   <div class="modify_fields addschool_div" [ngClass]="{'inactive_div': div_Element_Id !='2'}">
+<div class="modify_fields addschool_div" [ngClass]="{'inactive_div': div_Element_Id !='2'}">
     <div class="little_gap"></div>
     <form [formGroup]="feeFormGroup" (ngSubmit)="UpdateFeeSubmit(feeFormGroup.value)">
         <div class="col-md-3"></div>
@@ -125,13 +113,12 @@
             <div class="col-md-4"><p>Class</p></div>
             <div class="col-md-8">
                 <div  class="input-field col s12">
-                    <input id="country" type="text" name="className" formControlName="className" class="validate filter-input" placeholder="Search ClassName" [(ngModel)]=query (keyup)=filter()>
-                  
+                    <input id="country" type="text" name="className" formControlName="className" class="validate filter-input" placeholder="Search ClassName" [(ngModel)]=Feequery (keyup)=filter1()>
                 </div>
-                <div class="suggestions sugg_dropdown" *ngIf="filteredList.length > 0">
-                    <ul class="class_margin" *ngFor="let item of filteredList" >
+                <div class="suggestions sugg_dropdown" *ngIf="filteredListarray.length > 0">
+                    <ul class="class_margin" *ngFor="let item of filteredListarray" >
                         <li class="class_select text-left">
-                            <a (click)="select(item)">{{item}}</a>
+                            <a (click)="select1(item)">{{item}}</a>
                         </li>
                     </ul>
                 </div>
@@ -161,7 +148,7 @@
           </div>
           <div class="col-md-3"></div>
         <div class="col-md-12  padding0 text-center">
-          <button class="update_btn">Modify Contact</button><span class="cancel_btn_add button_type_span" (click)="showFeeList()">Cancel</span>
+          <button class="update_btn">Modify Fee</button><span class="cancel_btn_add button_type_span" (click)="showFeeList()">Cancel</span>
         </div>          
         <div class="clear"></div>
     </form>
@@ -181,24 +168,24 @@
                 <div class="large_gap"></div>            
                 <table class="view_syllabus_table">
                     <thead>
-                        <tr>
-                            <th  class="text-center">S.no</th>
-                            <th  class="text-center">Name</th>
-                            <th  class="text-center">Designation</th>
-                            <th  class="text-center">Contact</th>
-                            <th  class="text-center">Email</th>
-                            <th  class="text-center">Dept/Group</th>
-                            
+                        <tr class="text-center">
+                                <th >S.No</th>
+                                <th >ClassName</th>
+                                <th >Term</th>
+                                <th >Amount</th>
+                                <th>Date</th>
+                                <th >Remark</th>
+                           
                         </tr>
                     </thead>
                     <tbody *ngIf="div_Element_Id == '3'">
-                        <tr  class="text-center" *ngFor="let viewname of contactArray1; let i=index;">
+                        <tr  class="text-center" *ngFor="let viewname of feesarray1; let i=index;">
                             <td>{{viewname.serialNo}}</td>
-                            <td>{{viewname.Name}}</td>
-                            <td>{{viewname.Designation}}</td>
-                            <td>{{viewname.Phonenumber}}</td>
-                            <td>{{viewname.primaryEmail}}</td>
-                            <td>{{viewname.Dept_group}}</td>
+                            <td>{{viewname.className}}</td>
+                            <td>{{viewname.term}}</td>
+                            <td>{{viewname.Amount}}</td>
+                            <td>{{viewname.duedate | date}}</td>
+                            <td>{{viewname.remark}}</td>
                         </tr>
                     </tbody>
                 </table>
@@ -214,31 +201,30 @@
           <div class="datatable_toggle" [ngClass]="{'inactive_div': div_Element_Id !='0'}">
           <table id="manageclassestable" datatable [dtOptions]="dtOptions"  [dtTrigger]="dtTrigger" class="my_table_width">
                     <thead>
-                      <tr>
+                      <tr class="text-center">
                           <th></th>
-                          <th>S.No</th>
-                          <th>Name</th>
-                          <th>Designation</th>
-                          <th>Contact</th>
-                          <th>Email</th>
-                          <th>Dept/Group</th>
+                          <th >S.No</th>
+                          <th >ClassName</th>
+                          <th >Term</th>
+                          <th>Amount</th>
+                          <th>Date</th>
+                          <th>Remark</th>
                       </tr>
                     </thead>
                     <tbody *ngIf="div_Element_Id =='0'">
-                        <tr *ngFor="let events of contactArray; let i=index;">
-                            <td><input type="checkbox"id="a{{events.contactId}}" value="{{events.contactId}}" (change)="checkedmasterContact(events.contactId)"></td>
+                        <tr class="text-center" *ngFor="let events of feesarray; let i=index;">
+                            <td ><input type="checkbox"id="a{{events.ClassId}}" value="{{events.ClassId}}" (change)="checkedmasterFee(events.ClassId)"></td>
                             <td>{{events.serialNo}}</td>
-                            <td>{{events.Name}}</td>
-                            <td>{{events.Designation}}</td>
-                            <td>{{events.Phonenumber}}</td>
-                            <td>{{events.primaryEmail}}</td>
-                            <td>{{events.Dept_group}}</td>
+                            <td>{{events.className}}</td>
+                            <td>{{events.term}}</td>
+                            <td >{{events.Amount}}</td>
+                            <td >{{events.duedate | date}}</td>
+                            <td >{{events.remark}}</td>
                         </tr>
                     </tbody>
                 </table>
           </div>
-                <!-- </div> -->
-          <!-- <div class="col-md-3"></div> -->
+              
           <div class="clear"></div>
             </div>
             </div>

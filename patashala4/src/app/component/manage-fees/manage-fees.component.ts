@@ -43,9 +43,9 @@ export class ManageFeesComponent implements OnInit {
   // Amount: new Date(),
   div_Element_Id: string = '0';//for multiple pages in school list page;; 0 to show list of school , 1 to show add school, 2 to show edit school, 3 to show single school view.
   selectedFeesArray: Array<any> = [];
-  public query = '';
+  public Feequery = '';
   public feeClassarray = ["1st Class","2nd Class","3rd Class","4th Class","5th Class","6th Class","7th Class","8th Class","9th Class","10th Class" ];
-  public filteredList = [];
+  public filteredListarray = [];
   public elementRef;
   feesarray:ManageFee[] = [];
   feesarray1:ManageFee[] = [];
@@ -72,31 +72,38 @@ export class ManageFeesComponent implements OnInit {
     });
   }
 
+  closePopup() {
+    // this.sucessMessage = "";
+    this.active = "0";
+    // this.showClassSelection=false;
+    // if (this.popupstatus == "1")
+     this.showFeeList();
+  }
 
   ngAfterViewInit(): void {
     this.dtTrigger.next();
   }
 
-  show_addClassFields(){
+  show_addFeeFields(){
     this.div_Element_Id="1";
     // this.selectedFeesArray=[''];
   }
 
 
- filter() {
-    if (this.query !== ""){
-        this.filteredList = this.feeClassarray.filter(function(el){
-            return el.toLowerCase().indexOf(this.query.toLowerCase()) > -1;
+ filter1() {
+    if (this.Feequery !== ""){
+        this.filteredListarray = this.feeClassarray.filter(function(el){
+            return el.toLowerCase().indexOf(this.Feequery.toLowerCase()) > -1;
         }.bind(this));
     }
   else{
-        this.filteredList = [];
+        this.filteredListarray = [];
     }
 }
  
-select(item){
-    this.query = item;
-    this.filteredList = [];
+select1(item){
+    this.Feequery = item;
+    this.filteredListarray = [];
 }
 
 handleClick(event){
@@ -109,7 +116,7 @@ handleClick(event){
      clickedComponent = clickedComponent.parentNode;
   } while (clickedComponent);
    if(!inside){
-       this.filteredList = [];
+       this.filteredListarray = [];
    }
 }
 
@@ -156,7 +163,7 @@ addFeeSubmit(value){
   console.log('serialNo' + value.serialNo);
   console.log('ClassId Name' + manageFee.ClassId);
   console.log("feesarray val" + this.feesarray.length);
-  // this.showClassList();
+  // this.showFeeList();
   // this.div_Element_Id="0";
   this.active ="1";
   
@@ -166,7 +173,7 @@ addFeeSubmit(value){
 
 
 
- getselectedClassProfile(){
+getselectedFeeProfile(){
   this.div_Element_Id ="2";
       this.feeFormGroup.controls['className'].patchValue(this.feesarray[this.checkedval].className);
       this.feeFormGroup.controls['serialNo'].patchValue( this.feesarray[this.checkedval].serialNo);
@@ -209,39 +216,37 @@ addFeeSubmit(value){
   else{
        var manageFee = new ManageFee();
         manageFee.className = value.className;
-        manageFee.ClassId = this.feesarray.length + 1;
+        manageFee.ClassId = this.checkedval + 1;
         manageFee.serialNo = value.serialNo;
         manageFee.term = value.term;
         manageFee.Amount = value.Amount;
         manageFee.duedate = value.duedate;
         manageFee.remark = value.remark;
+
         this.feesarray[this.checkedval]=manageFee;
-      this.selectedFeesArray=[];
-      this.showClassList();
+      this.div_Element_Id="0";
+      // this.showFeeList();
+      this.active ="1";
   }
   
  }
 
- deleteClass(){
+ deleteFee(){
    this.feesarray.splice(this.checkedval,1);
-  this.selectedFeesArray=[];
-  //  this.showClassList();
-  
+   this.selectedFeesArray=[];
+   this.showFeeList();
  }
 
 
- viewSingleClassProfile(){
+ viewSingleFeeProfile(){
    this.div_Element_Id ="3";
    var rajuarray = new ManageFee();
    rajuarray = this.feesarray[this.checkedval];
    this.feesarray1=[];
    this.feesarray1.push(rajuarray);
  }
-
  
-
- 
-checkedmasterClass(value){
+ checkedmasterFee(value){
   console.log("checked value"+ value);
   if ((<HTMLInputElement>document.getElementById("a"+value)).checked === true) {
         this.selectedFeesArray.push(value);
@@ -255,7 +260,7 @@ checkedmasterClass(value){
 
 
 
- showClassList(){
+ showFeeList(){
   
    this.selectedFeesArray=[];
    this.div_Element_Id ="0";
