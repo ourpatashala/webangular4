@@ -19,7 +19,9 @@ export class ManageBannerComponent implements OnInit {
 
     
   bannerFormGroup:FormGroup;
-  checkedval:any;
+  checkedval:number;
+  checkedval1:number;
+  idx:any;
   // classtable:boolean=false;
   errorMessage: string;
   active: string = "0";// for error and success divs;;  0 for no content, 1 for success, 2 for error
@@ -66,7 +68,6 @@ export class ManageBannerComponent implements OnInit {
 
   ngOnInit() {
     this.bannerFormGroup = this.fb.group({
-
       'BannerId' : [''],
       'serialNo' : [''],
       'School' : [''],
@@ -114,7 +115,7 @@ export class ManageBannerComponent implements OnInit {
  else{
     var manageBanner = new ManageBanner();
     manageBanner.serialNo = value.serialNo;
-     manageBanner.BannerId = this.bannerarray.length + 1;
+    manageBanner.BannerId = this.bannerarray.length;
     manageBanner.School = value.School;
     manageBanner.Message = value.Message;
     manageBanner.StartDate = value.StartDate;
@@ -137,13 +138,13 @@ export class ManageBannerComponent implements OnInit {
 
  getselectedBannerProfile(){
   this.div_Element_Id ="2";
-      this.bannerFormGroup.controls['serialNo'].patchValue(this.bannerarray[this.checkedval].serialNo);
-      this.bannerFormGroup.controls['School'].patchValue( this.bannerarray[this.checkedval].School);
-      this.bannerFormGroup.controls['Message'].patchValue( this.bannerarray[this.checkedval].Message);
-      this.bannerFormGroup.controls['StartDate'].patchValue( this.bannerarray[this.checkedval].StartDate);
-      this.bannerFormGroup.controls['EndDate'].patchValue( this.bannerarray[this.checkedval].EndDate);
+      this.bannerFormGroup.controls['serialNo'].patchValue(this.bannerarray[this.checkedval1].serialNo);
+      this.bannerFormGroup.controls['School'].patchValue( this.bannerarray[this.checkedval1].School);
+      this.bannerFormGroup.controls['Message'].patchValue( this.bannerarray[this.checkedval1].Message);
+      this.bannerFormGroup.controls['StartDate'].patchValue( this.bannerarray[this.checkedval1].StartDate);
+      this.bannerFormGroup.controls['EndDate'].patchValue( this.bannerarray[this.checkedval1].EndDate);
 
-  console.log('serialNo of patch'+this.bannerarray[this.checkedval].serialNo);
+  console.log('serialNo of patch'+this.bannerarray[this.checkedval1].serialNo);
  }
 
 
@@ -173,7 +174,7 @@ export class ManageBannerComponent implements OnInit {
   else{
         var manageBanner = new ManageBanner();
         manageBanner.serialNo = value.serialNo;
-        manageBanner.BannerId = this.checkedval + 1;
+        manageBanner.BannerId = this.checkedval;
         manageBanner.School = value.School;
         manageBanner.Message = value.Message;
         manageBanner.StartDate = value.StartDate;
@@ -187,15 +188,13 @@ export class ManageBannerComponent implements OnInit {
   
  }
 
- deleteBanner(val,index){
-  //  var idx = this.bannerarray.indexOf(this.ind);
-this.bannerarray.splice(this.checkedval,1);
-   console.log(index);
-  // this.bannerarray.splice(idx,1);
-this.selectedBannerArray=[];
+ deleteBanner(){
+ this.bannerarray.splice(this.checkedval1,1);
+//  this.checkedval= this.idx
+ this.selectedBannerArray=[];
 this.showBannerList();
 
-
+this.rerender();
 
 
  }
@@ -204,7 +203,7 @@ this.showBannerList();
  viewSingleBannerProfile(){
    this.div_Element_Id ="3";
    var rajuarray = new ManageBanner();
-   rajuarray = this.bannerarray[this.checkedval];
+   rajuarray = this.bannerarray[this.checkedval1];
    this.banviewarray=[];
    this.banviewarray.push(rajuarray);
  }
@@ -212,11 +211,12 @@ this.showBannerList();
  
 
  
- checkedmasterBanner(value){
+ checkedmasterBanner(value,index){
   console.log("checked value"+ value);
   if ((<HTMLInputElement>document.getElementById("a"+value)).checked === true) {
         this.selectedBannerArray.push(value);
-        this.checkedval= value - 1;
+        this.checkedval= value;
+        this.checkedval1= index;
       } else if ((<HTMLInputElement>document.getElementById("a"+value)).checked === false) {
         let indexx = this.selectedBannerArray.indexOf(value);
         this.selectedBannerArray.splice(indexx, 1)
@@ -227,14 +227,14 @@ this.showBannerList();
 
 
  showBannerList(){
-  
-   this.selectedBannerArray=[];
-   this.div_Element_Id ="0";
-  this.bannerFormGroup.controls['serialNo'].patchValue('');
-  this.bannerFormGroup.controls['School'].patchValue('');
-  this.bannerFormGroup.controls['Message'].patchValue('');
-  this.bannerFormGroup.controls['StartDate'].patchValue(new Date());
-  this.bannerFormGroup.controls['EndDate'].patchValue(new Date());
+    this.selectedBannerArray=[];
+    this.div_Element_Id ="0";
+    this.bannerFormGroup.controls['serialNo'].patchValue('');
+    this.bannerFormGroup.controls['School'].patchValue('');
+    this.bannerFormGroup.controls['Message'].patchValue('');
+    this.bannerFormGroup.controls['StartDate'].patchValue(new Date());
+    this.bannerFormGroup.controls['EndDate'].patchValue(new Date());
+    this.rerender();
 }
 
 

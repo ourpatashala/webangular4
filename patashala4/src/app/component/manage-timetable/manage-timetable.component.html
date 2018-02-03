@@ -49,7 +49,7 @@
             <div class="col-md-12 " id="table_pop"> 
               <div class="col-md-4 pr0">Time :</div>
                 <div class="col-md-8 pl0">
-                    <input type="text" name="time" formControlName="time" >
+                    <!-- <input type="text" name="time" formControlName="time" > -->
                     <input type="text" name="time"  formControlName="time" [owlDateTimeTrigger]="dt2" [owlDateTime]="dt2"  [owlDateTimeFilter]="myFilter" placeholder="Time">
                     <!-- <span [owlDateTimeTrigger]="dt2"><i class="fa fa-calendar"></i></span> -->
                     <owl-date-time  [pickerType]="'timer'" [hour12Timer]="'true'" #dt2></owl-date-time>

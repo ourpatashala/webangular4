@@ -203,7 +203,7 @@
                     </thead>
                     <tbody *ngIf="div_Element_Id =='0'">
                         <tr *ngFor="let events of contactArray; let i=index;">
-                            <td><input type="checkbox"id="a{{events.contactId}}" value="{{events.contactId}}" (change)="checkedmasterContact(events.contactId)"></td>
+                            <td><input type="checkbox"id="a{{events.contactId}}" value="{{events.contactId}}" (change)="checkedmasterContact(events.contactId,i)"></td>
                             <td>{{events.serialNo}}</td>
                             <td>{{events.Name}}</td>
                             <td>{{events.Designation}}</td>

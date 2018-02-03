@@ -213,7 +213,7 @@
                     </thead>
                     <tbody *ngIf="div_Element_Id =='0'">
                         <tr class="text-center" *ngFor="let events of feesarray; let i=index;">
-                            <td ><input type="checkbox"id="a{{events.ClassId}}" value="{{events.ClassId}}" (change)="checkedmasterFee(events.ClassId)"></td>
+                            <td ><input type="checkbox"id="a{{events.ClassId}}" value="{{events.ClassId}}" (change)="checkedmasterFee(events.ClassId,i)"></td>
                             <td>{{events.serialNo}}</td>
                             <td>{{events.className}}</td>
                             <td>{{events.term}}</td>

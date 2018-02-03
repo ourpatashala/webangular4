@@ -218,7 +218,7 @@
             <tbody *ngIf="div_Element_Id =='0'">
                
                 <tr *ngFor="let classto of classarray; let i=index;">
-                    <td><input type="checkbox" id="a{{classto.classId}}" value="{{classto.classId}}" (change)="checkedmasterClass(classto.classId)"></td><!--id="{{masterCourse.classId}}" value="{{masterCourse.classId}}"-->
+                    <td><input type="checkbox" id="a{{classto.classId}}" value="{{classto.classId}}" (change)="checkedmasterClass(classto.classId,i)"></td><!--id="{{masterCourse.classId}}" value="{{masterCourse.classId}}"-->
                     <td>{{i+1}}</td>
                     <td>{{classto.className }}</td>
                     <td>{{classto.CourseName}}</td>

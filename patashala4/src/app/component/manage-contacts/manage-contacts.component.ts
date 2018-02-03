@@ -19,6 +19,7 @@ export class ManageContactsComponent implements OnInit {
  
   contactFormGroup:FormGroup;
   checkedval:number;
+  checkedval1:number;
   // classtable:boolean=false;
   errorMessage: string;
   active: string = "0";// for error and success divs;;  0 for no content, 1 for success, 2 for error
@@ -106,7 +107,7 @@ addcontact(value){
           managecontact.Phonenumber = value.Phonenumber;
           managecontact.primaryEmail = value.primaryEmail;
           managecontact.Dept_group = value.Dept_group;
-          managecontact.contactId = this.contactArray.length+1;
+          managecontact.contactId = this.contactArray.length;
           
         this.contactArray.push(managecontact);
 
@@ -126,14 +127,14 @@ addcontact(value){
 
 getselectedContactProfile(){
   this.div_Element_Id ="2";
-      this.contactFormGroup.controls['serialNo'].patchValue(this.contactArray[this.checkedval].serialNo);
-      this.contactFormGroup.controls['Name'].patchValue( this.contactArray[this.checkedval].Name);
-      this.contactFormGroup.controls['Designation'].patchValue( this.contactArray[this.checkedval].Designation);
-      this.contactFormGroup.controls['Phonenumber'].patchValue( this.contactArray[this.checkedval].Phonenumber);
-      this.contactFormGroup.controls['primaryEmail'].patchValue( this.contactArray[this.checkedval].primaryEmail);
-      this.contactFormGroup.controls['Dept_group'].patchValue( this.contactArray[this.checkedval].Dept_group);
+      this.contactFormGroup.controls['serialNo'].patchValue(this.contactArray[this.checkedval1].serialNo);
+      this.contactFormGroup.controls['Name'].patchValue( this.contactArray[this.checkedval1].Name);
+      this.contactFormGroup.controls['Designation'].patchValue( this.contactArray[this.checkedval1].Designation);
+      this.contactFormGroup.controls['Phonenumber'].patchValue( this.contactArray[this.checkedval1].Phonenumber);
+      this.contactFormGroup.controls['primaryEmail'].patchValue( this.contactArray[this.checkedval1].primaryEmail);
+      this.contactFormGroup.controls['Dept_group'].patchValue( this.contactArray[this.checkedval1].Dept_group);
 
-  console.log('serialNo of patch'+this.contactArray[this.checkedval].serialNo);
+  console.log('serialNo of patch'+this.contactArray[this.checkedval1].serialNo);
  }
 
 
@@ -173,7 +174,7 @@ getselectedContactProfile(){
       managecontact.Phonenumber = value.Phonenumber;
       managecontact.primaryEmail = value.primaryEmail;
       managecontact.Dept_group = value.Dept_group;
-      managecontact.contactId = this.checkedval+1;
+      managecontact.contactId = this.checkedval;
       this.contactArray[this.checkedval]=managecontact;
       this.div_Element_Id="0";
         this.active ="1";
@@ -182,17 +183,17 @@ getselectedContactProfile(){
  }
 
  deleteContact(){
-   this.contactArray.splice(this.checkedval,1);
+   this.contactArray.splice(this.checkedval1,1);
   this.selectedContactArray=[];
    this.showContactList();
-  
+   this.rerender();
  }
 
 
  viewSingleContactProfile(){
    this.div_Element_Id ="3";
    var rajuarray = new Managecontact();
-   rajuarray = this.contactArray[this.checkedval];
+   rajuarray = this.contactArray[this.checkedval1];
    this.contactArray1=[];
    this.contactArray1.push(rajuarray);
  }
@@ -200,11 +201,12 @@ getselectedContactProfile(){
  
 
  
- checkedmasterContact(value){
+ checkedmasterContact(value,index){
   console.log("checked value"+ value);
   if ((<HTMLInputElement>document.getElementById("a"+value)).checked === true) {
         this.selectedContactArray.push(value);
-        this.checkedval= value - 1;
+        this.checkedval= value;
+        this.checkedval1= index;
       } else if ((<HTMLInputElement>document.getElementById("a"+value)).checked === false) {
         let indexx = this.selectedContactArray.indexOf(value);
         this.selectedContactArray.splice(indexx, 1)
@@ -223,6 +225,7 @@ getselectedContactProfile(){
   this.contactFormGroup.controls['Phonenumber'].patchValue('');
   this.contactFormGroup.controls['primaryEmail'].patchValue('');
   this.contactFormGroup.controls['Dept_group'].patchValue('');
+  this.rerender();
 }
 
 

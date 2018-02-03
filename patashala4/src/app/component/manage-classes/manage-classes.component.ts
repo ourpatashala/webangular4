@@ -25,6 +25,7 @@ export class ManageClassesComponent implements OnInit {
 
   classFormGroup:FormGroup;
   checkedval:number;
+  checkedval1:number;
   // classtable:boolean=false;
   errorMessage: string;
   active: string = "0";// for error and success divs;;  0 for no content, 1 for success, 2 for error
@@ -160,7 +161,7 @@ addClassSubmit(value){
  else{
     var manageclass = new Manageclass();
     manageclass.className = value.className;
-     manageclass.classId = this.classarray.length + 1;
+     manageclass.classId = this.classarray.length;
     manageclass.CourseName = value.CourseName;
     manageclass.BatchNo = value.BatchNo;
     manageclass.Startdate = value.Startdate;
@@ -184,13 +185,13 @@ addClassSubmit(value){
 
  getselectedClassProfile(){
   this.div_Element_Id ="2";
-      this.classFormGroup.controls['className'].patchValue(this.classarray[this.checkedval].className);
-      this.classFormGroup.controls['CourseName'].patchValue( this.classarray[this.checkedval].CourseName);
-      this.classFormGroup.controls['BatchNo'].patchValue( this.classarray[this.checkedval].BatchNo);
-      this.classFormGroup.controls['Startdate'].patchValue( this.classarray[this.checkedval].Startdate);
-      this.classFormGroup.controls['Enddate'].patchValue( this.classarray[this.checkedval].Enddate);
-      this.classFormGroup.controls['No_ofperiods'].patchValue( this.classarray[this.checkedval].No_ofperiods);
-  console.log('classname of patch'+this.classarray[this.checkedval].className);
+      this.classFormGroup.controls['className'].patchValue(this.classarray[this.checkedval1].className);
+      this.classFormGroup.controls['CourseName'].patchValue( this.classarray[this.checkedval1].CourseName);
+      this.classFormGroup.controls['BatchNo'].patchValue( this.classarray[this.checkedval1].BatchNo);
+      this.classFormGroup.controls['Startdate'].patchValue( this.classarray[this.checkedval1].Startdate);
+      this.classFormGroup.controls['Enddate'].patchValue( this.classarray[this.checkedval1].Enddate);
+      this.classFormGroup.controls['No_ofperiods'].patchValue( this.classarray[this.checkedval1].No_ofperiods);
+  console.log('classname of patch'+this.classarray[this.checkedval1].className);
  }
 
 
@@ -224,7 +225,7 @@ addClassSubmit(value){
   else{
       var manageclass = new Manageclass();
         manageclass.className = value.className;
-        manageclass.classId =   this.checkedval+1;
+        manageclass.classId =   this.checkedval;
         manageclass.CourseName = value.CourseName;
         manageclass.BatchNo = value.BatchNo;
         manageclass.Startdate = value.Startdate;
@@ -238,17 +239,17 @@ addClassSubmit(value){
  }
 
  deleteClass(){
-   this.classarray.splice(this.checkedval,1);
+   this.classarray.splice(this.checkedval1,1);
   this.selectedClassesArray=[];
   //  this.showClassList();
-  
+  this.rerender();
  }
 
 
  viewSingleClassProfile(){
    this.div_Element_Id ="3";
    var rajuarray = new Manageclass();
-   rajuarray = this.classarray[this.checkedval];
+   rajuarray = this.classarray[this.checkedval1];
    this.rajuarray1=[];
    this.rajuarray1.push(rajuarray);
  }
@@ -256,11 +257,12 @@ addClassSubmit(value){
  
 
  
-checkedmasterClass(value){
+checkedmasterClass(value,index){
   console.log("checked value"+ value);
   if ((<HTMLInputElement>document.getElementById("a"+value)).checked === true) {
         this.selectedClassesArray.push(value);
-        this.checkedval= value - 1;
+        this.checkedval= value;
+        this.checkedval1= index;
       } else if ((<HTMLInputElement>document.getElementById("a"+value)).checked === false) {
         let indexx = this.selectedClassesArray.indexOf(value);
         this.selectedClassesArray.splice(indexx, 1)
@@ -280,6 +282,7 @@ checkedmasterClass(value){
   this.classFormGroup.controls['Startdate'].patchValue(new Date());
   this.classFormGroup.controls['Enddate'].patchValue(new Date());
   this.classFormGroup.controls['No_ofperiods'].patchValue('');
+  this.rerender();
 }
 
 

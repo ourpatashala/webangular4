@@ -43,12 +43,13 @@
 
     <div class="error_msg_text"><p [ngClass]="{'error_styles_sucess': active=='2'}">{{errorMessage}}</p></div>
 
-  <div class="col-md-3"></div>
-   <div class="col-md-6">         
+  <!-- <div class="col-md-3"></div> -->
+   <!-- <div class="col-md-6">          -->
    <div class="add_fields addschool_div"  *ngIf ="div_Element_Id =='1'"  [ngClass]="{'inactive_div': div_Element_Id !='1'}">
       <div class="little_gap"></div>
+      <div class="col-md-3"></div>
       <form [formGroup]="bannerFormGroup" (ngSubmit)="addEvent(bannerFormGroup.value)">
-          <div class="col-md-12 padding0">
+          <div class="col-md-6 padding0">
               <div class="col-md-4"><p>S.No</p></div>
               <div class="col-md-8">
                 <input type="number"  formControlName="serialNo" placeholder="serial No">
@@ -75,12 +76,14 @@
                 </div>
               <div class="clear"></div>
               <div class="little_gap"></div>
-          </div>
+         
           <div class="col-md-12  padding0 text-center">
             <button class="update_btn">Add Banner</button><span class="cancel_btn_add button_type_span" (click)="showBannerList()">Cancel</span>
-          </div>          
+          </div>  
+        </div>        
           <div class="clear"></div>
       </form>
+      <div class="col-md-3"></div>
     </div> 
 
 
@@ -88,8 +91,9 @@
 
    <div class="modify_fields addschool_div" [ngClass]="{'inactive_div': div_Element_Id !='2'}">
       <div class="little_gap"></div>
+      <div class="col-md-3"></div>
       <form [formGroup]="bannerFormGroup" (ngSubmit)="updateEvent(bannerFormGroup.value)"> 
-          <div class="col-md-12 padding0">
+          <div class="col-md-6 padding0">
               <div class="col-md-4"><p>S.No</p></div>
               <div class="col-md-8">
                 <input type="number"  formControlName="serialNo" placeholder="serial No">
@@ -116,13 +120,15 @@
                 </div>
               <div class="clear"></div>
               <div class="little_gap"></div>
-          </div>
+          
           <div class="col-md-12  padding0 text-center">
             <button class="update_btn">Modify Banner</button><span class="cancel_btn_add button_type_span" (click)="showBannerList()">Cancel</span>
           </div> 
+        </div>
           <div class="clear"></div>
       </form>
-    </div> 
+    </div>
+    <div class="col-md-3"></div> 
     <div class="clear"></div>
     <div class="little_gap"></div>
 
@@ -177,7 +183,7 @@
                     </thead>
                     <tbody *ngIf="div_Element_Id =='0'">
                         <tr class="text-center" *ngFor="let events of bannerarray; let i=index;">
-                            <td><input type="checkbox"id="a{{events.BannerId}}" value="{{events.BannerId}}" (change)="checkedmasterBanner(events.BannerId)"></td>
+                            <td><input type="checkbox"id="a{{events.BannerId}}" value="{{events.BannerId}}" (change)="checkedmasterBanner(events.BannerId,i)"></td>
                             <td>{{events.serialNo}}</td>
                             <td>{{events.School}}</td>
                             <td>{{events.Message}}</td>
@@ -188,8 +194,8 @@
         </table>
 
           </div>
-          </div>
-          <div class="col-md-3"></div>
+          <!-- </div> -->
+          <!-- <div class="col-md-3"></div> -->
           <div class="clear"></div>
             </div>
             </div>

@@ -28,6 +28,7 @@ export class ManageCalendarComponent implements OnInit {
 
   calendarFormGroup:FormGroup;
   checkedval:number;
+  checkedval1:number;
   // classtable:boolean=false;
   errorMessage: string;
   active: string = "0";// for error and success divs;;  0 for no content, 1 for success, 2 for error
@@ -94,7 +95,7 @@ export class ManageCalendarComponent implements OnInit {
     managecalendar.serialNo = value.serialNo;
     managecalendar.calendarDate = value.calendarDate;
     managecalendar.eventName = value.eventName;
-    managecalendar.eventId = this.calendararray.length+1;
+    managecalendar.eventId = this.calendararray.length;
     
   this.calendararray.push(managecalendar);
 
@@ -114,10 +115,10 @@ export class ManageCalendarComponent implements OnInit {
 
  getselectedClassProfile(){
   this.div_Element_Id ="2";
-      this.calendarFormGroup.controls['serialNo'].patchValue(this.calendararray[this.checkedval].serialNo);
-      this.calendarFormGroup.controls['calendarDate'].patchValue( this.calendararray[this.checkedval].calendarDate);
-      this.calendarFormGroup.controls['eventName'].patchValue( this.calendararray[this.checkedval].eventName);
-  console.log('serialNo of patch'+this.calendararray[this.checkedval].serialNo);
+      this.calendarFormGroup.controls['serialNo'].patchValue(this.calendararray[this.checkedval1].serialNo);
+      this.calendarFormGroup.controls['calendarDate'].patchValue( this.calendararray[this.checkedval1].calendarDate);
+      this.calendarFormGroup.controls['eventName'].patchValue( this.calendararray[this.checkedval1].eventName);
+  console.log('serialNo of patch'+this.calendararray[this.checkedval1].serialNo);
  }
 
 
@@ -142,7 +143,7 @@ export class ManageCalendarComponent implements OnInit {
     managecalendar.serialNo = value.serialNo;
     managecalendar.calendarDate = value.calendarDate;
     managecalendar.eventName = value.eventName;
-    managecalendar.eventId = this.checkedval+1;
+    managecalendar.eventId = this.checkedval;
       this.calendararray[this.checkedval]=managecalendar;
       this.selectedCalenderArray=[];
       this.showCalendarList();
@@ -151,17 +152,17 @@ export class ManageCalendarComponent implements OnInit {
  }
 
  deleteClass(){
-   this.calendararray.splice(this.checkedval,1);
+   this.calendararray.splice(this.checkedval1,1);
   this.selectedCalenderArray=[];
    this.showCalendarList();
-  
+   this.rerender();
  }
 
 
  viewSingleClassProfile(){
    this.div_Element_Id ="3";
    var rajuarray = new Managecalendar();
-   rajuarray = this.calendararray[this.checkedval];
+   rajuarray = this.calendararray[this.checkedval1];
    this.calendararray1=[];
    this.calendararray1.push(rajuarray);
  }
@@ -169,11 +170,12 @@ export class ManageCalendarComponent implements OnInit {
  
 
  
-checkedmasterClass(value){
+checkedmasterClass(value,index){
   console.log("checked value"+ value);
   if ((<HTMLInputElement>document.getElementById("a"+value)).checked === true) {
         this.selectedCalenderArray.push(value);
-        this.checkedval= value - 1;
+        this.checkedval= value;
+        this.checkedval1= index;
       } else if ((<HTMLInputElement>document.getElementById("a"+value)).checked === false) {
         let indexx = this.selectedCalenderArray.indexOf(value);
         this.selectedCalenderArray.splice(indexx, 1)
@@ -190,6 +192,7 @@ checkedmasterClass(value){
   this.calendarFormGroup.controls['serialNo'].patchValue('');
   this.calendarFormGroup.controls['calendarDate'].patchValue(new Date());
   this.calendarFormGroup.controls['eventName'].patchValue('');
+  this.rerender();
 }
 
 

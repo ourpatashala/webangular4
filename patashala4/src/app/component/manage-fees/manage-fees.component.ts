@@ -33,6 +33,7 @@ export class ManageFeesComponent implements OnInit {
 
   feeFormGroup:FormGroup;
   checkedval:number;
+  checkedval1:number;
   // classtable:boolean=false;
   errorMessage: string;
   active: string = "0";// for error and success divs;;  0 for no content, 1 for success, 2 for error
@@ -151,7 +152,7 @@ addFeeSubmit(value){
  else{
     var manageFee = new ManageFee();
     manageFee.className = value.className;
-    manageFee.ClassId = this.feesarray.length + 1;
+    manageFee.ClassId = this.feesarray.length;
     manageFee.serialNo = value.serialNo;
     manageFee.term = value.term;
     manageFee.Amount = value.Amount;
@@ -175,14 +176,14 @@ addFeeSubmit(value){
 
 getselectedFeeProfile(){
   this.div_Element_Id ="2";
-      this.feeFormGroup.controls['className'].patchValue(this.feesarray[this.checkedval].className);
-      this.feeFormGroup.controls['serialNo'].patchValue( this.feesarray[this.checkedval].serialNo);
-      this.feeFormGroup.controls['term'].patchValue( this.feesarray[this.checkedval].term);
-      this.feeFormGroup.controls['Amount'].patchValue( this.feesarray[this.checkedval].Amount);
-      this.feeFormGroup.controls['duedate'].patchValue( this.feesarray[this.checkedval].duedate);
-      this.feeFormGroup.controls['remark'].patchValue( this.feesarray[this.checkedval].remark);
+      this.feeFormGroup.controls['className'].patchValue(this.feesarray[this.checkedval1].className);
+      this.feeFormGroup.controls['serialNo'].patchValue( this.feesarray[this.checkedval1].serialNo);
+      this.feeFormGroup.controls['term'].patchValue( this.feesarray[this.checkedval1].term);
+      this.feeFormGroup.controls['Amount'].patchValue( this.feesarray[this.checkedval1].Amount);
+      this.feeFormGroup.controls['duedate'].patchValue( this.feesarray[this.checkedval1].duedate);
+      this.feeFormGroup.controls['remark'].patchValue( this.feesarray[this.checkedval1].remark);
 
-  console.log('classname of patch'+this.feesarray[this.checkedval].className);
+  console.log('classname of patch'+this.feesarray[this.checkedval1].className);
  }
 
 
@@ -216,7 +217,7 @@ getselectedFeeProfile(){
   else{
        var manageFee = new ManageFee();
         manageFee.className = value.className;
-        manageFee.ClassId = this.checkedval + 1;
+        manageFee.ClassId = this.checkedval;
         manageFee.serialNo = value.serialNo;
         manageFee.term = value.term;
         manageFee.Amount = value.Amount;
@@ -232,25 +233,27 @@ getselectedFeeProfile(){
  }
 
  deleteFee(){
-   this.feesarray.splice(this.checkedval,1);
+   this.feesarray.splice(this.checkedval1,1);
    this.selectedFeesArray=[];
    this.showFeeList();
+   this.rerender();
  }
 
 
  viewSingleFeeProfile(){
    this.div_Element_Id ="3";
    var rajuarray = new ManageFee();
-   rajuarray = this.feesarray[this.checkedval];
+   rajuarray = this.feesarray[this.checkedval1];
    this.feesarray1=[];
    this.feesarray1.push(rajuarray);
  }
  
- checkedmasterFee(value){
+ checkedmasterFee(value,index){
   console.log("checked value"+ value);
   if ((<HTMLInputElement>document.getElementById("a"+value)).checked === true) {
         this.selectedFeesArray.push(value);
-        this.checkedval= value - 1;
+        this.checkedval= value;
+        this.checkedval1= index;
       } else if ((<HTMLInputElement>document.getElementById("a"+value)).checked === false) {
         let indexx = this.selectedFeesArray.indexOf(value);
         this.selectedFeesArray.splice(indexx, 1)
@@ -261,7 +264,6 @@ getselectedFeeProfile(){
 
 
  showFeeList(){
-  
    this.selectedFeesArray=[];
    this.div_Element_Id ="0";
   this.feeFormGroup.controls['className'].patchValue('');
@@ -270,6 +272,7 @@ getselectedFeeProfile(){
   this.feeFormGroup.controls['Amount'].patchValue(new Date());
   this.feeFormGroup.controls['duedate'].patchValue(new Date());
   this.feeFormGroup.controls['remark'].patchValue('');
+  this.rerender();
 }
 
 

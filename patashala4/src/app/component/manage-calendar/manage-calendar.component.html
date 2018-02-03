@@ -157,7 +157,7 @@
                     </thead>
                     <tbody *ngIf="div_Element_Id =='0'">
                         <tr *ngFor="let events of calendararray; let i=index;">
-                            <td><input type="checkbox"id="a{{events.eventId}}" value="{{events.eventId}}" (change)="checkedmasterClass(events.eventId)"></td>
+                            <td><input type="checkbox"id="a{{events.eventId}}" value="{{events.eventId}}" (change)="checkedmasterClass(events.eventId,i)"></td>
                             <td>{{events.serialNo}}</td>
                             <td>{{events.calendarDate | date}}</td>
                             <td>{{events.eventName}}</td>
