@@ -11,6 +11,10 @@ input[type=number]::-webkit-inner-spin-button,
 	}
 
 
+	.view_syllabus_table thead{
+		background-color: #4cc4db;
+		color:#fff;
+	}
 
 
 

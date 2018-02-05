@@ -30,6 +30,8 @@ import { ManageFeesComponent } from './component/manage-fees/manage-fees.compone
 import { ManageBannerComponent } from './component/manage-banner/manage-banner.component';
 import { ManageDocumentsComponent } from './component/manage-documents/manage-documents.component';
 import { ManageTeacherComponent } from './component/manage-teacher/manage-teacher.component';
+import { ManageUserComponent } from './component/manage-user/manage-user.component';
+
 
 
 
@@ -53,6 +55,7 @@ const appRoutes: Routes = [
   { path: 'ManageBanner',component:ManageBannerComponent},
   { path: 'ManageDocuments',component:ManageDocumentsComponent},
   { path: 'Manageteacher',component:ManageTeacherComponent},
+  { path: 'ManageUser',component:ManageUserComponent},
 ];
 
 

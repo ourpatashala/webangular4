@@ -1,16 +1,14 @@
 <app-header-admin></app-header-admin>
 
 <div class="overlay hideblock" [ngClass]="{'showblock': active=='1'}"></div>
-
 <div class="popup_screen hideblock " [ngClass]="{'showblock': active=='1'}">
   <div class="sucess_msg_text"><span class="checkicon"> &#x2714;</span> <p [ngClass]="{'show_styles_sucess': active=='1'}">{{sucessMessage}}!</p></div>
   <div class="little_gap"></div>
   <button class="update_btn popup_ok_btn" (click)="closePopup()">Ok</button>
   <div class="little_gap"></div>
 </div>
-
+<!-- 
 <div class="overlay hideblock" [ngClass]="{'showblock': showClassSelection==true}"></div>
-
     <div class="class_search hideblock " [ngClass]="{'showblock': showClassSelection==true}">
             <i class="fa fa-close closeclassidpopup"  (click)="closePopup()" ></i>
     <app-classselection-popup (notify)='onNotify($event)'></app-classselection-popup>   
@@ -33,7 +31,7 @@
   <button class="openCam"><i class="fa fa-camera"></i> Open Camera</button>
 </div>
 
-
+ -->
 
 
 
@@ -93,7 +91,7 @@
             <div class="col-md-8"><input type="text" placeholder="Enter Middle Name" formControlName="middleName" maxlength="50"></div>
             <div class="clear"></div>
             <div class="col-md-4 text-right"><p>Contact No</p></div>
-            <div class="col-md-8"><input type="text" placeholder="Enter Contact No." formControlName="ContactNo" maxlength="20"></div>
+            <div class="col-md-8"><input type="number" placeholder="Enter Contact No." formControlName="ContactNo" maxlength="20"></div>
             <div class="clear"></div>
             <div class="col-md-4 text-right"><p>Eamil</p></div>
             <div class="col-md-8"><input type="text" placeholder="Enter Eamil." formControlName="eamil" maxlength="50"></div>
@@ -124,7 +122,7 @@
             <div class="col-md-4 text-right"><p>Country</p></div>
             <div class="col-md-8"><input type="text" placeholder="Enter Country" formControlName="country" maxlength="20"></div><div class="clear"></div>
             <div class="col-md-4 text-right"><p>Pincode</p></div>
-            <div class="col-md-8"><input type="text" placeholder="Enter Pincode" formControlName="pincode" maxlength="10"></div><div class="clear"></div>
+            <div class="col-md-8"><input type="number" placeholder="Enter Pincode" formControlName="pincode" maxlength="10"></div><div class="clear"></div>
            
         </div>
 
@@ -148,7 +146,7 @@
     <div class="clear"></div>
 
 <div class="little_gap"></div>
-<div class="text-center"> <button class="update_btn">Add Student</button> <span class="cancel_btn_add button_type_span" (click)="showTeacherList()">Cancel</span></div>
+<div class="text-center"> <button class="update_btn">Add Teacher</button> <span class="cancel_btn_add button_type_span" (click)="showTeacherList()">Cancel</span></div>
 </form>
 <div class="large_gap"></div>
 </div>
@@ -170,7 +168,7 @@
         <div class="col-md-8"><input type="text" placeholder="Enter Middle Name" formControlName="middleName" maxlength="50"></div>
         <div class="clear"></div>
         <div class="col-md-4 text-right"><p>Contact No</p></div>
-        <div class="col-md-8"><input type="text" placeholder="Enter Contact No." formControlName="ContactNo" maxlength="20"></div>
+        <div class="col-md-8"><input type="number" placeholder="Enter Contact No." formControlName="ContactNo" maxlength="20"></div>
         <div class="clear"></div>
         <div class="col-md-4 text-right"><p>Eamil</p></div>
         <div class="col-md-8"><input type="text" placeholder="Enter Eamil." formControlName="eamil" maxlength="50"></div>
@@ -201,7 +199,7 @@
         <div class="col-md-4 text-right"><p>Country</p></div>
         <div class="col-md-8"><input type="text" placeholder="Enter Country" formControlName="country" maxlength="20"></div><div class="clear"></div>
         <div class="col-md-4 text-right"><p>Pincode</p></div>
-        <div class="col-md-8"><input type="text" placeholder="Enter Pincode" formControlName="pincode" maxlength="10"></div><div class="clear"></div>
+        <div class="col-md-8"><input type="number" placeholder="Enter Pincode" formControlName="pincode" maxlength="10"></div><div class="clear"></div>
        
     </div>
 
@@ -240,7 +238,7 @@
     </div>
 <div class="clear"></div>
  <div class="little_gap"></div>
-<div class="text-center"> <button class="update_btn">Modify Student</button> <span class="cancel_btn_modify button_type_span" (click)="showTeacherList()">Cancel</span></div>
+<div class="text-center"> <button class="update_btn">Modify Teacher</button> <span class="cancel_btn_modify button_type_span" (click)="showTeacherList()">Cancel</span></div>
     </form>
 <div class="large_gap"></div>
 </div>
@@ -299,6 +297,48 @@
  -->
 
 
+
+ <div class="singleStudentViewDiv addschool_div"  [ngClass]="{'inactive_div': div_Element_Id !='3'}">
+    <div class="col-md-12 text-right">
+        <span class="cancel_btn_modify button_type_span" (click)="showTeacherList()">Close</span>
+    </div>
+    <div class="col-md-3"></div>
+        <div class="col-md-6 padding0">
+            <div class="large_gap"></div>            
+            <table class="view_syllabus_table">
+                <thead>
+                    <tr class="text-center">
+                        <th>S.no</th>
+                        <th>First&nbsp;Name</th>
+                        <th>Last&nbsp;Name</th>
+                        <th>Middle&nbsp;Name</th>
+                        <th>ContactNo </th>
+                        <th>gender </th>
+                        <th>eamil</th>
+                        <th>qualification</th>
+                       
+                    </tr>
+                </thead>
+                <tbody *ngIf="div_Element_Id == '3'">
+                    <tr  class="text-center" *ngFor="let viewname of teachernewarray; let i=index;">
+                        <td>{{i + 1}}</td>
+                        <td>{{viewname.firstName}}</td>
+                        <td>{{viewname.lastName}}</td>
+                        <td>{{viewname.middleName}}</td>
+                        <td>{{viewname.ContactNo}}</td>
+                        <td>{{viewname.gender}}</td>
+                        <td>{{viewname.eamil}}</td>
+                        <td>{{viewname.qualification}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="col-md-3"></div>
+        <div class="clear"></div>
+</div>
+<div class="clear"></div>
+
+
 <!-- <table datatable class="my_table_width" [dtTrigger]="dtTrigger"  [dtOptions]="dtOptions" id="datatable1"> -->
 
 
@@ -323,11 +363,9 @@
             </thead>
             <tbody *ngIf="div_Element_Id =='0'">
 
-                <tr *ngFor="let teacherto of teacherarray ; let i=index ">
-                   <!-- <td><input type="checkbox" value="{{schoolProfileTO.schoolId}}"  (change)="updateCheckedOptions(schoolProfileTO.schoolId,$this.checkbox.state)"></td> -->
-                    <td><input type="checkbox" id="{{teacherto.teacherId}}" value="{{teacherto.teacherId}}" (change)="checkedteacher(teacherto.teacherId,i)" ></td>
+                <tr *ngFor="let teacherto of teacherarray ; let i=index;">
+                    <td><input type="checkbox" id="a{{teacherto.teacherId}}" value="{{teacherto.teacherId}}" (change)="checkedteacher(teacherto.teacherId,i)" ></td>
                     <td>{{i + 1}}</td>
-                    <!-- <td class="respnse_img text-center"> <img src="{{ (studentProfileTO.profilePhotoUrl != null && studentProfileTO.profilePhotoUrl.length != 0) ?  studentProfileTO.profilePhotoUrl:'./assets/images/profile/default.jpg' }}" alt="" class="img-fluid"></td> -->
                     <td>{{teacherto.firstName}}</td>
                     <td>{{teacherto.lastName}}</td>
                     <td>{{teacherto.middleName}}</td>

@@ -53,6 +53,7 @@ import { ManageFeesComponent } from './component/manage-fees/manage-fees.compone
 import { ManageBannerComponent } from './component/manage-banner/manage-banner.component';
 import { ManageDocumentsComponent } from './component/manage-documents/manage-documents.component';
 import { ManageTeacherComponent } from './component/manage-teacher/manage-teacher.component';
+import { ManageUserComponent } from './component/manage-user/manage-user.component';
 
 
 
@@ -87,7 +88,8 @@ export const firebaseConfig = {     apiKey: 'AIzaSyB6WeGfORqOzz5jT_XL6GLMCl8ze
     ManageFeesComponent,
     ManageBannerComponent,
     ManageDocumentsComponent,
-    ManageTeacherComponent
+    ManageTeacherComponent,
+    ManageUserComponent
 
   ],
   imports: [

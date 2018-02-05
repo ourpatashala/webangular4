@@ -1,11 +1,11 @@
-import {Component, OnInit,ElementRef} from '@angular/core';
+import {Component, OnInit,ElementRef,Inject} from '@angular/core';
 import {ViewChild} from '@angular/core';
 import {BehaviorSubject, Observable, Subscription} from "rxjs";
-// import {Router} from "@angular/router";
+ import {Router} from "@angular/router";
 import {DataTableDirective} from 'angular-datatables';
 import {FormBuilder, FormControl, FormGroup, FormArray} from "@angular/forms";
 import { DatepickerOptions } from 'ng2-datepicker';
-// import {inject} from "@angular/core/testing";
+ import {inject} from "@angular/core/testing";
 import {Subject} from 'rxjs/Rx';
 import {ManageTeacher} from './manage-teacherinterface';
 
@@ -22,24 +22,21 @@ export class ManageTeacherComponent implements OnInit {
   sucessMessage: string;
   subscription: Subscription;
   message: string = '';
-  // studentProfileTOList: FirebaseListObservable<StudentTO>;
-  // classProfileTOList: FirebaseListObservable<ClassProfileTO>;
-  // studentTO: StudentTO;
   teacherFormGroup: FormGroup;
   @ViewChild(DataTableDirective)
   dtElement: DataTableDirective;
   dtOptions: DataTables.Settings = {};
   dtTrigger: Subject<any> = new Subject();
   flag: boolean = false;
-  // showClassSelection:boolean = false;
-  // showCameraSelection:boolean = false;
+  showClassSelection:boolean = false;
+  showCameraSelection:boolean = false;
   active: string = "0";// for error and success divs;;  0 for no content, 1 for success, 2 for error
   div_Element_Id: string = "0";//for multiple pages in school list page;;  0 to show list of school , 1 to show add school, 2 to show edit school, 3 to show single school view.
   
   // @Input() inputArray: ArrayType[];
-  // updateSubject: BehaviorSubject<string> = new BehaviorSubject<string>(""); // Holds the error message
-  // popupstatus: string = "0"; //0 for default close //1 for close and show listing
-  // showupload: string = "0"; //0 for default close //1 for close and show listing
+   updateSubject: BehaviorSubject<string> = new BehaviorSubject<string>(""); // Holds the error message
+   popupstatus: string = "0"; //0 for default close //1 for close and show listing
+   showupload: string = "0"; //0 for default close //1 for close and show listing
   teacherarray:ManageTeacher[] = [];
   teachernewarray:ManageTeacher[] = [];
   checkedval:number;
@@ -215,7 +212,7 @@ export class ManageTeacherComponent implements OnInit {
   }
  
  
-  viewSingleFeeProfile(){
+  viewSingleTeacherProfile(){
     this.div_Element_Id ="3";
     var rajuarray = new ManageTeacher();
     rajuarray = this.teacherarray[this.checkedval1];
