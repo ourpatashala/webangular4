@@ -31,6 +31,10 @@ import { ManageBannerComponent } from './component/manage-banner/manage-banner.c
 import { ManageDocumentsComponent } from './component/manage-documents/manage-documents.component';
 import { ManageTeacherComponent } from './component/manage-teacher/manage-teacher.component';
 import { ManageUserComponent } from './component/manage-user/manage-user.component';
+import { ManageParentaskComponent } from './component/manage-parentask/manage-parentask.component';
+import { ManageSettingComponent } from './component/manage-setting/manage-setting.component';
+import { ManageRolesComponent } from './component/manage-roles/manage-roles.component';
+
 
 
 
@@ -56,6 +60,9 @@ const appRoutes: Routes = [
   { path: 'ManageDocuments',component:ManageDocumentsComponent},
   { path: 'Manageteacher',component:ManageTeacherComponent},
   { path: 'ManageUser',component:ManageUserComponent},
+  { path: 'ParentAskCategories',component:ManageParentaskComponent},
+  { path: 'ManageSettings',component:ManageSettingComponent},
+  { path: 'ManageRoles',component:ManageRolesComponent},
 ];
 
 

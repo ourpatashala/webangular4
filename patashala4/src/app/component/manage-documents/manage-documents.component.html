@@ -46,7 +46,7 @@
     <div class="col-md-3"></div>
         <form [formGroup]="documentFormGroup" (ngSubmit)="addClassSubmit(documentFormGroup.value)">
             <div class="col-md-6">
-                <div class="col-md-4 text-right"><p>Class Name</p></div>
+                <div class="col-md-4 text-right"><b>Class Name</b></div>
                 <div class="col-md-8">
                         <div  class="input-field col s12">
                             <input id="country" type="text" name="className" formControlName="className" class="validate filter-input" placeholder="ClassName" [(ngModel)]=query (keyup)=filter()>
@@ -61,12 +61,12 @@
                         </div>
                 </div>
                     <div class="clear"></div>
-                <div class="col-md-4 text-right"><p>Document Name</p></div><div class="col-md-8">
+                <div class="col-md-4 text-right"><b>Document Name</b></div><div class="col-md-8">
                     <input type="text" name="DocumentName" formControlName="DocumentName" placeholder="Enter Document Name"></div><div class="clear"></div>
-                <div class="col-md-4 text-right"><p>Description</p></div><div class="col-md-8">
+                <div class="col-md-4 text-right"><b>Description</b></div><div class="col-md-8">
                     <textarea type="text"name="Description" formControlName="Description" placeholder="Enter Description"></textarea></div><div class="clear"></div>
                 <div class="clear"></div>
-              <div class="col-md-4 text-right"><p>Doc Type</p></div>
+              <div class="col-md-4 text-right"><b>Doc Type</b></div>
               <div class="col-md-8">
                   <select formControlName="Doctype">
                       <option value="">Select Document Type</option>
@@ -76,19 +76,19 @@
                       <option value="PPT">PPT</option>
                   </select>
               </div><div class="clear"></div>
-                <div class="col-md-4 text-right"><p>Category</p></div>
+                <div class="col-md-4 text-right"><b>Category</b></div>
                 <div class="col-md-8">
                         <input type="text" formControlName="Category"   placeholder="Enter Category">
                 </div>
                 <div class="clear"></div>
-                <div class="col-md-4 text-right"><p>Upload</p></div>
+                <div class="col-md-4 text-right"><b>Upload</b></div>
                 <div class="col-md-8">
                     <input type="file" (change)="onChange($event)" name="Upload" formControlName="Upload">
                 </div>
                 <div class="clear"></div>
             <div class="clear"></div>
             <div class="col-md-12 text-center">
-                    <button class="update_btn">Add Document</button><span class="cancel_btn_add button_type_span" (click)="showDocumentList()">Cancel</span>
+                    <button class="update_btn mr10">Add Document</button><span class="cancel_btn_add button_type_span" (click)="showDocumentList()">Cancel</span>
             </div>
           </div>
         </form>    
@@ -102,7 +102,7 @@
     <div class="col-md-3"></div> 
         <form [formGroup]="documentFormGroup" (ngSubmit)="updateClassSubmit(documentFormGroup.value)"> 
             <div class="col-md-6">
-                <div class="col-md-4"><p>Class Name</p></div>
+                <div class="col-md-4 text-right"><b>Class Name</b></div>
                 <div class="col-md-8">
                         <div  class="input-field col s12">
                                 <input id="country" type="text" name="className" formControlName="className" class="validate filter-input" [(ngModel)]=query (keyup)=filter()>
@@ -117,13 +117,13 @@
                         </div>
                 </div>
                 <div class="clear"></div>
-                <div class="col-md-4"><p>Document Name</p></div><div class="col-md-8">
+                <div class="col-md-4 text-right"><b>Document Name</b></div><div class="col-md-8">
                   <input type="text" name="DocumentName" formControlName="DocumentName" placeholder="Enter Document Name"></div><div class="clear"></div>
-              <div class="col-md-4"><p>Description</p></div><div class="col-md-8">
+              <div class="col-md-4 text-right"><b>Description</b></div><div class="col-md-8">
                   <textarea type="text"name="Description" formControlName="Description" placeholder="Enter Description"></textarea></div><div class="clear"></div>
                   <div class="clear"></div>
              
-                <div class="col-md-4 text-right"><p>Doc Type</p></div>
+                <div class="col-md-4 text-right"><b>Doc Type</b></div>
                 <div class="col-md-8">
                     <select formControlName="Doctype">
                         <option value="">Select Document Type</option>
@@ -133,19 +133,19 @@
                         <option value="PPT">PPT</option>
                     </select>
                 </div><div class="clear"></div>
-                  <div class="col-md-4 text-right"><p>Category</p></div>
+                  <div class="col-md-4 text-right"><b>Category</b></div>
                   <div class="col-md-8">
                           <input type="text" formControlName="Category"   placeholder="Enter Category">
                   </div>
                   <div class="clear"></div>
-                  <div class="col-md-4 text-right"><p>Upload</p></div>
+                  <div class="col-md-4 text-right"><b>Upload</b></div>
                   <div class="col-md-8">
                       <input type="file"  (change)="onChange($event)" name="Upload" formControlName="Upload">
                   </div>
                   <div class="clear"></div>
            
                 <div class="col-md-12 text-center">
-                    <button class="update_btn">Modify Document</button><span class="cancel_btn_add button_type_span" (click)="showDocumentList()">Cancel</span>
+                    <button class="update_btn mr10">Modify Document</button><span class="cancel_btn_add button_type_span" (click)="showDocumentList()">Cancel</span>
                 </div>  
             </div>
         </form>    

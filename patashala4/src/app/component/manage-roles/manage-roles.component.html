@@ -1,0 +1,256 @@
+<app-header-admin></app-header-admin>
+
+
+
+<div class="overlay hideblock" [ngClass]="{'showblock': active=='1'}"></div>
+    <div class="popup_screen hideblock " [ngClass]="{'showblock': active=='1'}">
+        <div class="sucess_msg_text"><span class="checkicon"> &#x2714;</span> <p [ngClass]="{'show_styles_sucess': active=='1'}">{{sucessMessage}}!</p></div>
+        <div class="little_gap"></div>
+        <button class="update_btn popup_ok_btn" (click)="closePopup()">Ok</button>
+        <div class="little_gap"></div>
+    </div>
+
+
+
+<div class="all_pages_content">
+    <div class="clear"></div>
+    <div class="page_content_here">
+     <div class="manage_school_table">
+
+         <div class="listing_tabs">
+      <ul class="">
+         <a routerLink="/TabService"><li class="" id="service_tab">Services</li></a>
+         <a routerLink="/TabManage"><li class="active_tab" id="manage_tab">Manage</li></a>
+      </ul>
+    </div>
+    <div class="large_gap"></div>
+
+    
+       <div class="col-md-6 padding0"><h3>Manage Roles</h3>
+       <p class="breadscrum_text"><a  routerLink="/">Home </a> &nbsp; <i class="fa fa-chevron-right"></i> &nbsp; Manage Roles</p>
+       </div>
+        <div class="col-md-6 padding0 text-right">
+          <div class="buttons_div" [ngClass]="{'inactive_div': div_Element_Id !='0'}">
+            <button class="add_more_btn"  (click)="show_addroleFields()" [ngClass]="{'disable_btn': selectedrolearray.length!='0'}"><i class="fa fa-plus"></i> Add</button> 
+            <button class="edit_field_btn" (click)="getselectedroleProfile()" [ngClass]="{'disable_btn': selectedrolearray.length!='1'}"><i class="fa fa-pencil"></i> Modify</button>
+            <button (click)="deleteroles()" [ngClass]="{'disable_btn': selectedrolearray.length==0 || selectedrolearray.length>1}"><i class="fa fa-trash"></i> Delete</button>
+            <button (click)="viewSingleroleProfile()" [ngClass]="{'disable_btn': selectedrolearray.length!='1'}"><i class="fa fa-eye"></i> View</button> 
+            </div>
+        </div>
+          <div class="clear"></div>
+
+
+    <div class="error_msg_text"><p [ngClass]="{'error_styles_sucess': active=='2'}">{{errorMessage}}</p></div>
+         
+<div class="add_fields addschool_div"  *ngIf ="div_Element_Id =='1'"  [ngClass]="{'inactive_div': div_Element_Id !='1'}">
+      <div class="little_gap"></div>
+      <form [formGroup]="roleFormGroup" (ngSubmit)="addRolesSubmit(roleFormGroup.value)">
+          <div class="col-md-3"></div>
+          <div class="col-md-6">
+                      <div class="col-md-4"><p>Role Name</p></div>
+                      <div class="col-md-8">
+                        <input type="text" placeholder="Enter Role Name"></div><div class="clear"></div>
+                      <div class="col-md-4"><p>Access</p></div>
+                      <div class="col-md-8">
+                        <table class="view_syllabus_table">
+                          <thead>
+                            <tr>
+                              <th>Screens</th><th>R</th><th>W</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr>
+                              <td>Manage Classes</td>
+                              <td><input type="checkbox"></td>
+                              <td><input type="checkbox"></td>
+                            </tr>
+                            <tr>
+                              <td>Manage Teachers</td>
+                              <td><input type="checkbox"></td>
+                              <td><input type="checkbox"></td>
+                            </tr>
+                            <tr>
+                              <td>Manage Students</td>
+                              <td><input type="checkbox"></td>
+                              <td><input type="checkbox"></td>
+                            </tr>
+                            <tr>
+                              <td>Manage Exams</td>
+                              <td><input type="checkbox"></td>
+                              <td><input type="checkbox"></td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div class="clear"></div>
+                  </div>     
+                  <div class="col-md-3">  </div>
+                  <div class="clear"></div>
+                  <div class="little_gap"></div>
+          <div class="col-md-12  padding0 text-center">
+            <button class="update_btn">Add Role</button><span class="cancel_btn_add button_type_span" (click)="showroleList()">Cancel</span>
+          </div>          
+          <div class="clear"></div>
+      </form>
+    </div> 
+
+
+
+
+<div class="modify_fields addschool_div" [ngClass]="{'inactive_div': div_Element_Id !='2'}">
+    <div class="little_gap"></div>
+    <form [formGroup]="roleFormGroup" (ngSubmit)="UpdateRolesSubmit(roleFormGroup.value)">
+        <div class="col-md-3"></div>
+        <div class="col-md-6">
+                <div class="col-md-4"><p>Role Name</p></div>
+                <div class="col-md-8">
+                  <input type="text" placeholder="Enter Role Name">
+                </div>
+                <div class="clear"></div>
+                <div class="col-md-4"><p>Access</p></div>
+                <div class="col-md-8">
+                  <table class="R_C_C_style">
+                    <thead>
+                      <tr>
+                        <th>Screens</th><th>R</th><th>W</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>Manage Classes</td>
+                        <td><input type="checkbox"></td>
+                        <td><input type="checkbox"></td>
+                      </tr>
+                      <tr>
+                        <td>Manage Teachers</td>
+                        <td><input type="checkbox"></td>
+                        <td><input type="checkbox"></td>
+                      </tr>
+                      <tr>
+                        <td>Manage Students</td>
+                        <td><input type="checkbox"></td>
+                        <td><input type="checkbox"></td>
+                      </tr>
+                      <tr>
+                        <td>Manage Exams</td>
+                        <td><input type="checkbox"></td>
+                        <td><input type="checkbox"></td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+                <div class="clear"></div>
+            </div>     
+            <div class="col-md-3">  </div>
+        <div class="col-md-12  padding0 text-center">
+          <button class="update_btn">Modify Role</button><span class="cancel_btn_add button_type_span" (click)="showroleList()">Cancel</span>
+        </div>          
+        <div class="clear"></div>
+    </form>
+    </div> 
+    <div class="clear"></div>
+    <div class="little_gap"></div>
+
+    
+    
+<div class="singleStudentViewDiv addschool_div"  [ngClass]="{'inactive_div': div_Element_Id !='3'}">
+        <div class="col-md-12 text-right">
+            <span class="cancel_btn_modify button_type_span" (click)="showroleList()">Close</span>
+        </div>
+        <div class="col-md-3"></div>
+            <div class="col-md-6 padding0">
+                <div class="large_gap"></div>            
+                <table class="view_syllabus_table">
+                    <thead>
+                        <tr class="text-center">
+                            <th>S.no</th>
+                            <th>SerialNo</th>
+                            <th>Category</th>
+                        </tr>
+                    </thead>
+                    <tbody *ngIf="div_Element_Id == '3'">
+                        <tr  class="text-center" *ngFor="let viewname of roleNewarray; let i=index;">
+                            <td>{{i+1}}</td>
+                            <td>{{viewname.SerialNo}}</td>
+                            <td>{{viewname.Category}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="col-md-3"></div>
+            <div class="clear"></div>
+    </div>
+    <div class="clear"></div>
+ 
+
+
+          <div class="datatable_toggle" [ngClass]="{'inactive_div': div_Element_Id !='0'}">
+          <table id="manageclassestable" datatable [dtOptions]="dtOptions"  [dtTrigger]="dtTrigger" class="my_table_width">
+                    <thead>
+                      <tr class="text-center">
+                          <th>S.no</th>
+                          <th>Role</th>
+                          <th>Desc</th>
+                      </tr>
+                    </thead>
+                    <tbody *ngIf="div_Element_Id =='0'">
+                        <tr class="text-center" *ngFor="let events of rolearray; let i=index;">
+                            <td ><input type="checkbox"id="a{{events.roleId}}" value="{{events.roleId}}" (change)="checkedmasterrole(events.roleId,i)"></td>
+                            <!-- <td>{{i+1}}</td> -->
+                            <td>{{events.SerialNo}}</td>
+                            <td>{{events.Category}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+          </div>
+              
+          <div class="clear"></div>
+            </div>
+            </div>
+        </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

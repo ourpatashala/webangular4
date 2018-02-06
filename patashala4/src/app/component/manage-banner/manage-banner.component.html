@@ -50,27 +50,27 @@
       <div class="col-md-3"></div>
       <form [formGroup]="bannerFormGroup" (ngSubmit)="addEvent(bannerFormGroup.value)">
           <div class="col-md-6 padding0">
-              <div class="col-md-4"><p>S.No</p></div>
+              <div class="col-md-4 text-right"><b>S.No</b></div>
               <div class="col-md-8">
                 <input type="number"  formControlName="serialNo" placeholder="serial No">
               </div>
               <div class="clear"></div>
-              <div class="col-md-4"><p>Class/School</p></div>
+              <div class="col-md-4 text-right"><b>Class/School</b></div>
               <div class="col-md-8">
                 <input type="text" formControlName="School" placeholder="Enter Class/School">
               </div>
               <div class="clear"></div>
-              <div class="col-md-4"><p>Message</p></div>
+              <div class="col-md-4 text-right"><b>Message</b></div>
               <div class="col-md-8">
                 <textarea  formControlName="Message" placeholder="Enter Message"></textarea>
               </div>
               <div class="clear"></div>
-              <div class="col-md-4"><p>Start Date</p></div>
+              <div class="col-md-4 text-right"><b>Start Date</b></div>
               <div class="col-md-8">
                   <ng-datepicker  formControlName="StartDate" [options]="dateOptions"  placeholder="Start Date"></ng-datepicker>
                 </div>             
               <div class="clear"></div>
-              <div class="col-md-4"><p>End Date</p></div>
+              <div class="col-md-4 text-right"><b>End Date</b></div>
               <div class="col-md-8">
                   <ng-datepicker  formControlName="EndDate" [options]="dateOptions1"  placeholder="End Date"></ng-datepicker>
                 </div>
@@ -78,7 +78,7 @@
               <div class="little_gap"></div>
          
           <div class="col-md-12  padding0 text-center">
-            <button class="update_btn">Add Banner</button><span class="cancel_btn_add button_type_span" (click)="showBannerList()">Cancel</span>
+            <button class="update_btn mr10">Add Banner</button><span class="cancel_btn_add button_type_span" (click)="showBannerList()">Cancel</span>
           </div>  
         </div>        
           <div class="clear"></div>
@@ -94,27 +94,27 @@
       <div class="col-md-3"></div>
       <form [formGroup]="bannerFormGroup" (ngSubmit)="updateEvent(bannerFormGroup.value)"> 
           <div class="col-md-6 padding0">
-              <div class="col-md-4"><p>S.No</p></div>
+              <div class="col-md-4 text-right"><b>S.No</b></div>
               <div class="col-md-8">
                 <input type="number"  formControlName="serialNo" placeholder="serial No">
               </div>
               <div class="clear"></div>
-              <div class="col-md-4"><p>Class/School</p></div>
+              <div class="col-md-4 text-right"><b>Class/School</b></div>
               <div class="col-md-8">
                 <input type="text" formControlName="School" placeholder="Enter Class/School">
               </div>
               <div class="clear"></div>
-              <div class="col-md-4"><p>Message</p></div>
+              <div class="col-md-4 text-right"><b>Message</b></div>
               <div class="col-md-8">
                 <textarea  formControlName="Message" placeholder="Enter Message"></textarea>
               </div>
               <div class="clear"></div>
-              <div class="col-md-4"><p>Start Date</p></div>
+              <div class="col-md-4 text-right"><b>Start Date</b></div>
               <div class="col-md-8">
                   <ng-datepicker  formControlName="StartDate" [options]="dateOptions"  placeholder="Start Date"></ng-datepicker>
                 </div>             
               <div class="clear"></div>
-              <div class="col-md-4"><p>End Date</p></div>
+              <div class="col-md-4 text-right"><b>End Date</b></div>
               <div class="col-md-8">
                   <ng-datepicker  formControlName="EndDate" [options]="dateOptions1"  placeholder="End Date"></ng-datepicker>
                 </div>
@@ -122,7 +122,7 @@
               <div class="little_gap"></div>
           
           <div class="col-md-12  padding0 text-center">
-            <button class="update_btn">Modify Banner</button><span class="cancel_btn_add button_type_span" (click)="showBannerList()">Cancel</span>
+            <button class="update_btn mr10">Modify Banner</button><span class="cancel_btn_add button_type_span" (click)="showBannerList()">Cancel</span>
           </div> 
         </div>
           <div class="clear"></div>
@@ -144,12 +144,12 @@
                 <div class="large_gap"></div>            
                 <table class="view_syllabus_table">
                     <thead>
-                        <tr  class="text-center">
-                            <th>S.no</th>
-                            <th>School/Class</th>
-                            <th>Message</th>
-                            <th>Start Date</th>
-                            <th>End Date</th>
+                        <tr>
+                            <th class="text-center">S.no</th>
+                            <th class="text-center">School/Class</th>
+                            <th class="text-center">Message</th>
+                            <th class="text-center">Start Date</th>
+                            <th class="text-center">End Date</th>
                         </tr>
                     </thead>
                     <tbody *ngIf="div_Element_Id == '3'">

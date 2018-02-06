@@ -1,0 +1,204 @@
+<app-header-admin></app-header-admin>
+
+
+
+<div class="overlay hideblock" [ngClass]="{'showblock': active=='1'}"></div>
+    <div class="popup_screen hideblock " [ngClass]="{'showblock': active=='1'}">
+        <div class="sucess_msg_text"><span class="checkicon"> &#x2714;</span> <p [ngClass]="{'show_styles_sucess': active=='1'}">{{sucessMessage}}!</p></div>
+        <div class="little_gap"></div>
+        <button class="update_btn popup_ok_btn" (click)="closePopup()">Ok</button>
+        <div class="little_gap"></div>
+    </div>
+
+
+
+<div class="all_pages_content">
+    <div class="clear"></div>
+    <div class="page_content_here">
+     <div class="manage_school_table">
+
+         <div class="listing_tabs">
+      <ul class="">
+         <a routerLink="/TabService"><li class="" id="service_tab">Services</li></a>
+         <a routerLink="/TabManage"><li class="active_tab" id="manage_tab">Manage</li></a>
+      </ul>
+    </div>
+    <div class="large_gap"></div>
+
+    
+       <div class="col-md-6 padding0"><h3>Parent Ask Categories</h3>
+       <p class="breadscrum_text"><a  routerLink="/">Home </a> &nbsp; <i class="fa fa-chevron-right"></i> &nbsp; Parent Ask Categories</p>
+       </div>
+        <div class="col-md-6 padding0 text-right">
+          <div class="buttons_div" [ngClass]="{'inactive_div': div_Element_Id !='0'}">
+            <button class="add_more_btn"  (click)="show_addParentFields()" [ngClass]="{'disable_btn': selectedparentarray.length!='0'}"><i class="fa fa-plus"></i> Add</button> 
+            <button class="edit_field_btn" (click)="getselectedParentProfile()" [ngClass]="{'disable_btn': selectedparentarray.length!='1'}"><i class="fa fa-pencil"></i> Modify</button>
+            <button (click)="deleteParentask()" [ngClass]="{'disable_btn': selectedparentarray.length==0 || selectedparentarray.length>1}"><i class="fa fa-trash"></i> Delete</button>
+            <button (click)="viewSingleParentaskProfile()" [ngClass]="{'disable_btn': selectedparentarray.length!='1'}"><i class="fa fa-eye"></i> View</button> 
+            </div>
+        </div>
+          <div class="clear"></div>
+
+
+    <div class="error_msg_text"><p [ngClass]="{'error_styles_sucess': active=='2'}">{{errorMessage}}</p></div>
+         
+   <div class="add_fields addschool_div"  *ngIf ="div_Element_Id =='1'"  [ngClass]="{'inactive_div': div_Element_Id !='1'}">
+      <div class="little_gap"></div>
+      <form [formGroup]="parentFormGroup" (ngSubmit)="addParentAsk(parentFormGroup.value)">
+        <div class="col-md-3"></div>
+            <div class="col-md-6">
+                <div class="col-md-4 text-right"><b>S.no</b></div>
+                <div class="col-md-8">
+                  <input type="number"  formControlName="SerialNo" placeholder="Enter Sno">
+                </div>
+                <div class="clear"></div>
+                <div class="col-md-4 text-right"><b>Category</b></div>
+                <div class="col-md-8">
+                  <input type="text"  formControlName="Category" placeholder="Enter Category Name">
+                </div>
+                <div class="clear"></div>
+            </div>     
+            <div class="col-md-3"></div>
+            <div class="clear"></div>
+            <div class="little_gap"></div>
+          <div class="col-md-12  padding0 text-center">
+            <button class="update_btn mr10">Add ParentCategory</button><span class="cancel_btn_add button_type_span" (click)="showParentList()">Cancel</span>
+          </div>          
+          <div class="clear"></div>
+      </form>
+    </div> 
+
+
+
+
+<div class="modify_fields addschool_div" [ngClass]="{'inactive_div': div_Element_Id !='2'}">
+    <div class="little_gap"></div>
+    <form [formGroup]="parentFormGroup" (ngSubmit)="UpdateParentAsk(parentFormGroup.value)">
+        <div class="col-md-3"></div>
+            <div class="col-md-6">
+                <div class="col-md-4 text-right"><b>S.no</b></div>
+                <div class="col-md-8">
+                  <input type="number"  formControlName="SerialNo" placeholder="Enter Sno">
+                </div>
+                <div class="clear"></div>
+                <div class="col-md-4 text-right"><b>Category</b></div>
+                <div class="col-md-8">
+                  <input type="text"  formControlName="Category" placeholder="Enter Category Name">
+                </div>
+                <div class="clear"></div>
+            </div>     
+            <div class="col-md-3"></div>
+            <div class="clear"></div>
+            <div class="little_gap"></div>
+        <div class="col-md-12  padding0 text-center">
+          <button class="update_btn mr10">Modify ParentCategory</button><span class="cancel_btn_add button_type_span" (click)="showParentList()">Cancel</span>
+        </div>          
+        <div class="clear"></div>
+    </form>
+    </div> 
+    <div class="clear"></div>
+    <div class="little_gap"></div>
+
+    
+    
+<div class="singleStudentViewDiv addschool_div"  [ngClass]="{'inactive_div': div_Element_Id !='3'}">
+        <div class="col-md-12 text-right">
+            <span class="cancel_btn_modify button_type_span" (click)="showParentList()">Close</span>
+        </div>
+        <div class="col-md-3"></div>
+            <div class="col-md-6 padding0">
+                <div class="large_gap"></div>            
+                <table class="view_syllabus_table">
+                    <thead>
+                        <tr class="text-center">
+                            <th>S.no</th>
+                            <th>SerialNo</th>
+                            <th>Category</th>
+                        </tr>
+                    </thead>
+                    <tbody *ngIf="div_Element_Id == '3'">
+                        <tr  class="text-center" *ngFor="let viewname of parentNewarray; let i=index;">
+                            <td>{{i+1}}</td>
+                            <td>{{viewname.SerialNo}}</td>
+                            <td>{{viewname.Category}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="col-md-3"></div>
+            <div class="clear"></div>
+    </div>
+    <div class="clear"></div>
+ 
+
+
+          <div class="datatable_toggle" [ngClass]="{'inactive_div': div_Element_Id !='0'}">
+          <table id="manageclassestable" datatable [dtOptions]="dtOptions"  [dtTrigger]="dtTrigger" class="my_table_width">
+                    <thead>
+                      <tr class="text-center">
+                          <th></th>
+                          <!-- <th>S.no</th> -->
+                          <th>SerialNo</th>
+                          <th>Category</th>
+                      </tr>
+                    </thead>
+                    <tbody *ngIf="div_Element_Id =='0'">
+                        <tr class="text-center" *ngFor="let events of parentarray; let i=index;">
+                            <td ><input type="checkbox"id="a{{events.ParentId}}" value="{{events.ParentId}}" (change)="checkedmasterParent(events.ParentId,i)"></td>
+                            <!-- <td>{{i+1}}</td> -->
+                            <td>{{events.SerialNo}}</td>
+                            <td>{{events.Category}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+          </div>
+              
+          <div class="clear"></div>
+            </div>
+            </div>
+        </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

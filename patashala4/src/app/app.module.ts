@@ -54,6 +54,9 @@ import { ManageBannerComponent } from './component/manage-banner/manage-banner.c
 import { ManageDocumentsComponent } from './component/manage-documents/manage-documents.component';
 import { ManageTeacherComponent } from './component/manage-teacher/manage-teacher.component';
 import { ManageUserComponent } from './component/manage-user/manage-user.component';
+import { ManageParentaskComponent } from './component/manage-parentask/manage-parentask.component';
+import { ManageSettingComponent } from './component/manage-setting/manage-setting.component';
+import { ManageRolesComponent } from './component/manage-roles/manage-roles.component';
 
 
 
@@ -89,7 +92,10 @@ export const firebaseConfig = {     apiKey: 'AIzaSyB6WeGfORqOzz5jT_XL6GLMCl8ze
     ManageBannerComponent,
     ManageDocumentsComponent,
     ManageTeacherComponent,
-    ManageUserComponent
+    ManageUserComponent,
+    ManageParentaskComponent,
+    ManageSettingComponent,
+    ManageRolesComponent
 
   ],
   imports: [

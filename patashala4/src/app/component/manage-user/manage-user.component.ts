@@ -29,7 +29,6 @@ import {style, state, animate, transition, trigger} from '@angular/core';
 })
 export class ManageUserComponent implements OnInit {
 
-  // state: string = 'small';
   userFormGroup:FormGroup;
   checkedval:number;
   checkedval1:number;
@@ -56,16 +55,14 @@ export class ManageUserComponent implements OnInit {
 
   ngOnInit() {
     this.userFormGroup = this.fb.group({
-
-      
-    uniqueId : [''],
-    Name: [''],
-    UserId: [''],
-    Role: [''],
-    Usertype: [''],
-    Phone: [''],
-      
-    });
+      uniqueId : [''],
+      Name: [''],
+      UserId: [''],
+      Role: [''],
+      Usertype: [''],
+      Phone: [''],
+        
+      });
   }
 
   closePopup() {
@@ -80,10 +77,7 @@ export class ManageUserComponent implements OnInit {
     this.dtTrigger.next();
   }
 
-  // toggleme(){
-  //   this.upload_img= !this.upload_img;
-  //   this.state = (this.state === 'small' ? 'large' : 'small');
-  // }
+ 
   show_addUserFields(){
     this.div_Element_Id="1";
     // this.selectedUserArray=[''];

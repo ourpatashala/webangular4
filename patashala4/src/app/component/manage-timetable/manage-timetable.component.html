@@ -6,67 +6,57 @@
 <div class="overlay hideblock" [ngClass]="{'showblock': active=='1'}"></div>
     <div class="popup_screen hideblock " [ngClass]="{'showblock': active=='1'}">
         <div class="addschool_div1">
-            <h3>Modify TimeTable</h3>  
+            <h3><b>Modify TimeTable</b></h3>  
             <div class="little_gap"></div>
             <form [formGroup]="rForm" (ngSubmit)="addtable(rForm.value)">
             <div class="col-md-12 " id="table_pop">
-                <div class="col-md-4 pr0">Teacher :</div>
+                <div class="col-md-4 pr0"><b>Teacher :</b></div>
               <div class="col-md-8 pl0">
                     <div  class="input-field col s12">
-                        <!-- <label><p>Teacher</p></label> -->
                             <input id="country" type="text" name="teacher" formControlName="teacher" class="validate filter-input" [(ngModel)]=query (keyup)=filter()>
-                            <!-- <label for="country">Country</label> -->
                           </div>
                           <div class="suggestions sugg_dropdown" *ngIf="filteredList.length > 0">
                               <ul *ngFor="let item of filteredList" >
-                                  <li >
+                                  <li class="class_select">
                                       <a (click)="select(item)">{{item}}</a>
                                   </li>
                               </ul>
                           </div>
-                  <!-- <input  type="text" name=""  formControlName="teacher" placeholder="Enter Teacher Name" class=""> -->
               </div>
             </div>
               <div class="clear"></div>
               <div class="col-md-12 " id="table_pop">
-              <div class="col-md-4 pr0">Subject :</div>
+              <div class="col-md-4 pr0"><b>Subject :</b></div>
               <div class="col-md-8 pl0">
                     <div id="table_pop" class="input-field col s12">
                             <input id="subje" type="text" name="subject" formControlName="subject" class="validate filter-input" [(ngModel)]=subquery (keyup)=filter1()>
-                            <!-- <label for="country">Country</label> -->
                           </div>
                           <div class="suggestions sugg_dropdown" *ngIf="subjectList.length > 0">
                               <ul *ngFor="let item of subjectList" >
-                                  <li >
+                                  <li class="class_select">
                                       <a (click)="select1(item)">{{item}}</a>
                                   </li>
                               </ul>
                           </div>
-                  <!-- <input  type="text" name="subject"  formControlName="subject" placeholder="Enter Subject" class=""> -->
                   </div>
               </div>
                   <div class="clear"></div>
             <div class="col-md-12 " id="table_pop"> 
-              <div class="col-md-4 pr0">Time :</div>
+              <div class="col-md-4 pr0"><b>Time :</b></div>
                 <div class="col-md-8 pl0">
-                    <!-- <input type="text" name="time" formControlName="time" > -->
                     <input type="text" name="time"  formControlName="time" [owlDateTimeTrigger]="dt2" [owlDateTime]="dt2"  [owlDateTimeFilter]="myFilter" placeholder="Time">
-                    <!-- <span [owlDateTimeTrigger]="dt2"><i class="fa fa-calendar"></i></span> -->
                     <owl-date-time  [pickerType]="'timer'" [hour12Timer]="'true'" #dt2></owl-date-time>
-                <!-- <input type="text" name="time" formControlName="time" placeholder="Enter Time" class=""> -->
                 </div>
             </div>
                 <div class="clear"></div>
               <div class="little_gap"></div>
               <div class="text-center">
-                  <button class="update_btn">Add</button><span class="cancel_btn_add button_type_span" (click)="closepopup()">Cancel</span>
+                  <button class="update_btn mr10">Add</button><span class="cancel_btn_add button_type_span" (click)="closepopup()">Cancel</span>
               </div>
             <div class="clear"></div>
             </form>
           </div> 
-        <!-- <div class="sucess_msg_text"><span class="checkicon"> &#x2714;</span> <p [ngClass]="{'show_styles_sucess': active=='1'}">{{sucessMessage}}!</p></div> -->
         <div class="little_gap"></div>
-        <!-- <button class="update_btn popup_ok_btn" (click)="closePopup()">Ok</button> -->
         <div class="little_gap"></div>
     </div>
 
@@ -113,34 +103,26 @@
         <div class="clear"></div>
         <div class="little_gap"></div>
         <div class="overflowscroll">
-        <table id="manageclassestable">
+        <table  class="view_syllabus_table" id="manageclassestable">
             <thead>
                 <tr>
-                    <th>Day</th>
-                    <th>1</th>
-                    <th>2</th>
-                    <th>3</th>
-                    <th>4</th>
-                    <th>5</th>
-                    <th>6</th>
-                    <th>7</th>
+                    <th class="text-center">Day</th>
+                    <th class="text-center">1</th>
+                    <th class="text-center">2</th>
+                    <th class="text-center">3</th>
+                    <th class="text-center">4</th>
+                    <th class="text-center">5</th>
+                    <th class="text-center">6</th>
+                    <th class="text-center">7</th>
                 </tr>
             </thead>
             <tbody>
                 <tr *ngFor="let sam of tablearray; let i=index;">
-                    <td>{{dayarray[i]}}</td>
-                  <td *ngFor="let d of sam; let j=index;">
+                  <td class="text-center"><b>{{dayarray[i]}}</b></td>
+                  <td  *ngFor="let d of sam; let j=index;">
                     {{tablearray[i][j].teacher}} {{tablearray[i][j].subject}} <i class="fa fa-pencil"(click)="openpopup(i,j)"></i> <br>
                      {{tablearray[i][j].time | date:"hh:mm :a" }} 
                   </td>
-                    <!-- <td>Monday</td>
-                    <td><h3>Science</h3> <p>Anushka(9:00)</p>  <i class="fa fa-pencil"(click)="openpopup()"></i></td>
-                    <td> <i class="fa fa-pencil"(click)="openpopup()"></i></td>
-                    <td> <i class="fa fa-pencil"(click)="openpopup()"></i></td>
-                    <td> <i class="fa fa-pencil"(click)="openpopup()"></i></td>
-                    <td> <i class="fa fa-pencil"(click)="openpopup()"></i></td>
-                    <td> <i class="fa fa-pencil"(click)="openpopup()"></i></td>  -->
-               
                 </tr>
                
 

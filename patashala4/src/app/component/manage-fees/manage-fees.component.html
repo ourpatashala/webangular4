@@ -48,12 +48,12 @@
       <form [formGroup]="feeFormGroup" (ngSubmit)="addFeeSubmit(feeFormGroup.value)">
           <div class="col-md-3"></div>
           <div class="col-md-6">
-              <div class="col-md-4"><p>S.No</p></div>
+              <div class="col-md-4 text-right"><b>S.No</b></div>
               <div class="col-md-8">
                 <input type="number" formControlName="serialNo" placeholder="Enter Serial No">
               </div>
               <div class="clear"></div>
-              <div class="col-md-4"><p>Class</p></div>
+              <div class="col-md-4 text-right"><b>Class</b></div>
               <div class="col-md-8">
                   <div  class="input-field col s12">
                     <input id="country" type="text" name="className" formControlName="className" class="validate filter-input" placeholder="Search ClassName" [(ngModel)]=Feequery (keyup)=filter1()>
@@ -67,22 +67,22 @@
                   </div>
               </div>
               <div class="clear"></div>
-              <div class="col-md-4"><p>Term</p></div>
+              <div class="col-md-4 text-right"><b>Term</b></div>
               <div class="col-md-8">
                 <input type="text"  formControlName="term" placeholder="Enter Term" class="">
               </div>
               <div class="clear"></div>
-              <div class="col-md-4"><p>Amount</p></div>
+              <div class="col-md-4 text-right"><b>Amount</b></div>
               <div class="col-md-8">
                 <input type="number"  formControlName="Amount" placeholder="Enter Amount" class="">
               </div>
               <div class="clear"></div>
-              <div class="col-md-4"><p>Due Date</p></div>
+              <div class="col-md-4 text-right"><b>Due Date</b></div>
               <div class="col-md-8">
                   <ng-datepicker  formControlName="duedate" [options]="dateOptions"  placeholder="Enter  Date"></ng-datepicker>
               </div>
               <div class="clear"></div>
-              <div class="col-md-4"><p>Remark</p></div>
+              <div class="col-md-4 text-right"><b>Remark</b></div>
               <div class="col-md-8">
                 <input type="text"  formControlName="remark" placeholder="Enter Remark" class="">
               </div>
@@ -91,7 +91,7 @@
             </div>
             <div class="col-md-3"></div>
           <div class="col-md-12  padding0 text-center">
-            <button class="update_btn">Add Fee</button><span class="cancel_btn_add button_type_span" (click)="showFeeList()">Cancel</span>
+            <button class="update_btn mr10">Add Fee</button><span class="cancel_btn_add button_type_span" (click)="showFeeList()">Cancel</span>
           </div>          
           <div class="clear"></div>
       </form>
@@ -105,12 +105,12 @@
     <form [formGroup]="feeFormGroup" (ngSubmit)="UpdateFeeSubmit(feeFormGroup.value)">
         <div class="col-md-3"></div>
         <div class="col-md-6">
-            <div class="col-md-4"><p>S.No</p></div>
+            <div class="col-md-4 text-right"><b>S.No</b></div>
             <div class="col-md-8">
               <input type="text" formControlName="serialNo"  placeholder="Enter Serial">
             </div>
             <div class="clear"></div>
-            <div class="col-md-4"><p>Class</p></div>
+            <div class="col-md-4 text-right"><b>Class</b></div>
             <div class="col-md-8">
                 <div  class="input-field col s12">
                     <input id="country" type="text" name="className" formControlName="className" class="validate filter-input" placeholder="Search ClassName" [(ngModel)]=Feequery (keyup)=filter1()>
@@ -124,22 +124,22 @@
                 </div>
             </div>
             <div class="clear"></div>
-            <div class="col-md-4"><p>Term</p></div>
+            <div class="col-md-4 text-right"><b>Term</b></div>
             <div class="col-md-8">
               <input type="text"  formControlName="term" placeholder="Enter Term" class="">
             </div>
             <div class="clear"></div>
-            <div class="col-md-4"><p>Amount</p></div>
+            <div class="col-md-4 text-right"><b>Amount</b></div>
             <div class="col-md-8">
               <input type="number"  formControlName="Amount" placeholder="Enter Amount" class="">
             </div>
             <div class="clear"></div>
-            <div class="col-md-4"><p>Due Date</p></div>
+            <div class="col-md-4 text-right"><b>Due Date</b></div>
             <div class="col-md-8">
                 <ng-datepicker  formControlName="duedate" [options]="dateOptions"  placeholder="Enter  Date"></ng-datepicker>
             </div>
             <div class="clear"></div>
-            <div class="col-md-4"><p>Remark</p></div>
+            <div class="col-md-4 text-right"><b>Remark</b></div>
             <div class="col-md-8">
               <input type="text"  formControlName="remark" placeholder="Enter Remark" class="">
             </div>
@@ -148,7 +148,7 @@
           </div>
           <div class="col-md-3"></div>
         <div class="col-md-12  padding0 text-center">
-          <button class="update_btn">Modify Fee</button><span class="cancel_btn_add button_type_span" (click)="showFeeList()">Cancel</span>
+          <button class="update_btn mr10">Modify Fee</button><span class="cancel_btn_add button_type_span" (click)="showFeeList()">Cancel</span>
         </div>          
         <div class="clear"></div>
     </form>

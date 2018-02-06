@@ -31,7 +31,9 @@ input[type=number]::-webkit-inner-spin-button,
         width:178px;
     }
 
-
+.mr10{
+    margin-right: 10px;
+}
 
 
 

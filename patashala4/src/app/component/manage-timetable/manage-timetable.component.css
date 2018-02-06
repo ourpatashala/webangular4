@@ -99,8 +99,12 @@ margin: 0;
     position: absolute;
     z-index: 1;
     width:90%;
-    height: 150px;background: #cfcece;
+    height: 150px;
+    background: #e5e2e2;
     overflow-y: auto;
+}
+.sugg_dropdown ul{
+    margin-bottom: 0px;
 }
 #table_pop{
     margin: 5px 0px;
@@ -116,18 +120,39 @@ margin: 0;
     border-radius: 3px;
     box-shadow: 0px 0px 2px #999 inset;
 }
-/* popup_screen1{
+
+.view_syllabus_table thead{
+	background-color: #4cc4db;
+	color:#fff;
+}
+.mr10{
+    margin-right: 10px;
+}
+ .popup_screen{
     position: fixed;
     top: 50%;
     left: 50%;
     -webkit-transform: translate(-50%,-50%);
     transform: translate(-50%,-50%);
-    padding: 30px 10px;
+     padding: 5px 10px; 
     background-color: #fff;
     box-shadow: 1px 1px 4px #4d4d4d;
     z-index: 100;
-    width: 450px;
+    width: 400px;
     text-align: center;
     border-radius: 15px;
     overflow: hidden;
-} */
+} 
+
+
+.class_select a{
+    padding: 8px 10px;
+    display: block;
+    text-align: left;
+}
+.class_select a:hover{
+    background-color: rgb(191, 202, 202);color: black;
+}
+
+
+

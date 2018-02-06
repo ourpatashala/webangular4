@@ -19,8 +19,8 @@
 
          <div class="listing_tabs">
       <ul class="">
-         <a routerLink="/TabService"><li class="active_tab" id="service_tab">Services</li></a>
-         <a routerLink="/TabManage"><li class="" id="manage_tab">Manage</li></a>
+         <a routerLink="/TabService"><li class="" id="service_tab">Services</li></a>
+         <a routerLink="/TabManage"><li class="active_tab" id="manage_tab">Manage</li></a>
       </ul>
     </div>
     <div class="large_gap"></div>
@@ -47,17 +47,17 @@
       <form [formGroup]="userFormGroup" (ngSubmit)="addUserSubmit(userFormGroup.value)">
         <div class="col-md-1"></div>
         <div class="col-md-7">
-                    <div class="col-md-4"><p>Name</p></div>
+                    <div class="col-md-4  text-right"><b>Name</b></div>
                       <div class="col-md-8">
                         <input type="text"  formControlName="Name" placeholder="Enter Name">
                       </div>
                     <div class="clear"></div>
-                    <div class="col-md-4"><p>User Id</p></div>
+                    <div class="col-md-4 text-right"><b>User Id</b></div>
                       <div class="col-md-8">
                         <input type="text"  formControlName="UserId"  placeholder="Enter User Id">
                       </div>
                     <div class="clear"></div>
-                    <div class="col-md-4"><p>Role</p></div>
+                    <div class="col-md-4 text-right"><b>Role</b></div>
                     <div class="col-md-8">
                         <select  formControlName="Role">
                         <option value="">Select Role</option>
@@ -66,7 +66,7 @@
                         <option value="Accountant">Accountant</option>
                         </select>
                     </div><div class="clear"></div>
-                    <div class="col-md-4"><p>App User Type</p></div>
+                    <div class="col-md-4 text-right"><b>App User Type</b></div>
                     <div class="col-md-8">
                       <select  formControlName="Usertype">
                       <option value="">Select App User Type</option>
@@ -75,7 +75,7 @@
                       <option value="NA">NA</option>
                       </select>
                     </div><div class="clear"></div>
-                    <div class="col-md-4"><p>Phone</p></div>
+                    <div class="col-md-4 text-right"><b>Phone</b></div>
                       <div class="col-md-8">
                         <input type="number"  formControlName="Phone" placeholder="Enter Phone Number">
                       </div>
@@ -101,7 +101,7 @@
     
           <div class="col-md-1"></div>
           <div class="col-md-12  padding0 text-center">
-            <button class="update_btn">Add User</button><span class="cancel_btn_add button_type_span" (click)="showUserList()">Cancel</span>
+            <button class="update_btn mr10">Add User</button><span class="cancel_btn_add button_type_span" (click)="showUserList()">Cancel</span>
           </div>          
           <div class="clear"></div>
       </form>
@@ -115,35 +115,35 @@
     <form [formGroup]="userFormGroup" (ngSubmit)="UpdateUserSubmit(userFormGroup.value)">
         <div class="col-md-1"></div>
         <div class="col-md-7">
-                    <div class="col-md-4"><p>Name</p></div>
+                    <div class="col-md-4 text-right"><b>Name</b></div>
                       <div class="col-md-8">
                         <input type="text"  formControlName="Name" placeholder="Enter Name">
                       </div>
                     <div class="clear"></div>
-                    <div class="col-md-4"><p>User Id</p></div>
+                    <div class="col-md-4 text-right"><b>User Id</b></div>
                       <div class="col-md-8">
                         <input type="text"  formControlName="UserId"  placeholder="Enter User Id">
                       </div>
                     <div class="clear"></div>
-                    <div class="col-md-4"><p>Role</p></div>
+                    <div class="col-md-4 text-right"><b>Role</b></div>
                     <div class="col-md-8">
                         <select  formControlName="Role">
-                        <option value="0">Select Role</option>
+                        <option value="">Select Role</option>
                         <option value="admin">Admin</option>
-                        <option value="1">Teacher</option>
-                        <option value="2">Accountant</option>
+                        <option value="Teacher">Teacher</option>
+                        <option value="Accountant">Accountant</option>
                         </select>
                     </div><div class="clear"></div>
-                    <div class="col-md-4"><p>App User Type</p></div>
+                    <div class="col-md-4 text-right"><b>App User Type</b></div>
                     <div class="col-md-8">
                       <select  formControlName="Usertype">
-                      <option value="0">Select App User Type</option>
-                      <option value="1">Management</option>
-                      <option value="2">Teacher</option>
-                      <option value="3">NA</option>
+                      <option value="">Select App User Type</option>
+                      <option value="Management">Management</option>
+                      <option value="Teacher">Teacher</option>
+                      <option value="NA">NA</option>
                       </select>
                     </div><div class="clear"></div>
-                    <div class="col-md-4"><p>Phone</p></div>
+                    <div class="col-md-4 text-right"><b>Phone</b></div>
                       <div class="col-md-8">
                         <input type="text"  formControlName="Phone" placeholder="Enter Phone">
                       </div>
@@ -152,14 +152,14 @@
                     <div class="text-center"></div><!--<button class="update_btn">Add Teacher</button>-->
                 </div>
                 <div class="col-md-3">
-                <p>Photo</p>
+                     <p>Photo</p>
                         <div class="browse_img_manual">
                         <input type="file">
                         <div class="img_overlay">
                         <img src="./assets/images/profile/default.jpg" class="img100">
-                        <p>Upload Photo</p>
+                        <p (click)="upload_img = !upload_img">Upload Photo</p>
                         </div>
-                        <div class="slide_divs_B_file">
+                        <div *ngIf="upload_img" [@fadeInOut]>
                         <button class="browsefile_img">Browse File</button>
                         <button class="opencamera_img">Open Camera</button>
                         </div>
@@ -169,7 +169,7 @@
     
           <div class="col-md-1"></div>
         <div class="col-md-12  padding0 text-center">
-          <button class="update_btn">Modify Fee</button><span class="cancel_btn_add button_type_span" (click)="showUserList()">Cancel</span>
+          <button class="update_btn mr10">Modify User</button><span class="cancel_btn_add button_type_span" (click)="showUserList()">Cancel</span>
         </div>          
         <div class="clear"></div>
     </form>

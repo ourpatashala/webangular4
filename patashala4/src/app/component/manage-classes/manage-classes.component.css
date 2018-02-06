@@ -15,14 +15,15 @@
 
 
 
-
 .class_select a{
     padding: 8px 10px;
     display: block;
+    text-align: left;
 }
 .class_select a:hover{
-    background-color: cadetblue;color: black;
+    background-color: rgb(191, 202, 202);color: black;
 }
+
 
 .view_syllabus_table thead{
 	background-color: #4cc4db;

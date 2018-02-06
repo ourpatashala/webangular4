@@ -57,22 +57,22 @@
       <div class="little_gap"></div>
       <form [formGroup]="calendarFormGroup" (ngSubmit)="addcalendarEvent(calendarFormGroup.value)">
           <div class="col-md-12 padding0">
-              <div class="col-md-4"><p>S.No</p></div>
+              <div class="col-md-4 text-right"><b>S.No</b></div>
               <div class="col-md-8">
                 <input type="number"  formControlName="serialNo" placeholder="serial No">
               </div>
               <div class="clear"></div>
-              <div class="col-md-4"><p>Date</p></div>
+              <div class="col-md-4 text-right"><b>Date</b></div>
               <div class="col-md-8">
                 <ng-datepicker  formControlName="calendarDate" [options]="dateOptions"  placeholder="Enter Date"></ng-datepicker></div>
               <div class="clear"></div>
-              <div class="col-md-4"><p>Event Name</p></div>
+              <div class="col-md-4 text-right"><b>Event Name</b></div>
               <div class="col-md-8"><input type="text"  formControlName="eventName" placeholder="Enter Event Name"></div>
               <div class="clear"></div>
               <div class="little_gap"></div>
           </div>
           <div class="col-md-12  padding0 text-center">
-            <button class="update_btn">Add Calendar</button><span class="cancel_btn_add button_type_span" (click)="showCalendarList()">Cancel</span>
+            <button class="update_btn  mr10">Add Calendar</button><span class="cancel_btn_add button_type_span" (click)="showCalendarList()">Cancel</span>
           </div>          
           <div class="clear"></div>
       </form>
@@ -85,16 +85,16 @@
     <div class="little_gap"></div>
     <form [formGroup]="calendarFormGroup" (ngSubmit)="updateCalendarEvent(calendarFormGroup.value)"> 
         <div class="col-md-12 padding0">
-          <div class="col-md-4"><p>S.No</p></div>
+          <div class="col-md-4 text-right"><b>S.No</b></div>
           <div class="col-md-8">
               <input type="number"  formControlName="serialNo" placeholder="serial No">
             </div>
           <div class="clear"></div>
-          <div class="col-md-4"><p>Date</p></div>
+          <div class="col-md-4 text-right"><b>Date</b></div>
           <div class="col-md-8">
             <ng-datepicker  formControlName="calendarDate" [options]="dateOptions"  placeholder="Enter Date"></ng-datepicker></div>
           <div class="clear"></div>
-          <div class="col-md-4"><p>Event Name</p></div>
+          <div class="col-md-4 text-right"><b>Event Name</b></div>
           <div class="col-md-8">
               <input type="text"  formControlName="eventName" placeholder="Enter Event Name">
           </div>
@@ -102,7 +102,7 @@
           <div class="little_gap"></div>
         </div>
         <div class="col-md-12  padding0 text-center">
-          <button class="update_btn">Modify Calendar</button><span class="cancel_btn_add button_type_span" (click)="showCalendarList()">Cancel</span>
+          <button class="update_btn mr10">Modify Calendar</button><span class="cancel_btn_add button_type_span" (click)="showCalendarList()">Cancel</span>
         </div> 
         <div class="clear"></div>
     </form>
