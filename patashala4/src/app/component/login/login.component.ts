@@ -28,6 +28,7 @@ export class LoginComponent implements OnInit , LoginComponentInterface{
       username: [],
       password: []
     });
+   
 
     localStorage.removeItem(AppConstants.SHAREDPREFERANCE_USERID);
 
@@ -35,7 +36,7 @@ export class LoginComponent implements OnInit , LoginComponentInterface{
  }
     // constructor(private router: Router){
     // }
-
+    
   ngOnInit() {
     this.userForm = new FormGroup({
       username: new FormControl(),

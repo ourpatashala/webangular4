@@ -11,6 +11,9 @@ export interface MasterCourseConverter {
 
   getMasterCourse(schoolId: string, subjectId: string, masterCourseComponentInterface: MasterCourseComponentInterface);
 
+  getMasterCourseSyllabus(schoolId: string, subjectId: string, masterCourseComponentInterface: MasterCourseComponentInterface);
+
+
   updateMasterCourse(schoolId: string, subjectId: string, masterCourseTO: MasterCourseTO, masterCourseComponentInterface: MasterCourseComponentInterface);
 
   deleteMasterCourse(schoolid: string, subjectId: string, masterCourseComponentInterface: MasterCourseComponentInterface);

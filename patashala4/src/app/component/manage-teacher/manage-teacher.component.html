@@ -1,0 +1,397 @@
+<app-header-admin></app-header-admin>
+
+<div class="overlay hideblock" [ngClass]="{'showblock': active=='1'}"></div>
+<div class="popup_screen hideblock " [ngClass]="{'showblock': active=='1'}">
+  <div class="sucess_msg_text"><span class="checkicon"> &#x2714;</span> <p [ngClass]="{'show_styles_sucess': active=='1'}">{{sucessMessage}}!</p></div>
+  <div class="little_gap"></div>
+  <button class="update_btn popup_ok_btn" (click)="closePopup()">Ok</button>
+  <div class="little_gap"></div>
+</div>
+<!-- 
+<div class="overlay hideblock" [ngClass]="{'showblock': showClassSelection==true}"></div>
+    <div class="class_search hideblock " [ngClass]="{'showblock': showClassSelection==true}">
+            <i class="fa fa-close closeclassidpopup"  (click)="closePopup()" ></i>
+    <app-classselection-popup (notify)='onNotify($event)'></app-classselection-popup>   
+</div>
+
+
+<div class="overlay hideblock" [ngClass]="{'showblock': showCameraSelection==true}"></div>
+
+<div *ngIf="showCameraSelection" class="class_search ">
+     <i class="fa fa-close closeclassidpopup"  (click)="closePopup()" ></i>
+        <app-webcampopup (notify)='onNotify($event)' ></app-webcampopup>   
+</div>
+
+<div class="brow_img_popup text-center">
+  <h3>Change Profile Picture</h3>
+  <div class="large_gap"></div>
+  <input type="file" class="upload_img_input">
+  <button class="popup_close_btn"><i class="fa fa-times "></i></button>
+  <button class="upld_brw_file"><i class="fa fa-upload"> Upload / Browse File</i></button>
+  <button class="openCam"><i class="fa fa-camera"></i> Open Camera</button>
+</div>
+
+ -->
+
+
+
+
+
+<div class="all_pages_content">
+    <div class="clear"></div>
+    <div class="page_content_here">
+     <div class="manage_school_table">
+
+           <div class="listing_tabs">
+      <ul class="">
+         <a routerLink="/TabService"><li class="active_tab" id="service_tab">Services</li></a>
+         <a routerLink="/TabManage"><li class="" id="manage_tab">Manage</li></a>
+      </ul>
+    </div>
+    <div class="large_gap"></div>
+
+
+        <div class="col-md-6 padding0"><h3>Manage Teacher</h3>
+        <p class="breadscrum_text"><a  routerLink="/">Home </a> &nbsp; <i class="fa fa-chevron-right"></i> &nbsp; Manage Teacher</p>
+        </div>
+        <div class="col-md-6 padding0 text-right">
+            <div class="buttons_div" [ngClass]="{'inactive_div': div_Element_Id !='0'}">
+                <button class="add_more_btn" (click)="show_addTeacherFields()" [ngClass]="{'disable_btn': selectedTeacherArray.length!='0'}"><i class="fa fa-plus"></i> Add</button>
+                <button class="edit_field_btn" (click)="getselectedTeacherProfile()" [ngClass]="{'disable_btn': selectedTeacherArray.length!='1'}"><i class="fa fa-pencil"></i> Modify</button>
+                <button (click)="deleteTeacherProfile()" [ngClass]="{'disable_btn': selectedTeacherArray.length==0 || selectedTeacherArray.length>1}"><i class="fa fa-trash"></i> Delete</button>
+                <button (click)="viewSingleTeacherProfile()" [ngClass]="{'disable_btn': selectedTeacherArray.length!='1'}"><i class="fa fa-eye"></i> View</button>
+            </div>
+          </div>
+        <div class="clear"></div>
+
+<div class="little_gap"></div>
+
+
+
+
+<!-- <div class="sucess_msg_text"><p [ngClass]="{'show_styles_sucess': active=='1'}">{{sucessMessage}}</p></div> -->
+<div class="error_msg_text"><p [ngClass]="{'error_styles_sucess': active=='2'}">{{errorMessage}}</p></div>
+
+
+<div class="add_fields addschool_div inactive_div" *ngIf="div_Element_Id =='1'" [ngClass]="{'inactive_div': div_Element_Id !='1'}">
+
+    <form  [formGroup]="teacherFormGroup" (ngSubmit)="addSTeacherProfile(teacherFormGroup.value)" ngNativeValidate>
+
+    <div class="col-md-12 padding0">
+        <div class="col-md-6">
+                
+            <input type="hidden" formControlName="profilePhotoUrl" maxlength="50">
+            <div class="col-md-4 text-right"><p>First Name</p></div>
+            <div class="col-md-8"><input type="text" placeholder="Enter First Name" formControlName="firstName" maxlength="50"></div>
+            <div class="clear"></div>
+            <div class="col-md-4 text-right"><p>Last Name</p></div>
+            <div class="col-md-8"><input type="text" placeholder="Enter Last Name" formControlName="lastName" maxlength="50"></div>
+            <div class="clear"></div>
+            <div class="col-md-4 text-right"><p>Middle Name</p></div>
+            <div class="col-md-8"><input type="text" placeholder="Enter Middle Name" formControlName="middleName" maxlength="50"></div>
+            <div class="clear"></div>
+            <div class="col-md-4 text-right"><p>Contact No</p></div>
+            <div class="col-md-8"><input type="number" placeholder="Enter Contact No." formControlName="ContactNo" maxlength="20"></div>
+            <div class="clear"></div>
+            <div class="col-md-4 text-right"><p>Eamil</p></div>
+            <div class="col-md-8"><input type="text" placeholder="Enter Eamil." formControlName="eamil" maxlength="50"></div>
+            <div class="clear"></div>
+            <div class="col-md-4 text-right"><p>Qualification</p></div>
+            <div class="col-md-8"><input type="text" placeholder="Enter Qualification" formControlName="qualification" maxlength="50"></div>
+            <div class="clear"></div>
+            <div class="col-md-4 text-right"><p>Gender</p></div>
+            <div class="col-md-8">
+                <select formControlName="gender">
+                    <option value="">Select Gender</option>
+                    <option value="Male">Male</option>
+                    <option value="Female">Female</option>
+                </select>
+            </div><div class="clear"></div>
+
+        </div>
+        <div class="col-md-6">
+            
+            <div class="col-md-4 text-right"><p>Address1</p></div>
+            <div class="col-md-8"><input type="text" placeholder="Enter Address1" formControlName="addressOne" maxlength="100"></div><div class="clear"></div>
+            <div class="col-md-4 text-right"><p>Address2</p></div>
+            <div class="col-md-8"><input type="text" placeholder="Enter Address2" formControlName="addressTwo" maxlength="100"></div><div class="clear"></div>
+            <div class="col-md-4 text-right"><p>city</p></div>
+            <div class="col-md-8"><input type="text" placeholder="Enter city" formControlName="city" maxlength="50"></div><div class="clear"></div>
+            <div class="col-md-4 text-right"><p>State</p></div>
+            <div class="col-md-8"><input type="text" placeholder="Enter State" formControlName="state" maxlength="50"></div><div class="clear"></div>
+            <div class="col-md-4 text-right"><p>Country</p></div>
+            <div class="col-md-8"><input type="text" placeholder="Enter Country" formControlName="country" maxlength="20"></div><div class="clear"></div>
+            <div class="col-md-4 text-right"><p>Pincode</p></div>
+            <div class="col-md-8"><input type="number" placeholder="Enter Pincode" formControlName="pincode" maxlength="10"></div><div class="clear"></div>
+           
+        </div>
+
+
+        <div class="little_gap"></div>
+    </div>
+    <!-- <div class="col-md-3 text-center">
+        <div class="large_gap"></div>
+              <p class="text-left">Photo</p>
+                    <div class="browse_img_manual">
+                          <input type="file" >
+                          <div class="img_overlay">
+                          <img src="{{photourl}}" class="img100">
+                          <p>Upload Photo</p>
+                          </div>
+                          </div>
+                <div class="clear"></div>
+                <div class="little_gap"></div>
+
+    </div> -->
+    <div class="clear"></div>
+
+<div class="little_gap"></div>
+<div class="text-center"> <button class="update_btn">Add Teacher</button> <span class="cancel_btn_add button_type_span" (click)="showTeacherList()">Cancel</span></div>
+</form>
+<div class="large_gap"></div>
+</div>
+
+
+<div class="modify_fields addschool_div inactive_div" [ngClass]="{'inactive_div': div_Element_Id !='2'}">
+    <form  [formGroup]="teacherFormGroup" (ngSubmit)="updateTeacher(teacherFormGroup.value)" ngNativeValidate>
+
+    <div class="col-md-9">
+      <div class="col-md-6">
+        <input type="hidden" formControlName="profilePhotoUrl" maxlength="50">
+        <div class="col-md-4 text-right"><p>First Name</p></div>
+        <div class="col-md-8"><input type="text" placeholder="Enter First Name" formControlName="firstName" maxlength="50"></div>
+        <div class="clear"></div>
+        <div class="col-md-4 text-right"><p>Last Name</p></div>
+        <div class="col-md-8"><input type="text" placeholder="Enter Last Name" formControlName="lastName" maxlength="50"></div>
+        <div class="clear"></div>
+        <div class="col-md-4 text-right"><p>Middle Name</p></div>
+        <div class="col-md-8"><input type="text" placeholder="Enter Middle Name" formControlName="middleName" maxlength="50"></div>
+        <div class="clear"></div>
+        <div class="col-md-4 text-right"><p>Contact No</p></div>
+        <div class="col-md-8"><input type="number" placeholder="Enter Contact No." formControlName="ContactNo" maxlength="20"></div>
+        <div class="clear"></div>
+        <div class="col-md-4 text-right"><p>Eamil</p></div>
+        <div class="col-md-8"><input type="text" placeholder="Enter Eamil." formControlName="eamil" maxlength="50"></div>
+        <div class="clear"></div>
+        <div class="col-md-4 text-right"><p>Qualification</p></div>
+        <div class="col-md-8"><input type="text" placeholder="Enter Qualification" formControlName="qualification" maxlength="50"></div>
+        <div class="clear"></div>
+        <div class="col-md-4 text-right"><p>Gender</p></div>
+        <div class="col-md-8">
+            <select formControlName="gender">
+                <option value="">Select Gender</option>
+                <option value="Male">Male</option>
+                <option value="Female">Female</option>
+            </select>
+        </div><div class="clear"></div>
+
+    </div>
+    <div class="col-md-6">
+        
+        <div class="col-md-4 text-right"><p>Address1</p></div>
+        <div class="col-md-8"><input type="text" placeholder="Enter Address1" formControlName="addressOne" maxlength="100"></div><div class="clear"></div>
+        <div class="col-md-4 text-right"><p>Address2</p></div>
+        <div class="col-md-8"><input type="text" placeholder="Enter Address2" formControlName="addressTwo" maxlength="100"></div><div class="clear"></div>
+        <div class="col-md-4 text-right"><p>city</p></div>
+        <div class="col-md-8"><input type="text" placeholder="Enter city" formControlName="city" maxlength="50"></div><div class="clear"></div>
+        <div class="col-md-4 text-right"><p>State</p></div>
+        <div class="col-md-8"><input type="text" placeholder="Enter State" formControlName="state" maxlength="50"></div><div class="clear"></div>
+        <div class="col-md-4 text-right"><p>Country</p></div>
+        <div class="col-md-8"><input type="text" placeholder="Enter Country" formControlName="country" maxlength="20"></div><div class="clear"></div>
+        <div class="col-md-4 text-right"><p>Pincode</p></div>
+        <div class="col-md-8"><input type="number" placeholder="Enter Pincode" formControlName="pincode" maxlength="10"></div><div class="clear"></div>
+       
+    </div>
+
+
+    <div class="little_gap"></div>
+
+       <div class="clear"></div>
+    </div>
+    <div class="col-md-3 text-center">
+        <!-- <div class="large_gap"></div>
+              <p class="text-left"> </p>
+                   <div class="browse_img_manual">
+                          <input type="file" accept="image/*;capture=camera">
+                         <div class="img_overlay">
+                            <img src="{{ (studentTO.profilePhotoUrl != null && studentTO.profilePhotoUrl.length != 0) ? studentTO.profilePhotoUrl :  './assets/images/profile/default.jpg' }}" class="img100" id="blah">
+                          <p ><span onclick="document.getElementById('input').click()" ><i class='fa fa-upload'></i></span> <span (click)="showWebcamPopup()" ><i class="fa fa-camera"></i></span> <br><hr style="margin-top: 6px;margin-bottom: 4px;">
+                            <span (click)="removeStudentProfilePic()" [ngClass]="{'inactive_div': studentTO.profilePhotoUrl == null}">{{ (studentTO.profilePhotoUrl != null && studentTO.profilePhotoUrl.length != 0) ?  'Remove':'' }} </span>
+
+                          </p>
+                          </div>
+                          </div>
+                <div class="clear"></div>
+                <div class="little_gap"></div>
+
+      <div>
+        <div *ngIf="currentFileUpload" class="progress" style="width:100%">
+            <div class="progress-bar progress-bar-info progress-bar-striped" role="progressbar" attr.aria-valuenow="{{progress.percentage}}" aria-valuemin="0" aria-valuemax="100" [ngStyle]="{width:progress.percentage+'%'}"> {{progress.percentage}}%</div>
+        </div>
+
+        <label class="btn btn-default"  style="display:none"> <input type="file" id="input" name="" (change)="selectFile($event)"> </label>
+        <span class="btn btn-success hideblock uploadbutton"  (click)="upload()" [ngClass]="{'showblock': showupload=='1'}">Upload</span>
+
+      </div> -->
+      <!-- [disabled]="!selectedFiles" --> -->
+
+    </div>
+<div class="clear"></div>
+ <div class="little_gap"></div>
+<div class="text-center"> <button class="update_btn">Modify Teacher</button> <span class="cancel_btn_modify button_type_span" (click)="showTeacherList()">Cancel</span></div>
+    </form>
+<div class="large_gap"></div>
+</div>
+
+
+<!-- 
+<div class="singleStudentViewDiv inactive_div" [ngClass]="{'inactive_div': div_Element_Id !='3'}">
+    <div class="view_Student_profile">
+        <div class="text-right">
+            <span class="cancel_btn_modify button_type_span" (click)="showTeacherList()">Close</span>
+        </div>
+        <div class="student_details">
+            <div class="col-md-6">
+                <div class="profile_image_div">
+                    <img src="{{ (studentTO.profilePhotoUrl != null && studentTO.profilePhotoUrl.length != 0) ?  studentTO.profilePhotoUrl:'./assets/images/profile/default.jpg' }}" alt="">
+                    <div class="text_beside_img">
+                        <p>Student Full Name: <span>{{studentTO.firstName}}, {{studentTO.middleName}}  {{ (studentTO.middleName != null && studentTO.middleName.length != 0) ?  ',':'' }}  {{studentTO.lastName}}</span></p>
+                        <p>Roll No: <span> {{ (studentTO.rollNo != null && studentTO.rollNo.length != 0) ?  studentTO.rollNo:'-' }}</span></p>
+                        <p>Class : <span> {{ (studentTO.className != null && studentTO.className.length != 0) ?  studentTO.className:'-' }}</span></p>
+                        <p>Gender: <span> {{ (studentTO.gender != null && studentTO.gender.length != 0) ?  studentTO.gender:'-' }}</span></p>
+                        <p>Blood Group: <span> {{ (studentTO.bloodGroup != null && studentTO.bloodGroup.length != 0) ?  studentTO.bloodGroup:'-' }} </span></p>
+                        <p>Date of Birth: <span>  {{ (studentTO.dateOfBirth != null && studentTO.dateOfBirth.length != 0) ?  studentTO.dateOfBirth:'-' }} </span></p>
+                        <p>Father Name: <span> {{ (studentTO.fatherName != null && studentTO.fatherName.length != 0) ?  studentTO.fatherName:'-' }} </span></p>
+                        <p>Mother Name: <span> {{ (studentTO.motherName != null && studentTO.motherName.length != 0) ?  studentTO.motherName:'-' }} </span></p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <img src="./assets/images/webicons/Address.png" class="img_pos_ab">
+                <p class="studentAddress">Address1: <span>  {{ (studentTO.addressOne != null && studentTO.addressOne.length != 0) ?  studentTO.addressOne:'-' }}   </span></p>
+                <p class="studentAddress">Address2: <span> {{ (studentTO.addressTwo != null && studentTO.addressTwo.length != 0) ?  studentTO.addressTwo:'-' }}  </span></p>
+                <p class="studentAddress">City: <span> {{ (studentTO.city != null && studentTO.city.length != 0) ?  studentTO.city:'-' }}  </span></p>
+                <p class="studentAddress">State: <span> {{ (studentTO.state != null && studentTO.state.length != 0) ?  studentTO.state:'-' }}  </span></p>
+                <p class="studentAddress">Pincode: <span> {{ (studentTO.pincode != null && studentTO.pincode.length != 0) ?  studentTO.pincode:'-' }}  </span></p>
+                <p class="studentAddress">Country: <span> {{ (studentTO.country != null && studentTO.country.length != 0) ?  studentTO.country:'-' }}  </span></p>
+                <p class="studentAddress">Landline#: <span> {{ (studentTO.landLine != null && studentTO.landLine.length != 0) ?  studentTO.landLine:'' }}  </span></p>
+            </div>
+            <div class="clear"></div>
+            <div class="large_gap"></div>
+            <div class="col-md-2"></div>
+            <div class="col-md-10">
+                <img src="./assets/images/webicons/Phone.png" class="img_pos_ab">
+                <p class="school_contact"> Registered Mobile #:
+                    <span>
+                        <div *ngFor="let mobileNumber of studentTO.mobileNumbers ; let i=index ">
+                                {{mobileNumber.mobileNumber}},
+                        </div>
+                    </span>
+                </p>
+            </div>
+            <div class="clear"></div>
+        </div>
+    </div>
+</div>
+ -->
+
+
+
+ <div class="singleStudentViewDiv addschool_div"  [ngClass]="{'inactive_div': div_Element_Id !='3'}">
+    <div class="col-md-12 text-right">
+        <span class="cancel_btn_modify button_type_span" (click)="showTeacherList()">Close</span>
+    </div>
+    <div class="col-md-3"></div>
+        <div class="col-md-6 padding0">
+            <div class="large_gap"></div>            
+            <table class="view_syllabus_table">
+                <thead>
+                    <tr class="text-center">
+                        <th>S.no</th>
+                        <th>First&nbsp;Name</th>
+                        <th>Last&nbsp;Name</th>
+                        <th>Middle&nbsp;Name</th>
+                        <th>ContactNo </th>
+                        <th>gender </th>
+                        <th>eamil</th>
+                        <th>qualification</th>
+                       
+                    </tr>
+                </thead>
+                <tbody *ngIf="div_Element_Id == '3'">
+                    <tr  class="text-center" *ngFor="let viewname of teachernewarray; let i=index;">
+                        <td>{{i + 1}}</td>
+                        <td>{{viewname.firstName}}</td>
+                        <td>{{viewname.lastName}}</td>
+                        <td>{{viewname.middleName}}</td>
+                        <td>{{viewname.ContactNo}}</td>
+                        <td>{{viewname.gender}}</td>
+                        <td>{{viewname.eamil}}</td>
+                        <td>{{viewname.qualification}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="col-md-3"></div>
+        <div class="clear"></div>
+</div>
+<div class="clear"></div>
+
+
+<!-- <table datatable class="my_table_width" [dtTrigger]="dtTrigger"  [dtOptions]="dtOptions" id="datatable1"> -->
+
+
+<div class="datatable_toggle"  [ngClass]="{'inactive_div': div_Element_Id !='0'}">
+
+
+            <table datatable [dtOptions]="dtOptions"  [dtTrigger]="dtTrigger" class="my_table_width" >
+           <!-- <table  class="my_table_width" > -->
+                <thead>
+                <tr>
+                        <th></th>
+                    <th>S.no</th>
+                    <!-- <th >Photo</th> -->
+                    <th>First&nbsp;Name</th>
+                    <th>Last&nbsp;Name</th>
+                    <th>Middle&nbsp;Name</th>
+                    <th>ContactNo </th>
+                    <th>gender </th>
+                    <th>eamil</th>
+                    <th>qualification</th>
+                </tr>
+            </thead>
+            <tbody *ngIf="div_Element_Id =='0'">
+
+                <tr *ngFor="let teacherto of teacherarray ; let i=index;">
+                    <td><input type="checkbox" id="a{{teacherto.teacherId}}" value="{{teacherto.teacherId}}" (change)="checkedteacher(teacherto.teacherId,i)" ></td>
+                    <td>{{i + 1}}</td>
+                    <td>{{teacherto.firstName}}</td>
+                    <td>{{teacherto.lastName}}</td>
+                    <td>{{teacherto.middleName}}</td>
+                    <td>{{teacherto.ContactNo}}</td>
+                    <td>{{teacherto.gender}}</td>
+                    <td>{{teacherto.eamil}}</td>
+                    <td>{{teacherto.qualification}}</td>
+                    
+                  </tr>
+            </tbody>
+        </table>
+    </div>
+   </div>
+  </div>
+<div class="clear"></div>
+
+<!--<div id="extraDiv">
+    <br><div class="clear"></div>
+<span></span><div class="gap_btwn_btns"></div>
+
+
+
+</div>-->
+
+
+</div>
+
+
+

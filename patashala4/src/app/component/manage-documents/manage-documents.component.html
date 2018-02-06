@@ -1,0 +1,242 @@
+<app-header-admin></app-header-admin>
+
+<div class="overlay hideblock" [ngClass]="{'showblock': active=='1'}"></div>
+    <div class="popup_screen hideblock " [ngClass]="{'showblock': active=='1'}">
+        <div class="sucess_msg_text"><span class="checkicon"> &#x2714;</span> <p [ngClass]="{'show_styles_sucess': active=='1'}">{{sucessMessage}}!</p></div>
+        <div class="little_gap"></div>
+        <button class="update_btn popup_ok_btn" (click)="closePopup()">Ok</button>
+        <div class="little_gap"></div>
+    </div>
+
+
+<div class="all_pages_content">
+    <div class="clear"></div>
+    <div class="page_content_here">
+     <div class="manage_school_table">
+
+
+  <div class="listing_tabs">
+      <ul class="">
+         <a routerLink="/TabService"><li class="active_tab" id="service_tab">Services</li></a>
+         <a routerLink="/TabManage"><li class="" id="manage_tab">Manage</li></a>
+      </ul>
+    </div>
+    <div class="large_gap"></div>
+       
+         <div class="">
+        <div class="col-md-6 padding0"><h3 class="MyriadProB font28">Manage Document</h3>
+        <p class="breadscrum_text"><a  routerLink="/">Home </a> &nbsp; <i class="fa fa-chevron-right"></i> &nbsp; Manage Document</p>
+        </div>
+        <div class="col-md-6 padding0 text-right">
+            <div class="buttons_div" [ngClass]="{'inactive_div': div_Element_Id !='0'}">
+            <button class="add_more_btn"  (click)="show_addClassFields()" [ngClass]="{'disable_btn': selecteddocumentArray.length!='0'}"><i class="fa fa-plus"></i> Add</button> 
+            <button class="edit_field_btn" (click)="getselectedClassProfile()" [ngClass]="{'disable_btn': selecteddocumentArray.length!='1'}"><i class="fa fa-pencil"></i> Modify</button>
+            <button (click)="deleteClass()" [ngClass]="{'disable_btn': selecteddocumentArray.length==0 || selecteddocumentArray.length>1}"><i class="fa fa-trash"></i> Delete</button>
+            <button (click)="viewSingleClassProfile()" [ngClass]="{'disable_btn': selecteddocumentArray.length!='1'}"><i class="fa fa-eye"></i> View</button> 
+            </div>
+        </div>
+        <div class="clear"></div>
+         </div>
+         <div class="little_gap"></div>
+
+
+         <div class="error_msg_text"><p [ngClass]="{'error_styles_sucess': active=='2'}">{{errorMessage}}</p></div>
+
+<div class="add_fields addschool_div" *ngIf ="div_Element_Id =='1'" [ngClass]="{'inactive_div': div_Element_Id !='1'}">
+    <div class="col-md-3"></div>
+        <form [formGroup]="documentFormGroup" (ngSubmit)="addClassSubmit(documentFormGroup.value)">
+            <div class="col-md-6">
+                <div class="col-md-4 text-right"><p>Class Name</p></div>
+                <div class="col-md-8">
+                        <div  class="input-field col s12">
+                            <input id="country" type="text" name="className" formControlName="className" class="validate filter-input" placeholder="ClassName" [(ngModel)]=query (keyup)=filter()>
+                          
+                        </div>
+                        <div class="suggestions sugg_dropdown" *ngIf="filteredList.length > 0">
+                            <ul *ngFor="let item of filteredList" >
+                                <li class="class_select">
+                                    <a (click)="select(item)">{{item}}</a>
+                                </li>
+                            </ul>
+                        </div>
+                </div>
+                    <div class="clear"></div>
+                <div class="col-md-4 text-right"><p>Document Name</p></div><div class="col-md-8">
+                    <input type="text" name="DocumentName" formControlName="DocumentName" placeholder="Enter Document Name"></div><div class="clear"></div>
+                <div class="col-md-4 text-right"><p>Description</p></div><div class="col-md-8">
+                    <textarea type="text"name="Description" formControlName="Description" placeholder="Enter Description"></textarea></div><div class="clear"></div>
+                <div class="clear"></div>
+              <div class="col-md-4 text-right"><p>Doc Type</p></div>
+              <div class="col-md-8">
+                  <select formControlName="Doctype">
+                      <option value="">Select Document Type</option>
+                      <option value="PDF">PDF</option>
+                      <option value="JPG">JPG</option>
+                      <option value="DOC">DOC</option>
+                      <option value="PPT">PPT</option>
+                  </select>
+              </div><div class="clear"></div>
+                <div class="col-md-4 text-right"><p>Category</p></div>
+                <div class="col-md-8">
+                        <input type="text" formControlName="Category"   placeholder="Enter Category">
+                </div>
+                <div class="clear"></div>
+                <div class="col-md-4 text-right"><p>Upload</p></div>
+                <div class="col-md-8">
+                    <input type="file" (change)="onChange($event)" name="Upload" formControlName="Upload">
+                </div>
+                <div class="clear"></div>
+            <div class="clear"></div>
+            <div class="col-md-12 text-center">
+                    <button class="update_btn">Add Document</button><span class="cancel_btn_add button_type_span" (click)="showDocumentList()">Cancel</span>
+            </div>
+          </div>
+        </form>    
+    <div class="col-md-3"></div>
+<div class="clear"></div>
+<div class="large_gap"></div>
+</div>
+
+
+<div class="modify_fields addschool_div" [ngClass]="{'inactive_div': div_Element_Id !='2'}">
+    <div class="col-md-3"></div> 
+        <form [formGroup]="documentFormGroup" (ngSubmit)="updateClassSubmit(documentFormGroup.value)"> 
+            <div class="col-md-6">
+                <div class="col-md-4"><p>Class Name</p></div>
+                <div class="col-md-8">
+                        <div  class="input-field col s12">
+                                <input id="country" type="text" name="className" formControlName="className" class="validate filter-input" [(ngModel)]=query (keyup)=filter()>
+                            
+                        </div>
+                        <div class="suggestions sugg_dropdown" *ngIf="filteredList.length > 0">
+                            <ul *ngFor="let item of filteredList" >
+                                <li  class="class_select">
+                                    <a (click)="select(item)">{{item}}</a>
+                                </li>
+                            </ul>
+                        </div>
+                </div>
+                <div class="clear"></div>
+                <div class="col-md-4"><p>Document Name</p></div><div class="col-md-8">
+                  <input type="text" name="DocumentName" formControlName="DocumentName" placeholder="Enter Document Name"></div><div class="clear"></div>
+              <div class="col-md-4"><p>Description</p></div><div class="col-md-8">
+                  <textarea type="text"name="Description" formControlName="Description" placeholder="Enter Description"></textarea></div><div class="clear"></div>
+                  <div class="clear"></div>
+             
+                <div class="col-md-4 text-right"><p>Doc Type</p></div>
+                <div class="col-md-8">
+                    <select formControlName="Doctype">
+                        <option value="">Select Document Type</option>
+                        <option value="PDF">PDF</option>
+                        <option value="JPG">JPG</option>
+                        <option value="DOC">DOC</option>
+                        <option value="PPT">PPT</option>
+                    </select>
+                </div><div class="clear"></div>
+                  <div class="col-md-4 text-right"><p>Category</p></div>
+                  <div class="col-md-8">
+                          <input type="text" formControlName="Category"   placeholder="Enter Category">
+                  </div>
+                  <div class="clear"></div>
+                  <div class="col-md-4 text-right"><p>Upload</p></div>
+                  <div class="col-md-8">
+                      <input type="file"  (change)="onChange($event)" name="Upload" formControlName="Upload">
+                  </div>
+                  <div class="clear"></div>
+           
+                <div class="col-md-12 text-center">
+                    <button class="update_btn">Modify Document</button><span class="cancel_btn_add button_type_span" (click)="showDocumentList()">Cancel</span>
+                </div>  
+            </div>
+        </form>    
+    <div class="col-md-3"></div>
+<div class="clear"></div>
+<div class="large_gap"></div>
+</div>
+
+
+<div class="singleStudentViewDiv addschool_div"  [ngClass]="{'inactive_div': div_Element_Id !='3'}">
+        <div class="text-right">
+            <span class="cancel_btn_modify button_type_span" (click)="showDocumentList()">Close</span>
+        </div>
+        <div class="col-md-2"></div>
+            <div class="col-md-8 padding0">
+                <div class="large_gap"></div>            
+                <table class="view_syllabus_table">
+                    <thead>
+                        <tr  class="text-center">
+                            <th >S.No</th>
+                            <th>Class Name</th>
+                            <th>Document Name</th>
+                            <th>Description</th>
+                            <th>Type</th>
+                            <th>Category</th>
+                            <th>Documents upload</th>
+                           
+                        </tr>
+                    </thead>
+                    <tbody *ngIf="div_Element_Id == '3'">
+                        <tr  class="text-center" *ngFor="let viewname of rajuarray1; let i=index;">
+                            <td>{{i+1}}</td>
+                            <td>{{viewname.className}}</td>
+                            <td>{{viewname.DocumentName}}</td>
+                            <td>{{viewname.Description}}</td>
+                            <td>{{viewname.Doctype}}</td>
+                            <td>{{viewname.Category}}</td>
+                            <td>{{viewname.Upload}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="col-md-2"></div>
+            <div class="clear"></div>
+    </div>
+    <div class="clear"></div>
+ 
+
+
+
+
+
+<div class="datatable_toggle"    [ngClass]="{'inactive_div': div_Element_Id !='0'}">
+        <table id="manageclassestable" datatable [dtOptions]="dtOptions"  [dtTrigger]="dtTrigger" class="my_table_width">
+            <thead>
+                <tr>
+                  <th> </th>
+                  <th>S.No </th>
+                  <th>Class Name</th>
+                  <th>Document Name</th>
+                  <th>Description</th>
+                  <th>Type</th>
+                  <th>Category</th>
+                  <th>Documents upload</th>
+                </tr>
+            </thead>
+            <tbody *ngIf="div_Element_Id =='0'">
+               
+                <tr *ngFor="let classto of classarray; let i=index;">
+                    <td><input type="checkbox" id="a{{classto.Doc_id}}" value="{{classto.Doc_id}}" (change)="checkedmasterClass(classto.Doc_id,i)"></td>
+                    <td>{{i+1}}</td>
+                    <td>{{classto.className }}</td>
+                    <td>{{classto.DocumentName}}</td>
+                    <td>{{classto.Description}}</td>
+                    <td>{{classto.Doctype}}</td>
+                    <td>{{classto.Category}}</td>
+                    <td>{{classto.Upload}}</td>
+                </tr>
+            </tbody>        
+        </table>
+</div>
+
+    </div>
+    </div>   
+<div class="clear"></div>
+
+
+
+
+</div>
+
+
+
+

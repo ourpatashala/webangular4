@@ -13,9 +13,7 @@ import { SchoolComponent } from './component/school/school.component';
 import { MastersubjectComponent } from './component/mastersubject/mastersubject.component';
 import { MasterSyllabusComponent } from './component/master-syllabus/master-syllabus.component';
 import { MasterCourseComponent } from './component/master-course/master-course.component';
-import { SubjectComponent } from './component/subject/subject.component';
-import { SyllabusComponent } from './component/syllabus/syllabus.component';
-import { CoursesComponent } from './component/courses/courses.component';
+
 
 
 import { LoginComponent } from './component/login/login.component';
@@ -24,6 +22,17 @@ import { RegisterationComponent } from './component/login/registeration.componen
 import { StudentComponent } from './component/student/student.component';
 import { TabServiceComponent } from './component/tab-service/tab-service.component';
 import { TabManageComponent } from './component/tab-manage/tab-manage.component';
+import { ManageTimetableComponent } from './component/manage-timetable/manage-timetable.component';
+import { ManageClassesComponent } from './component/manage-classes/manage-classes.component';
+import { ManageCalendarComponent } from './component/manage-calendar/manage-calendar.component';
+import { ManageContactsComponent } from './component/manage-contacts/manage-contacts.component';
+import { ManageFeesComponent } from './component/manage-fees/manage-fees.component';
+import { ManageBannerComponent } from './component/manage-banner/manage-banner.component';
+import { ManageDocumentsComponent } from './component/manage-documents/manage-documents.component';
+import { ManageTeacherComponent } from './component/manage-teacher/manage-teacher.component';
+import { ManageUserComponent } from './component/manage-user/manage-user.component';
+
+
 
 
 
@@ -35,11 +44,18 @@ const appRoutes: Routes = [
   { path: 'Students', component: StudentComponent},
   { path: 'TabService',component:TabServiceComponent},
   { path: 'TabManage',component:TabManageComponent},
-  { path: 'test',component:MasterCourseComponent},
+  { path: 'Mastercourse',component:MasterCourseComponent},
   { path: 'Mastersubject',component:MastersubjectComponent},
   { path: 'Mastersyllabus',component:MasterSyllabusComponent},
-  { path: 'Courses',component:CoursesComponent},
-  { path: 'syllabusnew',component:SyllabusComponent}
+  { path: 'ManageTimeTable',component:ManageTimetableComponent},
+  { path: 'Manageclasses',component:ManageClassesComponent},
+  { path: 'ManageCalendar',component:ManageCalendarComponent},
+  { path: 'ManageContact',component:ManageContactsComponent},
+  { path: 'ManageFees',component:ManageFeesComponent},
+  { path: 'ManageBanner',component:ManageBannerComponent},
+  { path: 'ManageDocuments',component:ManageDocumentsComponent},
+  { path: 'Manageteacher',component:ManageTeacherComponent},
+  { path: 'ManageUser',component:ManageUserComponent},
 ];
 
 

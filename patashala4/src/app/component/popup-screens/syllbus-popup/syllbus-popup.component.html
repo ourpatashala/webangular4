@@ -1,0 +1,27 @@
+<p class="text-center popup_header">Select the SyllabusList </p>
+<!-- <p class="popup_text">Click on the row to select a class and click Ok button.</p> -->
+<div class="col-md-2"></div>
+<div class="col-md-8 datatable_toggle active_tab_div mas_sub view_syllabus_table">
+<table  datatable [dtOptions]="dtOptions"  [dtTrigger]="dtTrigger">
+  <thead>
+  <tr>
+      <th class="text-center"></th>
+      <th class="text-center">S.no</th>
+      <th class="text-center">Syllabus Name</th>
+  </tr>
+</thead>
+<tbody>
+  <tr class="text-center" *ngFor="let current of masterSyllabusTOList; let i=index;">
+      <td><input type="checkbox" [checked]="selectedSyllabusArray.indexOf(current.syllabusId) >= 0" id="{{current.syllabusId}}"  value="{{current.syllabusId}}"  (change)="checkedMastersyllabus(current.syllabusId,current.syllabusName)"></td>
+      <td>{{i+1}}</td>
+      <td>{{current.syllabusName}}</td>
+  </tr>
+  </tbody>
+</table>
+<div class="little_gap"></div>
+
+
+
+<button class="update_btn popup_ok_btn" [ngClass]="{'disable_btn': selectedSyllabusArray.length <='0'}" (click)="closePopup()">Ok</button>
+</div>
+<div class="col-md-2"></div>

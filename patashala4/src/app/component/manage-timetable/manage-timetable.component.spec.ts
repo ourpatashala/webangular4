@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { SyllabusComponent } from './syllabus.component';
+import { ManageTimetableComponent } from './manage-timetable.component';
 
-describe('SyllabusComponent', () => {
-  let component: SyllabusComponent;
-  let fixture: ComponentFixture<SyllabusComponent>;
+describe('ManageTimetableComponent', () => {
+  let component: ManageTimetableComponent;
+  let fixture: ComponentFixture<ManageTimetableComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ SyllabusComponent ]
+      declarations: [ ManageTimetableComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(SyllabusComponent);
+    fixture = TestBed.createComponent(ManageTimetableComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

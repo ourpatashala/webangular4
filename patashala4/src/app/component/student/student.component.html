@@ -116,7 +116,6 @@
                             <i *ngIf="studentFormGroup.controls.mobileNumbers.controls.length > 1" (click)="deletePhoneNumber(i)" class="fa fa-trash"></i>
                         </div>
                     </div>
-
             </div>
             <div class="clear"></div>
 
@@ -342,7 +341,7 @@
                 <div class="profile_image_div">
                     <img src="{{ (studentTO.profilePhotoUrl != null && studentTO.profilePhotoUrl.length != 0) ?  studentTO.profilePhotoUrl:'./assets/images/profile/default.jpg' }}" alt="">
                     <div class="text_beside_img">
-                        <p>Student Full Name: <span>{{studentTO.firstName}}, {{studentTO.middleName}}, {{studentTO.lastName}}</span></p>
+                        <p>Student Full Name: <span>{{studentTO.firstName}}, {{studentTO.middleName}}  {{ (studentTO.middleName != null && studentTO.middleName.length != 0) ?  ',':'' }}  {{studentTO.lastName}}</span></p>
                         <p>Roll No: <span> {{ (studentTO.rollNo != null && studentTO.rollNo.length != 0) ?  studentTO.rollNo:'-' }}</span></p>
                         <p>Class : <span> {{ (studentTO.className != null && studentTO.className.length != 0) ?  studentTO.className:'-' }}</span></p>
                         <p>Gender: <span> {{ (studentTO.gender != null && studentTO.gender.length != 0) ?  studentTO.gender:'-' }}</span></p>
@@ -362,13 +361,14 @@
                 <p class="studentAddress">State: <span> {{ (studentTO.state != null && studentTO.state.length != 0) ?  studentTO.state:'-' }}  </span></p>
                 <p class="studentAddress">Pincode: <span> {{ (studentTO.pincode != null && studentTO.pincode.length != 0) ?  studentTO.pincode:'-' }}  </span></p>
                 <p class="studentAddress">Country: <span> {{ (studentTO.country != null && studentTO.country.length != 0) ?  studentTO.country:'-' }}  </span></p>
+                <p class="studentAddress">Landline#: <span> {{ (studentTO.landLine != null && studentTO.landLine.length != 0) ?  studentTO.landLine:'' }}  </span></p>
             </div>
             <div class="clear"></div>
             <div class="large_gap"></div>
             <div class="col-md-2"></div>
             <div class="col-md-10">
                 <img src="./assets/images/webicons/Phone.png" class="img_pos_ab">
-                <p class="school_contact">Primary Contact#:
+                <p class="school_contact"> Registered Mobile #:
                     <span>
                         <div *ngFor="let mobileNumber of studentTO.mobileNumbers ; let i=index ">
                                 {{mobileNumber.mobileNumber}},
@@ -395,7 +395,7 @@
                 <tr>
                         <th></th>
                     <th>S.no</th>
-                    <th style="width:100px">Photo</th>
+                    <th >Photo</th>
                     <th>First&nbsp;Name</th>
                     <th>Last&nbsp;Name</th>
                     <th>Middle&nbsp;Name</th>
@@ -410,12 +410,12 @@
                    <!-- <td><input type="checkbox" value="{{schoolProfileTO.schoolId}}"  (change)="updateCheckedOptions(schoolProfileTO.schoolId,$this.checkbox.state)"></td> -->
                     <td><input type="checkbox" id="{{studentProfileTO.id}}" value="{{studentProfileTO.id}}" (change)="checkedStudents(studentProfileTO.id)" ></td>
                     <td>{{i + 1}}</td>
-                    <td class="text-center"  style="width:100px"> <img src="{{ (studentProfileTO.profilePhotoUrl != null && studentProfileTO.profilePhotoUrl.length != 0) ?  studentProfileTO.profilePhotoUrl:'./assets/images/profile/default.jpg' }}" alt=""></td>
+                    <td class="respnse_img text-center"> <img src="{{ (studentProfileTO.profilePhotoUrl != null && studentProfileTO.profilePhotoUrl.length != 0) ?  studentProfileTO.profilePhotoUrl:'./assets/images/profile/default.jpg' }}" alt="" class="img-fluid"></td>
                     <td>{{studentProfileTO.firstName}}</td>
                     <td>{{studentProfileTO.lastName}}</td>
                     <td>{{studentProfileTO.middleName}}</td>
-                    <td>{{studentProfileTO.className}}</td>
                     <td>{{studentProfileTO.rollNo}}</td>
+                    <td>{{studentProfileTO.className}}</td>
                     <td>
                             <span *ngFor="let mobileNumber of studentProfileTO.mobileNumbers ; let i=index ">
                                 {{mobileNumber.mobileNumber}}  {{ (studentProfileTO.mobileNumbers.length-1 == i) ?  '':',' }}

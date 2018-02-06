@@ -13,6 +13,12 @@ height: 200px;
 border: 5px solid #199f86;
 */
 }
+.respnse_img img{
+    width: 72px;
+    height: 72px;
+    display: inline-block;
+    border-collapse: collapse;
+}
 .profile_image_div
 {
     margin-top: 0px;
@@ -113,11 +119,7 @@ font-size: 14px;
 {
     text-align: center
 }
-.manage_school_table table tbody tr td img
-{
-    width: 56px;
-    height: 56px;
-}
+
 .img_overlay img{
 	width: 176px;
     height: 176px

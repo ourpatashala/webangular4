@@ -1,0 +1,245 @@
+<app-header-admin></app-header-admin>
+
+<div class="overlay hideblock" [ngClass]="{'showblock': active=='1'}"></div>
+    <div class="popup_screen hideblock " [ngClass]="{'showblock': active=='1'}">
+        <div class="sucess_msg_text"><span class="checkicon"> &#x2714;</span> <p [ngClass]="{'show_styles_sucess': active=='1'}">{{sucessMessage}}!</p></div>
+        <div class="little_gap"></div>
+        <button class="update_btn popup_ok_btn" (click)="closePopup()">Ok</button>
+        <div class="little_gap"></div>
+    </div>
+
+
+<div class="all_pages_content">
+    <div class="clear"></div>
+    <div class="page_content_here">
+     <div class="manage_school_table">
+
+
+  <div class="listing_tabs">
+      <ul class="">
+         <a routerLink="/TabService"><li class="active_tab" id="service_tab">Services</li></a>
+         <a routerLink="/TabManage"><li class="" id="manage_tab">Manage</li></a>
+      </ul>
+    </div>
+    <div class="large_gap"></div>
+       
+         <div class="">
+        <div class="col-md-6 padding0"><h3 class="MyriadProB font28">Manage Class</h3>
+        <p class="breadscrum_text"><a  routerLink="/">Home </a> &nbsp; <i class="fa fa-chevron-right"></i> &nbsp; Manage Class</p>
+        </div>
+        <div class="col-md-6 padding0 text-right">
+            <div class="buttons_div" [ngClass]="{'inactive_div': div_Element_Id !='0'}">
+            <button class="add_more_btn"  (click)="show_addClassFields()" [ngClass]="{'disable_btn': selectedClassesArray.length!='0'}"><i class="fa fa-plus"></i> Add</button> 
+            <button class="edit_field_btn" (click)="getselectedClassProfile()" [ngClass]="{'disable_btn': selectedClassesArray.length!='1'}"><i class="fa fa-pencil"></i> Modify</button>
+            <button (click)="deleteClass()" [ngClass]="{'disable_btn': selectedClassesArray.length==0 || selectedClassesArray.length>1}"><i class="fa fa-trash"></i> Delete</button>
+            <button (click)="viewSingleClassProfile()" [ngClass]="{'disable_btn': selectedClassesArray.length!='1'}"><i class="fa fa-eye"></i> View</button> 
+            </div>
+        </div>
+        <div class="clear"></div>
+         </div>
+         <div class="little_gap"></div>
+
+
+         <div class="error_msg_text"><p [ngClass]="{'error_styles_sucess': active=='2'}">{{errorMessage}}</p></div>
+
+<div class="add_fields addschool_div" *ngIf ="div_Element_Id =='1'" [ngClass]="{'inactive_div': div_Element_Id !='1'}">
+    <div class="col-md-12">
+        <form [formGroup]="classFormGroup" (ngSubmit)="addClassSubmit(classFormGroup.value)">
+            <div class="col-md-6">
+                <div class="col-md-4"><p>Class Name</p></div>
+                <div class="col-md-8">
+                        <div  class="input-field col s12">
+                            <input id="country" type="text" name="className" formControlName="className" class="validate filter-input" placeholder="ClassName" [(ngModel)]=query (keyup)=filter()>
+                          
+                        </div>
+                        <div class="suggestions sugg_dropdown" *ngIf="filteredList.length > 0">
+                            <ul *ngFor="let item of filteredList" >
+                                <li class="class_select">
+                                    <a (click)="select(item)">{{item}}</a>
+                                </li>
+                            </ul>
+                        </div>
+                </div>
+                    <div class="clear"></div>
+                <div class="col-md-4"><p>Course Name</p></div><div class="col-md-8">
+                    <input type="text" name="CourseName" formControlName="CourseName" placeholder="Enter Course Name"></div><div class="clear"></div>
+                <div class="col-md-4"><p>Batch No</p></div><div class="col-md-8">
+                    <input type="text"name="BatchNo" formControlName="BatchNo" placeholder="Enter Batch No"></div><div class="clear"></div>
+                <div class="clear"></div>
+            </div>
+            <div class="col-md-6">
+                <div class="col-md-4 text-right"><p>Start Date</p></div>
+                <div class="col-md-8">
+                        <ng-datepicker  formControlName="Startdate" [options]="dateOptions"  placeholder="Enter Start Date"></ng-datepicker>
+                </div>
+                <div class="clear"></div>
+                <div class="col-md-4 text-right"><p>End Date</p></div>
+                <div class="col-md-8">
+                        <ng-datepicker formControlName="Enddate" [options]="dateOptions1"  placeholder="Enter End Date"></ng-datepicker>
+                    <!-- <input type="text" placeholder="Enter End Date" class="datePicker"> -->
+                </div>
+                <div class="clear"></div>
+                <div class="col-md-4 text-right"><p>No of periods</p></div>
+                <div class="col-md-8">
+                    <input type="text" name="No_ofperiods" formControlName="No_ofperiods" placeholder="Enter No of periods">
+                </div>
+                <div class="clear"></div>
+            </div>
+            <div class="clear"></div>
+            <div class="col-md-12 text-center">
+                    <button class="update_btn">Add Class</button><span class="cancel_btn_add button_type_span" (click)="showClassList()">Cancel</span>
+            </div>
+        </form>    
+    </div>
+<div class="clear"></div>
+<div class="large_gap"></div>
+</div>
+
+
+<div class="modify_fields addschool_div" [ngClass]="{'inactive_div': div_Element_Id !='2'}">
+    <div class="col-md-12"> 
+        <form [formGroup]="classFormGroup" (ngSubmit)="updateClassSubmit(classFormGroup.value)"> 
+            <div class="col-md-6">
+                <div class="col-md-4"><p>Class Name</p></div>
+                <div class="col-md-8">
+                        <div  class="input-field col s12">
+                                <input id="country" type="text" name="className" formControlName="className" class="validate filter-input" [(ngModel)]=query (keyup)=filter()>
+                            
+                        </div>
+                        <div class="suggestions sugg_dropdown" *ngIf="filteredList.length > 0">
+                            <ul *ngFor="let item of filteredList" >
+                                <li  class="class_select">
+                                    <a (click)="select(item)">{{item}}</a>
+                                </li>
+                            </ul>
+                        </div>
+                </div>
+                <div class="clear"></div>
+                <div class="col-md-4"><p>Course Name</p></div>
+                <div class="col-md-8">
+                    <input type="text" name="CourseName" formControlName="CourseName" placeholder="Enter Course Name">
+                </div>
+                <div class="clear"></div>
+                <div class="col-md-4"><p>Batch No</p></div>
+                    <div class="col-md-8">
+                    <input type="text" name="BatchNo" formControlName="BatchNo" placeholder="Enter Batch No">
+                    </div>
+                    <div class="clear"></div>
+                <div class="clear"></div>
+            </div>
+            <div class="col-md-6">
+                <div class="col-md-4"><p>Start Date</p></div>
+                <div class="col-md-8">
+                    <ng-datepicker formControlName="Startdate" [options]="dateOptions"  placeholder="Enter Start Date"></ng-datepicker>
+                </div>
+                <div class="clear"></div>
+                <div class="col-md-4"><p>End Date</p></div>
+                <div class="col-md-8">
+                    <ng-datepicker formControlName="Enddate" [options]="dateOptions1"  placeholder="Enter End Date"></ng-datepicker>
+                </div>
+                <div class="clear"></div>
+                <div class="col-md-4"><p>No of periods</p></div>
+                <div class="col-md-8">
+                    <input type="text" name="No_ofperiods" formControlName="No_ofperiods" placeholder="Enter No of periods">
+                </div>
+                <div class="clear"></div>
+            </div>
+            <div class="col-md-12 text-center">
+                <button class="update_btn">Modify Class</button><span class="cancel_btn_add button_type_span" (click)="showClassList()">Cancel</span>
+            </div>
+        </form>    
+    </div>
+<div class="clear"></div>
+<div class="large_gap"></div>
+</div>
+
+
+<div class="singleStudentViewDiv addschool_div"  [ngClass]="{'inactive_div': div_Element_Id !='3'}">
+        <div class="text-right">
+            <span class="cancel_btn_modify button_type_span" (click)="showClassList()">Close</span>
+        </div>
+        <div class="col-md-2"></div>
+            <div class="col-md-8 padding0">
+                <!-- <p><b>class Name</b> :    {{rajuarray1.className}}</p> -->
+                <div class="large_gap"></div>            
+                <table class="view_syllabus_table">
+                    <thead>
+                        <tr>
+                           
+                            <th  class="text-center">S.no</th>
+                            <th  class="text-center">Class Name</th>
+                            <th  class="text-center">Course Name</th>
+                            <th  class="text-center">Batch</th>
+                            <th class="text-center">Start Date</th>
+                            <th class="text-center">End Date</th>
+                            <th class="text-center">Number of periods</th>
+                           
+                        </tr>
+                    </thead>
+                    <tbody *ngIf="div_Element_Id == '3'">
+                        <tr  class="text-center" *ngFor="let viewname of rajuarray1; let i=index;">
+                            <td>{{i+1}}</td>
+                            <td>{{viewname.className}}</td>
+                            <td>{{viewname.CourseName}}</td>
+                            <td>{{viewname.BatchNo}}</td>
+                            <td>{{viewname.Startdate |date}}</td>
+                            <td>{{viewname.Enddate | date}}</td>
+                            <td>{{viewname.No_ofperiods}}</td>
+                            
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="col-md-2"></div>
+            <div class="clear"></div>
+    </div>
+    <div class="clear"></div>
+
+
+
+
+
+
+<div class="datatable_toggle"    [ngClass]="{'inactive_div': div_Element_Id !='0'}">
+        <!-- {{classarray[0].className}} -->
+        <table id="manageclassestable" datatable [dtOptions]="dtOptions"  [dtTrigger]="dtTrigger" class="my_table_width">
+            <thead>
+                <tr>
+                    <th></th>
+                    <th>S.no</th>
+                    <th>Class Name</th>
+                    <th>Course Name</th>
+                    <th>Batch</th>
+                    <th>Start Date</th>
+                    <th>End Date</th>
+                    <th>Number of periods</th>
+                </tr>
+            </thead>
+            <tbody *ngIf="div_Element_Id =='0'">
+               
+                <tr *ngFor="let classto of classarray; let i=index;">
+                    <td><input type="checkbox" id="a{{classto.classId}}" value="{{classto.classId}}" (change)="checkedmasterClass(classto.classId,i)"></td><!--id="{{masterCourse.classId}}" value="{{masterCourse.classId}}"-->
+                    <td>{{i+1}}</td>
+                    <td>{{classto.className }}</td>
+                    <td>{{classto.CourseName}}</td>
+                    <td>{{classto.BatchNo}}</td>
+                    <td>{{classto.Startdate | date}}</td>
+                    <td>{{classto.Enddate | date}}</td>
+                    <td>{{classto.No_ofperiods}}</td>
+                </tr>
+            </tbody>        
+        </table>
+</div>
+
+    </div>
+    </div>   
+<div class="clear"></div>
+
+
+
+
+</div>
+
+
+
+

@@ -1,0 +1,247 @@
+<app-header-admin></app-header-admin>
+
+
+
+<div class="overlay hideblock" [ngClass]="{'showblock': active=='1'}"></div>
+    <div class="popup_screen hideblock " [ngClass]="{'showblock': active=='1'}">
+        <div class="sucess_msg_text"><span class="checkicon"> &#x2714;</span> <p [ngClass]="{'show_styles_sucess': active=='1'}">{{sucessMessage}}!</p></div>
+        <div class="little_gap"></div>
+        <button class="update_btn popup_ok_btn" (click)="closePopup()">Ok</button>
+        <div class="little_gap"></div>
+    </div>
+
+
+
+<div class="all_pages_content">
+    <div class="clear"></div>
+    <div class="page_content_here">
+     <div class="manage_school_table">
+
+         <div class="listing_tabs">
+      <ul class="">
+         <a routerLink="/TabService"><li class="active_tab" id="service_tab">Services</li></a>
+         <a routerLink="/TabManage"><li class="" id="manage_tab">Manage</li></a>
+      </ul>
+    </div>
+    <div class="large_gap"></div>
+
+    
+       <div class="col-md-6 padding0"><h3>Manage User</h3>
+       <p class="breadscrum_text"><a  routerLink="/">Home </a> &nbsp; <i class="fa fa-chevron-right"></i> &nbsp; Manage User</p>
+       </div>
+        <div class="col-md-6 padding0 text-right">
+          <div class="buttons_div" [ngClass]="{'inactive_div': div_Element_Id !='0'}">
+            <button class="add_more_btn"  (click)="show_addUserFields()" [ngClass]="{'disable_btn': selectedUserArray.length!='0'}"><i class="fa fa-plus"></i> Add</button> 
+            <button class="edit_field_btn" (click)="getselectedUserProfile()" [ngClass]="{'disable_btn': selectedUserArray.length!='1'}"><i class="fa fa-pencil"></i> Modify</button>
+            <button (click)="deleteUser()" [ngClass]="{'disable_btn': selectedUserArray.length==0 || selectedUserArray.length>1}"><i class="fa fa-trash"></i> Delete</button>
+            <button (click)="viewSingleUserProfile()" [ngClass]="{'disable_btn': selectedUserArray.length!='1'}"><i class="fa fa-eye"></i> View</button> 
+            </div>
+        </div>
+          <div class="clear"></div>
+
+
+    <div class="error_msg_text"><p [ngClass]="{'error_styles_sucess': active=='2'}">{{errorMessage}}</p></div>
+         
+   <div class="add_fields addschool_div"  *ngIf ="div_Element_Id =='1'"  [ngClass]="{'inactive_div': div_Element_Id !='1'}">
+      <div class="little_gap"></div>
+      <form [formGroup]="userFormGroup" (ngSubmit)="addUserSubmit(userFormGroup.value)">
+        <div class="col-md-1"></div>
+        <div class="col-md-7">
+                    <div class="col-md-4"><p>Name</p></div>
+                      <div class="col-md-8">
+                        <input type="text"  formControlName="Name" placeholder="Enter Name">
+                      </div>
+                    <div class="clear"></div>
+                    <div class="col-md-4"><p>User Id</p></div>
+                      <div class="col-md-8">
+                        <input type="text"  formControlName="UserId"  placeholder="Enter User Id">
+                      </div>
+                    <div class="clear"></div>
+                    <div class="col-md-4"><p>Role</p></div>
+                    <div class="col-md-8">
+                        <select  formControlName="Role">
+                        <option value="">Select Role</option>
+                        <option value="admin">Admin</option>
+                        <option value="Teacher">Teacher</option>
+                        <option value="Accountant">Accountant</option>
+                        </select>
+                    </div><div class="clear"></div>
+                    <div class="col-md-4"><p>App User Type</p></div>
+                    <div class="col-md-8">
+                      <select  formControlName="Usertype">
+                      <option value="">Select App User Type</option>
+                      <option value="Management">Management</option>
+                      <option value="Teacher">Teacher</option>
+                      <option value="NA">NA</option>
+                      </select>
+                    </div><div class="clear"></div>
+                    <div class="col-md-4"><p>Phone</p></div>
+                      <div class="col-md-8">
+                        <input type="number"  formControlName="Phone" placeholder="Enter Phone Number">
+                      </div>
+                    <div class="clear"></div>
+                    <div class="little_gap"></div>
+                    <div class="text-center"></div><!--<button class="update_btn">Add Teacher</button>-->
+                </div>
+                <div class="col-md-3">
+                <p>Photo</p>
+                        <div class="browse_img_manual">
+                        <input type="file">
+                        <div class="img_overlay">
+                        <img src="./assets/images/profile/default.jpg" class="img100">
+                        <p (click)="upload_img = !upload_img">Upload Photo</p>
+                        </div>
+                        <div *ngIf="upload_img" [@fadeInOut] >
+                        <button class="browsefile_img">Browse File</button>
+                        <button class="opencamera_img">Open Camera</button>
+                        </div>
+                        </div> 
+                    <div class="clear"></div>
+                </div>
+    
+          <div class="col-md-1"></div>
+          <div class="col-md-12  padding0 text-center">
+            <button class="update_btn">Add User</button><span class="cancel_btn_add button_type_span" (click)="showUserList()">Cancel</span>
+          </div>          
+          <div class="clear"></div>
+      </form>
+    </div> 
+
+
+
+
+<div class="modify_fields addschool_div" [ngClass]="{'inactive_div': div_Element_Id !='2'}">
+    <div class="little_gap"></div>
+    <form [formGroup]="userFormGroup" (ngSubmit)="UpdateUserSubmit(userFormGroup.value)">
+        <div class="col-md-1"></div>
+        <div class="col-md-7">
+                    <div class="col-md-4"><p>Name</p></div>
+                      <div class="col-md-8">
+                        <input type="text"  formControlName="Name" placeholder="Enter Name">
+                      </div>
+                    <div class="clear"></div>
+                    <div class="col-md-4"><p>User Id</p></div>
+                      <div class="col-md-8">
+                        <input type="text"  formControlName="UserId"  placeholder="Enter User Id">
+                      </div>
+                    <div class="clear"></div>
+                    <div class="col-md-4"><p>Role</p></div>
+                    <div class="col-md-8">
+                        <select  formControlName="Role">
+                        <option value="0">Select Role</option>
+                        <option value="admin">Admin</option>
+                        <option value="1">Teacher</option>
+                        <option value="2">Accountant</option>
+                        </select>
+                    </div><div class="clear"></div>
+                    <div class="col-md-4"><p>App User Type</p></div>
+                    <div class="col-md-8">
+                      <select  formControlName="Usertype">
+                      <option value="0">Select App User Type</option>
+                      <option value="1">Management</option>
+                      <option value="2">Teacher</option>
+                      <option value="3">NA</option>
+                      </select>
+                    </div><div class="clear"></div>
+                    <div class="col-md-4"><p>Phone</p></div>
+                      <div class="col-md-8">
+                        <input type="text"  formControlName="Phone" placeholder="Enter Phone">
+                      </div>
+                    <div class="clear"></div>
+                    <div class="little_gap"></div>
+                    <div class="text-center"></div><!--<button class="update_btn">Add Teacher</button>-->
+                </div>
+                <div class="col-md-3">
+                <p>Photo</p>
+                        <div class="browse_img_manual">
+                        <input type="file">
+                        <div class="img_overlay">
+                        <img src="./assets/images/profile/default.jpg" class="img100">
+                        <p>Upload Photo</p>
+                        </div>
+                        <div class="slide_divs_B_file">
+                        <button class="browsefile_img">Browse File</button>
+                        <button class="opencamera_img">Open Camera</button>
+                        </div>
+                        </div> 
+                    <div class="clear"></div>
+                </div>
+    
+          <div class="col-md-1"></div>
+        <div class="col-md-12  padding0 text-center">
+          <button class="update_btn">Modify Fee</button><span class="cancel_btn_add button_type_span" (click)="showUserList()">Cancel</span>
+        </div>          
+        <div class="clear"></div>
+    </form>
+    </div> 
+    <div class="clear"></div>
+    <div class="little_gap"></div>
+
+    
+    
+<div class="singleStudentViewDiv addschool_div"  [ngClass]="{'inactive_div': div_Element_Id !='3'}">
+        <div class="col-md-12 text-right">
+            <span class="cancel_btn_modify button_type_span" (click)="showUserList()">Close</span>
+        </div>
+        <div class="col-md-3"></div>
+            <div class="col-md-6 padding0">
+                <div class="large_gap"></div>            
+                <table class="view_syllabus_table">
+                    <thead>
+                        <tr class="text-center">
+                            <th>S.no</th>
+                            <th>User Name</th>
+                            <th>UserId</th>
+                            <th>App User Type</th>
+                            <th>Registered</th>
+                            <th>Phone Number</th>
+                        </tr>
+                    </thead>
+                    <tbody *ngIf="div_Element_Id == '3'">
+                        <tr  class="text-center" *ngFor="let viewname of userNewarray; let i=index;">
+                            <td>{{i+1}}</td>
+                            <td>{{viewname.Name}}</td>
+                            <td>{{viewname.UserId}}</td>
+                            <td>{{viewname.Role}}</td>
+                            <td>{{viewname.Usertype}}</td>
+                            <td>{{viewname.Phone}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="col-md-3"></div>
+            <div class="clear"></div>
+    </div>
+    <div class="clear"></div>
+
+
+
+          <div class="datatable_toggle" [ngClass]="{'inactive_div': div_Element_Id !='0'}">
+          <table id="manageclassestable" datatable [dtOptions]="dtOptions"  [dtTrigger]="dtTrigger" class="my_table_width">
+                    <thead>
+                      <tr class="text-center">
+                          <th></th>
+                          <th>S.no</th>
+                          <th>User Name</th>
+                          <th>App User Type</th>
+                          <th>Registered</th>
+                          <th>Phone Number</th>
+                      </tr>
+                    </thead>
+                    <tbody *ngIf="div_Element_Id =='0'">
+                        <tr class="text-center" *ngFor="let events of userarray; let i=index;">
+                            <td ><input type="checkbox"id="a{{events.uniqueId}}" value="{{events.uniqueId}}" (change)="checkedmasterUser(events.uniqueId,i)"></td>
+                            <td>{{i+1}}</td>
+                            <td>{{events.Name}}</td>
+                            <td>{{events.Role}}</td>
+                            <td >{{events.Usertype}}</td>
+                            <td >{{events.Phone}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+          </div>
+              
+          <div class="clear"></div>
+            </div>
+            </div>
+        </div>

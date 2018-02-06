@@ -2,8 +2,40 @@
 {
 	display:none;
 }
+.view_syllabus_table thead{
+	background-color: #4cc4db;
+	color:#fff;
+}
+/* table,th,tr,td {
+	border :1px solid #2cb0ca;
+	}
+	th{
+		
+	} */
+
+	input[type=number]::-webkit-inner-spin-button, 
+	input[type=number]::-webkit-outer-spin-button { 
+		-webkit-appearance: none;
+		-moz-appearance: none;
+		appearance: none;
+		margin: 0; 
+	}
+
+	.mas_sub label{
+		font-weight: normal;
+	}
+	
 
 
+	.dlt_btn i
+	{
+	  
+	  top: 9px ;
+	  right: -17px !important;
+	  color: red !important;
+	  cursor: pointer !important;
+	}
+	
 
 
 

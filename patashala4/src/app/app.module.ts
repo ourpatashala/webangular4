@@ -32,16 +32,28 @@ import {UploadFileService} from './service/upload-file.service';
 import {StudentService} from './service/student.service';
 
 import { NgDatepickerModule } from 'ng2-datepicker';
+import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+
+
 import { ClassselectionPopupComponent } from './component/popup-screens/classselection-popup/classselection-popup.component';
 import { WebcampopupComponent } from './component/popup-screens/webcampopup/webcampopup.component';
 
 import { MastersubjectComponent } from './component/mastersubject/mastersubject.component';
 import { MasterSyllabusComponent } from './component/master-syllabus/master-syllabus.component';
 import { MasterCourseComponent } from './component/master-course/master-course.component';
-import { SubjectComponent } from './component/subject/subject.component';
-import { SyllabusComponent } from './component/syllabus/syllabus.component';
-import { CoursesComponent } from './component/courses/courses.component';
+
 import { WebCamModule } from 'ack-angular-webcam';
+import { SyllbusPopupComponent } from './component/popup-screens/syllbus-popup/syllbus-popup.component';
+import { ManageTimetableComponent } from './component/manage-timetable/manage-timetable.component';
+import { ManageClassesComponent } from './component/manage-classes/manage-classes.component';
+import { ManageCalendarComponent } from './component/manage-calendar/manage-calendar.component';
+import { ManageContactsComponent } from './component/manage-contacts/manage-contacts.component';
+import { ManageFeesComponent } from './component/manage-fees/manage-fees.component';
+import { ManageBannerComponent } from './component/manage-banner/manage-banner.component';
+import { ManageDocumentsComponent } from './component/manage-documents/manage-documents.component';
+import { ManageTeacherComponent } from './component/manage-teacher/manage-teacher.component';
+import { ManageUserComponent } from './component/manage-user/manage-user.component';
 
 
 
@@ -68,23 +80,32 @@ export const firebaseConfig = {     apiKey: 'AIzaSyB6WeGfORqOzz5jT_XL6GLMCl8ze
     MastersubjectComponent,
     MasterSyllabusComponent,
     MasterCourseComponent,
-    SubjectComponent,
-    SyllabusComponent,
-    CoursesComponent
+    SyllbusPopupComponent,
+    ManageTimetableComponent,
+    ManageClassesComponent,
+    ManageCalendarComponent,
+    ManageContactsComponent,
+    ManageFeesComponent,
+    ManageBannerComponent,
+    ManageDocumentsComponent,
+    ManageTeacherComponent,
+    ManageUserComponent
 
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
+    OwlDateTimeModule, 
+    OwlNativeDateTimeModule,
     FormsModule,
     DataTablesModule,
     ReactiveFormsModule,
     WebCamModule,
-    // DatePickerModule,
     NgDatepickerModule ,
     AngularFireModule.initializeApp(firebaseConfig),
     routing,
     AngularFireDatabaseModule,
-    AngularFireAuthModule
+    AngularFireAuthModule,
   ],
 
 

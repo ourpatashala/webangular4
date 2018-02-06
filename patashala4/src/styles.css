@@ -59,6 +59,10 @@ body
 {
   clear: both;
 }
+.mini_gap
+{
+  margin-top: 10px;
+}
 .little_gap
 {
   margin-top: 20px
