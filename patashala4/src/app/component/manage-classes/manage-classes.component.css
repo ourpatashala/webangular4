@@ -23,7 +23,9 @@
 .class_select a:hover{
     background-color: rgb(191, 202, 202);color: black;
 }
-
+.mr10{
+    margin-right: 10px;
+}
 
 .view_syllabus_table thead{
 	background-color: #4cc4db;

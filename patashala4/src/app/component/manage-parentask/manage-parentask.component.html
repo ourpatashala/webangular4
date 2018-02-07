@@ -41,12 +41,17 @@
 
 
     <div class="error_msg_text"><p [ngClass]="{'error_styles_sucess': active=='2'}">{{errorMessage}}</p></div>
+
+
+    <div class="col-md-3"></div>
+    <div class="col-md-6">
+
          
    <div class="add_fields addschool_div"  *ngIf ="div_Element_Id =='1'"  [ngClass]="{'inactive_div': div_Element_Id !='1'}">
       <div class="little_gap"></div>
       <form [formGroup]="parentFormGroup" (ngSubmit)="addParentAsk(parentFormGroup.value)">
-        <div class="col-md-3"></div>
-            <div class="col-md-6">
+      
+            <div class="col-md-12">
                 <div class="col-md-4 text-right"><b>S.no</b></div>
                 <div class="col-md-8">
                   <input type="number"  formControlName="SerialNo" placeholder="Enter Sno">
@@ -58,7 +63,7 @@
                 </div>
                 <div class="clear"></div>
             </div>     
-            <div class="col-md-3"></div>
+          
             <div class="clear"></div>
             <div class="little_gap"></div>
           <div class="col-md-12  padding0 text-center">
@@ -67,15 +72,17 @@
           <div class="clear"></div>
       </form>
     </div> 
+    </div> 
+    <div class="col-md-3"></div>
 
 
-
-
+    <div class="col-md-3"></div>
+    <div class="col-md-6">
 <div class="modify_fields addschool_div" [ngClass]="{'inactive_div': div_Element_Id !='2'}">
     <div class="little_gap"></div>
     <form [formGroup]="parentFormGroup" (ngSubmit)="UpdateParentAsk(parentFormGroup.value)">
-        <div class="col-md-3"></div>
-            <div class="col-md-6">
+        
+            <div class="col-md-12">
                 <div class="col-md-4 text-right"><b>S.no</b></div>
                 <div class="col-md-8">
                   <input type="number"  formControlName="SerialNo" placeholder="Enter Sno">
@@ -87,7 +94,7 @@
                 </div>
                 <div class="clear"></div>
             </div>     
-            <div class="col-md-3"></div>
+           
             <div class="clear"></div>
             <div class="little_gap"></div>
         <div class="col-md-12  padding0 text-center">
@@ -95,7 +102,9 @@
         </div>          
         <div class="clear"></div>
     </form>
+    </div>
     </div> 
+    <div class="col-md-3"></div>
     <div class="clear"></div>
     <div class="little_gap"></div>
 
@@ -105,33 +114,34 @@
         <div class="col-md-12 text-right">
             <span class="cancel_btn_modify button_type_span" (click)="showParentList()">Close</span>
         </div>
-        <div class="col-md-3"></div>
-            <div class="col-md-6 padding0">
+        <div class="col-md-4"></div>
+            <div class="col-md-4 padding0">
                 <div class="large_gap"></div>            
                 <table class="view_syllabus_table">
                     <thead>
                         <tr class="text-center">
-                            <th>S.no</th>
+                            <!-- <th>S.no</th> -->
                             <th>SerialNo</th>
                             <th>Category</th>
                         </tr>
                     </thead>
                     <tbody *ngIf="div_Element_Id == '3'">
                         <tr  class="text-center" *ngFor="let viewname of parentNewarray; let i=index;">
-                            <td>{{i+1}}</td>
+                            <!-- <td>{{i+1}}</td> -->
                             <td>{{viewname.SerialNo}}</td>
                             <td>{{viewname.Category}}</td>
                         </tr>
                     </tbody>
                 </table>
             </div>
-            <div class="col-md-3"></div>
+            <div class="col-md-4"></div>
             <div class="clear"></div>
     </div>
     <div class="clear"></div>
  
 
-
+    <div class="col-md-3"></div>
+    <div class="col-md-6">
           <div class="datatable_toggle" [ngClass]="{'inactive_div': div_Element_Id !='0'}">
           <table id="manageclassestable" datatable [dtOptions]="dtOptions"  [dtTrigger]="dtTrigger" class="my_table_width">
                     <thead>
@@ -152,7 +162,8 @@
                     </tbody>
                 </table>
           </div>
-              
+          </div>
+          <div class="col-md-3"></div>    
           <div class="clear"></div>
             </div>
             </div>
