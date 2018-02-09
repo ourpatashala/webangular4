@@ -34,6 +34,7 @@ import { ManageUserComponent } from './component/manage-user/manage-user.compone
 import { ManageParentaskComponent } from './component/manage-parentask/manage-parentask.component';
 import { ManageSettingComponent } from './component/manage-setting/manage-setting.component';
 import { ManageRolesComponent } from './component/manage-roles/manage-roles.component';
+import { ManareReassignclassComponent } from './component/manare-reassignclass/manare-reassignclass.component';
 
 
 
@@ -63,6 +64,7 @@ const appRoutes: Routes = [
   { path: 'ParentAskCategories',component:ManageParentaskComponent},
   { path: 'ManageSettings',component:ManageSettingComponent},
   { path: 'ManageRoles',component:ManageRolesComponent},
+  { path: 'ReassignStudentToNewClass',component:ManareReassignclassComponent},
 ];
 
 

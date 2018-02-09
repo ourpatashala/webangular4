@@ -57,6 +57,7 @@ import { ManageUserComponent } from './component/manage-user/manage-user.compone
 import { ManageParentaskComponent } from './component/manage-parentask/manage-parentask.component';
 import { ManageSettingComponent } from './component/manage-setting/manage-setting.component';
 import { ManageRolesComponent } from './component/manage-roles/manage-roles.component';
+import { ManareReassignclassComponent } from './component/manare-reassignclass/manare-reassignclass.component';
 
 
 
@@ -95,7 +96,8 @@ export const firebaseConfig = {     apiKey: 'AIzaSyB6WeGfORqOzz5jT_XL6GLMCl8ze
     ManageUserComponent,
     ManageParentaskComponent,
     ManageSettingComponent,
-    ManageRolesComponent
+    ManageRolesComponent,
+    ManareReassignclassComponent
 
   ],
   imports: [

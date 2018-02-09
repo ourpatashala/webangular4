@@ -75,6 +75,7 @@ export class ClassselectionPopupComponent implements OnInit, StudentComponentInt
   closePopup()
   {
     this.notify.emit(this.classselectedflag+"");
+    console.log("emit value" + this.classNames);
   }
   getClassId(classId,className)
   {
