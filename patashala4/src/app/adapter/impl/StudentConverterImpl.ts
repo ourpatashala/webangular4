@@ -180,7 +180,7 @@ export class StudentConverterImpl extends CommonConverter implements StudentConv
    * @param studentComponentInterface
    */
   getAllStudents(schoolId : string, studentComponentInterface:StudentComponentInterface){
-    var objData:FirebaseListObservable<StudentVO>;
+    var objData:FirebaseListObservable<StudentTO>;
     var schoolObject = this.studentService.getAllStudents(schoolId);
 
     schoolObject.subscribe(snapshot => {
@@ -206,7 +206,7 @@ export class StudentConverterImpl extends CommonConverter implements StudentConv
       console.log("configData ==> "+ configData.academyYear)
 
 
-      var objData:FirebaseListObservable<ClassProfileVO>;
+      var objData:FirebaseListObservable<ClassProfileTO>;
       var classesObject = this.studentService.getAllClassProfiles(schoolId, configData.academyYear);
 
       console.log("classesObject ==> "+ classesObject)

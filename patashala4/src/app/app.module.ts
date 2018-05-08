@@ -30,6 +30,8 @@ import { TabManageComponent } from './component/tab-manage/tab-manage.component'
 import {FormUploadComponent} from './component/form-upload/form-upload.component';
 import {UploadFileService} from './service/upload-file.service';
 import {StudentService} from './service/student.service';
+import {ClassService} from './service/class.service';
+
 
 import { NgDatepickerModule } from 'ng2-datepicker';
 import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
@@ -103,7 +105,7 @@ export const firebaseConfig = {     apiKey: 'AIzaSyB6WeGfORqOzz5jT_XL6GLMCl8ze
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
-    OwlDateTimeModule, 
+    OwlDateTimeModule,
     OwlNativeDateTimeModule,
     FormsModule,
     DataTablesModule,
@@ -117,7 +119,7 @@ export const firebaseConfig = {     apiKey: 'AIzaSyB6WeGfORqOzz5jT_XL6GLMCl8ze
   ],
 
 
-  providers: [AppConstants,ErrorService,PathUtil,LoginService, UploadFileService, StudentService],
+  providers: [AppConstants,ErrorService,PathUtil,LoginService, UploadFileService, StudentService, ClassService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
